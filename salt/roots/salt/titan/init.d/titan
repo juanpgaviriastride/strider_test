@@ -1,0 +1,194 @@
+#!/bin/bash
+NAME=titan
+SCRIPT=bin/rexster.sh
+APPLICATION_DIRECTORY=/usr/local/src/titan-server-0.4.4/
+REXSTER_CONF=/usr/local/src/titan-server-0.4.4/conf/rexster-cassandra-es.xml
+LOG=/var/log/titan.log
+# Add node to the path for situations in which the environment is passed.
+PATH=$NODE_BIN_DIR:$PATH
+# Export all environment variables that must be visible for the Node.js
+# application process forked by Forever. It will not see any of the other
+# variables defined in this script.
+export APPLICATION_DIRECTORY=$APPLICATION_DIRECTORY
+export REXSTER_CONF=$REXSTER_CONF
+export HOME=$APPLICATION_DIRECTORY
+: ${REXSTER_SHUTDOWN_TIMEOUT_S:=60}
+
+
+JPS=
+for maybejps in jps "${JAVA_HOME}/bin/jps"; do
+    type "$maybejps" >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        JPS="$maybejps"
+        break
+    fi
+done
+
+if [ -z "$JPS" ]; then
+    echo "jps command not found.  Put the JDK's jps binary on the command path." >&2
+    exit 1
+fi
+
+
+#chdir $APPLICATION_DIRECTORY
+cd $APPLICATION_DIRECTORY
+
+set_unix_paths() {
+  CP="$(echo $APPLICATION_DIRECTORY/../conf ../lib/*.jar . | tr ' ' ':')"
+  CP="$CP:$(find -L $APPLICATION_DIRECTORY/ext/ -name "*.jar" | tr '\n' ':')"
+  export CLASSPATH="$CP"
+  PUBLIC="$APPLICATION_DIRECTORY/public/"
+  LOG_DIR="$APPLICATION_DIRECTORY../log"
+}
+
+convert_unix_paths_to_win_paths() {
+  export CLASSPATH="$(echo $CLASSPATH | cygpath --windows --path -f -)"
+  PUBLIC="$(echo $PUBLIC | cygpath --windows --path -f -)"
+  LOG_DIR="$(echo $LOG_DIR | cygpath --windows --path -f -)"
+}
+
+start() {
+    echo "Starting $NAME"
+
+   cd $APPLICATION_DIRECTORY
+   #exec $SCRIPT -s -wr public -c $REXSTER_CONF > $LOG &
+   #exec $SCRIPT -s -wr public -c $REXSTER_CONF
+   BIN="$APPLICATION_DIRECTORY/bin"
+   # Rexster doesn't allow GraphConfiguration implementations a clean way
+   # to know the path to the rexster.xml config file.  This makes implementing
+   # Titan's relative storage directory interpretation (relative to the file in
+   # which they appear rather than the process's current working directory)
+   # impossible.  Change to a fixed working directory as a workaround.  Rexster
+   # XML configs can assume this working directory.
+   cd "$BIN/../rexhome"
+
+   # This script is tested mostly under Linux and Mac OS X, but it
+   # can also run through Cygwin.
+   #
+   # When running through Cygwin, Java file paths and CLASSPATH require
+   # special handling.  Cygwin uses *NIX style paths, but Java is outside
+   # Cygwin's control and uses Windows style paths.  Any CLASSPATH or
+   # file paths strings provided to Java must be sent through the utility
+   # command `cygpath --path --windows`.
+
+
+
+
+
+   set_unix_paths
+   case "`uname`" in
+       CYGWIN*) convert_unix_paths_to_win_paths ;;
+   esac
+
+   # Find Java
+   if [ "$JAVA_HOME" = "" ] ; then
+       JAVA="java"
+   else
+       JAVA="$JAVA_HOME/bin/java"
+   fi
+
+   # Set Java options
+   if [ "$JAVA_OPTIONS" = "" ] ; then
+       JAVA_OPTIONS="-server -Xms128m -Xmx512m -Dtitan.logdir=$LOG_DIR"
+   fi
+
+   # Let Cassandra have 7199
+   JAVA_OPTIONS="$JAVA_OPTIONS \
+                 -Dcom.sun.management.jmxremote.port=7299 \
+                 -Dcom.sun.management.jmxremote.ssl=false \
+                 -Dcom.sun.management.jmxremote.authenticate=false"
+
+   # Launch the application
+   exec 1>&-   # Close stdout
+   exec 2>&-   # Close stderr
+   exec 3>&-   # Close stdin
+
+   $JAVA $JAVA_OPTIONS com.tinkerpop.rexster.Application -s -wr public -c $REXSTER_CONF > $LOG &
+   # Return the program's exit code
+   exit $?
+
+  #RETVAL=$?
+
+}
+
+stop() {
+    kill_class 'Titan + Rexster' com.tinkerpop.rexster.Application
+    wait_for_rexster_shutdown
+}
+
+wait_for_rexster_shutdown() {
+    local now_s=`date '+%s'`
+    local stop_s=$(( $now_s + $REXSTER_SHUTDOWN_TIMEOUT_S ))
+
+    while [ $now_s -le $stop_s ]; do
+        status_class 'Titan + Rexster' com.tinkerpop.rexster.Application #>/dev/null
+        if [ $? -eq 1 ]; then
+            # Rexster/Titan not found in the jps output.  Assume that it stopped.
+            return 0
+        fi
+        sleep 2
+        now_s=`date '+%s'`
+    done
+
+    echo "Rexster shutdown timeout exceeded ($REXSTER_SHUTDOWN_TIMEOUT_S seconds)" >&2
+    return 1
+}
+
+kill_class() {
+    local p=`$JPS -l | grep "$2" | awk '{print $1}'`
+    if [ -z "$p" ]; then
+        echo "$1 ($2) not found in the java process table"
+        return
+    fi
+    echo "Killing $1 (pid $p)..." >&2
+    case "`uname`" in
+        CYGWIN*) taskkill /F /PID "$p" ;;
+        *)       kill "$p" ;;
+    esac
+}
+
+restart() {
+    echo "Restarting $NAME"
+    stop
+    start
+}
+
+status_class() {
+    local p=`$JPS -l | grep "$2" | awk '{print $1}'`
+    if [ -n "$p" ]; then
+        echo "$1 ($2) is running with pid $p"
+        return 0
+    else
+        echo "$1 ($2) does not appear in the java process table"
+        return 1
+    fi
+}
+
+status() {
+    status_class 'Titan + Rexster' com.tinkerpop.rexster.Application #>/dev/null
+    if [ $? -eq 1 ]; then
+        # Rexster/Titan not found in the jps output.  Assume that it stopped.
+        exit 1
+    fi
+    exit 0
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
