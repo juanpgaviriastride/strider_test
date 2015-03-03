@@ -24,7 +24,7 @@ class EntryController
     query = @gremlin()
     entry = query.var(@graph.addVertex({content: body.content, title: body.title, VertexType:'entry'}))
     owner = query.var(@graph.v(body.user_id))
-    query  @graph.addEdge(owner, entry, "posted", {time: body.time })
+    query  @graph.addEdge(owner, entry, "posted", {time: Date.now() })
     # query @graph.commit()
     console.log query()
     @connect().execute(query, cb)

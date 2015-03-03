@@ -123,5 +123,18 @@ apiController.namespace("/api/v1", () ->
     new TimelineResource().list(req, res, next)
   )
 
-  
+  ##
+  # Invitations
+  # ##
+
+  InvitationResource = require("./controllers/invitations")
+
+  apiController.post("/invitations", (req, res, next) ->
+    new InvitationResource().create(req, res, next)
+  )
+
+  apiController.get("/invitations/:user_id", (req, res, next) ->
+    new InvitationResource().list(req, res, next)
+  )
+
 )
