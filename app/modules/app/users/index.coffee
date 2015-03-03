@@ -35,12 +35,33 @@ class UserController
     console.log query()
     @connect().execute(query, cb)
 
-  create: (name, cb) =>
+  create: (body, cb) =>
     query = @gremlin()
-    query  @graph.addVertex({name: name, VertexType:'user'}) #use introspection for type
-    # query @graph.commit()
-    console.log query()
-    @connect().execute(query, cb)
+    query @graph.V("email", body.email)
+    @connect().execute(query, (err, response) =>
+      if err
+        cb(err, response)
+      else
+        console.log(response)
+        query = @gremlin()
+        if response.results[0]?
+          user = response.results[0]
+          if user.VertexType == 'user'
+            return cb(err, response)
+          else
+            id = user._id
+            g_user = query.var(@graph.v(id))
+            query @graph.v(id).setProperty("VertexType", 'user')
+            query @graph.v(id).setProperty("name", body.name)
+            query "g.v(#{id}).in('invited').each { g.addEdge(i0, it, 'follow') }"
+            query "g.v(#{id}).in('invited').each { g.addEdge(it, i0, 'follow') }"
+            query @graph.v(id)
+        else
+          query  @graph.addVertex({name: body.name, email: body.email, VertexType:'user'}) #use introspection for type
+        # query @graph.commit()
+        console.log query()
+        @connect().execute(query, cb)
+    )
 
   list: (cb) =>
     query = @gremlin()
