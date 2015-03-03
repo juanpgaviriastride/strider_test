@@ -23,5 +23,11 @@ module.exports = {
   "mail": {
     "apiUser" : "",
     "apiKey"  : ""
+  },
+  "titan": {
+    "host": "192.168.50.4",
+    "graph": "graph",
+    "showTypes": yes
   }
+
 }

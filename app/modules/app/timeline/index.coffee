@@ -11,7 +11,7 @@ class TimelineController
 
   connect: () =>
     #TODO: move index creation to /lib/db
-    grex.createClient(host: "192.168.50.4", graph: "graph", showTypes: yes)
+    grex.createClient(config.get('titan'))
 
   list: (user_id, cb) =>
     query = @gremlin()
