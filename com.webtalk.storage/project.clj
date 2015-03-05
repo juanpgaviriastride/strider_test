@@ -14,6 +14,6 @@
                  [com.taoensso/timbre "3.4.0"]
                  [com.novemberain/langohr "3.1.0"]
                  [com.novemberain/validateur "2.4.2"]]
-  :main ^:skip-aot com.webtalk.storage
+  :main ^:skip-aot com.webtalk.storage.queue.manager
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
