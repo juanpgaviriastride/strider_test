@@ -6,3 +6,5 @@ base:
     - elasticsearch
     - cassandra
     - titan
+    - mongodb 
+    - rabbitmq
