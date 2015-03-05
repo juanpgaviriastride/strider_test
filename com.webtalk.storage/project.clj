@@ -11,6 +11,7 @@
                  [clojurewerkz/route-one "1.1.0"]
                  [clojurewerkz/mailer "1.2.0"]
                  [clojurewerkz/serialism "1.3.0"]
+                 [org.clojure/data.json "0.2.5"]
                  [com.taoensso/timbre "3.4.0"]
                  [com.novemberain/langohr "3.1.0"]
                  [com.novemberain/validateur "2.4.2"]]
