@@ -3,23 +3,32 @@
   (:require [langohr.core                       :as rmq]
             [langohr.channel                    :as lch]
             [langohr.queue                      :as lq]
-            [com.webtalk.storage.queue.consumer :as lc]
+            [com.webtalk.storage.queue.consumer :as consumer]
             [langohr.basic                      :as lb]))
 
 (def ^{:const true}
   default-exchange-name "")
 
+(defn subscribe-with-connection [qname message-handler]
+  (let [connection (rmq/connect)
+        channel    (lch/open connection)]
+     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
+     (lq/declare channel qname {:exclusive false :auto-delete true})
+     (consumer/subscribe channel qname message-handler {:auto-ack true})
+     [connection channel]))
+
+;;; For testing
+
+(defn test-handler [json]
+  (println (json "user_id")))
+
 (defn -main
   [& args]
-  (let [conn  (rmq/connect)
-        ch    (lch/open conn)
-        qname "langohr.examples.hello-world"]
-    (println (format "[main] Connected. Channel id: %d" (.getChannelNumber ch)))
-    (lq/declare ch qname {:exclusive false :auto-delete true})
-    (lc/subscribe ch qname {:auto-ack true})
-    (lb/publish ch default-exchange-name qname "Hello!" {:content-type "text/plain" :type "greetings.hi"})
-    (lb/publish ch default-exchange-name qname "Bye!" {:content-type "text/plain" :type "bye.hi"})
+  (let [qname "com.webtalk.storage.queue.manager-test"
+        [connection channel] (subscribe-with-connection qname test-handler)]
+    
+    (lb/publish channel default-exchange-name qname "{\"user_id\":25,\"email\":\"sebastian@wt.com\"}" {:content-type "text/json" :type "create invitation"})
     (Thread/sleep 2000)
     (println "[main] Disconnecting...")
-    (rmq/close ch)
-    (rmq/close conn)))
+    (rmq/close channel)
+    (rmq/close connection)))
