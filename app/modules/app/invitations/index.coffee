@@ -61,4 +61,11 @@ class InvitationsController
     console.log query()
     @connect().execute(query, cb)
 
+  referred: (user_id, cb) =>
+    query = @gremlin()
+    query @graph.v(user_id).in('referred_by')
+    console.log query()
+    @connect().execute(query, cb)
+
+
 module.exports = InvitationsController

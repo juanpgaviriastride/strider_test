@@ -51,19 +51,29 @@ class UserController
           else
             # This logic needs to be moved to its own store procedure
             id = user._id
-            g_user = query.var(@graph.v(id)) # i0
-            query @graph.v(id).setProperty("VertexType", 'user')
-            query @graph.v(id).setProperty("name", body.name)
-            # net_users = query.var(@graph.v(id).in('invited')[0] # i1 Fix referrers
-            query "g.v(#{id}).in('invited').each { g.addEdge(i0, it, 'follow') }" # g_user follow connection
-            query "g.v(#{id}).in('invited').each { g.addEdge(it, i0, 'follow') }" # connection follow g_user
-            # query "g.addEdge(i0, i1, 'referered_by')" # Fix referrers
-            query @graph.v(id)
+            query @graph.v(id).in('invited')
+            @connect().execute(query, (err, response) =>
+              if err
+               return cb(err, response)
+              else
+                query = @gremlin()
+                network = response.results
+                g_user = query.var(@graph.v(id)) # i0
+                referral = query.var(@graph.v(network.pop()._id))
+                query @graph.v(id).setProperty("VertexType", 'user')
+                query @graph.v(id).setProperty("name", body.name)
+                query "g.v(#{id}).in('invited').each { g.addEdge(i0, it, 'follow') }" # g_user follow connection
+                query "g.v(#{id}).in('invited').each { g.addEdge(it, i0, 'follow') }" # connection follow g_user
+                query @graph.addEdge(g_user, referral, 'referred_by')
+                query @graph.v(id)
+                console.log query()
+                @connect().execute(query, cb)
+            )
         else
           query  @graph.addVertex({name: body.name, email: body.email, VertexType:'user'}) #use introspection for type
         # query @graph.commit()
-        console.log query()
-        @connect().execute(query, cb)
+          console.log query()
+          @connect().execute(query, cb)
     )
 
   list: (cb) =>
