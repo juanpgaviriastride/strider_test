@@ -1,0 +1,17 @@
+(ns com.webtalk.storage.queue.consumer
+  (:gen-class)
+  (:require [langohr.consumers :as lconsumer]
+            [clojure.data.json :as json]))
+
+
+(defn helper
+  [channel {:keys [content-type delivery-tag type] :as meta} ^bytes payload]
+  (let [casted-payload (String. payload "UTF-8")]
+    (println (format "[consumer] Received a message: %s, delivery tag: %d, content type: %s, type: %s"
+                     casted-payload delivery-tag content-type type))
+    (json/read-str casted-payload)))
+
+
+(defn subscribe
+  [channel queuename message-handler opts]
+  (lconsumer/subscribe channel queuename (comp message-handler helper) opts))
