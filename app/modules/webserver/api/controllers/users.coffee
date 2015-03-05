@@ -14,9 +14,8 @@ class UserResource
 
   create: (req, res) =>
     console.log("create")
-    name = req.body.name
 
-    @userc.create name, (err, response) ->
+    @userc.create req.body, (err, response) ->
       console.log err, response
       return res.json(err) if err
       res.json response.results[0]
