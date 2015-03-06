@@ -14,7 +14,8 @@
                  [org.clojure/data.json "0.2.5"]
                  [com.taoensso/timbre "3.4.0"]
                  [com.novemberain/langohr "3.1.0"]
-                 [com.novemberain/validateur "2.4.2"]]
-  :main ^:skip-aot com.webtalk.storage.queue.manager
+                 [com.novemberain/validateur "2.4.2"]
+                 [com.thinkaurelius.titan/titan-all "0.5.0"]]
+  :main ^:skip-aot com.webtalk.storage.graph.config
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
