@@ -40,8 +40,12 @@
   Example: (create-user! graph {\"name\" \"Sebastian\" \"email\" \"sebastian@email.com\"})"
 
   [graph payload]
-  (let [invited-user (tvertex/find-by-kv graph {:email (payload "email")})]
+  (let [invited-user (tvertex/find-by-kv graph :email (payload "email"))]
     (if (empty? invited-user)
       (-create-new-user! graph payload)
       ;; else user was invited
       (-setup-user-network! graph invited-user payload))))
+
+
+;;; For testing
+
