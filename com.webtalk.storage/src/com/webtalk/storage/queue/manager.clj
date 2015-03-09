@@ -12,8 +12,8 @@
 (def rmq-config
   {
    :host "192.168.50.4"
-   
    })
+
 (defn subscribe-with-connection [qname message-handler]
   (let [connection (rmq/connect rmq-config)
         channel    (lch/open connection)]
