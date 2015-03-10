@@ -1,7 +1,5 @@
 (ns com.webtalk.storage.graph.config
-  (:gen-class)
-  (:require [clojurewerkz.titanium.graph  :as tgraph]
-            [clojurewerkz.titanium.vertices :as tvertex]))
+  (:gen-class))
 
 (def graph-config
   {
@@ -20,14 +18,14 @@
    })
 
 ;;; For testing
-(defn -main
-  [& args]
-  (println "Connecting" (str graph-config))
-  (let [graph (tgraph/open graph-config)]
-    (tgraph/with-transaction [g graph] :rollback? true
-      (let [ghost1 (tvertex/create! g {:VertexType "ghost" :name "ghost 1"})
-            ghost2 (tvertex/create! g {:VertexType "ghost" :name "ghost 2"})]
-        (println ghost1 ghost2)
-        (println (map tvertex/to-map (tvertex/get-all-vertices g)))))
-    (println "Shutting down" (str graph))
-    (tgraph/shutdown graph)))
+;; (defn -main
+;;   [& args]
+;;   (println "Connecting" (str graph-config))
+;;   (let [graph (tgraph/open graph-config)]
+;;     (tgraph/with-transaction [g graph] :rollback? true
+;;       (let [ghost1 (tvertex/create! g {:VertexType "ghost" :name "ghost 1"})
+;;             ghost2 (tvertex/create! g {:VertexType "ghost" :name "ghost 2"})]
+;;         (println ghost1 ghost2)
+;;         (println (map tvertex/to-map (tvertex/get-all-vertices g)))))
+;;     (println "Shutting down" (str graph))
+;;     (tgraph/shutdown graph)))
