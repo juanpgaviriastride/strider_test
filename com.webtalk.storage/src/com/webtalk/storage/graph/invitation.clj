@@ -10,6 +10,12 @@
 
 
 (defn create-invitation!
+  "It creates the user invitation node if needed and links the user who invited with the invitation node
+
+   Example: (create-invitation! graph {\"user_id\" ID \"email\" \"some@wt.com\"})
+   user_id: is the user id that is sending the invitation
+   email: is the email of the invited user"
+
   [graph payload]
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
