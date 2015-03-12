@@ -6,6 +6,11 @@
             [clojurewerkz.cassaforte.query          :as query]))
 
 (defn create-table
+  "Create a table given the connection table-name options
+   options: {:clustering-order key}
+
+   Example: (create-table connection table-name columns options)"
+
   [connection table-name columns options]
   (try
     (cql/create-table connection table-name
@@ -20,9 +25,19 @@
         (throw e)))))
 
 (defn create-keyspace
+  "Create a keyspace given the connection keyspace options
+   options: {:replication {:clustering-order \"SimpleStrategy\"
+                           :replication_factor 1}}
+
+   Example: (create-keyspace connection keyspace options)"
+
   [connection keyspace options]
   (try
     (cql/create-keyspace connection keyspace (query/with options))
     (catch com.datastax.driver.core.exceptions.AlreadyExistsException e
-      (println (.getMessage e)))))
+      (println (.getMessage e)))
+    (catch Exception e
+      (do
+        (println "Within" keyspace "keyspace creation" (.getMessage e))
+        (throw e)))))
 
