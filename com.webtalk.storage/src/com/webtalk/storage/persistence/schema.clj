@@ -1,6 +1,7 @@
 (ns com.webtalk.storage.persistence.schema
   (:gen-class)
   (:require [com.webtalk.storage.persistence.config :as config]
+            [com.webtalk.storage.persistence.util :as util]
             [clojurewerkz.cassaforte.client         :as cclient]
             [clojurewerkz.cassaforte.cql            :as cql]
             [clojurewerkz.cassaforte.query          :as query]))
@@ -25,7 +26,7 @@
               :file_content :varchar
               :primary-key [:owner_id :entry_id]
               }
-   
+
    "invitations" {
                   :invitation_id :uuid
                   :email :varchar
@@ -37,7 +38,7 @@
                       :user_id :uuid
                       :following_id :uuid
                       :primary-key [:user_id :following_id]
-                   }
+                      }
 
    "user_followers" {
                      :user_id :uuid
@@ -57,7 +58,7 @@
                     :owner_id :uuid
                     :primary-key [:user_id :entry_id]
                     }
-   
+
    })
 
 (defn auto-table-options
@@ -86,25 +87,14 @@
   [tables]
   (let [conn (cclient/connect config/cassandra-hosts)]
     ;; Create main keyspace
-    (try
-      (cql/create-keyspace conn config/keyspace (query/with {:replication
-                                                            {:class "SimpleStrategy"
-                                                             :replication_factor 1}}))
-      (catch com.datastax.driver.core.exceptions.AlreadyExistsException e
-        (println (.getMessage e))))
+    (util/create-keyspace conn config/keyspace {:replication
+                                           {:class "SimpleStrategy"
+                                            :replication_factor config/replication-factor}})
+    
     (cql/use-keyspace conn config/keyspace)
-    ;; force lazy evaluation of map to ensure the side effects
-    (doall (map (fn [[table-name colums]]
-                  (let [options (auto-table-options colums)]
-                   (try
-                     (cql/create-table conn table-name
-                                       (query/column-definitions colums)
-                                       (if-not (nil? options) (query/with options)))
-                     (println "Table" table-name "was created")
-                     (catch com.datastax.driver.core.exceptions.AlreadyExistsException e
-                       (println (.getMessage e)))
-                     (catch Exception e
-                       (do
-                         (println "Witin" table-name "table creation" (.getMessage e))
-                         (throw e))))))
+
+    ;; force lazy evaluation of map to ensure the side effects of create tables
+    (doall (map (fn [[table-name cols]]
+                  (let [options (auto-table-options cols)]
+                    (util/create-table conn table-name cols options)))
                 tables-definitions))))

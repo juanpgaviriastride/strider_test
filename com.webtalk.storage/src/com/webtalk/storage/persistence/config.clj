@@ -10,15 +10,10 @@
 
 (def keyspace "webtalk_development")
 
+(def replication-factor 1)
+
 ;;; Cassandra options
 (def cassandra-options
   {
    :keyspace keyspace
    })
-
-
-;;; Testing
-
-(defn -main
-  [& args]
-  (cclient/connect cassandra-hosts cassandra-options))
