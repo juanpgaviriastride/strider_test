@@ -1,7 +1,7 @@
 (ns com.webtalk.storage.persistence.schema
   (:gen-class)
   (:require [com.webtalk.storage.persistence.config :as config]
-            [com.webtalk.storage.persistence.util :as util]
+            [com.webtalk.storage.persistence.util   :as util]
             [clojurewerkz.cassaforte.client         :as cclient]
             [clojurewerkz.cassaforte.cql            :as cql]
             [clojurewerkz.cassaforte.query          :as query]))
