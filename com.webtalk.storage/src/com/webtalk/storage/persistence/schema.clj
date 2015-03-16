@@ -82,7 +82,7 @@
 (defn create-tables
   "Create all the defined tables within tables
 
-  Example: (create-tables tables)"
+   Example: (create-tables tables)"
 
   [tables]
   (let [conn (cclient/connect config/cassandra-hosts)]
@@ -94,7 +94,21 @@
     (cql/use-keyspace conn config/keyspace)
 
     ;; force lazy evaluation of map to ensure the side effects of create tables
-    (doall (map (fn [[table-name cols]]
-                  (let [options (auto-table-options cols)]
-                    (util/create-table conn table-name cols options)))
-                tables-definitions))))
+    (doall
+     (map (fn [[table-name cols]]
+            (let [options (auto-table-options cols)]
+              (util/create-table conn table-name cols options)))
+          tables-definitions))
+    (cclient/disconnect conn)))
+
+(defn clean-up
+  "Clean all columnfamilies that are given in tables
+
+   tables: [:t1, :t2, ...]
+   Example: (clean-up tables)"
+
+  [tables]
+  (let [conn (cclient/connect config/cassandra-hosts config/keyspace)]
+    (doall
+     (map #(util/drop-table conn %) tables))
+    (cclient/disconnect conn)))

@@ -24,6 +24,17 @@
         (println "Witin" table-name "table creation" (.getMessage e))
         (throw e)))))
 
+(defn drop-table
+  "Remove the given table using the connection to the cluster
+
+   Example: (drop-table connection table-name)"
+
+  [connection table-name]
+  (try
+    (cql/drop-table connection table-name)
+    (catch Exception e
+      (println "The table" table-name "drop was not completed" (.getMessage e)))))
+
 (defn create-keyspace
   "Create a keyspace given the connection keyspace options
    options: {:replication {:clustering-order \"SimpleStrategy\"
@@ -40,4 +51,3 @@
       (do
         (println "Within" keyspace "keyspace creation" (.getMessage e))
         (throw e)))))
-
