@@ -9,3 +9,12 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!"))
+
+;;; Important to close
+;;; from queue
+;;; (rmq/close channel)
+;;; (rmq/close connection)
+;;; from persistence
+;;; (cclient/disconnect connection)
+;;; from graph
+;;; (tgraph/shutdown graph)
