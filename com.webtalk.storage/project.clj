@@ -16,6 +16,6 @@
                  [com.novemberain/langohr "3.1.0"]
                  [com.novemberain/validateur "2.4.2"]
                  [com.thinkaurelius.titan/titan-all "0.5.0"]]
-  :main ^:skip-aot com.webtalk.storage.graph.config
+  :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
