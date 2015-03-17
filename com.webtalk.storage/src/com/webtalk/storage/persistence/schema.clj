@@ -9,7 +9,7 @@
 (def tables-definitions
   {
    "users" {
-            :user_id :uuid
+            :user_id :varint
             :email :varchar
             :full_name :varchar
             :username :varchar
@@ -17,8 +17,8 @@
             }
 
    "entries" {
-              :owner_id :uuid
-              :entry_id :timeuuid
+              :owner_id :varint
+              :entry_id :varint
               :type :varchar
               :title :varchar
               :text_content :text
@@ -28,34 +28,28 @@
               }
 
    "invitations" {
-                  :invitation_id :uuid
+                  :invitation_id :varint
                   :email :varchar
-                  :inviter_id :uuid
+                  :inviter_id :varint
                   :primary-key [:invitation_id :inviter_id]
                   }
 
    "user_followings" {
-                      :user_id :uuid
-                      :following_id :uuid
+                      :user_id :varint
+                      :following_id :varint
                       :primary-key [:user_id :following_id]
                       }
 
-   "user_followers" {
-                     :user_id :uuid
-                     :follower_id :uuid
-                     :primary-key [:user_id :follower_id]
-                     }
-
    "referrer" {
-               :user_id :uuid
-               :referred_user_id :uuid
+               :user_id :varint
+               :referred_user_id :varint
                :primary-key [:user_id :referred_user_id]
                }
 
    "user_timeline" {
-                    :user_id :uuid
-                    :entry_id :timeuuid
-                    :owner_id :uuid
+                    :user_id :varint
+                    :entry_id :varint
+                    :owner_id :varint
                     :primary-key [:user_id :entry_id]
                     }
 

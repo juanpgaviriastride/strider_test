@@ -27,4 +27,5 @@
            (connect-invitation new-invitation {:time (System/currentTimeMillis)}))
          ;; else user (invited or not) was already created
          (if (= (tvertex/get invitation :VertexType) "invitedUser")
-           (connect-invitation invitation {:time (System/currentTimeMillis)})))))))
+           (connect-invitation invitation {:time (System/currentTimeMillis)})))))
+    (first (tvertex/find-by-kv graph :email email))))

@@ -1,4 +1,4 @@
-(ns com.webtalk.storage.queue.manager
+(ns com.webtalk.storage.queue
   (:gen-class)
   (:require [langohr.core                       :as rmq]
             [langohr.channel                    :as lch]

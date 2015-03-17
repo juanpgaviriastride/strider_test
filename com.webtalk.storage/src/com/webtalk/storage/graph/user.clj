@@ -71,9 +71,11 @@
   Example: (create-user! graph {\"name\" \"Sebastian\" \"email\" \"sebastian@email.com\"})"
 
   [graph payload]
-  (let [invited-user (first (tvertex/find-by-kv graph :email (payload "email")))]
+  (let [email (payload "email")
+        invited-user (first (tvertex/find-by-kv graph :email email))]
     (if (nil? invited-user)
       (create-new-user graph payload)
       ;; else user was invited
       (if (= (tvertex/get invited-user :VertexType) "invitedUser")
-        (setup-invited-user graph invited-user payload)))))
+        (setup-invited-user graph invited-user payload)))
+    (first (tvertex/find-by-kv graph :email email))))
