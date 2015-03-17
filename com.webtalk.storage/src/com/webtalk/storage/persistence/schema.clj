@@ -40,12 +40,6 @@
                       :primary-key [:user_id :following_id]
                       }
 
-   "user_followers" {
-                     :user_id :varint
-                     :follower_id :varint
-                     :primary-key [:user_id :follower_id]
-                     }
-
    "referrer" {
                :user_id :varint
                :referred_user_id :varint
