@@ -1,40 +1,43 @@
 (ns com.webtalk.storage
   (:gen-class)
-  (:require [com.webtalk.storage.graph            :as graph]
-            [com.webtalk.storage.graph.user       :as graph-user]
-            [com.webtalk.storage.graph.invitation :as graph-invitation]
-            [com.webtalk.storage.graph.follow     :as graph-follow]
-            [com.webtalk.storage.graph.entry      :as graph-entry]
-            [com.webtalk.storage.persistence      :as persistence]
-            [com.webtalk.storage.queue            :as queue]))
+  (:require [com.webtalk.storage.graph                  :as graph]
+            [clojurewerkz.titanium.vertices             :as graph-vertex]
+            [com.webtalk.storage.graph.user             :as graph-user]
+            [com.webtalk.storage.graph.invitation       :as graph-invitation]
+            [com.webtalk.storage.graph.follow           :as graph-follow]
+            [com.webtalk.storage.graph.entry            :as graph-entry]
+            [com.webtalk.storage.persistence            :as persistence]
+            [com.webtalk.storage.persistence.user       :as persistence-user]
+            [com.webtalk.storage.persistence.invitation :as persistence-invitation]
+            [com.webtalk.storage.persistence.following  :as persistence-following]
+            [com.webtalk.storage.persistence.entry      :as persistence-entry]
+            [com.webtalk.storage.queue                  :as queue]))
 
-(def *graph-connection* (graph/connection-session))
+(def graph-connection (graph/connection-session))
+
+(def persistence-connection (persistence/connection-session))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry [payload]
-  (let [gentry (graph-entry/create-entry! *graph-connection* payload)]
-    ;; use gentry to get the id but everything should be done using the payload
-    )
-  )
+  (let [gentry (graph-entry/create-entry! graph-connection payload)]
+    (persistence-entry/create-entry persistence-connection (graph-vertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow [payload]
-  (let [gfollow (graph-follow/follow! *graph-connection* payload)
-        ;; use payload to insert follower and following into cassandra don't need to wait for titan
-        ]))
+  (let [gfollow (graph-follow/follow! graph-connection payload)
+        pfollow (persistence-following persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite [payload]
-  (let [ginvitation (graph-invitation/create-invitation! *graph-connection* payload)]
-    ;; use ginvitation to insert cassandra invitation (invitation_id is the invitedUser id)
-    ))
+  (let [ginvitation (graph-invitation/create-invitation! graph-connection payload)]
+    (persistence-invitation/create-invitation persistence-connection (graph-vertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [payload]
-  (let [guser (graph-user/create-user! *graph-connection* payload)]
-    ;; use guser to insert cassandra user and possible follows and referrer_by
-    ;; but all the other data is taken from the payload
+  (let [guser (graph-user/create-user! graph-connection payload)]
+    (persistence-user/create-user persistence-connection (graph-vertex/get guser :id) payload)
+    ;; pending create network as we do for titan
     ))
 
 (defn setup-queue-and-handlers
@@ -52,7 +55,8 @@
 (defn -main
   ""
   [& args]
-  (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['create-entry 'follow 'invite 'create-user])]))
+  (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['create-entry 'follow 'invite 'create-user])]
+    (println rmq-conns-channels)))
 
 ;;; Important to close
 ;;; from queue

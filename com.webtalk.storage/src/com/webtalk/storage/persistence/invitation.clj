@@ -8,4 +8,4 @@
   [connection id payload]
   (cql/insert connection table-name {:invitation_id id
                                      :email (payload "email")
-                                     :inviter_id (payload "inviter_id")}))
+                                     :inviter_id (payload "user_id")}))
