@@ -1,4 +1,7 @@
-window.System =
+window.Null =
+  Authorization: {
+    Adapters: {}
+  }
   Routers: {}
   Models: {}
   Collections: {}

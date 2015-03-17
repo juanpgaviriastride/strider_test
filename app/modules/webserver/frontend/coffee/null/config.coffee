@@ -1,4 +1,4 @@
-System.Sync = (method, model, options) ->
+Null.Sync = (method, model, options) ->
   token = $.cookies.get('auth_token')
   if token
     options.dataType = "json"
@@ -23,11 +23,11 @@ $.ajaxSetup({
 
 $(document).ready ->
   ## Backbone link navgiate
-  $('a.route').on 'click', (event) ->
+  $( document ).on( "click", '[data-role=route]', (event) ->
     event.preventDefault()
-
     $a = $(event.target)
     while not $a.is 'a'
       $a = $a.parent()
 
     Backbone.history.navigate("#{$a.attr('href')}", {trigger: true})
+  )
