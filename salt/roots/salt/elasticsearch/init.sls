@@ -4,7 +4,7 @@ include:
 elasticsearch-1_3:
   pkgrepo.managed:
     - humanname: ElasticSearch
-    - name: deb http://packages.elasticsearch.org/elasticsearch/0.90/debian stable main
+    - name: deb http://packages.elasticsearch.org/elasticsearch/1.2/debian stable main
     - file: /etc/apt/sources.list.d/elasticsearch.list
     - key_url: http://packages.elasticsearch.org/GPG-KEY-elasticsearch
     - require_in:

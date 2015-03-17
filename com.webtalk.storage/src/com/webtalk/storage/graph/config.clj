@@ -7,12 +7,12 @@
    "storage.hostname" "192.168.50.4"
    ;; "graph-name" "graph"
 
-   ;; "storage.index.search.backend" "elasticsearch"
-   ;; "storage.index.search.hostname" "192.168.50.4"
-   ;; "storage.index.search.client-only" "true"
-   ;; "storage.index.search.cluster-name" "webtalk"
-   ;; "storage.index.search.local-mode" "false"
-   ;; "storage.index.search.sniff" "false"
+   ;; "index.search.backend" "elasticsearch"
+   ;; "index.search.hostname" "192.168.50.4"
+   ;; "index.search.client-only" "true"
+   ;; "index.search.cluster-name" "webtalk"
+   ;; "index.search.local-mode" "false"
+   ;; "index.search.sniff" "false"
    ;; "storage.keyspace" "titan"
    ;; "graph" "graph"
    })
