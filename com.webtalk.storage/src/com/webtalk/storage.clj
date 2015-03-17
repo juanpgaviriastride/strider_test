@@ -25,7 +25,7 @@
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow [payload]
   (let [gfollow (graph-follow/follow! graph-connection payload)
-        pfollow (persistence-following persistence-connection (payload "user_id") (payload "followed_id"))]))
+        pfollow (persistence-following/create-following persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite [payload]
@@ -49,7 +49,7 @@
    Returns: lazy [[conn1 ch1] [conn2 ch2] ... [connN chN]]"
 
   [qname-prefix actions]
-  (map #(queue/subscribe-with-connection (str qname-prefix "." %1) %1) actions))
+  (map #(queue/subscribe-with-connection (str qname-prefix "." %1) (resolve %1)) actions))
 
 
 (defn -main
