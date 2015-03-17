@@ -19,6 +19,7 @@
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry [payload]
+  ;; start timeline users populator
   (let [gentry (graph-entry/create-entry! graph-connection payload)]
     (persistence-entry/create-entry persistence-connection (graph-vertex/get gentry :id) (payload "user_id") payload)))
 
