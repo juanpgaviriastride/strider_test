@@ -10,7 +10,7 @@
 
 (defn create-entry!
   "Creates an entry vertex and links as follow:
-   owner -> posted -> entry
+   owner - posted -> entry
    
    Example: (create-entry! graph {\"user_id\" ID \"content\" \"Hi I'm here and I'm happy\" \"title\" \"Hello WT\"})"
 
@@ -18,4 +18,5 @@
   (let [owner (tvertex/find-by-id graph (payload "user_id"))]
     (tgraph/with-transaction [g graph]
       (let [entry (tvertex/create! g (entry-hash payload))]
-        (tedge/upconnect! g owner "posted" entry {:time (System/currentTimeMillis)})))))
+        (tedge/upconnect! g owner "posted" entry {:time (System/currentTimeMillis)})
+        entry))))

@@ -6,6 +6,6 @@
 
 (defn create-invitation
   [connection id payload]
-  (cql/insert connection table-name {:invitation_id_id id
+  (cql/insert connection table-name {:invitation_id id
                                      :email (payload "email")
                                      :inviter_id (payload "inviter_id")}))
