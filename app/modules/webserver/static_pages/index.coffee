@@ -45,14 +45,17 @@ app.get '/login', (req, res) ->
 app.get '/test-api', (req, res) ->
   debug = (if req.query.debug then req.query.debug else config.get('debug'))
 
-  if req.isAuthenticated()
-    debug = (if req.query.debug then req.query.debug else config.get('debug'))
-    res.render "test-api.html", {rootBase: '/test-api', address: "https://#{config.get('app').host}:#{config.get('app').port}", debug: debug}
-  else
-    #console.log "Redirect non auth user to login page"
-    #res.redirect "/login"
-    debug = (if req.query.debug then req.query.debug else config.get('debug'))
-    res.render "login.html", {debug: debug}
+  res.render "test-api.html", {rootBase: '/test-api', address: "https://#{config.get('app').host}:#{config.get('app').port}", debug: debug}
+
+  # TODO: authentication
+  # if req.isAuthenticated()
+  #   debug = (if req.query.debug then req.query.debug else config.get('debug'))
+  #   res.render "test-api.html", {rootBase: '/test-api', address: "https://#{config.get('app').host}:#{config.get('app').port}", debug: debug}
+  # else
+  #   #console.log "Redirect non auth user to login page"
+  #   #res.redirect "/login"
+  #   debug = (if req.query.debug then req.query.debug else config.get('debug'))
+  #   res.render "login.html", {debug: debug}
 
 
 app.get '/404', (req, res) ->

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webtalk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon.ico">
+  {%block styles%}
+  <link rel="stylesheet" type="text/css" href="/css/app.css">
+  {%endblock%}
+  {%block scripts%}
+  <script type="text/javascript" src="/js/app.js"></script>
+  {%endblock%}
+</head>
+<body class="{%block bodyStyles%}{%endblock%}">
+
+    {%block main%}
+
+    {%endblock%} <!-- /main -->
+
+  {%block inline_scripts%}
+  <script type="text/javascript">
+    window.domain = "{{domain}}";
+    window.address = "{{address}}";
+    window.rootBase = "{{rootBase}}";
+    window.imConfig = {host: "{{imHost}}", port: "{{imPort}}"};
+  </script>
+  {%endblock%}
+</body>
+</html>
