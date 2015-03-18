@@ -46,7 +46,11 @@
    Returns: lazy [[conn1 ch1] [conn2 ch2] ... [connN chN]]"
 
   [qname-prefix actions]
-  (map #(queue/subscribe-with-connection (str qname-prefix "." %1) (resolve %1)) actions))
+  (letfn [(sub-helper [action]
+            (do
+              (println "Setting up queue for " action)
+              (queue/subscribe-with-connection (str qname-prefix "." action) @ (ns-resolve 'com.webtalk.storage action))))]
+    (map sub-helper actions)))
 
 
 (defn -main
