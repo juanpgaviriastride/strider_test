@@ -9,6 +9,7 @@
             [com.webtalk.resilience.entry      :as entry]
             [clojurewerkz.titanium.vertices    :as gvertex]))
 
+;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def graph-connection (graph/connection-session))
 
 (def persistence-connection (persistence/connection-session))
@@ -48,10 +49,10 @@
   [qname-prefix actions]
   (letfn [(sub-helper [action]
             (do
+              ;; this can use agents to be able to handle errors and things like monitoring and paralelo
               (println "Setting up queue for " action)
               (queue/subscribe-with-connection (str qname-prefix "." action) @ (ns-resolve 'com.webtalk.storage action))))]
     (map sub-helper actions)))
-
 
 (defn -main
   ""
