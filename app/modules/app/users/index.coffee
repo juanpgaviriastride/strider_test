@@ -1,6 +1,7 @@
 HTTPStatus = require "http-status"
 config = require('../../../config')
 grex = require 'grex'
+amqp = require('amqplib/callback_api')
 
 class UserController
   constructor: () ->
@@ -36,45 +37,15 @@ class UserController
     @connect().execute(query, cb)
 
   create: (body, cb) =>
-    query = @gremlin()
-    query @graph.V("email", body.email)
-    @connect().execute(query, (err, response) =>
-      if err
-        cb(err, response)
-      else
-        console.log(response)
-        query = @gremlin()
-        if response.results[0]?
-          user = response.results[0]
-          if user.VertexType == 'user'
-            return cb(err, response)
-          else
-            # This logic needs to be moved to its own store procedure
-            id = user._id
-            query @graph.v(id).in('invited')
-            @connect().execute(query, (err, response) =>
-              if err
-               return cb(err, response)
-              else
-                query = @gremlin()
-                network = response.results
-                g_user = query.var(@graph.v(id)) # i0
-                referral = query.var(@graph.v(network.pop()._id))
-                query @graph.v(id).setProperty("VertexType", 'user')
-                query @graph.v(id).setProperty("name", body.name)
-                query "g.v(#{id}).in('invited').each { g.addEdge(i0, it, 'follow') }" # g_user follow connection
-                query "g.v(#{id}).in('invited').each { g.addEdge(it, i0, 'follow') }" # connection follow g_user
-                query @graph.addEdge(g_user, referral, 'referred_by')
-                query @graph.v(id)
-                console.log query()
-                @connect().execute(query, cb)
-            )
-        else
-          query  @graph.addVertex({name: body.name, email: body.email, VertexType:'user'}) #use introspection for type
-        # query @graph.commit()
-          console.log query()
-          @connect().execute(query, cb)
-    )
+    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
+      qname = "com.webtalk.storage.queue.create-user"
+      opts = {autoDelete: true}
+      console.log(err)
+      conn.createChannel (err, ch) =>
+        # ch.assertQueue(qname, opts)
+        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
+   
+      
 
   list: (cb) =>
     query = @gremlin()
