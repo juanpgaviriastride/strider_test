@@ -19,6 +19,7 @@
    "entries" {
               :owner_id :varint
               :entry_id :varint
+              :group_id :varint
               :type :varchar
               :title :varchar
               :text_content :text
@@ -53,6 +54,19 @@
                     :primary-key [:user_id :entry_id]
                     }
 
+   "groups" {
+             :user_id :varint
+             :group_id :varint
+             :name :varchar
+             :primary-key [:user_id, :group_id]
+             }
+
+   "user_groups" {
+                  :user_id :varint
+                  :group_id :varint
+                  :grouped_user_id: :varint
+                  :primary-key [:user_id :group_id]
+                  }
    })
 
 (defn auto-table-options
