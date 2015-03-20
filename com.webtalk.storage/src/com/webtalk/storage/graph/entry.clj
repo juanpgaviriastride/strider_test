@@ -18,5 +18,5 @@
   (let [owner (tvertex/find-by-id graph (payload "user_id"))]
     (tgraph/with-transaction [g graph]
       (let [entry (tvertex/create! g (entry-hash payload))]
-        (tedge/upconnect! g owner "posted" entry {:time (System/currentTimeMillis)})
+        (tedge/upconnect! g owner "posted" entry {:time (System/currentTimeMillis) :group_id (payload "group_id")})
         entry))))
