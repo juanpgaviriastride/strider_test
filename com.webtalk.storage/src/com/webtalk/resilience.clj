@@ -36,4 +36,4 @@
   
 (defn -main
   [port]
-  (run-jetty-with-hystrix-stream app {:port port :join? false}))
+  (run-jetty-with-hystrix-stream app {:port (Integer. port) :join? false}))
