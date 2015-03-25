@@ -18,6 +18,7 @@
                  [hystrix-event-stream-clj "0.1.3"]
                  [compojure "1.3.2"]
                  [ring "1.3.2"]
+                 [org.eclipse.jetty/jetty-servlet "7.6.13.v20130916"]
                  [com.thinkaurelius.titan/titan-all "0.5.0"]]
   :main ^:skip-aot com.webtalk.storage
   :aliases { "start-hystrix-server" ["run" "-m" "com.webtalk.resilience"]}

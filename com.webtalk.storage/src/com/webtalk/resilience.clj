@@ -34,6 +34,6 @@
 (defroutes app (GET "/hello" [] {:status 200 :body "Hello"}))
 
   
-(def -main
+(defn -main
   [port]
-  (run-jetty-with-hystrix app {:port port :join? false}))
+  (run-jetty-with-hystrix-stream app {:port port :join? false}))
