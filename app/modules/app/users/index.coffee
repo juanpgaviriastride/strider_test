@@ -44,7 +44,7 @@ class UserController
       conn.createChannel (err, ch) =>
         # ch.assertQueue(qname, opts)
         ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
-   
+        # pending get back the created user
       
 
   list: (cb) =>

@@ -21,13 +21,15 @@ class FollowController
     @connect().execute(query, cb)
 
   create: (body, cb) =>
-    query = @gremlin()
-    user = query.var(@graph.v(body.user_id))
-    follow = query.var(@graph.v(body.followed_id))
-    query  @graph.addEdge(user, follow, "follow")
-    # query @graph.commit()
-    console.log query()
-    @connect().execute(query, cb)
+    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
+      qname = "com.webtalk.storage.queue.follow"
+      opts = {autoDelete: true}
+      console.log(err)
+      conn.createChannel (err, ch) =>
+        # ch.assertQueue(qname, opts)
+        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
+        # pending get back the follow creation status
+  
 
   list_follows: (id, cb) =>
     query = @gremlin()

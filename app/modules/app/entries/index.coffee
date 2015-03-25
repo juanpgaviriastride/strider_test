@@ -21,13 +21,14 @@ class EntryController
     @connect().execute(query, cb)
 
   create: (body, cb) =>
-    query = @gremlin()
-    entry = query.var(@graph.addVertex({content: body.content, title: body.title, VertexType:'entry'}))
-    owner = query.var(@graph.v(body.user_id))
-    query  @graph.addEdge(owner, entry, "posted", {time: Date.now() })
-    # query @graph.commit()
-    console.log query()
-    @connect().execute(query, cb)
+    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
+      qname = "com.webtalk.storage.queue.create-entry"
+      opts = {autoDelete: true}
+      console.log(err)
+      conn.createChannel (err, ch) =>
+        # ch.assertQueue(qname, opts)
+        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
+        # pending get back the created entry
 
   list: (cb) =>
     query = @gremlin()
