@@ -1,11 +1,14 @@
 HTTPStatus = require "http-status"
 config = require('../../../config')
 grex = require 'grex'
+uuid = require('node-uuid')
+Queue = require('../../../lib/queue')
 
 class InvitationsController
   constructor: () ->
     @graph = grex.g
     @gremlin = grex.gremlin
+    @queue = new Queue
 
   create_indexes: () =>
     #
@@ -29,14 +32,11 @@ class InvitationsController
     grex.createClient(config.get('titan'))
 
   create: (body, cb) =>
-    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
-      qname = "com.webtalk.storage.queue.invite"
-      opts = {autoDelete: true}
-      console.log(err)
-      conn.createChannel (err, ch) =>
-        # ch.assertQueue(qname, opts)
-        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
-        # pending get back the invitation
+    correlation_id = uuid.v4()
+    callback_qname = "com.webtalk.api.queue.created-invitation#{correlation_id}"
+    @queue.consume(callback_qname, cb)
+    qname = "com.webtalk.storage.queue.invite"
+    @queue.publish(qname, body, callback_qname, cb)
 
   list: (user_id, cb) =>
     query = @gremlin()

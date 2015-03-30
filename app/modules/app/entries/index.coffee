@@ -3,11 +3,14 @@ config = require('../../../config')
 async = require "async"
 _ = require 'underscore'
 grex = require 'grex'
+uuid = require('node-uuid')
+Queue = require('../../../lib/queue')
 
 class EntryController
   constructor: () ->
     @graph = grex.g
     @gremlin = grex.gremlin
+    @queue = new Queue
 
   connect: () =>
     #TODO: move index creation to /lib/db
@@ -21,14 +24,11 @@ class EntryController
     @connect().execute(query, cb)
 
   create: (body, cb) =>
-    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
-      qname = "com.webtalk.storage.queue.create-entry"
-      opts = {autoDelete: true}
-      console.log(err)
-      conn.createChannel (err, ch) =>
-        # ch.assertQueue(qname, opts)
-        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
-        # pending get back the created entry
+    correlation_id = uuid.v4()
+    callback_qname = "com.webtalk.api.queue.created-entry#{correlation_id}"
+    @queue.consume(callback_qname, cb)    
+    qname = "com.webtalk.storage.queue.create-entry"
+    @queue.publish(qname, body, callback_qname, cb)
 
   list: (cb) =>
     query = @gremlin()

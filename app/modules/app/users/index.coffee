@@ -1,13 +1,14 @@
 HTTPStatus = require "http-status"
 config = require('../../../config')
 grex = require 'grex'
-amqp = require('amqplib/callback_api')
 uuid = require('node-uuid')
+Queue = require('../../../lib/queue')
 
 class UserController
   constructor: () ->
     @graph = grex.g
     @gremlin = grex.gremlin
+    @queue = new Queue
 
   create_indexes: () =>
     #
@@ -38,26 +39,11 @@ class UserController
     @connect().execute(query, cb)
 
   create: (body, cb) =>
-    amqp.connect (config.get("rabbitmq").host), (err, conn) =>
-      correlation_id = uuid.v4()
-      callback_qname = "com.webtalk.api.queue.created-user#{correlation_id}"
-      conn.createChannel (err, ch) =>
-        ch.assertQueue(callback_qname, {durable: false, autoDelete: true, exclusive: false})
-        cb(err, {status: 'error'}) if err
-        ch.consume(callback_qname, (msg) =>
-          if (msg != null)
-            console.log(msg)
-            cb(null, JSON.parse msg.content.toString())
-          else
-            cb({status: 'error'}, nil)
-        )
-      qname = "com.webtalk.storage.queue.create-user"
-      opts = {autoDelete: true, replyTo: callback_qname}
-      console.log(err)
-      conn.createChannel (err, ch) =>
-        cb(err, {status: 'error'}) if err
-        ch.sendToQueue(qname, new Buffer(JSON.stringify(body)), opts)
-      
+    correlation_id = uuid.v4()
+    callback_qname = "com.webtalk.api.queue.created-user#{correlation_id}"
+    @queue.consume(callback_qname, cb)
+    qname = "com.webtalk.storage.queue.create-user"
+    @queue.publish(qname, body, callback_qname, cb)      
 
   list: (cb) =>
     query = @gremlin()
