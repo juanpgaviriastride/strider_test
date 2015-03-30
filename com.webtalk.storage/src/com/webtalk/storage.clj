@@ -3,12 +3,13 @@
   (:require [com.webtalk.storage.graph           :as graph]
             [com.webtalk.storage.persistence     :as persistence]
             [com.webtalk.storage.queue           :as queue]
+            [com.webtalk.storage.queue.publisher :as publisher]
             [com.webtalk.resilience.user         :as user]
             [com.webtalk.resilience.invitation   :as invitation]
             [com.webtalk.resilience.follow       :as follow]
             [com.webtalk.resilience.entry        :as entry]
             [clojurewerkz.titanium.vertices      :as gvertex]
-	    [com.webtalk.storage.queue.publisher :as publisher]))
+            [clojurewerkz.titanium.edges         :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def graph-connection (graph/connection-session))
@@ -21,6 +22,7 @@
   ;; start timeline users populator
   (let [[callback-q payload] load
         gentry (entry/gcreate-entry graph-connection payload)]
+    (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
     (entry/pcreate-entry persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
@@ -28,6 +30,7 @@
   [load]
   (let [[callback-q payload] load
         gfollow (follow/gfollow graph-connection payload)
+        _ (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
         pfollow (follow/pfollow persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
@@ -35,6 +38,7 @@
   [load]
   (let [[callback-q payload] load
         ginvitation (invitation/gcreate-invitation graph-connection payload)]
+    (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
     (invitation/pcreate-invitation persistence-connection (gvertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
@@ -42,8 +46,8 @@
   [load]
   (let [[callback-q payload] load
         guser (user/gcreate-user graph-connection payload)]
-    (publisher/publish-with-qname callback-q (graph-vertex/to-map guser))
-    (user/pcreate-user persistence-connection (graph-vertex/get guser :id) payload)
+    (publisher/publish-with-qname callback-q (gvertex/to-map guser))
+    (user/pcreate-user persistence-connection (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
 
