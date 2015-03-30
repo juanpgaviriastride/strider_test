@@ -7,7 +7,8 @@
             [com.webtalk.resilience.invitation :as invitation]
             [com.webtalk.resilience.follow     :as follow]
             [com.webtalk.resilience.entry      :as entry]
-            [clojurewerkz.titanium.vertices    :as gvertex]))
+            [clojurewerkz.titanium.vertices    :as gvertex]
+	    [com.webtalk.storage.queue.publisher        :as publisher]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def graph-connection (graph/connection-session))
@@ -32,9 +33,11 @@
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
-  [payload]
-  (let [guser (user/gcreate-user graph-connection payload)]
-    (user/pcreate-user persistence-connection (gvertex/get guser :id) payload)
+  [load]
+  (let [[callback-q payload] load
+        guser (user/gcreate-user graph-connection payload)]
+    (publisher/publish-with-qname callback-q (graph-vertex/to-map guser))
+    (user/pcreate-user persistence-connection (graph-vertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
 

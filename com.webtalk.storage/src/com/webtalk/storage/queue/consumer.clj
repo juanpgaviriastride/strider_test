@@ -7,9 +7,9 @@
 (defn helper
   [channel {:keys [content-type delivery-tag type] :as meta} ^bytes payload]
   (let [casted-payload (String. payload "UTF-8")]
-    (println (format "[consumer] Received a message: %s, delivery tag: %d, content type: %s, type: %s"
-                     casted-payload delivery-tag content-type type))
-    (json/read-str casted-payload)))
+    (println (format "[consumer] Received a message: %s, delivery tag: %d, content type: %s, type: %s, reply-to: %s"
+                     casted-payload delivery-tag content-type type (:reply-to meta)))
+    [(:reply-to meta) (json/read-str casted-payload)]))
 
 
 (defn subscribe
