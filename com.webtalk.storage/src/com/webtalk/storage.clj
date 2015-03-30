@@ -1,38 +1,52 @@
 (ns com.webtalk.storage
   (:gen-class)
-  (:require [com.webtalk.storage.graph         :as graph]
-            [com.webtalk.storage.persistence   :as persistence]
-            [com.webtalk.storage.queue         :as queue]
-            [com.webtalk.resilience.user       :as user]
-            [com.webtalk.resilience.invitation :as invitation]
-            [com.webtalk.resilience.follow     :as follow]
-            [com.webtalk.resilience.entry      :as entry]
-            [clojurewerkz.titanium.vertices    :as gvertex]))
+  (:require [com.webtalk.storage.graph           :as graph]
+            [com.webtalk.storage.persistence     :as persistence]
+            [com.webtalk.storage.queue           :as queue]
+            [com.webtalk.storage.queue.publisher :as publisher]
+            [com.webtalk.resilience.user         :as user]
+            [com.webtalk.resilience.invitation   :as invitation]
+            [com.webtalk.resilience.follow       :as follow]
+            [com.webtalk.resilience.entry        :as entry]
+            [clojurewerkz.titanium.vertices      :as gvertex]
+            [clojurewerkz.titanium.edges         :as gedge]))
 
+;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def graph-connection (graph/connection-session))
 
 (def persistence-connection (persistence/connection-session))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
-(defn create-entry [payload]
+(defn create-entry
+  [load]
   ;; start timeline users populator
-  (let [gentry (entry/gcreate-entry graph-connection payload)]
+  (let [[callback-q payload] load
+        gentry (entry/gcreate-entry graph-connection payload)]
+    (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
     (entry/pcreate-entry persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
-(defn follow [payload]
-  (let [gfollow (follow/gfollow graph-connection payload)
+(defn follow
+  [load]
+  (let [[callback-q payload] load
+        gfollow (follow/gfollow graph-connection payload)
+        _ (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
         pfollow (follow/pfollow persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
-(defn invite [payload]
-  (let [ginvitation (invitation/gcreate-invitation graph-connection payload)]
+(defn invite
+  [load]
+  (let [[callback-q payload] load
+        ginvitation (invitation/gcreate-invitation graph-connection payload)]
+    (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
     (invitation/pcreate-invitation persistence-connection (gvertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
-  [payload]
-  (let [guser (user/gcreate-user graph-connection payload)]
+  [load]
+  (let [[callback-q payload] load
+        guser (user/gcreate-user graph-connection payload)]
+    (publisher/publish-with-qname callback-q (gvertex/to-map guser))
     (user/pcreate-user persistence-connection (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
@@ -46,8 +60,19 @@
    Returns: lazy [[conn1 ch1] [conn2 ch2] ... [connN chN]]"
 
   [qname-prefix actions]
-  (map #(queue/subscribe-with-connection (str qname-prefix "." %1) (resolve %1)) actions))
-
+  (letfn [(sub-helper [action]
+            (do
+              ;; this can use agents to be able to handle errors and things like monitoring and paralelo
+              (println "Setting up queue for " action)
+              ;; Optional threaded approach will need to replace the cass and titan connection globals
+              ;; and define locals within this functions via let and pass them via args to avoid
+              ;; concurrency issues
+              ;; (.start (Thread.
+              (queue/subscribe-with-connection (str qname-prefix "." action)
+                                               @ (ns-resolve 'com.webtalk.storage action))
+              ;; ))
+              ))]
+    (map sub-helper actions)))
 
 (defn -main
   ""
