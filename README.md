@@ -120,9 +120,20 @@ bump: {
     * Install vagrant
     * `vagrant up`
 
-## Deploying
+## Details
+This repo includes 3 apps
 
-  * ...
+* The node app within `/app`
+
+* A clojure app within `/com.webtalk.storage`.   
+This app includes two important runnables.
+    * the main app lein run that runs a daemon that subscribe to rabbit and write two titan and cassandra `lein run`
+    * a secondary app that monitors the daemon and sends the events notifications `lein start-hystrix-server PORT`
+
+* A tomcat container app within `/wt-tomcat`
+    * A turbine app server that aggregates the stats and monitors the storage service
+    * Hystrix Dashboard
+
 
 ## Testing
 
