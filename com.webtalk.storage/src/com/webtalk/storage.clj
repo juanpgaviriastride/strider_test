@@ -1,14 +1,14 @@
 (ns com.webtalk.storage
   (:gen-class)
-  (:require [com.webtalk.storage.graph         :as graph]
-            [com.webtalk.storage.persistence   :as persistence]
-            [com.webtalk.storage.queue         :as queue]
-            [com.webtalk.resilience.user       :as user]
-            [com.webtalk.resilience.invitation :as invitation]
-            [com.webtalk.resilience.follow     :as follow]
-            [com.webtalk.resilience.entry      :as entry]
-            [clojurewerkz.titanium.vertices    :as gvertex]
-	    [com.webtalk.storage.queue.publisher        :as publisher]))
+  (:require [com.webtalk.storage.graph           :as graph]
+            [com.webtalk.storage.persistence     :as persistence]
+            [com.webtalk.storage.queue           :as queue]
+            [com.webtalk.resilience.user         :as user]
+            [com.webtalk.resilience.invitation   :as invitation]
+            [com.webtalk.resilience.follow       :as follow]
+            [com.webtalk.resilience.entry        :as entry]
+            [clojurewerkz.titanium.vertices      :as gvertex]
+	    [com.webtalk.storage.queue.publisher :as publisher]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def graph-connection (graph/connection-session))
@@ -16,19 +16,25 @@
 (def persistence-connection (persistence/connection-session))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
-(defn create-entry [payload]
+(defn create-entry
+  [load]
   ;; start timeline users populator
-  (let [gentry (entry/gcreate-entry graph-connection payload)]
+  (let [[callback-q payload] load
+        gentry (entry/gcreate-entry graph-connection payload)]
     (entry/pcreate-entry persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
-(defn follow [payload]
-  (let [gfollow (follow/gfollow graph-connection payload)
+(defn follow
+  [load]
+  (let [[callback-q payload] load
+        gfollow (follow/gfollow graph-connection payload)
         pfollow (follow/pfollow persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
-(defn invite [payload]
-  (let [ginvitation (invitation/gcreate-invitation graph-connection payload)]
+(defn invite
+  [load]
+  (let [[callback-q payload] load
+        ginvitation (invitation/gcreate-invitation graph-connection payload)]
     (invitation/pcreate-invitation persistence-connection (gvertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
