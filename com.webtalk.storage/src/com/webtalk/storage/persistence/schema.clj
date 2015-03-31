@@ -13,6 +13,7 @@
             :email :varchar
             :full_name :varchar
             :username :varchar
+            :team_trainer :boolean
             :primary-key [:user_id]
             }
 

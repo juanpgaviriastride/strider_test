@@ -9,4 +9,6 @@
   (cql/insert connection table-name {:user_id id
                                      :email (payload "email")
                                      :full_name (payload "full_name")
-                                     :username (payload "username")}))
+                                     :username (payload "username")
+                                     :team_trainer false
+                                     }))
