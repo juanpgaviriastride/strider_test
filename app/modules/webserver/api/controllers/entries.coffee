@@ -18,7 +18,7 @@ class EntryResource
     @entryc.create req.body, (err, response) ->
       console.log err, response
       return res.json(err) if err
-      res.json response.results[0]
+      res.json response
 
   list: (req, res) =>
     console.log("list")
