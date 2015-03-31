@@ -46,7 +46,7 @@ class InvitationsController
 
   referred: (user_id, cb) =>
     query = @gremlin()
-    query @graph.v(user_id).in('referred_by')
+    query "g.v(#{user_id}).out('refered_by').loop(1){true}{true}"
     console.log query()
     @connect().execute(query, cb)
 
