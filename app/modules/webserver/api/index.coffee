@@ -141,4 +141,8 @@ apiController.namespace("/api/v1", () ->
     new InvitationResource().referred(req, res, next)
   )
 
+  apiController.get("/referrals/:user_id", (req, res, next) ->
+    new InvitationResource().referrals(req, res, next)
+  )
+
 )

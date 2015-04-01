@@ -27,5 +27,12 @@ class InvitationResource
       console.log err, response
       return res.json(err) if err
       res.json response
+
+  referrals: (req, res) =>
+    console.log("referrals")
+    @invitationsc.referrals req.params.user_id, (err, response) ->
+      console.log err, response
+      return res.json(err) if err
+      res.json response
       
 module.exports = InvitationResource
