@@ -71,7 +71,7 @@
 
    "customer_stripe_accounts" {
                                :user_id :varint
-                               :stripe_id :varint
+                               :stripe_id :varchar
                                :email :varchar
                                :statement_descriptor :varchar
                                :display_name :varchar
@@ -82,7 +82,20 @@
                                :default_currency :varchar
                                :country :varchar
                                :managed :boolean  ; this must be true or we are not able to manage their account under wt
+                               :primary-key [:user_id :stripe_id]
                                }
+
+   "customer_payments" {
+                        :user_id :varint
+                        :stripe_id :varchar
+                        :created :varint
+                        :livemode :boolean
+                        :paid :boolean
+                        :status :varchar
+                        :amount :varint
+                        :currency :varchar
+                        :refunded :varchar
+                        }
    })
 
 (defn auto-table-options
