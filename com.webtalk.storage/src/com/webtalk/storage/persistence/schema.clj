@@ -95,7 +95,22 @@
                         :amount :varint
                         :currency :varchar
                         :refunded :varchar
+                        :primary-key [:user_id :stripe_id]
                         }
+
+   
+   "customer_transfers" {
+                         :user_id :varint
+                         :stripe_id :varchar
+                         :created :varint
+                         :date :varint
+                         :livemode :boolean
+                         :amount :varint
+                         :currency :varchar
+                         :reversed :boolean
+                         :status :varchar
+                         :type :varchar
+                         }
    })
 
 (defn auto-table-options
