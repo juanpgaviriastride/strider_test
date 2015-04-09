@@ -110,6 +110,7 @@
                          :reversed :boolean
                          :status :varchar
                          :type :varchar
+                         :primary-key [:user_id :stripe_id]
                          }
    })
 
