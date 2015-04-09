@@ -48,6 +48,7 @@
     "passport.socketio": "^3.0.1",
     "redis": "^0.12.1",
     "socket.io": "^0.9.17",
+    "stripe": "^3.3.4",
     "swig": "^1.4.2",
     "underscore": "^1.8.2"
   },
