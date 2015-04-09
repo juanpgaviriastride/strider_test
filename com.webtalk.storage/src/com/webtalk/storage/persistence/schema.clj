@@ -68,6 +68,21 @@
                   :grouped_user_id: :varint
                   :primary-key [:user_id :group_id]
                   }
+
+   "customer_stripe_accounts" {
+                               :user_id :varint
+                               :stripe_id :varint
+                               :email :varchar
+                               :statement_descriptor :varchar
+                               :display_name :varchar
+                               :timezone :varchar
+                               :details_submitted :boolean
+                               :charges_enabled :boolean
+                               :transfers_enabled :boolean
+                               :default_currency :varchar
+                               :country :varchar
+                               :managed :boolean  ; this must be true or we are not able to manage their account under wt
+                               }
    })
 
 (defn auto-table-options
