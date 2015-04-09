@@ -7,7 +7,8 @@
 (defn add-commission! [user value]
   (tvertex/merge! user {
                         :Commission (+ value
-                                       (tvertex/get user :Commission))}))
+                                       (tvertex/get user :Commission))})) ;; this should append values to avoid race conditions
+                                     ;; we need also a second method to reduce the values on the payment-cut-off times
 
 (defn commissions-tree-upgrade!
   [user steps value]
