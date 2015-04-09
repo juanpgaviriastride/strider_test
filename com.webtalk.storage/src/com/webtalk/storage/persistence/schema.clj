@@ -68,6 +68,50 @@
                   :grouped_user_id: :varint
                   :primary-key [:user_id :group_id]
                   }
+
+   "customer_stripe_accounts" {
+                               :user_id :varint
+                               :stripe_id :varchar
+                               :email :varchar
+                               :statement_descriptor :varchar
+                               :display_name :varchar
+                               :timezone :varchar
+                               :details_submitted :boolean
+                               :charges_enabled :boolean
+                               :transfers_enabled :boolean
+                               :default_currency :varchar
+                               :country :varchar
+                               :managed :boolean  ; this must be true or we are not able to manage their account under wt
+                               :primary-key [:user_id :stripe_id]
+                               }
+
+   "customer_payments" {
+                        :user_id :varint
+                        :stripe_id :varchar
+                        :created :varint
+                        :livemode :boolean
+                        :paid :boolean
+                        :status :varchar
+                        :amount :varint
+                        :currency :varchar
+                        :refunded :varchar
+                        :primary-key [:user_id :stripe_id]
+                        }
+
+   
+   "customer_transfers" {
+                         :user_id :varint
+                         :stripe_id :varchar
+                         :created :varint
+                         :date :varint
+                         :livemode :boolean
+                         :amount :varint
+                         :currency :varchar
+                         :reversed :boolean
+                         :status :varchar
+                         :type :varchar
+                         :primary-key [:user_id :stripe_id]
+                         }
    })
 
 (defn auto-table-options
