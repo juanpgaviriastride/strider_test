@@ -7,7 +7,8 @@
 (defn user-hash [payload]
   (into {}  (list payload
                   {:VertexType "user"
-                   :TeamTrainer false})))
+                   :TeamTrainer false
+                   :Commission 0})))
 
 (defn create-new-user
   "Create a new user without linking its invitation network.
