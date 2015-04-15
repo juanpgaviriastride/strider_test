@@ -63,13 +63,13 @@
   (letfn [(sub-helper [action]
             (do
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
-              (println "Setting up queue for " action)
+              (println "Setting up queue for" action)
               ;; Optional threaded approach will need to replace the cass and titan connection globals
               ;; and define locals within this functions via let and pass them via args to avoid
               ;; concurrency issues
               ;; (.start (Thread.
               (queue/subscribe-with-connection (str qname-prefix "." action)
-                                               @ (ns-resolve 'com.webtalk.storage action))
+                                               @(ns-resolve 'com.webtalk.storage action))
               ;; ))
               ))]
     (map sub-helper actions)))

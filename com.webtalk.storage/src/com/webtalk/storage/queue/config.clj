@@ -1,7 +1,8 @@
 (ns com.webtalk.storage.queue.config
-  (:gen-class))
+  (:gen-class)
+  (:require [com.webtalk.util :refer [get-rmq-host]]))
 
 (def rmq-config
   {
-   :host "192.168.50.4"
+   :host (get-rmq-host)
    })
