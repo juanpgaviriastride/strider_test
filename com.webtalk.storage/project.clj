@@ -23,4 +23,6 @@
   :main ^:skip-aot com.webtalk.storage
   :aliases { "start-hystrix-server" ["run" "-m" "com.webtalk.resilience"]}
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies [[midje "1.6.0" :exclusions [org.clojure/clojure]]]
+                   :plugins [[lein-midje "3.1.3"]]}})
