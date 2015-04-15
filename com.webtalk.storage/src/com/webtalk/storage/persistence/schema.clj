@@ -65,7 +65,8 @@
    "user_groups" {
                   :user_id :varint
                   :group_id :varint
-                  :grouped_user_id: :varint
+                  :grouped_user_id :varint
+                  :group_name :varchar
                   :primary-key [:user_id :group_id]
                   }
 
