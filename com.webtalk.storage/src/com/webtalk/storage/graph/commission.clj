@@ -4,6 +4,7 @@
             [clojurewerkz.titanium.vertices :as tvertex]
             [clojurewerkz.titanium.edges :as tedge]))
 
+;;; This commission system need to be replaced by ogre using side-effects and pipes
 (defn add-commission! [user value]
   (tvertex/merge! user {
                         :Commission (+ value
@@ -18,5 +19,5 @@
       (= steps 0) nil
       (true? (tvertex/get user :TeamTrainer)) (do
                                                 (add-commission! user value)
-                                                (bubble-up-commissions next (dec steps) value))
-      :else (bubble-up-commissions next steps value))))
+                                                (commissions-tree-upgrade! next (dec steps) value))
+      :else (commissions-tree-upgrade! next steps value))))
