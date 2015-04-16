@@ -22,7 +22,6 @@
                  [com.thinkaurelius.titan/titan-all "0.5.0"]
                  [environ "1.0.0"]]
   :main ^:skip-aot com.webtalk.storage
-  :aliases { "start-hystrix-server" ["run" "-m" "com.webtalk.resilience"]}
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[midje "1.6.0" :exclusions [org.clojure/clojure]]]

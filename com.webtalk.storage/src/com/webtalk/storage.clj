@@ -8,13 +8,14 @@
             [com.webtalk.resilience.invitation   :as invitation]
             [com.webtalk.resilience.follow       :as follow]
             [com.webtalk.resilience.entry        :as entry]
+            [com.webtalk.resilience              :refer [start-jetty]]
             [clojurewerkz.titanium.vertices      :as gvertex]
             [clojurewerkz.titanium.edges         :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
-(def graph-connection (graph/connection-session))
+(defonce graph-connection (atom nil))
 
-(def persistence-connection (persistence/connection-session))
+(defonce persistence-connection (atom nil))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry
@@ -77,8 +78,11 @@
 (defn -main
   ""
   [& args]
+  (reset! graph-connection (graph/connection-session))
+  (reset! persistence-connection (persistence/connection-session))
   (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['create-entry 'follow 'invite 'create-user])]
-    (println rmq-conns-channels)))
+    (println rmq-conns-channels))
+  (start-jetty))
 
 ;;; Important to close
 ;;; from queue
