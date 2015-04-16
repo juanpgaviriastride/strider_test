@@ -1,7 +1,8 @@
 (ns com.webtalk.storage-test
-  (:require [clojure.test :refer :all]
-            [com.webtalk.storage :refer :all]))
+  (:user midje.sweet)
+  (:require [com.webtalk.storage :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(facts "about storage service"
+       (fact "it works"
+             (+ 1 2) => 3))
+
