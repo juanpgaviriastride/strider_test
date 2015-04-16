@@ -22,33 +22,33 @@
   [load]
   ;; start timeline users populator
   (let [[callback-q payload] load
-        gentry (entry/gcreate-entry graph-connection payload)]
+        gentry (entry/gcreate-entry @graph-connection payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
-    (entry/pcreate-entry persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
+    (entry/pcreate-entry @persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow
   [load]
   (let [[callback-q payload] load
-        gfollow (follow/gfollow graph-connection payload)
+        gfollow (follow/gfollow @graph-connection payload)
         _ (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
-        pfollow (follow/pfollow persistence-connection (payload "user_id") (payload "followed_id"))]))
+        pfollow (follow/pfollow @persistence-connection (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite
   [load]
   (let [[callback-q payload] load
-        ginvitation (invitation/gcreate-invitation graph-connection payload)]
+        ginvitation (invitation/gcreate-invitation @graph-connection payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
-    (invitation/pcreate-invitation persistence-connection (gvertex/get ginvitation :id) payload)))
+    (invitation/pcreate-invitation @persistence-connection (gvertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
   (let [[callback-q payload] load
-        guser (user/gcreate-user graph-connection payload)]
+        guser (user/gcreate-user @graph-connection payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map guser))
-    (user/pcreate-user persistence-connection (gvertex/get guser :id) payload)
+    (user/pcreate-user @persistence-connection (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
 
