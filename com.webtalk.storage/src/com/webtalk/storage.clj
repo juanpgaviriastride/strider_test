@@ -1,5 +1,9 @@
 (ns com.webtalk.storage
-  (:gen-class)
+  (:import [org.apache.commons.daemon Daemon DaemonContext])
+
+  (:gen-class
+   :implements [org.apache.commons.daemon.Daemon])
+
   (:require [com.webtalk.storage.graph           :as graph]
             [com.webtalk.storage.persistence     :as persistence]
             [com.webtalk.storage.queue           :as queue]
@@ -13,42 +17,40 @@
             [clojurewerkz.titanium.edges         :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
-(defonce graph-connection (atom nil))
-
-(defonce persistence-connection (atom nil))
+(defonce state (atom {}))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry
   [load]
   ;; start timeline users populator
   (let [[callback-q payload] load
-        gentry (entry/gcreate-entry @graph-connection payload)]
+        gentry (entry/gcreate-entry (:graph-connection @state) payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
-    (entry/pcreate-entry @persistence-connection (gvertex/get gentry :id) (payload "user_id") payload)))
+    (entry/pcreate-entry (:persistence-connection @state) (gvertex/get gentry :id) (payload "user_id") payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow
   [load]
   (let [[callback-q payload] load
-        gfollow (follow/gfollow @graph-connection payload)
+        gfollow (follow/gfollow (:graph-connection @state) payload)
         _ (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
-        pfollow (follow/pfollow @persistence-connection (payload "user_id") (payload "followed_id"))]))
+        pfollow (follow/pfollow (:persistence-connection @state) (payload "user_id") (payload "followed_id"))]))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite
   [load]
   (let [[callback-q payload] load
-        ginvitation (invitation/gcreate-invitation @graph-connection payload)]
+        ginvitation (invitation/gcreate-invitation (:graph-connection @state) payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
-    (invitation/pcreate-invitation @persistence-connection (gvertex/get ginvitation :id) payload)))
+    (invitation/pcreate-invitation (:persistence-connection @state) (gvertex/get ginvitation :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
   (let [[callback-q payload] load
-        guser (user/gcreate-user @graph-connection payload)]
+        guser (user/gcreate-user (:graph-connection @state) payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map guser))
-    (user/pcreate-user @persistence-connection (gvertex/get guser :id) payload)
+    (user/pcreate-user (:persistence-connection @state) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
 
@@ -75,20 +77,45 @@
               ))]
     (map sub-helper actions)))
 
-(defn -main
-  ""
-  [& args]
-  (reset! graph-connection (graph/connection-session))
-  (reset! persistence-connection (persistence/connection-session))
+(defn start []
+  (swap! state assoc :graph-connection (graph/connection-session))
+  (swap! state assoc :persistence-connection (persistence/connection-session))
   (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['create-entry 'follow 'invite 'create-user])]
+    (swap! state assoc :rmq-conns-channels rmq-conns-channels)
+    
     (println rmq-conns-channels))
   (start-jetty))
 
-;;; Important to close
-;;; from queue
-;;; (rmq/close channel)
-;;; (rmq/close connection)
-;;; from persistence
-;;; (cclient/disconnect connection)
-;;; from graph
-;;; (tgraph/shutdown graph)
+(defn init [args]
+  (swap! state assoc :running true))
+
+(defn stop []
+  ;; Important to close
+  ;; from queue
+  (doall
+   (map (fn [conn-ch] (queue/shutdown conn-ch)) (:rmq-conns-channels @state)))
+  (swap! state assoc :rmq-conns-channels nil)
+  ;; from persistence
+  (persistence/shutdown (:persistence-connection @state))
+  (swap! state assoc :persistence-connection nil)
+  ;; from graph
+  (graph/shutdown (:graph-connection @state))
+  (swap! state assoc :graph-connection nil)
+  ;; update the running state
+  (swap! state assoc :running false))
+
+;; Daemon implementation
+
+(defn -init [this ^DaemonContext context]
+  (init (.getArguments context)))
+
+(defn -start [this]
+  (future (start)))
+
+(defn -stop [this]
+  (stop))
+
+;; Enable command-line invocation
+(defn -main [& args]
+  (init args)
+  (start))

@@ -8,3 +8,6 @@
   (let [conn (cclient/connect config/cassandra-hosts config/keyspace)]
     (policies/retry-policy :downgrading-consistency)
     conn))
+
+(defn shutdown [conn]
+  (cclient/disconnect conn))

@@ -18,18 +18,6 @@
      (consumer/subscribe channel qname message-handler {:auto-ack true})
      [connection channel]))
 
-;;; For testing
-
-(defn test-handler [json]
-  (println (json "user_id")))
-
-(defn -main
-  [& args]
-  (let [qname "com.webtalk.storage.queue.manager-test"
-        [connection channel] (subscribe-with-connection qname test-handler)]
-    
-    (lb/publish channel default-exchange-name qname "{\"user_id\":25,\"email\":\"sebastian@wt.com\"}" {:content-type "text/json" :type "create invitation"})
-    (Thread/sleep 2000)
-    (println "[main] Disconnecting...")
-    (rmq/close channel)
-    (rmq/close connection)))
+(defn shutdown [[conn ch]]
+  (rmq/close ch)
+  (rmq/close conn))

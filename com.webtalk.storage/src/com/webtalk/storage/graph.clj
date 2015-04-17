@@ -5,3 +5,6 @@
 
 (defn connection-session []
   (tgraph/open config/graph-config))
+
+(defn shutdown [conn]
+  (tgraph/shutdown conn))
