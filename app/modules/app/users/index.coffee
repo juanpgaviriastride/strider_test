@@ -4,11 +4,31 @@ grex = require 'grex'
 uuid = require('node-uuid')
 Queue = require('../../../lib/queue')
 
+User = require('./model')
+
 class UserController
   constructor: () ->
     @graph = grex.g
     @gremlin = grex.gremlin
     @queue = new Queue
+
+  #TODO: camelCasePlease ;)
+  get_one: (query, cb) =>
+    console.log "get_one"
+
+    return cb null, {id:"1", name: "George Cantor", email: query.email, hashed_password: "salted-peppered-hash"}
+    user = new User(query)
+
+    console.log "fetching"
+    user.fetch().exec (err, result) =>
+      console.log "fetched"
+      console.log result
+      if err
+        console.log err
+        cb err, null
+      else
+        cb null, result
+    #cb null, {id: "1", name: "pepe", email: "pepe@wt.co", _id:"1"}
 
   create_indexes: () =>
     #
