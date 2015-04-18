@@ -27,16 +27,15 @@ passport.use(new LocalStrategy(
 
       users.get_one(query, (err, user) ->
         console.log user
-        return done(null, user)
         if err
           done(err)
         if not user
           done(null, false)
-        if not user.verifyPassword(password)
-          return done(null, false)
+        #if not user.verifyPassword(password)
+        #  return done(null, false)
 
         authToken = new AuthToken()
-        authToken.get_or_create {user_id: user.id, user_type: 'user'}, (error, result) ->
+        authToken.get_or_create user.id, (error, result) ->
           if error
             return done(error, null)
           if result is null
@@ -44,7 +43,7 @@ passport.use(new LocalStrategy(
             error.status = 500
             return done(error,null)
           else
-            user = user.toJSON()
+            #user = user.toJSON()
             delete user.hashed_password
             user.token = result.token
             return done(null, user)
