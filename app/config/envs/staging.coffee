@@ -25,8 +25,11 @@ module.exports = {
     "apiKey"  : ""
   }
   "titan": {
-    "host": "52.11.110.132",
+    "host": "172.31.45.143",
     "graph": "graph",
     "showTypes": yes
+  }
+  "rabbitmq":{
+    "host": "172.31.45.198"
   }
 }
