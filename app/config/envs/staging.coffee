@@ -25,7 +25,7 @@ module.exports = {
     "apiKey"  : ""
   }
   "titan": {
-    "host": "172.31.45.143",
+    "host": "172.31.37.2",
     "graph": "graph",
     "showTypes": yes
   }
