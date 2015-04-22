@@ -47,9 +47,12 @@
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
+  (println "create-user")
   (let [[callback-q payload] load
         guser (user/gcreate-user (:graph-connection @state) payload)]
+    (println "guser that is going to be send to the queue" (gvertex/to-map guser))
     (publisher/publish-with-qname callback-q (gvertex/to-map guser))
+    (println "about to save it on cassandr")
     (user/pcreate-user (:persistence-connection @state) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))

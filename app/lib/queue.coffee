@@ -7,7 +7,7 @@ class Queue
 
   consume: (qname, cb) =>
     @connect (err, conn) =>
-      opts = {durable: false, autoDelete: true, exclusive: false}
+      opts = {durable: false, autoDelete: true, exclusive: true}
       return cb(err, {status: 'error'}) if err
       conn.createChannel (err, ch) =>
         ch.assertQueue(qname, opts)
