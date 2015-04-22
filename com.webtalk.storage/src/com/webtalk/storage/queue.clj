@@ -14,7 +14,7 @@
   (let [connection (rmq/connect config/rmq-config)
         channel    (lch/open connection)]
      (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
-     (lq/declare channel qname {:durable true :auto-delete true :exclusive false})
+     (lq/declare channel qname {:durable true :exclusive false})
      (consumer/subscribe channel qname message-handler {:auto-ack true})
      [connection channel]))
 
