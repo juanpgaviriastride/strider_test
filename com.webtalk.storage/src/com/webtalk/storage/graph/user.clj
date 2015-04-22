@@ -88,4 +88,5 @@
           (println "setting up invited user")
           (setup-invited-user graph invited-user payload))
         (println "do nothing for already created users")))
+    (println (tvertex/to-map (first (tvertex/find-by-kv graph :email email))))
     (first (tvertex/find-by-kv graph :email email))))
