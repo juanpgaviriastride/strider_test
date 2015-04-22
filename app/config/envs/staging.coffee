@@ -30,6 +30,6 @@ module.exports = {
     "showTypes": yes
   }
   "rabbitmq":{
-    "host": "172.31.45.198"
+    "host": "172.31.34.103"
   }
 }
