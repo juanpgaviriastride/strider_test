@@ -9,6 +9,9 @@
   {:hystrix/fallback-fn (fn [connection payload]
                           (constantly nil))}
   [connection payload]
+  (println "gcreate-user")
+  (println "conn" connection)
+  (println "payload" payload)
   (graph-user/create-user! connection payload))
 
 (hystrix/defcommand pcreate-user
