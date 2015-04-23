@@ -53,7 +53,7 @@
     (println "guser that is going to be send to the queue" (gvertex/to-map guser))
     (flush)
     (publisher/publish-with-qname callback-q (gvertex/to-map guser))
-    (println "about to save it on cassandr")
+    (println "about to save it on cassandra")
     (user/pcreate-user (:persistence-connection @state) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))

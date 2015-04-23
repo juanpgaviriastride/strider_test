@@ -13,7 +13,11 @@
 (defn publish-with-qname [qname payload]
   (let [connection (rmq/connect config/rmq-config)
         channel    (lch/open connection)]
-     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
-     (lq/declare channel qname {:durable false :auto-delete true :exclusive false})
-     (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json"})
-     [connection channel]))
+    (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
+    (println "qname" qname)
+    (flush)
+    ;;(lq/declare channel qname {:durable false :auto-delete true :exclusive true})
+    (println "about to publish")
+    (flush)
+    (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json"})
+    [connection channel]))
