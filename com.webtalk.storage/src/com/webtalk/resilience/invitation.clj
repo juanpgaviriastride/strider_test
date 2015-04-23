@@ -5,14 +5,20 @@
             [com.webtalk.storage.persistence.invitation :as persistence-invitation]))
 
 
-(hystrix/defcommand gcreate-invitation
-  {:hystrix/fallback-fn (fn [connection payload]
-                          (constantly nil))}
-  [connection payload]
+;; (hystrix/defcommand gcreate-invitation
+;;   {:hystrix/fallback-fn (fn [connection payload]
+;;                           (constantly nil))}
+;;   [connection payload]
+;;   (graph-invitation/create-invitation! connection payload))
+
+(defn gcreate-invitation [connection payload]
   (graph-invitation/create-invitation! connection payload))
 
-(hystrix/defcommand pcreate-invitation
-  {:hystrix/fallback-fn (fn [connection id payload]
-                          (constantly nil))}
-  [connection id payload]
+;; (hystrix/defcommand pcreate-invitation
+;;   {:hystrix/fallback-fn (fn [connection id payload]
+;;                           (constantly nil))}
+;;   [connection id payload]
+;;   (persistence-invitation/create-invitation connection id payload))
+
+(defn pcreate-invitation   [connection id payload]
   (persistence-invitation/create-invitation connection id payload))
