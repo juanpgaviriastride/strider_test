@@ -4,17 +4,18 @@
   (:gen-class
    :implements [org.apache.commons.daemon.Daemon])
 
-  (:require [com.webtalk.storage.graph           :as graph]
-            [com.webtalk.storage.persistence     :as persistence]
-            [com.webtalk.storage.queue           :as queue]
-            [com.webtalk.storage.queue.publisher :as publisher]
-            [com.webtalk.resilience.user         :as user]
-            [com.webtalk.resilience.invitation   :as invitation]
-            [com.webtalk.resilience.follow       :as follow]
-            [com.webtalk.resilience.entry        :as entry]
-            [com.webtalk.resilience              :refer [start-jetty]]
-            [clojurewerkz.titanium.vertices      :as gvertex]
-            [clojurewerkz.titanium.edges         :as gedge]))
+  (:require [com.webtalk.storage.graph            :as graph]
+            [com.webtalk.storage.persistence      :as persistence]
+            [com.webtalk.storage.queue            :as queue]
+            [com.webtalk.storage.queue.publisher  :as publisher]
+            [com.webtalk.resilience.user          :as user]
+            [com.webtalk.resilience.invitation    :as invitation]
+            [com.webtalk.resilience.follow        :as follow]
+            [com.webtalk.resilience.entry         :as entry]
+            [com.webtalk.resilience               :refer [start-jetty]]
+            [com.webtalk.mailer.request-an-invite :as mailer-request-an-invite]
+            [clojurewerkz.titanium.vertices       :as gvertex]
+            [clojurewerkz.titanium.edges          :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (defonce state (atom {}))
@@ -50,7 +51,10 @@
   (println "request-an-invite")
   (let [[callback-q payload] load
         ginvite (invitation/grequest-an-invite (:graph-connection @state) payload)]
+    (println "sending email")
+    (mailer-request-an-invite/deliver-email (payload "email"))
     (println "ginvite" (gvertex/to-map ginvite))
+    (flush)
     (println "saving into cass")
     (invitation/prequest-invitation (gvertex/get ginvite :id) payload)))
 
