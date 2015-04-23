@@ -21,7 +21,8 @@
                  [org.eclipse.jetty/jetty-servlet "7.6.13.v20130916"]
                  [com.thinkaurelius.titan/titan-all "0.5.0"]
                  [environ "1.0.0"]
-                 [org.apache.commons/commons-daemon "1.0.9"]]
+                 [org.apache.commons/commons-daemon "1.0.9"]
+                 [clojurewerkz/mailer "1.2.0"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
