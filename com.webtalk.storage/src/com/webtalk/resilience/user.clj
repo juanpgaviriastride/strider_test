@@ -5,10 +5,16 @@
             [com.webtalk.storage.persistence.user :as persistence-user]))
 
 
-(hystrix/defcommand gcreate-user
-  {:hystrix/fallback-fn (fn [connection payload]
-                          (constantly nil))}
-  [connection payload]
+;; (hystrix/defcommand gcreate-user
+;;   {:hystrix/fallback-fn (fn [connection payload]
+;;                           (constantly nil))}
+;;   [connection payload]
+;;   (println "gcreate-user")
+;;   (println "conn" connection)
+;;   (println "payload" payload)
+;;   (graph-user/create-user! connection payload))
+
+(defn gcreate-user [connection payload]
   (println "gcreate-user")
   (println "conn" connection)
   (println "payload" payload)

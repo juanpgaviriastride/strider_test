@@ -88,7 +88,8 @@
     (swap! state assoc :rmq-conns-channels rmq-conns-channels)
     
     (println rmq-conns-channels))
-  (start-jetty))
+  ;;(start-jetty)
+  )
 
 (defn init [args]
   (swap! state assoc :running true))
