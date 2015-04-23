@@ -14,6 +14,8 @@
             :full_name :varchar
             :username :varchar
             :team_trainer :boolean
+            :phone :varchar
+            :enable_sms :boolean
             :primary-key [:user_id]
             }
 
@@ -29,6 +31,13 @@
               :primary-key [:owner_id :entry_id]
               }
 
+   "requested_invitations" {
+                            :requested_invitation_id :varint
+                            :email :varchar
+                            :phone :varchar
+                            :enable_sms :boolean
+                            :primary-key [:requested_invitations :email]
+                            }
    "invitations" {
                   :invitation_id :varint
                   :email :varchar

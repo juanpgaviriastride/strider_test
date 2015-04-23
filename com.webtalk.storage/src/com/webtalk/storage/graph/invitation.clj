@@ -8,6 +8,29 @@
   (into {} (list payload
                  {:VertexType "invitedUser"})))
 
+(defn request-hash [payload]
+  (into {} (list payload
+                 {:VertexType "requestedInvitation"})))
+
+(defn request-an-invite!
+  "It creates the user invitation node if needed but without adding links (that's the
+   diffence with create-invitation! - need to update  create-invitation to check the special case
+   of requestedInvitation-)
+
+   Example: (request-an-invite! graph {\"email\" \"some@wt.com\" \"phone\" \"3138670909\" \"enable_sms\" \"true\"})
+   email: is the email of the invited user
+   phone: is the phone of the invited user
+   enable_sms: is the bool value that let you know if the user wants to be pinged by sms"
+  
+  [graph payload]
+  (let [email (payload "email")
+        invitation (first (tvertex/find-by-kv graph :email email))]
+    (if (nil? invitation)
+      (tgraph/with-transaction [g graph]
+        (tvertex/create! g (request-hash {:email email
+                                          :phone (payload "phone")
+                                          :enable-sms (payload "enable_sms")}))))))
+
 
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node

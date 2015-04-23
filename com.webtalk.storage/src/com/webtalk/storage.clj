@@ -44,6 +44,16 @@
     (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
     (invitation/pcreate-invitation (:persistence-connection @state) (gvertex/get ginvitation :id) payload)))
 
+;; queue-name com.webtalk.storage.queue.request-an-invite
+(defn request-an-invite
+  [load]
+  (println "request-an-invite")
+  (let [[callback-q payload] load
+        ginvite (invitation/grequest-an-invite (:graph-connection @state) payload)]
+    (println "ginvite" (gvertex/to-map ginvite))
+    (println "saving into cass")
+    (invitation/prequest-invitation (gvertex/get ginvite :id) payload)))
+
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
