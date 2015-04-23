@@ -20,8 +20,11 @@
   (println "payload" payload)
   (graph-user/create-user! connection payload))
 
-(hystrix/defcommand pcreate-user
-  {:hystrix/fallback-fn (fn [connection id payload]
-                          (constantly nil))}
-  [connection id payload]
+;; (hystrix/defcommand pcreate-user
+;;   {:hystrix/fallback-fn (fn [connection id payload]
+;;                           (constantly nil))}
+;;   [connection id payload]
+;;   (persistence-user/create-user connection id payload))
+
+(defn pcreate-user [connection id payload]
   (persistence-user/create-user connection id payload))
