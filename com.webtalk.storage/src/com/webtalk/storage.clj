@@ -56,7 +56,7 @@
     (println "ginvite" (gvertex/to-map ginvite))
     (flush)
     (println "saving into cass")
-    (invitation/prequest-invitation (gvertex/get ginvite :id) payload)))
+    (invitation/prequest-invitation (:persistence-connection @state) (gvertex/get ginvite :id) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
@@ -98,7 +98,8 @@
 (defn start []
   (swap! state assoc :graph-connection (graph/connection-session))
   (swap! state assoc :persistence-connection (persistence/connection-session))
-  (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['create-entry 'follow 'invite 'create-user])]
+  (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['request-an-invite 'create-entry 'follow 'invite 'create-user
+                                                                                  ])]
     (swap! state assoc :rmq-conns-channels rmq-conns-channels)
     
     (println rmq-conns-channels))
