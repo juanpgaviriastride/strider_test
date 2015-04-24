@@ -36,7 +36,7 @@
                             :email :varchar
                             :phone :varchar
                             :enable_sms :boolean
-                            :primary-key [:requested_invitations :email]
+                            :primary-key [:requested_invitation_id :email]
                             }
    "invitations" {
                   :invitation_id :varint
