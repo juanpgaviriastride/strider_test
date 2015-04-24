@@ -20,7 +20,7 @@ class RequestInvitationController
     if body.enable_sms == "true"
       return cb({code: 400, msg: "Phone require"} , null) unless body.phone?
     
-    
+    @queue.publish(qname, body, null, cb)
     cb(null, {msg: "added to the waiting list."})
 
 module.exports = RequestInvitationController
