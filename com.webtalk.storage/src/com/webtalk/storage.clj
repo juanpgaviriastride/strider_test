@@ -48,17 +48,17 @@
 ;; queue-name com.webtalk.storage.queue.request-an-invite
 (defn request-an-invite
   [load]
-  (println "request-an-invite")
-  (println "load" load)
   (let [[callback-q payload] load
-        _ (println "q" callback-q "payload" payload)
         ginvite (invitation/grequest-an-invite (:graph-connection @state) payload)]
+    (println "ginvite" ginvite)
+
     (println "sending email")
-    (mailer-request-an-invite/deliver-email (payload "email"))
-    (println "ginvite" (gvertex/to-map ginvite))
-    (flush)
+    (if (= (:status ginvite) :new_record)
+      (mailer-request-an-invite/deliver-email (payload "email")))
+
     (println "saving into cass")
-    (invitation/prequest-invitation (:persistence-connection @state) (gvertex/get ginvite :id) payload)))
+    (if (not= (:status ginvite) :mixmatch_type_record)
+      (invitation/prequest-invitation (:persistence-connection @state) (:__id__ (:vertex ginvite)) payload))))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user

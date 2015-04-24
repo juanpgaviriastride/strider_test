@@ -30,10 +30,15 @@
                                        :enable-sms (= "true" (payload "enable_sms"))})]
 
     (tgraph/with-transaction [g graph]
-      (println "debug" invitation-hash)
       (if (nil? invitation)
-        (tvertex/create! g invitation-hash)
-        (tvertex/merge! invitation invitation-hash)))))
+        {:vertex (tvertex/to-map (tvertex/create! g invitation-hash))
+         :status :new_record}
+        (if (= (tvertex/get invitation :VertexType) "requestedInvitation")
+          {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
+           :status :updated_record}
+          
+          {:vertex (tvertex/to-map invitation)
+           :status :mixmatch_type_record})))))
 
 
 (defn create-invitation!
