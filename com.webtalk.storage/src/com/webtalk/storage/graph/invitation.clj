@@ -26,11 +26,11 @@
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
         invitation-hash (request-hash {:email email
-                                       :phone (get payload "phone" "")
+                                       :phone  (str (get payload "phone" ""))
                                        :enable-sms (= "true" (payload "enable_sms"))})]
 
     (tgraph/with-transaction [g graph]
-      (println "debug invitation hash" invitation-hash)
+      (println "debug" invitation-hash)
       (if (nil? invitation)
         (tvertex/create! g invitation-hash)
         (tvertex/merge! invitation invitation-hash)))))
