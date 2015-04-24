@@ -30,6 +30,7 @@
                                        :enable-sms (= "true" (payload "enable_sms"))})]
 
     (tgraph/with-transaction [g graph]
+      (println "debug invitation hash" invitation-hash)
       (if (nil? invitation)
         (tvertex/create! g invitation-hash)
         (tvertex/merge! invitation invitation-hash)))))
