@@ -16,4 +16,4 @@
   (cql/insert connection "requested_invitations" {:requested_invitation_id id
                                                   :email (payload "email")
                                                   :phone (payload "phone")
-                                                  :enable_sms (payload "enable_sms")}))
+                                                  :enable_sms (= "true"(payload "enable_sms"))}))

@@ -29,7 +29,8 @@
       (tgraph/with-transaction [g graph]
         (tvertex/create! g (request-hash {:email email
                                           :phone (payload "phone")
-                                          :enable-sms (payload "enable_sms")}))))))
+                                          :enable-sms (= "true" (payload "enable_sms"))})))
+      invitation)))
 
 
 (defn create-invitation!
