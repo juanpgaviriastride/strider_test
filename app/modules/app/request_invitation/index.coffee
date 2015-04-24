@@ -8,7 +8,9 @@ class RequestInvitationController
     @queue = new Queue
 
   create: (body, cb) =>
-    
+    if body.requestInvite?
+      body = body.requestInvite
+
     qname = "com.webtalk.storage.queue.request-an-invite"
 
     return cb({code: 400, msg: "Invalid email"} , null) unless validator.isEmail(body.email)
