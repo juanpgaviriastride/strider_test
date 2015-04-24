@@ -132,6 +132,10 @@ apiController.namespace("/api/v1", () ->
   apiController.post("/request-invite", (req, res, next) ->
     new RequestInvitationResource().create(req, res, next)
   )
+
+  apiController.put("/request-invite", (req, res, next) ->
+    new RequestInvitationResource().create(req, res, next)
+  )
   
   ##
   # Invitations

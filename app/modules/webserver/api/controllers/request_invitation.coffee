@@ -11,7 +11,7 @@ class RequestInvitationResource
     console.log(req.body)
     @request_invitationsc.create req.body, (err, response) ->
       console.log err, response
-      return res.json(err) if err
+      return res.status(err.code).json(err) if err
       res.json response
 
       
