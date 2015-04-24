@@ -49,7 +49,9 @@
 (defn request-an-invite
   [load]
   (println "request-an-invite")
+  (println "load" load)
   (let [[callback-q payload] load
+        _ (println "q" callback-q "payload" payload)
         ginvite (invitation/grequest-an-invite (:graph-connection @state) payload)]
     (println "sending email")
     (mailer-request-an-invite/deliver-email (payload "email"))
