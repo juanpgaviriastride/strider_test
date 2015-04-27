@@ -25,6 +25,7 @@
                  [io.forward/sendgrid-clj "1.0"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
+  :resource-paths ["resources"]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[midje "1.6.0" :exclusions [org.clojure/clojure]]]
                    :plugins [[lein-midje "3.1.3"]]}})
