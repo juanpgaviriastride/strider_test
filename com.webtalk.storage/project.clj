@@ -22,7 +22,7 @@
                  [com.thinkaurelius.titan/titan-all "0.5.0"]
                  [environ "1.0.0"]
                  [org.apache.commons/commons-daemon "1.0.9"]
-                 [com.sendgrid/sendgrid-java "2.2.0"]]
+                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :resource-paths ["resources"]

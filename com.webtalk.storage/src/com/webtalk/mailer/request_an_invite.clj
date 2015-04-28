@@ -1,6 +1,6 @@
 (ns com.webtalk.mailer.request-an-invite
   (:gen-class)
-  (:require [com.webtalk.mailer :as mailer]
+  (:require [sendgrid-java-wrapper.core :as mailer]
             [com.webtalk.mailer.config :as config]
             [clojure.java.io :as io]))
 
