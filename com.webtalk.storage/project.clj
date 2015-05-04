@@ -22,10 +22,11 @@
                  [com.thinkaurelius.titan/titan-all "0.5.0"]
                  [environ "1.0.0"]
                  [org.apache.commons/commons-daemon "1.0.9"]
-                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]]
+                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]
+                 [de.ubercode.clostache/clostache "1.4.0"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :resource-paths ["resources"]
   :profiles {:uberjar {:aot :all}
-             :dev {:dependencies [[midje "1.6.0" :exclusions [org.clojure/clojure]]]
+             :dev {:dependencies [[midje "1.6.3" :exclusions [org.clojure/clojure]]]
                    :plugins [[lein-midje "3.1.3"]]}})
