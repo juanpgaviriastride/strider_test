@@ -15,5 +15,5 @@
                              {:name "Chila"
                               :position "NullDev at Nullindustries"
                               :image_url "https://scontent-mia.xx.fbcdn.net/hphotos-xfp1/t31.0-8/s720x720/132514_158085784241321_7607493_o.jpg"
-                              :invitation_url "http://localhost:3000/"
+                              :join_url "http://localhost:3000/"
                               :sign_in_url "http://localhost:3000/"})}))
