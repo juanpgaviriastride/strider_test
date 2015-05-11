@@ -54,7 +54,7 @@
   [graph payload]
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
-        user (tvertex/find-by-id graph (Integer. (payload "user_id")))
+        user (tvertex/find-by-id graph (payload "user_id"))
         ;; connect-invitation (fn [invited-user]
         ;;                      (tedge/upconnect! g user "invited" invited-user {:time (System/currentTimeMillis)}))
         properties-hash (invitation-hash {:email email})]
