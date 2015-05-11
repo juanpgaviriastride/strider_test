@@ -41,6 +41,9 @@
            :status :mixmatch_type_record})))))
 
 
+(defmacro connect-invitation [invited-user]
+  `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)}))
+
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
 
@@ -51,13 +54,20 @@
   [graph payload]
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
-        user (tvertex/find-by-id graph (payload "user_id"))]
+        user (tvertex/find-by-id graph (Integer. (payload "user_id")))
+        ;; connect-invitation (fn [invited-user]
+        ;;                      (tedge/upconnect! g user "invited" invited-user {:time (System/currentTimeMillis)}))
+        properties-hash (invitation-hash {:email email})]
     (tgraph/with-transaction [g graph]
-      (let [connect-invitation (partial tedge/upconnect! g user "invited")]
-        (if (nil? invitation)
-         (let [new-invitation (tvertex/create! g (invitation-hash {:email email}))]
-           (connect-invitation new-invitation {:time (System/currentTimeMillis)}))
-         ;; else user (invited or not) was already created
-         (if (= (tvertex/get invitation :VertexType) "invitedUser")
-           (connect-invitation invitation {:time (System/currentTimeMillis)})))))
+      (if (nil? invitation)
+        (let [new-invitation (tvertex/create! g properties-hash)]
+          (connect-invitation new-invitation))
+        ;; else user (invited or not) was already created
+        (let [vertex-type (tvertex/get invitation :VertexType)]
+          (if (not= vertex-type "user")
+            (do
+              (connect-invitation invitation)
+              (if (= vertex-type "requestedInvitation")
+                ;; this should overwrite the type from requestedInvitation to invitedUser
+                (tvertex/merge! invitation properties-hash)))))))
     (first (tvertex/find-by-kv graph :email email))))
