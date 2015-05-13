@@ -12,7 +12,6 @@ AuthToken = require("app/auth_token")
 LocalStrategy = require('passport-local').Strategy
 BearerStrategy = require('passport-http-bearer').Strategy
 
-
 passport.use(new LocalStrategy(
   {
     usernameField: 'email',
@@ -46,6 +45,7 @@ passport.use(new LocalStrategy(
             #user = user.toJSON()
             delete user.hashed_password
             user.token = result.token
+            console.log(user)
             return done(null, user)
 
       )
@@ -64,7 +64,7 @@ passport.use new BearerStrategy(
           return done(null, false)
 
         users = new Users()
-        users.getOne {id: token.user_id}, (err, result) ->
+        users.get_one {id: token.user_id}, (err, result) ->
           if err
             return done(err, false)
           if not result
