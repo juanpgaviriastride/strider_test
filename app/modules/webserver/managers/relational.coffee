@@ -34,4 +34,4 @@ class RelationalManager extends BaseWebserverManager
     @Model = @bookshelf.Model
     console.log @Model
 
-module.exports = new RelationalManager()
+global.orm = module.exports = new RelationalManager()
