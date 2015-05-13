@@ -1,5 +1,7 @@
 {:cass-hosts "192.168.50.4"
  :cass-keyspace "webtalk_development"
  :cass-replica-factor "1"
- :rmq-host "192.168.50.4"}
+ :rmq-host "192.168.50.4"
+ :sengrid-username "webtalkdotco"
+ :sengrid-key "ilBB..69"}
 
