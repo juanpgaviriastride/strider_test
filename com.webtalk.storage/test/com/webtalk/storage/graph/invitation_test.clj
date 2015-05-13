@@ -11,3 +11,7 @@
        (fact "it overwrite the type of a requestedInvitation to invitedUser")
        (fact "it links the sending invite user with the invited user")
        (fact "it does nothing for already created user"))
+
+(facts "about macro connect-invitation"
+       (fact "it exapands"
+             (connect-invitation "s") => ""))

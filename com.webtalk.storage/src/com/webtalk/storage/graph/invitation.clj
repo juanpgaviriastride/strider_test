@@ -7,8 +7,7 @@
 
 (defn invitation-hash [payload]
   (into {} (list payload
-                 {:VertexType "invitedUser"
-                  :InvitationToken (url-part 24)})))
+                 {:VertexType "invitedUser"})))
 
 (defn request-hash [payload]
   (into {} (list payload
@@ -44,7 +43,8 @@
 
 
 (defmacro connect-invitation [invited-user]
-  `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)}))
+  `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
+                                                         :InvitationToken (url-part 24)}))
 
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
