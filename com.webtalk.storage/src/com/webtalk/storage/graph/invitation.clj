@@ -2,11 +2,13 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph    :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges    :as tedge]))
+            [clojurewerkz.titanium.edges    :as tedge]
+            [crypto.random :refer [url-part]]))
 
 (defn invitation-hash [payload]
   (into {} (list payload
-                 {:VertexType "invitedUser"})))
+                 {:VertexType "invitedUser"
+                  :InvitationToken (url-part 24)})))
 
 (defn request-hash [payload]
   (into {} (list payload

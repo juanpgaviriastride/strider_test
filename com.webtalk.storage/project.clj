@@ -23,6 +23,7 @@
                  [environ "1.0.0"]
                  [org.apache.commons/commons-daemon "1.0.9"]
                  [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]
+                 [crypto-random "1.2.0"]
                  [de.ubercode.clostache/clostache "1.4.0"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
