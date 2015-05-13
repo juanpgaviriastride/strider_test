@@ -15,6 +15,11 @@ class UserController
   #TODO: camelCasePlease ;)
   get_one: (query, cb) =>
     console.log "get_one"
+    
+    user = new User(query).fetch().exec (err, res) ->
+      return cb err, null if err
+      return cb null, res
+
 
     return cb null, {id:"1", name: "George Cantor", email: query.email, hashed_password: "salted-peppered-hash"}
     user = new User(query)
