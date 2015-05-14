@@ -138,8 +138,7 @@
 
   [columns]
   (let [clustering-column (second (columns :primary-key))]
-    (if (nil? clustering-column)
-      nil
+    (when-not  (nil? clustering-column)
       {:clustering-order [[clustering-column :desc]]})))
 
 (defn create-tables

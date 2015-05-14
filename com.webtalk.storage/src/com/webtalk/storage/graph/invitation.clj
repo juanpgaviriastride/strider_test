@@ -66,10 +66,9 @@
           (connect-invitation new-invitation))
         ;; else user (invited or not) was already created
         (let [vertex-type (tvertex/get invitation :VertexType)]
-          (if (not= vertex-type "user")
-            (do
-              (connect-invitation invitation)
-              (if (= vertex-type "requestedInvitation")
-                ;; this should overwrite the type from requestedInvitation to invitedUser
-                (tvertex/merge! invitation properties-hash)))))))
+          (when (not= vertex-type "user")
+            (connect-invitation invitation)
+            (if (= vertex-type "requestedInvitation")
+              ;; this should overwrite the type from requestedInvitation to invitedUser
+              (tvertex/merge! invitation properties-hash))))))
     (first (tvertex/find-by-kv graph :email email))))
