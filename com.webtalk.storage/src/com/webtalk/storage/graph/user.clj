@@ -61,7 +61,7 @@
 
       ;; follow and follow back
       ;; Force this lazy sequence may thread this one
-      (doall (map #(follow-and-followback g user %) network-users))
+      (dorun (map #(follow-and-followback g user %) network-users))
       ;; complete user info like name and that stuff
       ;; set vertex type as 'user instead of invited user
       (tvertex/merge! user (user-hash payload)))))
