@@ -28,6 +28,11 @@
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :resource-paths ["resources"]
+  :aliases {"omni" ["do" ["clean"] ["cloverage"] ["eastwood"] ["kibit"] ["bikeshed"]]}
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[midje "1.6.3" :exclusions [org.clojure/clojure]]]
-                   :plugins [[lein-midje "3.1.3"]]}})
+                   :plugins [[lein-midje "3.1.3"]
+                             [lein-kibit "0.1.2"]
+                             [jonase/eastwood "0.2.1"]
+                             [lein-bikeshed "0.2.0"]
+                             [lein-cloverage "1.0.3"]]}})
