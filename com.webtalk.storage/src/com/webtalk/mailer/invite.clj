@@ -5,16 +5,16 @@
             [clojure.java.io :as io]
             [clostache.parser :as template]))
 
-(defn deliver-email [sender invitation to]
+(defn deliver-email [sender token to]
   (mailer/send-email config/auth
                      {:to to
                       :from "team@webtalk.co"
-                      :subject (str "Webtalk | Congratulations! " "chila" " has recommended you!")
+                      :subject (str "Webtalk | Congratulations! " (:full_name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/invite.html.mustache"
-                             {:name "Chila"
-                              :position "NullDev at Nullindustries"
-                              :image_url "https://scontent-mia.xx.fbcdn.net/hphotos-xfp1/t31.0-8/s720x720/132514_158085784241321_7607493_o.jpg"
-                              :join_url "http://localhost:3000/join"
-                              :sign_in_url "http://localhost:3000/signin"
-                              :profile_url "http://localhost:3000/chila"})}))
+                             {:name (:full_name sender)
+                              :position (:position sender)
+                              :image_url (:avatar_url sender);"https://scontent-mia.xx.fbcdn.net/hphotos-xfp1/t31.0-8/s720x720/132514_158085784241321_7607493_o.jpg"
+                              :join_url (str base_url "/join/" token)
+                              :sign_in_url (str base_url "/signin")
+                              :profile_url (str base_url "/" (:username sender))})}))

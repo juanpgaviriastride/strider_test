@@ -15,6 +15,8 @@
             :username :varchar
             :team_trainer :boolean
             :phone :varchar
+            :position :varchar
+            :avatar_url :varchar
             :enable_sms :boolean
             :primary-key [:user_id]
             }
