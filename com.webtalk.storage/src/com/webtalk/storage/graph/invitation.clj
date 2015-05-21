@@ -43,8 +43,16 @@
 
 
 (defmacro connect-invitation [invited-user]
+  "This macro connects or updates the edge between the wt user and the invited user
+   adding the updating the proper timestamp (time) and the invitation token (invitationToken)
+
+   Example: (connect-invitation invited-user)
+   invited-user: is a graph node/vertex that holds an invitedUser
+   It is really important to note that this macro depends on the following context:
+   - a g var that represents a graph instance of com.thinkaurelius.titan.graphdb.database.StandardTitanGraph
+   - a user var that is an instance of tvertex and is the user that is sending the invitation"
   `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
-                                                         :InvitationToken (url-part 24)}))
+                                                         :invitationToken (url-part 24)}))
 
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
@@ -57,8 +65,6 @@
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
         user (tvertex/find-by-id graph (payload "user_id"))
-        ;; connect-invitation (fn [invited-user]
-        ;;                      (tedge/upconnect! g user "invited" invited-user {:time (System/currentTimeMillis)}))
         properties-hash (invitation-hash {:email email})]
     (tgraph/with-transaction [g graph]
       (if (nil? invitation)
