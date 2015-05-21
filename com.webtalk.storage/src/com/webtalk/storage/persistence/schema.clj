@@ -18,6 +18,23 @@
             :position :varchar
             :avatar_url :varchar
             :enable_sms :boolean
+            :type :varchar
+            :city :varchar
+            :job_title :varchar
+            :former_job_title :varchar
+            :former_place_of_employment :varchar
+            :place_of_employment :varchar
+            :start_date :int
+            :start_date_year :int
+            :end_date :int
+            :end_date_year :int
+            :location :varchar
+            :occupation :varchar
+            :industry :varchar
+            :seeking_job :boolean
+            :degree :varchar
+            :field_of_study :varchar
+            :school_name :varchar
             :primary-key [:user_id]
             }
 
