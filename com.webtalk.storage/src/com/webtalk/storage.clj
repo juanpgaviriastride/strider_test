@@ -27,15 +27,15 @@
   (let [[callback-q payload] load
         gentry (entry/gcreate-entry (:graph-connection @state) payload)]
     (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
-    (entry/pcreate-entry (:persistence-connection @state) (gvertex/get gentry :id) (payload "user_id") payload)))
+    (entry/pcreate-entry (:persistence-connection @state) (gvertex/get gentry :id) (Integer. (payload "user_id")) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow
   [load]
   (let [[callback-q payload] load
-        gfollow (follow/gfollow (:graph-connection @state) payload)
-        _ (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
-        pfollow (follow/pfollow (:persistence-connection @state) (payload "user_id") (payload "followed_id"))]))
+        gfollow (follow/gfollow (:graph-connection @state) payload)]
+    (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
+    (follow/pfollow (:persistence-connection @state) (Integer. (payload "user_id")) (Integer. (payload "followed_id")))))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite
@@ -114,7 +114,7 @@
 (defn stop []
   ;; Important to close
   ;; from queue
-  (doall
+  (dorun
    (map (fn [conn-ch] (queue/shutdown conn-ch)) (:rmq-conns-channels @state)))
   (swap! state assoc :rmq-conns-channels nil)
   ;; from persistence

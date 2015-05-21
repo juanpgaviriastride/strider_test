@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph    :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges    :as tedge]))
+            [clojurewerkz.titanium.edges    :as tedge]
+            [crypto.random :refer [url-part]]))
 
 (defn invitation-hash [payload]
   (into {} (list payload
@@ -41,6 +42,18 @@
            :status :mixmatch_type_record})))))
 
 
+(defmacro connect-invitation [invited-user]
+  "This macro connects or updates the edge between the wt user and the invited user
+   adding the updating the proper timestamp (time) and the invitation token (invitationToken)
+
+   Example: (connect-invitation invited-user)
+   invited-user: is a graph node/vertex that holds an invitedUser
+   It is really important to note that this macro depends on the following context:
+   - a g var that represents a graph instance of com.thinkaurelius.titan.graphdb.database.StandardTitanGraph
+   - a user var that is an instance of tvertex and is the user that is sending the invitation"
+  `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
+                                                         :invitationToken (url-part 24)}))
+
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
 
@@ -51,13 +64,17 @@
   [graph payload]
   (let [email (payload "email")
         invitation (first (tvertex/find-by-kv graph :email email))
-        user (tvertex/find-by-id graph (payload "user_id"))]
+        user (tvertex/find-by-id graph (payload "user_id"))
+        properties-hash (invitation-hash {:email email})]
     (tgraph/with-transaction [g graph]
-      (let [connect-invitation (partial tedge/upconnect! g user "invited")]
-        (if (nil? invitation)
-         (let [new-invitation (tvertex/create! g (invitation-hash {:email email}))]
-           (connect-invitation new-invitation {:time (System/currentTimeMillis)}))
-         ;; else user (invited or not) was already created
-         (if (= (tvertex/get invitation :VertexType) "invitedUser")
-           (connect-invitation invitation {:time (System/currentTimeMillis)})))))
+      (if (nil? invitation)
+        (let [new-invitation (tvertex/create! g properties-hash)]
+          (connect-invitation new-invitation))
+        ;; else user (invited or not) was already created
+        (let [vertex-type (tvertex/get invitation :VertexType)]
+          (when (not= vertex-type "user")
+            (connect-invitation invitation)
+            (if (= vertex-type "requestedInvitation")
+              ;; this should overwrite the type from requestedInvitation to invitedUser
+              (tvertex/merge! invitation properties-hash))))))
     (first (tvertex/find-by-kv graph :email email))))

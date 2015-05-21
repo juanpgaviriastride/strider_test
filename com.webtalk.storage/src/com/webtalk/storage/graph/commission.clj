@@ -16,7 +16,7 @@
   (let [next-user (first (tvertex/connected-out-vertices user "refered_by"))]
     (cond
       (nil? next-user) nil
-      (= steps 0) nil
+      (zero? steps) nil
       (true? (tvertex/get user :TeamTrainer)) (do
                                                 (add-commission! user value)
                                                 (commissions-tree-upgrade! next (dec steps) value))

@@ -15,6 +15,8 @@
             :username :varchar
             :team_trainer :boolean
             :phone :varchar
+            :position :varchar
+            :avatar_url :varchar
             :enable_sms :boolean
             :primary-key [:user_id]
             }
@@ -138,8 +140,7 @@
 
   [columns]
   (let [clustering-column (second (columns :primary-key))]
-    (if (nil? clustering-column)
-      nil
+    (when-not  (nil? clustering-column)
       {:clustering-order [[clustering-column :desc]]})))
 
 (defn create-tables
@@ -157,7 +158,7 @@
     (cql/use-keyspace conn config/keyspace)
 
     ;; force lazy evaluation of map to ensure the side effects of create tables
-    (doall
+    (dorun
      (map (fn [[table-name cols]]
             (let [options (auto-table-options cols)]
               (util/create-table conn table-name cols options)))
@@ -172,6 +173,6 @@
 
   [tables]
   (let [conn (cclient/connect config/cassandra-hosts config/keyspace)]
-    (doall
+    (dorun
      (map #(util/drop-table conn %) tables))
     (cclient/disconnect conn)))

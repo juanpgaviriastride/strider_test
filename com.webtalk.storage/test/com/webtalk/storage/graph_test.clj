@@ -4,8 +4,8 @@
 
 (facts "about connection-session"
        (fact "return a titanium graph"
-             (type (connection-session)) => "Graph"))
+             (type (connection-session)) => com.thinkaurelius.titan.graphdb.database.StandardTitanGraph))
 
 (facts "about shutdown"
        (fact "shutdows the titanium graph"
-             (type (shutdown "Graph")) => nil))
+             (type (shutdown (connection-session))) => nil))

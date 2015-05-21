@@ -8,7 +8,7 @@
   [connection id payload]
   (cql/insert connection table-name {:invitation_id id
                                      :email (payload "email")
-                                     :inviter_id (payload "user_id")}))
+                                     :inviter_id (Integer. (payload "user_id"))}))
 
 
 (defn request-invitation

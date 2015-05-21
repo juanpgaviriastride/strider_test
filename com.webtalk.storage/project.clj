@@ -22,10 +22,17 @@
                  [com.thinkaurelius.titan/titan-all "0.5.0"]
                  [environ "1.0.0"]
                  [org.apache.commons/commons-daemon "1.0.9"]
-                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]]
+                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]
+                 [crypto-random "1.2.0"]
+                 [de.ubercode.clostache/clostache "1.4.0"]]
   :main ^:skip-aot com.webtalk.storage
   :target-path "target/%s"
   :resource-paths ["resources"]
+  :aliases {"omni" ["do" ["clean"] ["cloverage"] ["eastwood"] ["kibit"] ["bikeshed"]]}
   :profiles {:uberjar {:aot :all}
-             :dev {:dependencies [[midje "1.6.0" :exclusions [org.clojure/clojure]]]
-                   :plugins [[lein-midje "3.1.3"]]}})
+             :dev {:dependencies [[midje "1.6.3" :exclusions [org.clojure/clojure]]]
+                   :plugins [[lein-midje "3.1.3"]
+                             [lein-kibit "0.1.2"]
+                             [jonase/eastwood "0.2.1"]
+                             [lein-bikeshed "0.2.0"]
+                             [lein-cloverage "1.0.3"]]}})
