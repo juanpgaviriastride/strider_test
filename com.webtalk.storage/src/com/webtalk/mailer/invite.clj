@@ -15,6 +15,6 @@
                              {:name (:full_name sender)
                               :position (:position sender)
                               :image_url (:avatar_url sender);"https://scontent-mia.xx.fbcdn.net/hphotos-xfp1/t31.0-8/s720x720/132514_158085784241321_7607493_o.jpg"
-                              :join_url (str config/base_url "/join/" token)
-                              :sign_in_url (str config/base_url "/signin")
-                              :profile_url (str config/base_url "/" (:username sender))})}))
+                              :join_url (str config/base-url "/join/" token)
+                              :sign_in_url (str config/base-url "/signin")
+                              :profile_url (str config/base-url "/" (:username sender))})}))
