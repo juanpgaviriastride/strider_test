@@ -20,13 +20,13 @@
                    :return      User
                    :body-params [username :- String, password :- String]
                    :summary     "Creates a user session."
-                   (ok {:id 1 :username "chila" :token "1"}))
+                   (ok user))
 
             (GET* "/" []
                   :return      User
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
-                  (ok {:id 1 :username "chila" :token "1"}))
+                  (ok user))
 
             (DELETE* "/" []
                   :return      String
