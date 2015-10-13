@@ -7,6 +7,9 @@
                    :username String
                    :token String})
 
+(def *user* (atom {:id 1
+                  :username 'sarcilav
+                  :token 'resdhfjgkasldf}))
 (defapi sessions-routes
   (ring.swagger.ui/swagger-ui
    "/swagger-ui")
@@ -20,13 +23,13 @@
                    :return      User
                    :body-params [username :- String, password :- String]
                    :summary     "Creates a user session."
-                   (ok user))
+                   (ok *user*))
 
             (GET* "/" []
                   :return      User
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
-                  (ok user))
+                  (ok *user*))
 
             (DELETE* "/" []
                   :return      String
