@@ -7,7 +7,7 @@
                    :username String
                    :token String})
 
-(def *user* (atom {:id 1
+(def ^:dynamic *user* (atom {:id 1
                   :username 'sarcilav
                   :token 'resdhfjgkasldf}))
 (defapi sessions-routes
