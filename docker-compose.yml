@@ -2,7 +2,7 @@ web:
   #memory: 1024MB
   build: .
   ports:
-   - "5000:5000"
+   - "5000:3000"
   volumes:
    - .:/app
   links:
@@ -13,6 +13,8 @@ web:
 consumer:
   #memory: 1024MB
   image: clojure
+  ports:
+    - "5672:5672"
   links:
     - rabbitmq
 
