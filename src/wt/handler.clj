@@ -27,7 +27,7 @@
                            :backlog 10})}})
 
   (if (env :dev) (parser/cache-off!))
-  (db/connect!)
+  ;; (db/connect!)
   (timbre/info (str
                  "\n-=[wt started successfully"
                  (when (env :dev) " using the development profile")
