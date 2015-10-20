@@ -1,5 +1,13 @@
-# Logs
-logs
+/target
+/lib
+/classes
+/checkouts
+pom.xml
+*.jar
+*.class
+/.lein-*
+profiles.clj
+/.env
 *.log
 
 app/.jshintignore

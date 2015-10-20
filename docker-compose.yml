@@ -1,0 +1,31 @@
+web:
+  #memory: 1024MB
+  build: .
+  ports:
+   - "5000:3000"
+  volumes:
+   - .:/app
+  links:
+   - cassandra
+   - elasticsearch
+   - rabbitmq
+
+consumer:
+  #memory: 1024MB
+  image: clojure
+  ports:
+    - "5672:5672"
+  links:
+    - rabbitmq
+
+cassandra:
+  image: cassandra
+  #memory: 4096MB
+
+elasticsearch:
+  image: elasticsearch
+  #memory: 4096MB
+
+rabbitmq:
+  image: rabbitmq
+  #memory: 8192MB
