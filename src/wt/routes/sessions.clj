@@ -10,12 +10,8 @@
 (def ^:dynamic *user* (atom {:id 1
                   :username "sarcilav"
                   :token "resdhfjgkasldf"}))
-(defapi sessions-routes
-  (ring.swagger.ui/swagger-ui
-   "/swagger-ui")
-  ;;JSON docs available at the /swagger.json route
-  (swagger-docs
-   {:info {:title "WT Api"}})
+
+(defroutes* sessions-routes
   (context* "/api/v1/users/session" []
             :tags ["session"]
             

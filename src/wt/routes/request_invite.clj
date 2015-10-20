@@ -12,18 +12,14 @@
                                            :email "sarcilav@gmail.com"
                                            :phone "+57 3004174815"
                                            :enable_sms false}))
-(defapi request-invite-routes
-  (ring.swagger.ui/swagger-ui
-   "/swagger-ui")
-  ;;JSON docs available at the /swagger.json route
-  (swagger-docs
-   {:info {:title "WT Api"}})
+
+(defroutes* request-invite-routes
   (context* "/api/v1/invites/request" []
             :tags ["request-invite"]
-            
+
             (POST* "/" []
                    :return      InvitationRequest
-                   :body-params [email :- String {phone :- String enable_sms :- Boolean}]
+                   :body-params [email :- String]
                    :summary     "Creates a request for an invitation from email."
                    (ok @*invitation-request*))
 
@@ -38,3 +34,4 @@
                   :query-params [token :- String]
                   :summary     "Ends the current user session."
                   (ok ""))))
+
