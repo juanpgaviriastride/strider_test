@@ -15,7 +15,7 @@
 
 (defn request-an-invite!
   "It creates the user invitation node if needed but without adding links (that's the
-   diffence with create-invitation! - need to update  create-invitation to check the special case
+   difference with create-invitation! - need to update  create-invitation to check the special case
    of requestedInvitation-)
 
    Example: (request-an-invite! graph {\"email\" \"some@wt.com\" \"phone\" \"3138670909\" \"enable_sms\" \"true\"})

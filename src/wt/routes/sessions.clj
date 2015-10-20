@@ -8,8 +8,8 @@
                    :token String})
 
 (def ^:dynamic *user* (atom {:id 1
-                  :username 'sarcilav
-                  :token 'resdhfjgkasldf}))
+                  :username "sarcilav"
+                  :token "resdhfjgkasldf"}))
 (defapi sessions-routes
   (ring.swagger.ui/swagger-ui
    "/swagger-ui")
@@ -18,18 +18,18 @@
    {:info {:title "WT Api"}})
   (context* "/api/v1/users/session" []
             :tags ["session"]
-
+            
             (POST* "/" []
                    :return      User
                    :body-params [username :- String, password :- String]
                    :summary     "Creates a user session."
-                   (ok *user*))
+                   (ok @*user*))
 
             (GET* "/" []
                   :return      User
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
-                  (ok *user*))
+                  (ok @*user*))
 
             (DELETE* "/" []
                   :return      String
