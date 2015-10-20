@@ -4,6 +4,7 @@
             [wt.routes.home :refer [home-routes]]
             [wt.routes.services :refer [service-routes]]
             [wt.routes.sessions :refer [sessions-routes]]
+            [wt.routes.request-invite :refer [request-invite-routes]]
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
@@ -44,6 +45,7 @@
 (def app-routes
   (routes
    (var sessions-routes)
+   (var request-invite-routes)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found
     (:body
