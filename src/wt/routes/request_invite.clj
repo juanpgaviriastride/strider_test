@@ -19,19 +19,14 @@
 
             (POST* "/" []
                    :return      InvitationRequest
-                   :body-params [email :- String]
+                   :body-params [email :- String phone :- String enable_sms :- Boolean]
                    :summary     "Creates a request for an invitation from email."
                    (ok @*invitation-request*))
 
-            (GET* "/" []
+            (PUT* "/:id" []
                   :return      InvitationRequest
-                  :query-params [token :- String]
-                  :summary     "Returns the current user session."
-                  (ok @*invitation-request*))
-
-            (DELETE* "/" []
-                  :return      String
-                  :query-params [token :- String]
-                  :summary     "Ends the current user session."
-                  (ok ""))))
+                  :body-params [email :- String phone :- String enable_sms :- Boolean]
+                  :path-params [id :- Long]
+                  :summary     "Updates the request for an invitation given ."
+                  (ok @*invitation-request*))))
 
