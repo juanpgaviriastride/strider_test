@@ -4,9 +4,12 @@
             [wt.routes.home :refer [home-routes]]
             [wt.routes.services :refer [service-routes]]
             [wt.routes.sessions :refer [sessions-routes]]
+            [wt.routes.request-invite :refer [request-invite-routes]]
+            [wt.routes.invitation :refer [invite-routes]]
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
+            [compojure.api.sweet :refer [defapi]]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
@@ -41,9 +44,20 @@
   (db/disconnect!)
   (timbre/info "shutdown complete!"))
 
+(defapi api
+  (ring.swagger.ui/swagger-ui
+   "/swagger-ui")
+  ;;JSON docs available at the /swagger.json route
+  (compojure.api.sweet/swagger-docs
+   {:info {:title "WT Api"}})
+  (var sessions-routes)
+  (var invite-routes)
+  (var request-invite-routes))
+
 (def app-routes
   (routes
-   (var sessions-routes)
+   ;;(var service-routes)
+   (var api)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found
     (:body

@@ -6,9 +6,13 @@ web:
   volumes:
    - .:/app
   links:
-   - cassandra
+   - cassandra_seed
    - elasticsearch
    - rabbitmq
+   - cassandra_non_seed
+  environment:
+   - CASS_KEYSPACE=develop
+   - CASS_REPLICA_FACTOR=1
 
 consumer:
   #memory: 1024MB
@@ -18,9 +22,17 @@ consumer:
   links:
     - rabbitmq
 
-cassandra:
+cassandra_seed:
   image: cassandra
   #memory: 4096MB
+
+cassandra_non_seed:
+  image: cassandra
+  links:
+   - cassandra_seed
+  environment:
+   - CASSANDRA_SEEDS=cassandra_seed
+  
 
 elasticsearch:
   image: elasticsearch
