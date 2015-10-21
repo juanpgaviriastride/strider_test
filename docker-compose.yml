@@ -10,6 +10,9 @@ web:
    - elasticsearch
    - rabbitmq
    - cassandra_non_seed
+  environment:
+   - CASS_KEYSPACE=develop
+   - CASS_REPLICA_FACTOR=1
 
 consumer:
   #memory: 1024MB
