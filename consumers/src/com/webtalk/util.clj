@@ -4,8 +4,8 @@
             [clojure.string :refer [split trim]]))
 
 (defn get-cass-hosts []
-  ;; (vec (map trim (split (env :casssandra-1-port) #",")))
-  "cassandra_seed"
+  ;; (mapv trim (split (env :casssandra-1-port) #","))
+  ["cassandra_seed"]
   )
 
 (defn get-cass-keyspace []
