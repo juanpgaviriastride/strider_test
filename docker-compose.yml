@@ -9,6 +9,7 @@ web:
    - cassandra
    - elasticsearch
    - rabbitmq
+   - cassandra_2
 
 consumer:
   #memory: 1024MB
@@ -21,6 +22,14 @@ consumer:
 cassandra:
   image: cassandra
   #memory: 4096MB
+
+cassandra_2:
+  image: cassandra
+  links:
+   - cassandra
+  environment:
+   - CASSANDRA_SEEDS=CASSANDRA_PORT_7000_TCP_ADDR
+  
 
 elasticsearch:
   image: elasticsearch
