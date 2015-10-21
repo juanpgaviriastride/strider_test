@@ -16,11 +16,19 @@ web:
 
 consumer:
   #memory: 1024MB
-  image: clojure
+  build: ./consumers/
   ports:
     - "5672:5672"
+  volumes:
+   - ./consumers/:/consumer
   links:
-    - rabbitmq
+   - cassandra_seed
+   - elasticsearch
+   - rabbitmq
+   - cassandra_non_seed
+  environment:
+   - CASS_KEYSPACE=develop
+   - CASS_REPLICA_FACTOR=1
 
 cassandra_seed:
   image: cassandra
