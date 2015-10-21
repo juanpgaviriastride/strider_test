@@ -6,10 +6,10 @@ web:
   volumes:
    - .:/app
   links:
-   - cassandra
+   - cassandra_seed
    - elasticsearch
    - rabbitmq
-   - cassandra_2
+   - cassandra_non_seed
 
 consumer:
   #memory: 1024MB
@@ -19,16 +19,16 @@ consumer:
   links:
     - rabbitmq
 
-cassandra:
+cassandra_seed:
   image: cassandra
   #memory: 4096MB
 
-cassandra_2:
+cassandra_non_seed:
   image: cassandra
   links:
-   - cassandra
+   - cassandra_seed
   environment:
-   - CASSANDRA_SEEDS=CASSANDRA_PORT_7000_TCP_ADDR
+   - CASSANDRA_SEEDS=cassandra_seed
   
 
 elasticsearch:
