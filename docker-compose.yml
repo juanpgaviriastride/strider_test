@@ -1,21 +1,23 @@
-web:
-  #memory: 1024MB
-  build: .
-  ports:
-   - "5000:3000"
-  volumes:
-   - .:/app
-  links:
-   - cassandra_seed
-   - elasticsearch
-   - rabbitmq
-   - cassandra_non_seed
-  environment:
-   - CASS_KEYSPACE=develop
-   - CASS_REPLICA_FACTOR=1
+# web:
+#   cpu_shares: 100
+#   memory: 1024MB
+#   build: .
+#   ports:
+#    - "5000:3000"
+#   volumes:
+#    - .:/app
+#   links:
+#    - cassandra_seed
+#    - elasticsearch
+#    - rabbitmq
+#    - cassandra_non_seed
+#   environment:
+#    - CASS_KEYSPACE=develop
+#    - CASS_REPLICA_FACTOR=1
 
 consumer:
-  #memory: 1024MB
+  cpu_shares: 100
+  mem_limit: 1024000000
   build: ./consumers/
   ports:
     - "5672:5672"
@@ -29,12 +31,16 @@ consumer:
   environment:
    - CASS_KEYSPACE=develop
    - CASS_REPLICA_FACTOR=1
+   - 
 
 cassandra_seed:
+  cpu_shares: 100
   image: cassandra
-  #memory: 4096MB
+  mem_limit: 4096000000
 
 cassandra_non_seed:
+  cpu_shares: 100
+  mem_limit: 4096000000
   image: cassandra
   links:
    - cassandra_seed
@@ -43,9 +49,13 @@ cassandra_non_seed:
   
 
 elasticsearch:
+  cpu_shares: 100
   image: elasticsearch
-  #memory: 4096MB
+  mem_limit: 4096000000
 
 rabbitmq:
+  cpu_shares: 100
+  ports:
+    - "15672:15672"
   image: rabbitmq
-  #memory: 8192MB
+  mem_limit: 8192000000
