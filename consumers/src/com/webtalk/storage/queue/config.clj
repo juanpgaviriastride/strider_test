@@ -2,7 +2,4 @@
   (:gen-class)
   (:require [com.webtalk.util :refer [get-rmq-host]]))
 
-(def rmq-config
-  {
-   :host (get-rmq-host)
-   })
+(def rmq-config get-rmq-host)

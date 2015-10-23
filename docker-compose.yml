@@ -18,44 +18,48 @@
 consumer:
   cpu_shares: 100
   mem_limit: 1024000000
-  build: ./consumers/
+  image: sarcilav/wt-consumer
   ports:
     - "5672:5672"
-  volumes:
-   - ./consumers/:/consumer
   links:
    - cassandra_seed
    - elasticsearch
    - rabbitmq
    - cassandra_non_seed
   environment:
-   - CASS_KEYSPACE=develop
+   - CASS_KEYSPACE=developer
    - CASS_REPLICA_FACTOR=1
-   - 
+   - CASSANDRA_1_PORT=cassandra_seed,cassandra_non_seed
+   - RABBITMQ_1_PORT=rabbitmq
 
 cassandra_seed:
   cpu_shares: 100
+  mem_limit: 4096000000
   image: cassandra
-  mem_limit: 4096000000
+  environment:
+    - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
+  #   - CASSANDRA_CLUSTER_NAME=wt-develop
 
+    
 cassandra_non_seed:
-  cpu_shares: 100
-  mem_limit: 4096000000
+  # cpu_shares: 100
+  # mem_limit: 4096000000
   image: cassandra
   links:
    - cassandra_seed
   environment:
    - CASSANDRA_SEEDS=cassandra_seed
-  
+   # - CASSANDRA_CLUSTER_NAME=wt-develop
+   - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
 
 elasticsearch:
-  cpu_shares: 100
+  # cpu_shares: 100
+  # mem_limit: 4096000000
   image: elasticsearch
-  mem_limit: 4096000000
 
 rabbitmq:
-  cpu_shares: 100
+  # cpu_shares: 100
+  # mem_limit: 8192000000
   ports:
     - "15672:15672"
   image: rabbitmq
-  mem_limit: 8192000000

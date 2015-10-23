@@ -5,7 +5,7 @@
             [clojurewerkz.cassaforte.client         :as cclient]))
 
 (defn connection-session []
-  (let [conn (cclient/connect config/cassandra-hosts config/keyspace)]
+  (let [conn (cclient/connect (config/cassandra-hosts) (config/keyspace))]
     (policies/retry-policy :downgrading-consistency)
     conn))
 
