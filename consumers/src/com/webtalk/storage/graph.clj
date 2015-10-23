@@ -4,7 +4,7 @@
             [com.webtalk.storage.graph.config :as config]))
 
 (defn connection-session []
-  (tgraph/open config/graph-config))
+  (tgraph/open (config/graph-config (config/cass-hosts))))
 
 (defn shutdown [conn]
   (tgraph/shutdown conn))
