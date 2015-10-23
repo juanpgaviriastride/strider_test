@@ -11,7 +11,7 @@
   default-exchange-name "")
 
 (defn publish-with-qname [qname payload]
-  (let [connection (rmq/connect config/rmq-config)
+  (let [connection (rmq/connect {:host (config/rmq-config)})
         channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (println "qname" qname)

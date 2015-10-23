@@ -11,7 +11,7 @@
   default-exchange-name "")
 
 (defn subscribe-with-connection [qname message-handler]
-  (let [connection (rmq/connect config/rmq-config)
+  (let [connection (rmq/connect {:host (config/rmq-config)})
         channel    (lch/open connection)]
      (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
      (lq/declare channel qname {:durable true :auto-delete false :exclusive false})

@@ -166,13 +166,14 @@
    Example: (create-tables tables)"
 
   [tables]
-  (let [conn (cclient/connect config/cassandra-hosts)]
+  (let [conn (cclient/connect (config/cassandra-hosts))
+        keyspace (config/keyspace)]
     ;; Create main keyspace
-    (util/create-keyspace conn config/keyspace {:replication
-                                           {:class "SimpleStrategy"
-                                            :replication_factor config/replication-factor}})
+    (util/create-keyspace conn keyspace {:replication
+                                          {:class "SimpleStrategy"
+                                           :replication_factor (config/replication-factor)}})
     
-    (cql/use-keyspace conn config/keyspace)
+    (cql/use-keyspace conn keyspace)
 
     ;; force lazy evaluation of map to ensure the side effects of create tables
     (dorun
@@ -189,7 +190,7 @@
    Example: (clean-up tables)"
 
   [tables]
-  (let [conn (cclient/connect config/cassandra-hosts config/keyspace)]
+  (let [conn (cclient/connect (config/cassandra-hosts) (config/keyspace))]
     (dorun
      (map #(util/drop-table conn %) tables))
     (cclient/disconnect conn)))

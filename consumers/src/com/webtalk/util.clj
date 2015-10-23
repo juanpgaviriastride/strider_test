@@ -4,8 +4,7 @@
             [clojure.string :refer [split trim]]))
 
 (defn get-cass-hosts []
-  (mapv trim (split (env :cassandra-1-port) #","))
-  )
+  (mapv trim (split (env :cassandra-1-port) #",")))
 
 (defn get-cass-keyspace []
   (trim (env :cass-keyspace)))
@@ -14,6 +13,4 @@
   (Integer. (trim (env :cass-replica-factor))))
 
 (defn get-rmq-host []
-  (trim env :rabbitmq-1-port)
-  
-  )
+  (trim (env :rabbitmq-1-port)))

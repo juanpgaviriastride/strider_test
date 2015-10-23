@@ -1,0 +1,17 @@
+* Use stateful component (https://github.com/stuartsierra/component) to handle share states like connections (cassandra, rmq, titan)
+* Service component
+* Composite component (business logic) (set of dependencies, state atom?), dependency injection (avoid race conditions or state sharing)
+* Reduce global scope of connections
+
+* component/system-map
+
+* components are a natural way to separate/split your projects
+
+* Be cinical about libraries
+
+* Loggin logback and slf4j
+
+* Use commons daemon to run jars (it integrates very well with component because it is a nice place to init your system)
+alter-var-root to change the uniq point of global state (def system nil)
+
+* infraestructure as a code

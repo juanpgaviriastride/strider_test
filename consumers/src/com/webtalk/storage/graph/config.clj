@@ -2,10 +2,12 @@
   (:gen-class)
   (:require [com.webtalk.util :refer [get-cass-hosts]]))
 
-(def graph-config
+(def cass-hosts get-cass-hosts)
+
+(defn graph-config [backend-hosts]
   {
    "storage.backend" "cassandra"
-   "storage.hostname" (get-cass-hosts)
+   "storage.hostname" backend-hosts
    ;; "graph-name" "graph"
 
    ;; "index.search.backend" "elasticsearch"
@@ -17,4 +19,3 @@
    ;; "storage.keyspace" "titan"
    ;; "graph" "graph"
    })
-

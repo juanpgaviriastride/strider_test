@@ -1,51 +1,65 @@
-web:
-  #memory: 1024MB
-  build: .
-  ports:
-   - "5000:3000"
-  volumes:
-   - .:/app
-  links:
-   - cassandra_seed
-   - elasticsearch
-   - rabbitmq
-   - cassandra_non_seed
-  environment:
-   - CASS_KEYSPACE=develop
-   - CASS_REPLICA_FACTOR=1
+# web:
+#   cpu_shares: 100
+#   memory: 1024MB
+#   build: .
+#   ports:
+#    - "5000:3000"
+#   volumes:
+#    - .:/app
+#   links:
+#    - cassandra_seed
+#    - elasticsearch
+#    - rabbitmq
+#    - cassandra_non_seed
+#   environment:
+#    - CASS_KEYSPACE=develop
+#    - CASS_REPLICA_FACTOR=1
 
 consumer:
-  #memory: 1024MB
-  build: ./consumers/
+  cpu_shares: 100
+  mem_limit: 1024000000
+  image: sarcilav/wt-consumer
   ports:
     - "5672:5672"
-  volumes:
-   - ./consumers/:/consumer
   links:
    - cassandra_seed
    - elasticsearch
    - rabbitmq
    - cassandra_non_seed
   environment:
-   - CASS_KEYSPACE=develop
+   - CASS_KEYSPACE=developer
    - CASS_REPLICA_FACTOR=1
+   - CASSANDRA_1_PORT=cassandra_seed,cassandra_non_seed
+   - RABBITMQ_1_PORT=rabbitmq
 
 cassandra_seed:
+  cpu_shares: 100
+  mem_limit: 4096000000
   image: cassandra
-  #memory: 4096MB
+  environment:
+    - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
+  #   - CASSANDRA_CLUSTER_NAME=wt-develop
 
+    
 cassandra_non_seed:
+  # cpu_shares: 100
+  # mem_limit: 4096000000
   image: cassandra
   links:
    - cassandra_seed
   environment:
    - CASSANDRA_SEEDS=cassandra_seed
-  
+   # - CASSANDRA_CLUSTER_NAME=wt-develop
+   - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
 
 elasticsearch:
+  # cpu_shares: 100
+  # mem_limit: 4096000000
   image: elasticsearch
-  #memory: 4096MB
 
 rabbitmq:
+  # cpu_shares: 100
+  # mem_limit: 8192000000
+  ports:
+    - "15672:15672"
   image: rabbitmq
-  #memory: 8192MB
