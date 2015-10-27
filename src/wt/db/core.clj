@@ -2,6 +2,8 @@
   (:require
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
+    [taoensso.timbre :as timbre]
+    [to-jdbc-uri.core :refer [to-jdbc-uri]]
     [environ.core :refer [env]])
   (:import [java.sql
             BatchUpdateException
@@ -19,14 +21,15 @@
    :max-active 32})
 
 (defn connect! []
+  (timbre/info "creating connection in core")
   (conman/connect!
     *conn*
    (assoc
      pool-spec
-     :jdbc-url (env :database-url))))
+     :jdbc-url (to-jdbc-uri (env :database-url))))
 
-(defn disconnect! []
-  (conman/disconnect! *conn*))
+  (defn disconnect! []
+    (conman/disconnect! *conn*)))
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
