@@ -3,7 +3,7 @@
             [compojure.api.sweet :refer :all]
             [schema.core :as s]))
 
-(s/defschema User {:id Long
+(s/defschema Session-User {:id Long
                    :username String
                    :token String})
 
@@ -16,13 +16,13 @@
             :tags ["session"]
             
             (POST* "/" []
-                   :return      User
+                   :return      Session-User
                    :body-params [username :- String, password :- String]
                    :summary     "Creates a user session."
                    (ok @*user*))
 
             (GET* "/" []
-                  :return      User
+                  :return      Session-User
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
                   (ok @*user*))

@@ -6,6 +6,7 @@
             [wt.routes.sessions :refer [sessions-routes]]
             [wt.routes.request-invite :refer [request-invite-routes]]
             [wt.routes.invitation :refer [invite-routes]]
+            [wt.routes.user :refer [user-routes]]
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
@@ -53,6 +54,7 @@
    {:info {:title "WT Api"}})
   (var sessions-routes)
   (var invite-routes)
+  (var user-routes)
   (var request-invite-routes))
 
 (def app-routes
