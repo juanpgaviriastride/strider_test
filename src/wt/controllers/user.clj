@@ -1,8 +1,6 @@
-(ns com.webtalk.controllers.user)
+(ns com.webtalk.controllers.user
+  (:require [wt.persistence.user :as model]))
 
-
+;;TODO validation of mandatory fields
 (defn save [user]
-  (println "hello")
-
-
-  )
+  (model/save user))
