@@ -26,6 +26,7 @@
                  [mysql/mysql-connector-java "5.1.34"]
                  [metosin/compojure-api "0.23.1"]
                  [metosin/ring-swagger-ui "2.1.2"]
+                 [bcrypt-clj "0.3.3"]
                  [org.immutant/web "2.1.0"]]
 
   :min-lein-version "2.0.0"
