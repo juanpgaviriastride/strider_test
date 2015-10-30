@@ -19,3 +19,8 @@
       (if (> (count args) 1)
         (apply migratus/down config (parse-ids args))
         (migratus/rollback config)))))
+
+(defn create-migration [migration-name]
+  (let [config {:store :database
+                :db {:connection-uri (to-jdbc-uri (:database-url env))}}]
+    (migratus/create config migration-name)))
