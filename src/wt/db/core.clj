@@ -7,7 +7,8 @@
     [environ.core :refer [env]])
   (:import [java.sql
             BatchUpdateException
-            PreparedStatement]))
+            PreparedStatement]
+           [java.text.SimpleDateFormat]))
 
 (defonce ^:dynamic *conn* (atom nil))
 
@@ -33,6 +34,9 @@
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
+
+(defn sql-date [date-text]
+  (let [formatter (java.text.SimpleDateFormat. "MM/dd/YYYY")] (java.sql.Date. (.getTime (.parse formatter date-text)))))
 
 (extend-protocol jdbc/IResultSetReadColumn
   java.sql.Date
