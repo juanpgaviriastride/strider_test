@@ -3,13 +3,13 @@
             [compojure.api.sweet :refer :all]
             [schema.core :as s]))
 
-(s/defschema Session-User {:id Long
-                   :username String
-                   :token String})
+(s/defschema Session-User {:session {:id Long
+                                     :username String
+                                     :token String}})
 
-(def ^:dynamic *user* (atom {:id 1
-                  :username "sarcilav"
-                  :token "resdhfjgkasldf"}))
+(def ^:dynamic *user* (atom {:session {:id 1
+                                      :username "sarcilav"
+                                      :token "resdhfjgkasldf"}}))
 
 (defroutes* sessions-routes
   (context* "/api/v1/users/session" []

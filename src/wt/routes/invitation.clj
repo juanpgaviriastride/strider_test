@@ -3,15 +3,17 @@
             [compojure.api.sweet :refer :all]
             [schema.core :as s]))
 
-(s/defschema Invitation {:invitation_id Long
-                         :inviter_id Long
-                         :email String
+(s/defschema Invitation {:invitation {:invitation_id Long
+                                      :inviter_id Long
+                                      :email String}
                          })
 
-(def ^:dynamic *invitation* (atom {:invitation_id 1
-                                   :inviter_id 5
-                                   ;;TODO add phonr :phone "+57 3004174815"
-                                   :email "sarcilav@gmail.com"}))
+
+
+(def ^:dynamic *invitation* (atom {:invitation {:invitation_id 1
+                                                :inviter_id 5
+                                                ;;TODO add phonr :phone "+57 3004174815"
+                                                :email "sarcilav@gmail.com"}}))
 
 (defroutes* invite-routes
   (context* "/api/v1/invites" []
