@@ -20,3 +20,9 @@ WHERE id = :id
 -- delete a user given the id
 DELETE FROM users
 WHERE id = :id
+
+--name: user-soft-delete!
+--soft delete of a user on the system
+UPDATE users
+SET is_active = false
+WHERE id = :id

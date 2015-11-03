@@ -11,22 +11,22 @@
 
 ;;TODO validation of mandatory fields
 (defn save [user]
-  (dissoc (assoc user :id (:generated_key (model/save user))) :pass))
+  {:user  (dissoc (assoc user :id (:generated_key (model/save user))) :pass)})
 
 (defn get [id]
   (let [users (model/get id)]
-    (if (empty? users) {} (first users))))
+    {:user (first users)}))
 
 (defn delete [id]
   (let [result (model/delete id)]
-    (println "the result is" result)))
+    (if (> result 0) (+ 200) (+ 404))))
 
 
 (defn mandatory-attributes [body]
-  (and contains? body :pass (contains? body :email)))
+  (and contains? body :user (contains? (:user body) :email )))
 
 (defn save-event [body]
-  (if (mandatory-attributes body) (save body) ({:message "Mandatory fields not present"})))
+  (if (mandatory-attributes body) (save (:user body)) ({:message "Mandatory fields not present"})))
 
 (defn get-event [params]
   (if (contains? params :id) (get (:id params)) (println "not enough params")))
