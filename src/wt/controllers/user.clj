@@ -16,8 +16,8 @@
 
 (defn mandatory-attributes [body]
   (-> body
-     (contains? :email)
-     )
+     (contains? :name))
+  ;;(and contains? body :pass (contains? body :email))
   )
 
 (defn event-happened [body]

@@ -13,7 +13,7 @@ WHERE id = :id
 -- name: get-user
 -- retrieve a user given the id.
 SELECT * FROM users
-WHERE id = :id
+WHERE email = :email
 
 -- name: delete-user!
 -- delete a user given the id
