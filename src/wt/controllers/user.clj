@@ -13,6 +13,10 @@
 (defn save [user]
   (dissoc (assoc user :id (:generated_key (model/save user))) :pass))
 
+(defn get [id]
+  (let [users (model/get id)]
+    (if (empty? users) {} (first users))))
+
 
 (defn mandatory-attributes [body]
   (and contains? body :pass (contains? body :email)))
@@ -20,12 +24,20 @@
 (defn save-event [body]
   (if (mandatory-attributes body) (save body) ({:message "Mandatory fields not present"})))
 
-
+(defn get-event [params]
+  (println "params")
+  (println params)
+  (if (contains? params :id) (get (:id params)) (println "not enough params")))
 
 (defroutes routes
   (POST "/user" {body :body}
        {:status 200
         :headers {"Content-Type" "application/json"}
         :body (save-event body)
+        })
+  (GET "/user/:id" {params :params}
+       {:status 200
+        :headers {"Content-Type" "application/json"}
+        :body (get-event params)
         })
   )

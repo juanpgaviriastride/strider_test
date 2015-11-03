@@ -13,8 +13,8 @@ WHERE id = :id
 
 -- name: get-user
 -- retrieve a user given the id.
-SELECT * FROM users
-WHERE email = :email
+SELECT name, email, birthday, gender, admin, last_login, is_active FROM users
+WHERE id = :id
 
 -- name: user-id
 -- retrieve a user given the id.

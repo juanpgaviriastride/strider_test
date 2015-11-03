@@ -4,8 +4,8 @@
    [bcrypt-clj.auth :refer :all])
   (:import [java.sql.Date]))
 
-(defn query-user []
-  (db/user-id))
+(defn get [id]
+  (db/get-user {:id id}))
 
 (defn save [user-map]
   (db/create-user<! {:name (:name user-map)
