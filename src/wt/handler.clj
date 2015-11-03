@@ -7,7 +7,8 @@
             [wt.routes.request-invite :refer [request-invite-routes]]
             [wt.routes.invitation :refer [invite-routes]]
             [wt.routes.user :refer [user-routes]]
-            [wt.controllers.user :as model] ;;model -as wt.controllers.user model/routes
+            [wt.controllers.user :as user-model]
+            [wt.controllers.session :as session-model]
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
@@ -64,7 +65,8 @@
 (def app-routes
   (routes
    ;;(var service-routes)
-   (var model/routes)
+   (var user-model/routes)
+   (var session-model/routes)
    (var api)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found

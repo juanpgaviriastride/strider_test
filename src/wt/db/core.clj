@@ -12,7 +12,7 @@
 
 (defonce ^:dynamic *conn* (atom nil))
 
-(conman/bind-connection *conn* "sql/user-queries.sql")
+(conman/bind-connection *conn* "sql/user-queries.sql" "sql/session-queries.sql")
 
 (def pool-spec
   {:adapter    :mysql
