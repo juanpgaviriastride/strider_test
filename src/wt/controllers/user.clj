@@ -11,24 +11,21 @@
 
 ;;TODO validation of mandatory fields
 (defn save [user]
-  (model/save user))
+  (dissoc (assoc user :id (:generated_key (model/save user))) :pass))
 
 
 (defn mandatory-attributes [body]
-  (-> body
-     (contains? :name))
-  ;;(and contains? body :pass (contains? body :email))
-  )
+  (and contains? body :pass (contains? body :email)))
 
 (defn event-happened [body]
-  (if (mandatory-attributes body) (save body) (println "doesn't have minimim!"))
-  ;;(save/body)
-)
+  (if (mandatory-attributes body) (save body) ({:message "Mandatory fields not present"})))
 
 
 
 (defroutes routes
   (POST "/user" {body :body}
-       (event-happened body)
-       {:status 200})
+       {:status 200
+        :headers {"Content-Type" "application/json"}
+        :body (event-happened body)
+        })
   )

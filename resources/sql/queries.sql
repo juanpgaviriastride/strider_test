@@ -1,8 +1,9 @@
--- name: create-user!
+-- name: create-user<!
 -- creates a new user record
 INSERT INTO users
 (name, email, birthday, gender, admin, last_login, is_active, pass)
-VALUES (:name, :email, :birthday, :gender, :admin, :last_login, :is_active ,:pass)
+VALUES (:name, :email, :birthday, :gender, :admin, :last_login, :is_active, :pass)
+
 
 -- name: update-user!
 -- update an existing user record
@@ -14,6 +15,10 @@ WHERE id = :id
 -- retrieve a user given the id.
 SELECT * FROM users
 WHERE email = :email
+
+-- name: user-id
+-- retrieve a user given the id.
+SELECT LAST_INSERT_ID();
 
 -- name: delete-user!
 -- delete a user given the id
