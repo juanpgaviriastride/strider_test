@@ -14,3 +14,12 @@ WHERE token = :token
 SELECT email, username, token, created_at FROM sessions
 WHERE email = :email
 
+
+--name: delete-session-token!
+--deletes a session from the token
+DELETE FROM sessions 
+WHERE token = :token
+
+
+
+

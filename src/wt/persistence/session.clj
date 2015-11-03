@@ -33,6 +33,8 @@
 (defn retrieve-session [token]
   (first (db/get-session {:token token})))
 
+(defn delete-session [token]
+  (db/delete-session-token! {:token token}))
 
 
 

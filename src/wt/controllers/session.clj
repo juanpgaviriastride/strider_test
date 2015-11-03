@@ -18,14 +18,42 @@
        :body {:session (model/create-or-find (:email session-data))}}
       {:status 401})))
 
+(defn retrieve-session [token]
+  (let [maybe-session (model/retrieve-session token)]
+    (if (nil? maybe-session)
+      {:status 404}
+      {:status 200
+       :headers {"Content-Type" "application/json"}
+       :body maybe-session})))
+
+(defn delete-session [token]
+  
+  (let [delete-result (model/delete-session token)]
+    (println "result of delete " delete-result)
+    (if (> delete-result 0)
+      {:status 200}
+      {:status 404})))
+
 (defn mandatory-attributes [body]
-  (and  (and contains? body :session (contains? (:session body) :email)) (contains? (:session body) :password)))
+  (and (and contains? body :session (contains? (:session body) :email)) (contains? (:session body) :password)))
 
 
 (defn save-event [body]
   (if (mandatory-attributes body) (save (:session body)) {:status 400}))
 
+(defn find-event [params]
+  (if (contains? params :token) (retrieve-session (:token params)) {:status 400}))
+
+(defn delete-event [params]
+  (if (contains? params :token) (delete-session (:token params)) {:status 400}))
 
 (defroutes routes
   (POST "/session" {body :body}
-        (save-event body)))
+        (save-event body))
+
+  (GET "/session" {params :params}
+       (find-event params))
+
+  (DELETE "/session" {params :params}
+          (delete-event params))
+  )
