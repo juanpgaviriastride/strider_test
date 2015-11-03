@@ -21,6 +21,7 @@
                  [org.clojure/tools.nrepl "0.2.10"]
                  [org.webjars/bootstrap "3.3.5"]
                  [org.webjars/jquery "2.1.4"]
+                 [ring/ring-json "0.4.0"]
                  [migratus "0.8.4"]
                  [conman "0.1.7"]
                  [mysql/mysql-connector-java "5.1.34"]

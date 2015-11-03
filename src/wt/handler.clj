@@ -7,6 +7,7 @@
             [wt.routes.request-invite :refer [request-invite-routes]]
             [wt.routes.invitation :refer [invite-routes]]
             [wt.routes.user :refer [user-routes]]
+            [wt.controllers.user :as model] ;;model -as wt.controllers.user model/routes
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
@@ -14,6 +15,9 @@
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
+            [clojure.data.json :as json]
+            [ring.middleware.json :refer [wrap-json-body]]
+            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [environ.core :refer [env]]))
 
 (defn init
@@ -60,6 +64,7 @@
 (def app-routes
   (routes
    ;;(var service-routes)
+   (var model/routes)
    (var api)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found
@@ -67,4 +72,8 @@
      (error-page {:status 404
                   :title "page not found"})))))
 
-(def app (middleware/wrap-base #'app-routes))
+(def app
+  (-> app-routes
+     (wrap-keyword-params)
+     (wrap-json-body {:keywords? true})
+     (middleware/wrap-base)))
