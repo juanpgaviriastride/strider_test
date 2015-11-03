@@ -17,7 +17,7 @@
 (defn mandatory-attributes [body]
   (and contains? body :pass (contains? body :email)))
 
-(defn event-happened [body]
+(defn save-event [body]
   (if (mandatory-attributes body) (save body) ({:message "Mandatory fields not present"})))
 
 
@@ -26,6 +26,6 @@
   (POST "/user" {body :body}
        {:status 200
         :headers {"Content-Type" "application/json"}
-        :body (event-happened body)
+        :body (save-event body)
         })
   )
