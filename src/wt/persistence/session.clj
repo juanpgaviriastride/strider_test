@@ -9,7 +9,6 @@
   (:pass (first (db/get-password {:email email}))))
 
 (defn validate-password [email password]
-  
   (let [maybe-email (get-password email)]
     (if (nil? maybe-email)
       false
@@ -22,7 +21,18 @@
      :token token
      :email email}))
 
-(defn get-session [id]
-  (first (db/get-session {:id id})))
+(defn find-session [email]
+  (first (db/get-session-email {:email email})))
+
+(defn create-or-find [email]
+  (let [maybe-existing-session (find-session email)]
+    (if (nil? maybe-existing-session)
+      (create-session email)
+      maybe-existing-session)))
+
+(defn retrieve-session [token]
+  (first (db/get-session {:token token})))
+
+
 
 

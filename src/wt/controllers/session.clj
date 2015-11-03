@@ -15,15 +15,15 @@
     (if (boolean valid-password)
       {:status 200
        :headers {"Content-Type" "application/json"}
-       :body {:session (model/create-session (:email session-data))}}
+       :body {:session (model/create-or-find (:email session-data))}}
       {:status 401})))
 
 (defn mandatory-attributes [body]
-  (and  (and contains? body :session (contains? (:session body) :email))) (contains? (:session body) :password) )
+  (and  (and contains? body :session (contains? (:session body) :email)) (contains? (:session body) :password)))
+
 
 (defn save-event [body]
-  (if (mandatory-attributes body) (save (:session body)) ({:status 400})))
-
+  (if (mandatory-attributes body) (save (:session body)) {:status 400}))
 
 
 (defroutes routes
