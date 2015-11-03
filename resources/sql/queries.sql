@@ -26,3 +26,8 @@ WHERE id = :id
 UPDATE users
 SET is_active = false
 WHERE id = :id
+
+--name: get-password
+--gets the salted password given the email
+SELECT pass FROM users
+WHERE email = :email

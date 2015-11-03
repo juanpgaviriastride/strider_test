@@ -17,7 +17,7 @@
             
             (POST* "/" []
                    :return      Session-User
-                   :body-params [username :- String, password :- String]
+                   :body-params [email :- String, password :- String]
                    :summary     "Creates a user session."
                    (ok @*user*))
 
