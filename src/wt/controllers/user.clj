@@ -1,6 +1,6 @@
 (ns wt.controllers.user
   (:require [wt.persistence.user :as model]
-            [compojure.core :refer [defroutes GET POST ANY]]
+            [compojure.core :refer [defroutes GET POST DELETE]]
             [clojure.string :as str]
             [ring.util.response :as ring]
             [compojure.route :as route]
@@ -17,6 +17,10 @@
   (let [users (model/get id)]
     (if (empty? users) {} (first users))))
 
+(defn delete [id]
+  (let [result (model/delete id)]
+    (println "the result is" result)))
+
 
 (defn mandatory-attributes [body]
   (and contains? body :pass (contains? body :email)))
@@ -25,9 +29,10 @@
   (if (mandatory-attributes body) (save body) ({:message "Mandatory fields not present"})))
 
 (defn get-event [params]
-  (println "params")
-  (println params)
   (if (contains? params :id) (get (:id params)) (println "not enough params")))
+
+(defn delete-event [params]
+  (if (contains? params :id) (delete (:id params)) (println "not enough params")))
 
 (defroutes routes
   (POST "/user" {body :body}
@@ -40,4 +45,6 @@
         :headers {"Content-Type" "application/json"}
         :body (get-event params)
         })
+  (DELETE "/user/:id" {params :params}
+       {:status (delete-event params)})
   )

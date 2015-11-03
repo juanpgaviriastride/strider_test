@@ -7,6 +7,10 @@
 (defn get [id]
   (db/get-user {:id id}))
 
+(defn delete [id]
+  (db/delete-user! {:id id})
+  )
+
 (defn save [user-map]
   (db/create-user<! {:name (:name user-map)
                        :email (:email user-map)

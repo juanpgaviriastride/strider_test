@@ -16,10 +16,6 @@ WHERE id = :id
 SELECT name, email, birthday, gender, admin, last_login, is_active FROM users
 WHERE id = :id
 
--- name: user-id
--- retrieve a user given the id.
-SELECT LAST_INSERT_ID();
-
 -- name: delete-user!
 -- delete a user given the id
 DELETE FROM users
