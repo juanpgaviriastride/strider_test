@@ -56,13 +56,13 @@
 
             (POST* "/" []
                    :return      User-Response
-                   :body-params [name :- String birthday :- String gender :- String email :- String password :- String bajo :- (s/enum :200 :403 :404)]
+                   :body-params [user :- {:name String :birthday String :gender String :email String :password String}]
                    :summary     "Creates an user on the system so that a session can be created."
                    (ok @*user-response*))
 
             (PUT* "/:id" []
                   :return      User-Response
-                  :body-params [name :- String birthday :- String gender :- String email :- String password :- String]
+                  :body-params [user :- {:name String :birthday String :gender String :email String :password String}]
                   :path-params [id :- Long]
                   :header-params [x-authorization :- String]
                   :summary     "Updates the basic information of a user in the system."

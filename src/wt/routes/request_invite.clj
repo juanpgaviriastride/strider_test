@@ -19,13 +19,13 @@
 
             (POST* "/" []
                    :return      InvitationRequest
-                   :body-params [email :- String phone :- String enable_sms :- Boolean]
+                   :body-params [invite_request :- {:email String :phone String :enable_sms  Boolean}]
                    :summary     "Creates a request for an invitation from email."
                    (ok @*invitation-request*))
 
             (PUT* "/:id" []
                   :return      InvitationRequest
-                  :body-params [email :- String phone :- String enable_sms :- Boolean]
+                  :body-params [invite_request :- {:email String :phone String :enable_sms  Boolean}]
                   :path-params [id :- Long]
                   :summary     "Updates the request for an invitation given ."
                   (ok @*invitation-request*))))

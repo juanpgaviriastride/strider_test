@@ -39,7 +39,6 @@
 
 
 (defn save-event [body]
-  (println "the body that comes into save is " body)
   (if (mandatory-attributes body) (save (:session body)) {:status 400}))
 
 (defn find-event [params]
