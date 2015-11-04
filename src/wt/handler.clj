@@ -76,6 +76,4 @@
 
 (def app
   (-> app-routes
-     (wrap-keyword-params)
-     (wrap-json-body {:keywords? true})
      (middleware/wrap-base)))

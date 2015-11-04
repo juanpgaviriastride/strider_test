@@ -26,7 +26,7 @@
   (and contains? body :user (contains? (:user body) :email )))
 
 (defn save-event [body]
-  (if (mandatory-attributes body) (save (:user body)) ({:message "Mandatory fields not present"})))
+  (if (mandatory-attributes body) (save (:user body)) {:message "Mandatory fields not present"}))
 
 (defn get-event [params]
   (if (contains? params :id) (get (:id params)) (println "not enough params")))
@@ -35,10 +35,10 @@
   (if (contains? params :id) (delete (:id params)) (println "not enough params")))
 
 (defroutes routes
-  (POST "/user" {body :body}
+  (POST "/user" {params :params}
        {:status 200
         :headers {"Content-Type" "application/json"}
-        :body (save-event body)
+        :body (save-event params)
         })
   (GET "/user/:id" {params :params}
        {:status 200

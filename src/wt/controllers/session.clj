@@ -24,7 +24,7 @@
       {:status 404}
       {:status 200
        :headers {"Content-Type" "application/json"}
-       :body maybe-session})))
+       :body {:session maybe-session}})))
 
 (defn delete-session [token]
   
@@ -39,6 +39,7 @@
 
 
 (defn save-event [body]
+  (println "the body that comes into save is " body)
   (if (mandatory-attributes body) (save (:session body)) {:status 400}))
 
 (defn find-event [params]
@@ -48,8 +49,8 @@
   (if (contains? params :token) (delete-session (:token params)) {:status 400}))
 
 (defroutes routes
-  (POST "/session" {body :body}
-        (save-event body))
+  (POST "/session" {params :params}
+        (save-event params))
 
   (GET "/session" {params :params}
        (find-event params))

@@ -21,7 +21,7 @@
 
             (POST* "/" []
                    :return      Invitation
-                   :body-params [email :- String]
+                   :body-params [invitation :- {:email  String}]
                    :summary     "Creates an invitation. "
                    (ok @*invitation*))
 

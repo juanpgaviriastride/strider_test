@@ -56,8 +56,8 @@
 
             (POST* "/" []
                    :return      User-Response
-                   :body-params [name :- String birthday :- String gender :- String email :- String password :- String]
-                   :summary     "Creates an user on the system so that a session can be created"
+                   :body-params [name :- String birthday :- String gender :- String email :- String password :- String bajo :- (s/enum :200 :403 :404)]
+                   :summary     "Creates an user on the system so that a session can be created."
                    (ok @*user-response*))
 
             (PUT* "/:id" []
