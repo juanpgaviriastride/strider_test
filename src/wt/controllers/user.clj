@@ -11,7 +11,7 @@
 
 ;;TODO validation of mandatory fields
 (defn save [user]
-  {:user  (dissoc (assoc user :id (:generated_key (model/save user))) :pass)})
+  {:user  (dissoc (assoc user :id (:generated_key (model/save user))) :password)})
 
 (defn get [id]
   (let [users (model/get id)]

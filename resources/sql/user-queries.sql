@@ -1,8 +1,63 @@
 -- name: create-user<!
 -- creates a new user record
 INSERT INTO users
-(name, email, birthday, gender, admin, last_login, is_active, pass)
-VALUES (:name, :email, :birthday, :gender, :admin, :last_login, :is_active, :pass)
+(name,
+email,
+birthday,
+profession,
+avatar_url,
+type,
+city_name,
+job_title,
+former_job_title,
+place_of_employment,
+former_place_of_employment,
+start_date,
+end_date,
+location,
+ocupation,
+industry,
+seeking_job,
+phone,
+degree,
+field_of_study,
+school_name,
+facebook_profile,
+linkedin_profile,
+gender,
+admin,
+last_login,
+is_active,
+password)
+VALUES (
+:name,
+:email,
+:birthday,
+:profession,
+:avatar_url,
+:type,
+:city_name,
+:job_title,
+:former_job_title,
+:place_of_employment,
+:former_place_of_employment,
+:start_date,
+:end_date,
+:location,
+:ocupation,
+:industry,
+:seeking_job,
+:phone,
+:degree,
+:field_of_study,
+:school_name,
+:facebook_profile,
+:linkedin_profile,
+:gender,
+:admin,
+:last_login,
+:is_active,
+:password)
 
 
 -- name: update-user!
@@ -29,5 +84,5 @@ WHERE id = :id
 
 --name: get-password
 --gets the salted password given the email
-SELECT pass FROM users
+SELECT password FROM users
 WHERE email = :email

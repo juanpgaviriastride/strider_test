@@ -1,6 +1,7 @@
 (ns wt.routes.user
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
+            [wt.controllers.user :as controller]
             [schema.core :as s]))
 
 (s/defschema User {
@@ -170,7 +171,7 @@
                                   :password String
                                   }]
                    :summary     "Creates an user on the system so that a session can be created."
-                   (ok @*user-response*))
+                   (ok (controller/save user)))
 
             (PUT* "/:id" []
                   :return      User-Response

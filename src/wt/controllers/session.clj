@@ -11,13 +11,14 @@
 
 ;;TODO validation of mandatory fields
 (defn save [session-data]
+  (println "the session about to be created is" session-data)
   (let [valid-password (model/validate-password (:email session-data) (:password session-data))]
+    (println "valid password?" valid-password)
     (if (boolean valid-password)
       (let [response (model/create-or-find (:email session-data))]
         (println "the answer about to be sent is" response)
         {:session response})
-      
-      nil)))
+      {})))
 
 (defn retrieve-session [token]
   (let [maybe-session (model/retrieve-session token)]

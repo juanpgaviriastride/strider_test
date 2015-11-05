@@ -10,14 +10,22 @@
 (defn delete [id]
   (db/user-soft-delete! {:id id}))
 
+(defn prepare-save [user-map]
+  (->
+   user-map
+   (update-in [:birthday] db/sql-date)
+   (update-in [:start_date] db/sql-date)
+   (update-in [:end_date] db/sql-date)
+   (update-in [:password] crypt-password)
+   (assoc :admin false)
+   (assoc :last_login nil)
+   (assoc :is_active true)))
+
 (defn save [user-map]
-  (db/create-user<! {:name (:name user-map)
-                       :email (:email user-map)
-                       :birthday (db/sql-date (:birthday user-map))
-                       :gender (:gender user-map)
-                       :pass (crypt-password (:pass user-map))
-                       :admin false
-                       :last_login nil
-                       :is_active true}))
+  (let [user (prepare-save user-map)]
+    (println "the prepared user map" user)
+    (db/create-user<! user)))
+
+
 
 

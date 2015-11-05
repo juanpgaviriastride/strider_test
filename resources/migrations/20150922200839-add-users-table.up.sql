@@ -27,5 +27,5 @@ CREATE TABLE users
  admin BOOLEAN,
  last_login TIME,
  is_active BOOLEAN,
- pass VARCHAR(100));
+ password VARCHAR(100));
 

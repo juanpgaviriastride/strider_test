@@ -6,17 +6,18 @@
   (:import [java.sql.Date]))
 
 (defn get-password [email]
-  (:pass (first (db/get-password {:email email}))))
+  (:password (first (db/get-password {:email email}))))
 
 (defn validate-password [email password]
-  (let [maybe-email (get-password email)]
-    (if (nil? maybe-email)
+  (let [maybe-password (get-password email)]
+    (if (nil? password)
       false
-      (check-password password maybe-email))))
+      (check-password password maybe-password))))
 
 (defn create-session [email]
   (let [token (crypto-random/url-part 100)
         insert-result (db/create-session<! {:email email :username "" :token token})]
+    (println "the session has been created!!")
     {:id (:generated_key insert-result)
      :token token
      :email email}))

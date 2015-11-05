@@ -23,7 +23,7 @@
                    :return      Invitation
                    :body-params [invitation :- {:email  String}]
                    :summary     "Creates an invitation. "
-                   (ok @*invitation*))
+                   {:status 400 :body {:invitation {:invitation_id 1 :inviter_id 2 :email "lalala@la.com"}}})
 
             (GET* "/" []
                   :return      Invitation
