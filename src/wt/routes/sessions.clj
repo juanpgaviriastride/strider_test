@@ -1,14 +1,15 @@
 (ns wt.routes.sessions
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
+            [wt.controllers.session :as controller]
             [schema.core :as s]))
 
 (s/defschema Session-User {:session {:id Long
-                                     :username String
+                                     :email String
                                      :token String}})
 
 (def ^:dynamic *user* (atom {:session {:id 1
-                                      :username "sarcilav"
+                                      :email "sarcilav@nullindustries.co"
                                       :token "resdhfjgkasldf"}}))
 
 (defroutes* sessions-routes
@@ -19,7 +20,7 @@
                    :return      Session-User
                    :body-params [session :- {:email String :password String}]
                    :summary     "Creates a user session."
-                   (ok @*user*))
+                   (ok (controller/save session)))
 
             (GET* "/" []
                   :return      Session-User

@@ -13,10 +13,11 @@
 (defn save [session-data]
   (let [valid-password (model/validate-password (:email session-data) (:password session-data))]
     (if (boolean valid-password)
-      {:status 200
-       :headers {"Content-Type" "application/json"}
-       :body {:session (model/create-or-find (:email session-data))}}
-      {:status 401})))
+      (let [response (model/create-or-find (:email session-data))]
+        (println "the answer about to be sent is" response)
+        {:session response})
+      
+      nil)))
 
 (defn retrieve-session [token]
   (let [maybe-session (model/retrieve-session token)]
