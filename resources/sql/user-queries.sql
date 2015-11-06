@@ -68,7 +68,33 @@ WHERE id = :id
 
 -- name: get-user
 -- retrieve a user given the id.
-SELECT name, email, birthday, gender, admin, last_login, is_active FROM users
+SELECT
+id,
+name,
+email,
+birthday,
+profession,
+avatar_url,
+type,
+city_name,
+job_title,
+former_job_title,
+place_of_employment,
+former_place_of_employment,
+start_date,
+end_date,
+location,
+ocupation,
+industry,
+seeking_job,
+phone,
+degree,
+field_of_study,
+school_name,
+facebook_profile,
+linkedin_profile,
+gender
+FROM users
 WHERE id = :id
 
 -- name: delete-user!

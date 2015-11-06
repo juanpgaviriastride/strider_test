@@ -4,8 +4,17 @@
    [bcrypt-clj.auth :refer :all])
   (:import [java.sql.Date]))
 
+(defn prepare-get [db-record]
+  (println "the db-record inside prepare-get is" db-record)
+  (-> db-record
+     (update-in [:birthday] db/string-date)
+     (update-in [:start_date] db/string-date)
+     (update-in [:end_date] db/string-date)
+     )
+  )
+
 (defn get [id]
-  (db/get-user {:id id}))
+  (prepare-get (first (db/get-user {:id id}))))
 
 (defn delete [id]
   (db/user-soft-delete! {:id id}))

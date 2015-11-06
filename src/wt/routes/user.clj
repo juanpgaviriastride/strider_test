@@ -132,7 +132,10 @@
                   :header-params [x-authorization :- String]
                   :path-params [id :- Long]
                   :summary     "Finds the info of a user in the system. and does something"
-                  (ok @*user-response*))
+                  (let [c-result (controller/get id)]
+                    (println "controller result" c-result)
+                    (ok c-result)
+                    ))
 
             (DELETE* "/:id" []
                   :return      String
@@ -171,7 +174,7 @@
                                   :password String
                                   }]
                    :summary     "Creates an user on the system so that a session can be created."
-                   (ok (controller/save user)))
+                   (controller/save user))
 
             (PUT* "/:id" []
                   :return      User-Response

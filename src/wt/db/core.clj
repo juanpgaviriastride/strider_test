@@ -35,6 +35,11 @@
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
 
+(defn string-date [sql-date]
+  (println "the data passed to string-date is" sql-date)
+  (let [formatter (java.text.SimpleDateFormat. "MM/dd/YYYY")]
+    (.format formatter sql-date)))
+
 (defn sql-date [date-text]
   (let [formatter (java.text.SimpleDateFormat. "MM/dd/YYYY")] (java.sql.Date. (.getTime (.parse formatter date-text)))))
 
