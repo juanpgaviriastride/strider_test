@@ -128,14 +128,11 @@
             :tags ["user"]
 
             (GET* "/:email" []
-                  :return      User-Response
+                  :return      (s/maybe User-Response)
                   :header-params [x-authorization :- String]
                   :path-params [email :- String]
                   :summary     "Finds the info of a user in the system. and does something"
-                  (let [c-result (controller/get email)]
-                    (println "controller result" c-result)
-                    (ok c-result)
-                    ))
+                  (controller/get email))
 
             (DELETE* "/:id" []
                   :return      String

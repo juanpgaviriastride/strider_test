@@ -18,10 +18,10 @@
             :tags ["request-invite"]
 
             (POST* "/" []
-                   :return      InvitationRequest
+                   :return      (s/maybe InvitationRequest)
                    :body-params [invite_request :- {:email String :phone String :enable_sms  Boolean}]
                    :summary     "Creates a request for an invitation from email."
-                   (ok @*invitation-request*))
+                   {:status 500 :body nil})
 
             (PUT* "/:id" []
                   :return      InvitationRequest

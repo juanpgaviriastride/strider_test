@@ -22,7 +22,10 @@
     (db/update-user! (assoc user :id id))))
 
 (defn get [email]
-  (prepare-get (first (db/get-user {:email email}))))
+  (let [query-result (db/get-user {:email email})]
+    (if (empty? query-result)
+      nil
+      (prepare-get (first query-result)))))
 
 (defn delete [id]
   (db/delete-user! {:id id}))

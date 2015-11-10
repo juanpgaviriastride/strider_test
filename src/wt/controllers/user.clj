@@ -16,8 +16,10 @@
 (defn get [email]
   (println "the user requested is" email)
   (let [users (model/get email)]
-    (println "the users fetched in controller are" {:user (first users)})
-    {:user  users}))
+    (println "the users fetched in controller are" {:user  users})
+    (if (nil? users)
+      {:status 404 :body nil}
+      {:status 200 :body {:user  users}})))
 
 (defn delete [id]
   (let [result (model/delete id)]
