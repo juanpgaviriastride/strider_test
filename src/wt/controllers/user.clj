@@ -28,9 +28,7 @@
 (defn update [user-map id]
   (let [user-result (model/update-user user-map id)]
     (println "the result of updating is " user-result)
-    (if (= user-result 1)
-      {:user (assoc user-map :id id)}
-      {:user nil})))
+    (if (> user-result 0) {:status  200 :body {:user (assoc user-map :id id)}} {:status 404 :body nil})))
 
   
 

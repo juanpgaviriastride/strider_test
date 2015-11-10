@@ -174,7 +174,7 @@
                    (ok (controller/save user)))
 
             (PUT* "/:id" []
-                  :return      User-Response
+                  :return       (s/maybe User-Response)
                   :body-params [user :- 
                                 {:name String
                                  :email String
@@ -204,6 +204,6 @@
                   :path-params [id :- Long]
                   :header-params [x-authorization :- String]
                   :summary     "Updates the basic information of a user in the system."
-                  (ok (controller/update user id)))))
+                  (controller/update user id))))
 
 
