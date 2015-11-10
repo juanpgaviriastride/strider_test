@@ -23,16 +23,16 @@
 (defn retrieve-session [token]
   (let [maybe-session (model/retrieve-session token)]
     (if (nil? maybe-session)
-      {:status 404}
-      {:session maybe-session})))
+      {:status 404 :body nil}
+      {:status 200 :body {:session maybe-session}})))
 
 (defn delete-session [id]
   
   (let [delete-result (model/delete-session id)]
     (println "result of delete " delete-result)
     (if (> delete-result 0)
-      {:status 200 :body ""} 
-      {:sttus 404 :body "not found"})))
+      {:status 200} 
+      {:status 404})))
 
 (defn mandatory-attributes [body]
   (and (and contains? body :session (contains? (:session body) :email)) (contains? (:session body) :password)))

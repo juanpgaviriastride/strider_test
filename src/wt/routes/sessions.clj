@@ -23,13 +23,13 @@
                    (ok (controller/save session)))
 
             (GET* "/" []
-                  :return      Session-User
+                  :return      (s/maybe Session-User)
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
-                  (ok (controller/retrieve-session token)))
+                  (controller/retrieve-session token))
 
             (DELETE* "/" []
-                  :return      String
+                  :return      nil
                   :query-params [id :- String]
                   :summary     "Ends the current user session."
                   (controller/delete-session id))))
