@@ -23,6 +23,15 @@
   (let [result (model/delete id)]
     (if (> result 0) "200"  "404")))
 
+(defn update [user-map id]
+  (let [user-result (model/update-user user-map id)]
+    (println "the result of updating is " user-result)
+    (if (= user-result 1)
+      {:user (assoc user-map :id id)}
+      {:user nil})))
+
+  
+
 
 (defn mandatory-attributes [body]
   (and contains? body :user (contains? (:user body) :email )))

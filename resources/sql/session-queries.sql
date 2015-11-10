@@ -18,7 +18,7 @@ WHERE email = :email
 --name: delete-session-token!
 --deletes a session from the token
 DELETE FROM sessions 
-WHERE token = :token
+WHERE id = :id
 
 
 

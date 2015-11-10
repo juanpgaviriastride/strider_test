@@ -63,7 +63,31 @@ VALUES (
 -- name: update-user!
 -- update an existing user record
 UPDATE users
-SET first_name = :first_name, last_name = :last_name, email = :email
+SET
+name = :name,
+email = :email,
+birthday = :birthday,
+profession = :profession,
+avatar_url = :avatar_url,
+type = :type,
+city_name = :city_name,
+job_title = :job_title,
+former_job_title = :former_job_title,
+place_of_employment = :place_of_employment,
+former_place_of_employment = :former_place_of_employment,
+start_date = :start_date,
+end_date = :end_date,
+location = :location,
+ocupation = :ocupation,
+industry = :industry,
+seeking_job = :seeking_job,
+phone = :phone,
+degree = :degree,
+field_of_study = :field_of_study,
+school_name = :school_name,
+facebook_profile = :facebook_profile,
+linkedin_profile = :linkedin_profile,
+gender = :gender
 WHERE id = :id
 
 -- name: get-user

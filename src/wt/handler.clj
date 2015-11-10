@@ -64,9 +64,6 @@
 
 (def app-routes
   (routes
-   ;;(var service-routes)
-   (var user-model/routes)
-   (var session-model/routes)
    (var api)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found

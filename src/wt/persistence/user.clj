@@ -5,13 +5,21 @@
   (:import [java.sql.Date]))
 
 (defn prepare-get [db-record]
-  (println "the db-record inside prepare-get is" db-record)
   (-> db-record
      (update-in [:birthday] db/string-date)
      (update-in [:start_date] db/string-date)
-     (update-in [:end_date] db/string-date)
-     )
-  )
+     (update-in [:end_date] db/string-date)))
+
+(defn prepare-update [user-map]
+  (-> user-map
+     (update-in [:birthday] db/sql-date)
+     (update-in [:start_date] db/sql-date)
+     (update-in [:end_date] db/sql-date)))
+
+(defn update-user [user-map id]
+  (let [user (prepare-update user-map)]
+    (println "the user after preparing for update is" user)
+    (db/update-user! (assoc user :id id))))
 
 (defn get [email]
   (prepare-get (first (db/get-user {:email email}))))

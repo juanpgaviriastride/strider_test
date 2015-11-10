@@ -26,13 +26,13 @@
       {:status 404}
       {:session maybe-session})))
 
-(defn delete-session [token]
+(defn delete-session [id]
   
-  (let [delete-result (model/delete-session token)]
+  (let [delete-result (model/delete-session id)]
     (println "result of delete " delete-result)
     (if (> delete-result 0)
-      "200"
-      "404")))
+      {:status 200 :body ""} 
+      {:sttus 404 :body "not found"})))
 
 (defn mandatory-attributes [body]
   (and (and contains? body :session (contains? (:session body) :email)) (contains? (:session body) :password)))

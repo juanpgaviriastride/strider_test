@@ -30,6 +30,6 @@
 
             (DELETE* "/" []
                   :return      String
-                  :query-params [token :- String]
+                  :query-params [id :- String]
                   :summary     "Ends the current user session."
-                  (ok (controller/delete-session token)))))
+                  (controller/delete-session id))))

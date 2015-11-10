@@ -179,35 +179,34 @@
             (PUT* "/:id" []
                   :return      User-Response
                   :body-params [user :- 
-                                 {:name String
-                                  :email String
-                                  :birthday String
-                                  :profession String
-                                  :avatar_url String
-                                  :type String
-                                  :city_name String
-                                  :job_title String
-                                  :former_job_title String 
-                                  :place_of_employment String
-                                  :former_place_of_employment String 
-                                  :start_date String
-                                  :end_date String
-                                  :location String
-                                  :ocupation String
-                                  :industry String
-                                  :seeking_job Boolean
-                                  :phone String
-                                  :degree String
-                                  :field_of_study String 
-                                  :school_name String
-                                  :facebook_profile String
-                                  :linkedin_profile String
-                                  :gender String
-                                  :password String
-                                  }]
+                                {:name String
+                                 :email String
+                                 :birthday String
+                                 :profession String
+                                 :avatar_url String
+                                 :type String
+                                 :city_name String
+                                 :job_title String
+                                 :former_job_title String 
+                                 :place_of_employment String
+                                 :former_place_of_employment String 
+                                 :start_date String
+                                 :end_date String
+                                 :location String
+                                 :ocupation String
+                                 :industry String
+                                 :seeking_job Boolean
+                                 :phone String
+                                 :degree String
+                                 :field_of_study String 
+                                 :school_name String
+                                 :facebook_profile String
+                                 :linkedin_profile String
+                                 :gender String
+                                 }]
                   :path-params [id :- Long]
                   :header-params [x-authorization :- String]
                   :summary     "Updates the basic information of a user in the system."
-                  (ok @*update-response*))))
+                  (ok (controller/update user id)))))
 
 
