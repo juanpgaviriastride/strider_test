@@ -30,5 +30,5 @@
       (t/shutdown connection))
     (assoc component :connection nil)))
 
-(def new-titan [hosts]
+(defn new-titan [hosts]
   (map->Titan {:hosts hosts :backend "cassandra" :graph "graph"}))

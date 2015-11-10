@@ -10,7 +10,7 @@
     (println "Starting cassandra")
     (if (= nil connection)
       (let [conn (cclient/connect hosts keyspace)]
-        (policies/retry-policy :downgrading-consistency conn)
+        (policies/retry-policy :downgrading-consistency)
         (assoc component :connection conn))
       component))
 
@@ -20,5 +20,5 @@
       (cclient/disconnect connection))
     (assoc component :connection nil)))
 
-(def new-cassandra [hosts keyspace]
+(defn new-cassandra [hosts keyspace]
   (map->Cassandra {:hosts hosts :keyspace keyspace}))

@@ -4,8 +4,9 @@
   (:gen-class
    :implements [org.apache.commons.daemon.Daemon])
 
-  (:require [com.webtalk.storage.graph            :as graph]
-            [com.webtalk.storage.persistence      :as persistence]
+  (:require [com.stuartsierra.component           :as component]
+            [com.webtalk.system                   :as sys]
+            [com.webtalk.util                     :as util]
             [com.webtalk.storage.queue            :as queue]
             [com.webtalk.storage.queue.publisher  :as publisher]
             [com.webtalk.resilience.user          :as user]
@@ -18,38 +19,41 @@
             [clojurewerkz.titanium.edges          :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
-(defonce state (atom {}))
+(def system nil)
+
+(defn get-conn [component]
+  (get-in system component :connection))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry
   [load]
   ;; start timeline users populator
   (let [[callback-q payload] load
-        gentry (entry/gcreate-entry (:graph-connection @state) payload)]
-    (publisher/publish-with-qname callback-q (gvertex/to-map gentry))
-    (entry/pcreate-entry (:persistence-connection @state) (gvertex/get gentry :id) (Integer. (payload "user_id")) payload)))
+        gentry (entry/gcreate-entry (get-conn :titan) payload)]
+    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map gentry))
+    (entry/pcreate-entry (get-conn :cassandra) (gvertex/get gentry :id) (Integer. (payload "user_id")) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
 (defn follow
   [load]
   (let [[callback-q payload] load
-        gfollow (follow/gfollow (:graph-connection @state) payload)]
-    (publisher/publish-with-qname callback-q (gedge/to-map gfollow))
-    (follow/pfollow (:persistence-connection @state) (Integer. (payload "user_id")) (Integer. (payload "followed_id")))))
+        gfollow (follow/gfollow (get-conn :titan) payload)]
+    (publisher/publish-with-qname (:rabbit system) callback-q (gedge/to-map gfollow))
+    (follow/pfollow (get-conn :cassandra) (Integer. (payload "user_id")) (Integer. (payload "followed_id")))))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
 (defn invite
   [load]
   (let [[callback-q payload] load
-        ginvitation (invitation/gcreate-invitation (:graph-connection @state) payload)]
-    (publisher/publish-with-qname callback-q (gvertex/to-map ginvitation))
-    (invitation/pcreate-invitation (:persistence-connection @state) (gvertex/get ginvitation :id) payload)))
+        ginvitation (invitation/gcreate-invitation (get-conn :titan) payload)]
+    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map ginvitation))
+    (invitation/pcreate-invitation (get-conn :cassandra) (gvertex/get ginvitation :id) payload)))
 
 ;; queue-name com.webtalk.storage.queue.request-an-invite
 (defn request-an-invite
   [load]
   (let [[callback-q payload] load
-        ginvite (invitation/grequest-an-invite (:graph-connection @state) payload)]
+        ginvite (invitation/grequest-an-invite (get-conn :titan) payload)]
     (println "ginvite" ginvite)
 
     (println "sending email")
@@ -58,19 +62,19 @@
 
     (println "saving into cass")
     (if (not= (:status ginvite) :mixmatch_type_record)
-      (invitation/prequest-invitation (:persistence-connection @state) (:__id__ (:vertex ginvite)) payload))))
+      (invitation/prequest-invitation (get-conn :cassandra) (:__id__ (:vertex ginvite)) payload))))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
   (println "create-user")
   (let [[callback-q payload] load
-        guser (user/gcreate-user (:graph-connection @state) payload)]
+        guser (user/gcreate-user (get-conn :titan) payload)]
     (println "guser that is going to be send to the queue" (gvertex/to-map guser))
     (flush)
-    (publisher/publish-with-qname callback-q (gvertex/to-map guser))
+    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map guser))
     (println "about to save it on cassandra")
-    (user/pcreate-user (:persistence-connection @state) (gvertex/get guser :id) payload)
+    (user/pcreate-user (get-conn :cassandra) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
 
@@ -82,49 +86,37 @@
    Example: (setup-queue-and-handlers \"com.webtalk.storage.queue\" actions)
    Returns: lazy [[conn1 ch1] [conn2 ch2] ... [connN chN]]"
 
-  [qname-prefix actions]
+  [component qname-prefix actions]
   (letfn [(sub-helper [action]
-            (do
+            (doall
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
               (println "Setting up queue for" action)
-              ;; Optional threaded approach will need to replace the cass and titan connection globals
-              ;; and define locals within this functions via let and pass them via args to avoid
-              ;; concurrency issues
-              ;; (.start (Thread.
-              (queue/subscribe-with-connection (str qname-prefix "." action)
-                                               @(ns-resolve 'com.webtalk.storage action))
-              ;; ))
-              ))]
+              (queue/subscribe-with-connection
+               component
+               (str qname-prefix "." action)
+               @(ns-resolve 'com.webtalk.storage action))))]
     (map sub-helper actions)))
 
 (defn start []
-  (swap! state assoc :graph-connection (graph/connection-session))
-  (swap! state assoc :persistence-connection (persistence/connection-session))
-  (let [rmq-conns-channels (setup-queue-and-handlers "com.webtalk.storage.queue" ['request-an-invite 'create-entry 'follow 'invite 'create-user
-                                                                                  ])]
-    (swap! state assoc :rmq-conns-channels rmq-conns-channels)
-    
-    (println rmq-conns-channels))
-  ;;(start-jetty)
-  )
+  (alter-var-root #'system component/start)
+  (println system)
+  (let [rmq-conns-channels (setup-queue-and-handlers (:rabbit system)
+                                                     "com.webtalk.storage.queue"
+                                                     ['request-an-invite 'create-entry 'follow 'invite 'create-user])]
+    (println rmq-conns-channels)))
 
 (defn init [args]
-  (swap! state assoc :running true))
+  (alter-var-root #'system
+                  (constantly
+                   (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
+                                                :keyspace (util/get-cass-keyspace)}
+                                    :rabbit    {:host  (util/get-rmq-host)}
+                                    :titan     {:hosts (util/get-cass-hosts)}}))))
 
 (defn stop []
   ;; Important to close
   ;; from queue
-  (dorun
-   (map (fn [conn-ch] (queue/shutdown conn-ch)) (:rmq-conns-channels @state)))
-  (swap! state assoc :rmq-conns-channels nil)
-  ;; from persistence
-  (persistence/shutdown (:persistence-connection @state))
-  (swap! state assoc :persistence-connection nil)
-  ;; from graph
-  (graph/shutdown (:graph-connection @state))
-  (swap! state assoc :graph-connection nil)
-  ;; update the running state
-  (swap! state assoc :running false))
+  (alter-var-root #'system component/stop))
 
 ;; Daemon implementation
 

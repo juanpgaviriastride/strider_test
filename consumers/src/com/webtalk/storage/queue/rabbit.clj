@@ -1,6 +1,6 @@
 (ns com.webtalk.storage.queue.rabbit
   (:require [com.stuartsierra.component :as component]
-            [langohr.core :as rmq]))
+            [langohr.core               :as rmq]))
 
 (defrecord Rabbit [host connection]
   component/Lifecycle
@@ -19,3 +19,5 @@
     (assoc component :connection nil)))
 
 ;; handle channels?
+(defn new-rabbit [host]
+  (map->Rabbit {:host host}))
