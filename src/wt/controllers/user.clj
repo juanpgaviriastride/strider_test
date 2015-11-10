@@ -23,7 +23,7 @@
 
 (defn delete [id]
   (let [result (model/delete id)]
-    (if (> result 0) "200"  "404")))
+    (if (> result 0) {:status  200 } {:status 404})))
 
 (defn update [user-map id]
   (let [user-result (model/update-user user-map id)]

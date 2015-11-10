@@ -135,11 +135,11 @@
                   (controller/get email))
 
             (DELETE* "/:id" []
-                  :return      String
+                  :return      nil
                   :header-params [x-authorization :- String]
                   :path-params [id :- Long]
                   :summary     "Deletes a user (logically) in the app."
-                  (ok (controller/delete id)))
+                  (controller/delete id))
 
             (POST* "/" []
                    :return      User-Response

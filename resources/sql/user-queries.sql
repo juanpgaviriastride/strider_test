@@ -119,7 +119,8 @@ facebook_profile,
 linkedin_profile,
 gender
 FROM users
-WHERE email = :email
+WHERE email = :email AND is_active = true
+
 
 -- name: delete-user!
 -- delete a user given the id
@@ -130,7 +131,7 @@ WHERE id = :id
 --soft delete of a user on the system
 UPDATE users
 SET is_active = false
-WHERE id = :id
+WHERE id = :id 
 
 --name: get-password
 --gets the salted password given the email
