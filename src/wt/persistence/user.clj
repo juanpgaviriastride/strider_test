@@ -13,11 +13,11 @@
      )
   )
 
-(defn get [id]
-  (prepare-get (first (db/get-user {:id id}))))
+(defn get [email]
+  (prepare-get (first (db/get-user {:email email}))))
 
 (defn delete [id]
-  (db/user-soft-delete! {:id id}))
+  (db/delete-user! {:id id}))
 
 (defn prepare-save [user-map]
   (->

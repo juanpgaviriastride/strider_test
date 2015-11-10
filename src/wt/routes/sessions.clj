@@ -26,10 +26,10 @@
                   :return      Session-User
                   :query-params [token :- String]
                   :summary     "Returns the current user session."
-                  (ok @*user*))
+                  (ok (controller/retrieve-session token)))
 
             (DELETE* "/" []
                   :return      String
                   :query-params [token :- String]
                   :summary     "Ends the current user session."
-                  (ok ""))))
+                  (ok (controller/delete-session token)))))

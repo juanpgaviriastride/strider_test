@@ -13,15 +13,15 @@
 (defn save [user]
   {:user  (dissoc (assoc user :id (:generated_key (model/save user))) :password)})
 
-(defn get [id]
-  (println "the user requested is" id)
-  (let [users (model/get id)]
+(defn get [email]
+  (println "the user requested is" email)
+  (let [users (model/get email)]
     (println "the users fetched in controller are" {:user (first users)})
     {:user  users}))
 
 (defn delete [id]
   (let [result (model/delete id)]
-    (if (> result 0) (+ 200) (+ 404))))
+    (if (> result 0) "200"  "404")))
 
 
 (defn mandatory-attributes [body]

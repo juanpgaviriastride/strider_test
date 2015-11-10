@@ -95,7 +95,7 @@ facebook_profile,
 linkedin_profile,
 gender
 FROM users
-WHERE id = :id
+WHERE email = :email
 
 -- name: delete-user!
 -- delete a user given the id

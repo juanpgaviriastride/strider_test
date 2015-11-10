@@ -127,12 +127,12 @@
   (context* "/api/v1/invites/user" []
             :tags ["user"]
 
-            (GET* "/:id" []
+            (GET* "/:email" []
                   :return      User-Response
                   :header-params [x-authorization :- String]
-                  :path-params [id :- Long]
+                  :path-params [email :- String]
                   :summary     "Finds the info of a user in the system. and does something"
-                  (let [c-result (controller/get id)]
+                  (let [c-result (controller/get email)]
                     (println "controller result" c-result)
                     (ok c-result)
                     ))
@@ -142,7 +142,7 @@
                   :header-params [x-authorization :- String]
                   :path-params [id :- Long]
                   :summary     "Deletes a user (logically) in the app."
-                  (ok ""))
+                  (ok (controller/delete id)))
 
             (POST* "/" []
                    :return      User-Response
@@ -174,7 +174,7 @@
                                   :password String
                                   }]
                    :summary     "Creates an user on the system so that a session can be created."
-                   (controller/save user))
+                   (ok (controller/save user)))
 
             (PUT* "/:id" []
                   :return      User-Response
