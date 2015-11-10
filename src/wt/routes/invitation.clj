@@ -27,10 +27,10 @@
                    (ok (controller/save-invitation invitation)))
 
             (GET* "/" []
-                  :return      Invitation
+                  :return      (s/maybe  Invitation)
                   :query-params [invitation_id :- Long]
                   :summary     "Returns an invitation for the current phone if exists."
-                  (ok (controller/get-invitation invitation_id)))))
+                  (controller/get-invitation invitation_id))))
 
             
 

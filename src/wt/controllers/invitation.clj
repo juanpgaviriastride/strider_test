@@ -9,4 +9,7 @@
   )
 
 (defn get-invitation [invitation-id]
-  {:invitation (model/get-invitation invitation-id)})
+  (let [invitation (model/get-invitation invitation-id)]
+    (if (nil? invitation)
+      {:status 404 :body nil}
+      {:status 200 :body {:invitation invitation}})))
