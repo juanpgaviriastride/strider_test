@@ -6,6 +6,9 @@
             [wt.routes.sessions :refer [sessions-routes]]
             [wt.routes.request-invite :refer [request-invite-routes]]
             [wt.routes.invitation :refer [invite-routes]]
+            [wt.routes.user :refer [user-routes]]
+            [wt.controllers.user :as user-model]
+            [wt.controllers.session :as session-model]
             [wt.middleware :as middleware]
             [wt.db.core :as db]
             [compojure.route :as route]
@@ -13,6 +16,9 @@
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.3rd-party.rotor :as rotor]
             [selmer.parser :as parser]
+            [clojure.data.json :as json]
+            [ring.middleware.json :refer [wrap-json-body]]
+            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [environ.core :refer [env]]))
 
 (defn init
@@ -30,7 +36,8 @@
                            :backlog 10})}})
 
   (if (env :dev) (parser/cache-off!))
-  ;; (db/connect!)
+  (db/connect!)
+  (timbre/info "Connected to the database")
   (timbre/info (str
                  "\n-=[wt started successfully"
                  (when (env :dev) " using the development profile")
@@ -52,11 +59,11 @@
    {:info {:title "WT Api"}})
   (var sessions-routes)
   (var invite-routes)
+  (var user-routes)
   (var request-invite-routes))
 
 (def app-routes
   (routes
-   ;;(var service-routes)
    (var api)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (route/not-found
@@ -64,4 +71,6 @@
      (error-page {:status 404
                   :title "page not found"})))))
 
-(def app (middleware/wrap-base #'app-routes))
+(def app
+  (-> app-routes
+     (middleware/wrap-base)))
