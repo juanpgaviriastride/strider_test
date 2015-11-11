@@ -3,6 +3,7 @@
   (:require [clojurewerkz.titanium.graph    :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
             [clojurewerkz.titanium.edges    :as tedge]
+            [com.webtalk.mailer.invite      :as deliver-invite]
             [crypto.random :refer [url-part]]))
 
 (defn invitation-hash [payload]
@@ -51,8 +52,10 @@
    It is really important to note that this macro depends on the following context:
    - a g var that represents a graph instance of com.thinkaurelius.titan.graphdb.database.StandardTitanGraph
    - a user var that is an instance of tvertex and is the user that is sending the invitation"
-  `(tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
-                                                         :invitationToken (url-part 24)}))
+  `(let [-*token (url-part 24)]
+     (tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
+                                                           :invitationToken (url-part 24)})
+     (deliver-invite (tvertex/to-map ~'user) -*token ~'email)))
 
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
