@@ -22,6 +22,7 @@
 (def system nil)
 
 (defn get-conn [component]
+  (println "get-conn" component (get-in system component))
   (get-in system component :connection))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
