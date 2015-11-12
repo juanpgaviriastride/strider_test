@@ -26,6 +26,7 @@
                  [conman "0.1.7"]
                  [mysql/mysql-connector-java "5.1.34"]
                  [metosin/compojure-api "0.23.1"]
+                 [com.novemberain/langohr "3.1.0"]
                  [metosin/ring-swagger-ui "2.1.2"]
                  [bcrypt-clj "0.3.3"]
                  [org.clojure/data.json "0.2.6"]
