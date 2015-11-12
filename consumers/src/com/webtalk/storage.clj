@@ -88,13 +88,15 @@
 
   [component qname-prefix actions]
   (letfn [(sub-helper [action]
+            (println "starting doall" component qname-prefix actions)
             (doall
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
-              (println "Setting up queue for" action)
               (queue/subscribe-with-connection
                component
                (str qname-prefix "." action)
-               @(ns-resolve 'com.webtalk.storage action))))]
+               @(ns-resolve 'com.webtalk.storage action))
+               ))]
+    (println "there isn't null up to " actions)
     (map sub-helper actions)))
 
 (defn start []
@@ -102,8 +104,8 @@
   (println system)
   (let [rmq-conns-channels (setup-queue-and-handlers (:rabbit system)
                                                      "com.webtalk.storage.queue"
-                                                     ['request-an-invite 'create-entry 'follow 'invite 'create-user])]
-    (println rmq-conns-channels)))
+                                                     ['request-an-invite 'invite])]
+    (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
   (alter-var-root #'system
@@ -111,7 +113,7 @@
                    (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
                                                 :keyspace (util/get-cass-keyspace)}
                                     :rabbit    {:host  (util/get-rmq-host)}
-                                    :titan     {:hosts (util/get-cass-hosts)}}))))
+                                    :titan     {:hosts (util/get-titan-hosts)}}))))
 
 (defn stop []
   ;; Important to close
