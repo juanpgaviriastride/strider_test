@@ -36,30 +36,32 @@ cassandra_seed:
   cpu_shares: 100
   mem_limit: 4096000000
   image: cassandra
-  environment:
-    - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
+  ports:
+    - "9160:9160"
+  # environment:
+  #   - CASSANDRA_BROADCAST_ADDRESS=192.168.99.100
   #   - CASSANDRA_CLUSTER_NAME=wt-develop
 
     
 cassandra_non_seed:
-  # cpu_shares: 100
-  # mem_limit: 4096000000
+  cpu_shares: 100
+  mem_limit: 4096000000
   image: cassandra
   links:
    - cassandra_seed
   environment:
    - CASSANDRA_SEEDS=cassandra_seed
    # - CASSANDRA_CLUSTER_NAME=wt-develop
-   - CASSANDRA_BROADCAST_ADDRESS=cassandra_seed
-
+   - CASSANDRA_BROADCAST_ADDRESS=192.168.99.100
+   
 elasticsearch:
-  # cpu_shares: 100
-  # mem_limit: 4096000000
+  cpu_shares: 100
+  mem_limit: 4096000000
   image: elasticsearch
 
 rabbitmq:
-  # cpu_shares: 100
-  # mem_limit: 8192000000
+  cpu_shares: 100
+  mem_limit: 8192000000
   ports:
     - "15672:15672"
   image: rabbitmq
