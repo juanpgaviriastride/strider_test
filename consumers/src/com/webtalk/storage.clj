@@ -19,11 +19,14 @@
             [clojurewerkz.titanium.edges          :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
-(def system nil)
+(def ^:dynamic *system* nil)
 
 (defn get-conn [component]
-  (println "get-conn" component (get-in system component))
-  (get-in system component :connection))
+  (println "system" *system* (:system *system*))
+  (println "component" component)
+  (println "get-conn" component (get-in *system* [component]))
+  (flush)
+  (get-in *system* [component :connection]))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
 (defn create-entry
@@ -31,7 +34,7 @@
   ;; start timeline users populator
   (let [[callback-q payload] load
         gentry (entry/gcreate-entry (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map gentry))
+    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map gentry))
     (entry/pcreate-entry (get-conn :cassandra) (gvertex/get gentry :id) (Integer. (payload "user_id")) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
@@ -39,7 +42,7 @@
   [load]
   (let [[callback-q payload] load
         gfollow (follow/gfollow (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit system) callback-q (gedge/to-map gfollow))
+    (publisher/publish-with-qname (:rabbit *system*) callback-q (gedge/to-map gfollow))
     (follow/pfollow (get-conn :cassandra) (Integer. (payload "user_id")) (Integer. (payload "followed_id")))))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
@@ -47,7 +50,7 @@
   [load]
   (let [[callback-q payload] load
         ginvitation (invitation/gcreate-invitation (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map ginvitation))
+    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map ginvitation))
     (invitation/pcreate-invitation (get-conn :cassandra) (gvertex/get ginvitation :id) payload)))
 
 ;; queue-name com.webtalk.storage.queue.request-an-invite
@@ -73,7 +76,7 @@
         guser (user/gcreate-user (get-conn :titan) payload)]
     (println "guser that is going to be send to the queue" (gvertex/to-map guser))
     (flush)
-    (publisher/publish-with-qname (:rabbit system) callback-q (gvertex/to-map guser))
+    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map guser))
     (println "about to save it on cassandra")
     (user/pcreate-user (get-conn :cassandra) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
@@ -103,25 +106,26 @@
     (map sub-helper actions)))
 
 (defn start []
-  (alter-var-root #'system component/start)
-  (println system)
-  (let [rmq-conns-channels (setup-queue-and-handlers (:rabbit system)
+  (alter-var-root #'*system*
+                  (constantly
+                   (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
+                                                :keyspace (util/get-cass-keyspace)}
+                                    :rabbit    {:host  (util/get-rmq-host)}
+                                    :titan     {:hosts (util/get-titan-hosts)}})))
+  (alter-var-root #'*system* component/start)
+  (println *system* (:system *system*))
+  (let [rmq-conns-channels (setup-queue-and-handlers (:rabbit *system*)
                                                      "com.webtalk.storage.queue"
                                                      ['request-an-invite 'invite])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
-  (alter-var-root #'system
-                  (constantly
-                   (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
-                                                :keyspace (util/get-cass-keyspace)}
-                                    :rabbit    {:host  (util/get-rmq-host)}
-                                    :titan     {:hosts (util/get-titan-hosts)}}))))
+  (println "init?"))
 
 (defn stop []
   ;; Important to close
   ;; from queue
-  (alter-var-root #'system component/stop))
+  (alter-var-root #'*system* component/stop))
 
 ;; Daemon implementation
 
