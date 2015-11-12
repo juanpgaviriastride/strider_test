@@ -90,13 +90,15 @@
   [component qname-prefix actions]
   (letfn [(sub-helper [action]
             (println "starting doall" component qname-prefix actions)
-            (doall
+            (try
+              (doall
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
               (queue/subscribe-with-connection
                component
                (str qname-prefix "." action)
                @(ns-resolve 'com.webtalk.storage action))
-               ))]
+              )
+              (catch Exception e (str "caught exception: " (.getMessage e) "in" action))))]
     (println "there isn't null up to " actions)
     (map sub-helper actions)))
 
