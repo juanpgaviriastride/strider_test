@@ -5,13 +5,14 @@
             [langohr.queue                    :as lq]
             [com.webtalk.storage.queue.config :as config]
             [langohr.basic                    :as lb]
-            [clojure.data.json                :as json]))
+            [clojure.data.json                :as json]
+            [com.stuartsierra.component       :as component]))
 
 (def ^{:const true}
   default-exchange-name "")
 
-(defn publish-with-qname [qname payload]
-  (let [connection (rmq/connect {:host (config/rmq-config)})
+(defn publish-with-qname [q qname payload]
+  (let [connection (:connection (component/start q))
         channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (println "qname" qname)
@@ -20,4 +21,4 @@
     (println "about to publish")
     (flush)
     (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json"})
-    [connection channel]))
+    channel))

@@ -6,6 +6,9 @@
 (defn get-cass-hosts []
   (mapv trim (split (env :cassandra-1-port) #",")))
 
+(defn get-titan-hosts []
+  (mapv trim (split (env :titan-1-port) #",")))
+
 (defn get-cass-keyspace []
   (trim (env :cass-keyspace)))
 

@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [environ.core :refer [env]]))
 
-(def auth {:api_user (env :sengrid-username)
-           :api_key  (env :sengrid-key)})
+(def auth {:api_user (or (env :sengrid-username) "sarcilav")
+           :api_key  (or (env :sengrid-key) "P@wU8Z#wGHAZ^n")})
 
-(def base-url (env :base-url))
+(def base-url (or (env :base-url) "staging.webtalk.co"))
