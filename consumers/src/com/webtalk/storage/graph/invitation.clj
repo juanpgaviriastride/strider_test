@@ -52,10 +52,12 @@
    It is really important to note that this macro depends on the following context:
    - a g var that represents a graph instance of com.thinkaurelius.titan.graphdb.database.StandardTitanGraph
    - a user var that is an instance of tvertex and is the user that is sending the invitation"
-  `(let [-*token# (url-part 24)]
-     (tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
-                                                           :invitationToken (url-part 24)})
-     (deliver-invite/deliver-email (tvertex/to-map ~'user) -*token# ~'email)))
+  `(let [token# (url-part 24)
+         edge#   (first (tedge/upconnect! ~'g ~'user "invited" ~invited-user {:time (System/currentTimeMillis)
+                                                                        :invitationToken token#}))]
+     (do
+       (deliver-invite/deliver-email (tvertex/to-map ~'user) token# ~'email)
+       edge#)))
 
 (defn create-invitation!
   "It creates the user invitation node if needed and links the user who invited with the invitation node
@@ -70,14 +72,12 @@
         user (tvertex/find-by-id graph (payload "user_id"))
         properties-hash (invitation-hash {:email email})]
     (tgraph/with-transaction [g graph]
-      (if (nil? invitation)
-        (let [new-invitation (tvertex/create! g properties-hash)]
-          (connect-invitation new-invitation))
-        ;; else user (invited or not) was already created
+      (when-not (nil? invitation)
         (let [vertex-type (tvertex/get invitation :VertexType)]
-          (when (not= vertex-type "user")
-            (connect-invitation invitation)
-            (if (= vertex-type "requestedInvitation")
-              ;; this should overwrite the type from requestedInvitation to invitedUser
-              (tvertex/merge! invitation properties-hash))))))
-    (first (tvertex/find-by-kv graph :email email))))
+          (when (and (not= vertex-type "user")
+                   (= vertex-type "requestedInvitation"))
+            (tvertex/merge! invitation properties-hash))))
+      (let [inv (if (nil? invitation)
+                  (tvertex/create! g properties-hash)
+                  invitation)]
+        [inv (connect-invitation inv)]))))
