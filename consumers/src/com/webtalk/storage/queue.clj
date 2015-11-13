@@ -11,10 +11,9 @@
 (def ^{:const true}
   default-exchange-name "")
 
-(defn subscribe-with-connection [q qname message-handler]
+(defn subscribe-with-connection [connection qname message-handler]
   (println "Getting ready to setup" qname)
-  (let [connection (:connection (component/start q))
-        channel    (lch/open connection)]
+  (let [channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (lq/declare channel qname {:durable true :auto-delete false :exclusive false})
     (println "creating consumer" message-handler)

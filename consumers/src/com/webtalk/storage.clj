@@ -34,7 +34,7 @@
   ;; start timeline users populator
   (let [[callback-q payload] load
         gentry (entry/gcreate-entry (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map gentry))
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q (gvertex/to-map gentry))
     (entry/pcreate-entry (get-conn :cassandra) (gvertex/get gentry :id) (Integer. (payload "user_id")) payload)))
 
 ;;; queue-name com.webtalk.storage.queue.follow
@@ -42,7 +42,7 @@
   [load]
   (let [[callback-q payload] load
         gfollow (follow/gfollow (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit *system*) callback-q (gedge/to-map gfollow))
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q (gedge/to-map gfollow))
     (follow/pfollow (get-conn :cassandra) (Integer. (payload "user_id")) (Integer. (payload "followed_id")))))
 
 ;;; queue-name com.webtalk.storage.queue.invite 
@@ -50,7 +50,7 @@
   [load]
   (let [[callback-q payload] load
         ginvitation (invitation/gcreate-invitation (get-conn :titan) payload)]
-    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map ginvitation))
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q (gvertex/to-map ginvitation))
     (invitation/pcreate-invitation (get-conn :cassandra) (gvertex/get ginvitation :id) payload)))
 
 ;; queue-name com.webtalk.storage.queue.request-an-invite
@@ -76,7 +76,7 @@
         guser (user/gcreate-user (get-conn :titan) payload)]
     (println "guser that is going to be send to the queue" (gvertex/to-map guser))
     (flush)
-    (publisher/publish-with-qname (:rabbit *system*) callback-q (gvertex/to-map guser))
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q (gvertex/to-map guser))
     (println "about to save it on cassandra")
     (user/pcreate-user (get-conn :cassandra) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
@@ -90,14 +90,14 @@
    Example: (setup-queue-and-handlers \"com.webtalk.storage.queue\" actions)
    Returns: lazy [[conn1 ch1] [conn2 ch2] ... [connN chN]]"
 
-  [component qname-prefix actions]
+  [connection qname-prefix actions]
   (letfn [(sub-helper [action]
-            (println "starting doall" component qname-prefix actions)
+            (println "starting doall" connection qname-prefix actions)
             (try
               (doall
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
               (queue/subscribe-with-connection
-               component
+               connection
                (str qname-prefix "." action)
                @(ns-resolve 'com.webtalk.storage action))
               )
@@ -114,7 +114,7 @@
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
   (println *system* (:system *system*))
-  (let [rmq-conns-channels (setup-queue-and-handlers (:rabbit *system*)
+  (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.storage.queue"
                                                      ['request-an-invite 'invite])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))

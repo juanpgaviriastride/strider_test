@@ -11,9 +11,8 @@
 (def ^{:const true}
   default-exchange-name "")
 
-(defn publish-with-qname [q qname payload]
-  (let [connection (:connection (component/start q))
-        channel    (lch/open connection)]
+(defn publish-with-qname [connection qname payload]
+  (let [channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (println "qname" qname)
     (flush)
