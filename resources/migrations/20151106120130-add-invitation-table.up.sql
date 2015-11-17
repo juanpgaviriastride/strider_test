@@ -1,5 +1,6 @@
 CREATE TABLE invitations
 (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 inviter_id INT,
-email VARCHAR(150)
+email VARCHAR(150),
+token VARCHAR(100)
 )

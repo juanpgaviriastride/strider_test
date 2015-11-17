@@ -6,7 +6,9 @@
 
 (s/defschema Invitation {:invitation {:id Long
                                       :inviter_id Long
-                                      :email String}
+                                      :email String
+                                      :token String
+                                      }
                          })
 
 
@@ -14,17 +16,24 @@
 (def ^:dynamic *invitation* (atom {:invitation {:id 1
                                                 :inviter_id 5
                                                 ;;TODO add phonr :phone "+57 3004174815"
-                                                :email "sarcilav@gmail.com"}}))
+                                                :email "sarcilav@gmail.com"
+                                                :token "kjsaksljakslj"}}))
 
 (defroutes* invite-routes
   (context* "/api/v1/invites" []
             :tags ["invitation"]
 
             (POST* "/" []
-                   :return      Invitation
+                   :return      String
                    :body-params [invitation :- {:email  String :inviter_id Long}]
                    :summary     "Creates an invitation. "
                    (ok (controller/save-invitation invitation)))
+
+            (GET* "/token/:token" []
+                  :return      (s/maybe Invitation)
+                  :path-params [token :- String]
+                  :summary     "Creates an invitation. "
+                  (controller/validate-invitation token))
 
             (GET* "/" []
                   :return      (s/maybe  Invitation)
