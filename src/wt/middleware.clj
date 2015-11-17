@@ -70,3 +70,12 @@
       (wrap-session {:cookie-attrs {:http-only true}})
       wrap-context
       wrap-internal-error))
+
+(defmethod compojure.api.meta/restructure-param :auth
+  [_ token {:keys [parameters lets body middlewares] :as acc}]
+  "Make sure the request has X-Authorization header and that it's value is a valid token. Binds the value into a variable"
+  (-> acc
+      (update-in [:lets] into [{{token "x-authorization"} :headers} '+compojure-api-request+])
+      (assoc :body `((if (= ~token "123") ;; use the actual get-session
+                      (do ~@body)
+                      (ring.util.http-response/forbidden "Auth required"))))))
