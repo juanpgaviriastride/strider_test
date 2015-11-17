@@ -6,7 +6,8 @@
 (defn save-invitation [invitation]
   (let [maybe-invitation (model/save-invitation invitation)]
     (println "the maybe invitation is " maybe-invitation)
-    ()
+    ;;TODO: link the sql and nosql users by inviter_id
+    (publisher/publish-with-qname "com.webtalk.storage.queue.invite" "com.webtalk.invitations" {:user_id 53760256 :email (:email maybe-invitation)})
     {:invitation maybe-invitation}))
 
 (defn get-invitation [invitation-id]

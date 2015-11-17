@@ -1,4 +1,4 @@
-(ns com.webtalk.persistence.queue.config
+(ns wt.persistence.queue.config
   (:gen-class)
   (:require [environ.core :refer [env]]
             [clojure.string :refer [split trim]]))
