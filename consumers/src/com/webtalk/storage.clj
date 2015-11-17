@@ -21,6 +21,11 @@
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def ^:dynamic *system* nil)
 
+
+(defn friendly-invitation [invitation edge]
+  (assoc (gvertex/to-map invitation)
+         :invitationToken (:invitationToken (gedge/to-map edge))))
+
 (defn friendly-edge [edge]
   (dissoc (gedge/to-map edge) :__id__))
 
@@ -53,8 +58,8 @@
   [load]
   (let [[callback-q payload] load
         [ginvitation ginv-edge] (invitation/gcreate-invitation (get-conn :titan) payload)]
-    (println "edge" (friendly-edge ginv-edge))
-    (publisher/publish-with-qname (get-conn :rabbit) callback-q (friendly-edge ginv-edge))
+    (println "invite response" (friendly-invitation ginvitation ginv-edge))
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q (friendly-invitation ginvitation ginv-edge))
     (invitation/pcreate-invitation (get-conn :cassandra) (gvertex/get ginvitation :id) payload)))
 
 ;; queue-name com.webtalk.storage.queue.request-an-invite
