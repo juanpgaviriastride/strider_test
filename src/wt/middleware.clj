@@ -11,7 +11,9 @@
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]))
+            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
+            [wt.persistence.session :refer [retrieve-session]]
+            [compojure.api.meta :refer [restructure-param]]))
 
 (defn wrap-context [handler]
   (fn [request]
@@ -70,3 +72,12 @@
       (wrap-session {:cookie-attrs {:http-only true}})
       wrap-context
       wrap-internal-error))
+
+(defmethod restructure-param :auth
+  [_ token {:keys [parameters lets body middlewares] :as acc}]
+  "Make sure the request has X-Authorization header and that it's value is a valid token. Binds the value into a variable"
+  (-> acc
+      (update-in [:lets] into [{{token "x-authorization"} :headers} '+compojure-api-request+])
+      (assoc :body `((if (retrieve-session ~token)
+                      (do ~@body)
+                      (ring.util.http-response/forbidden "Auth required"))))))
