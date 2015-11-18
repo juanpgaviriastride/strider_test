@@ -77,7 +77,7 @@
   [_ token {:keys [parameters lets body middlewares] :as acc}]
   "Make sure the request has X-Authorization header and that it's value is a valid token. Binds the value into a variable"
   (-> acc
-      (update-in [:lets] into [{{token "x-authorization"} :headers} '+compojure-api-request+])
-      (assoc :body `((if (retrieve-session ~token)
+     (update-in [:lets] into [{{token "x-authorization"} :headers} '+compojure-api-request+])
+     (assoc :body `((if (retrieve-session ~token)
                       (do ~@body)
                       (ring.util.http-response/forbidden "Auth required"))))))

@@ -2,7 +2,8 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [wt.controllers.invitation :as controller]
-            [schema.core :as s]))
+            [schema.core :as s]
+            wt.middleware))
 
 (s/defschema Invitation {:invitation {:id Long
                                       :inviter_id Long
@@ -24,8 +25,10 @@
             :tags ["invitation"]
 
             (POST* "/" []
+                   :auth token
                    :return      String
                    :body-params [invitation :- {:email  String :inviter_id Long}]
+                   :header-params [x-authorization :- String]
                    :summary     "Creates an invitation. "
                    (ok (controller/save-invitation invitation)))
 
@@ -36,8 +39,10 @@
                   (controller/validate-invitation token))
 
             (GET* "/" []
+                  :auth token
                   :return      (s/maybe  Invitation)
                   :query-params [invitation_id :- Long]
+                  :header-params [x-authorization :- String]
                   :summary     "Returns an invitation for the current phone if exists."
                   (controller/get-invitation invitation_id))))
 
