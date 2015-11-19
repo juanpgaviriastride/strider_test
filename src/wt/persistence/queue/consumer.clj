@@ -25,8 +25,6 @@
   (lconsumer/subscribe channel queuename (comp message-handler helper) opts))
 
 
-
-
 (defn subscribe-with-connection [qname message-handler]
   (println "Getting ready to setup" qname)
   (let [connection (rmq/connect {:host (config/rmq-config)})
@@ -37,3 +35,10 @@
     (subscribe channel qname message-handler {:auto-ack true})
     (println "subscribed" message-handler)
     [channel]))
+
+(defn promise-subscription [qname message-handler]
+  (let [result (promise)]
+    (subscribe-with-connection qname
+                               (fn [payload]
+                                 (deliver result (message-handler payload))))
+    result))

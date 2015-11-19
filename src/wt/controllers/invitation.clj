@@ -13,14 +13,12 @@
 
 (defn save-invitation [invitation]
   (let [callback-queue-name (str "web.webtalk.invitation." (url-part 15))
-        result (promise)]
-    (consumer/subscribe-with-connection callback-queue-name (fn [payload] (deliver result (invitation-sent payload))))
+        result (consumer/promise-subscription callback-queue-name invitation-sent)]
     ;;TODO: link the sql and nosql users by inviter_id
     (publisher/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})
-    (println "result is" @result)
-    (if (nil? result)
-      {:status 400 :body nil}
-      {:status 200 :body {:invitation @result}})))
+    (if-let [response @result]
+      {:status 200 :body {:invitation response}}
+      {:status 400 :body nil})))
 
 (defn get-invitation [invitation-id]
   (let [invitation (model/get-invitation invitation-id)]
