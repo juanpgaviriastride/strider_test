@@ -7,13 +7,17 @@
 
 (defn invitation-sent [{inviter_id :__id__ email :email token :invitationToken :as payload}]
   (println {:inviter_id inviter_id :email email :token token} "payload" payload)
-  (let [maybe-invitation (model/save-invitation {:inviter_id inviter_id :email email :token token})]))
+  (let [maybe-invitation (model/save-invitation {:inviter_id inviter_id :email email :token token})]
+    (println "maybe invitation" maybe-invitation)
+    maybe-invitation))
 
 (defn save-invitation [invitation]
-  (let [callback-queue-name (str "web.webtalk.invitation." (url-part 15))]
-    (consumer/subscribe-with-connection callback-queue-name invitation-sent)
+  (let [callback-queue-name (str "web.webtalk.invitation." (url-part 15))
+        result (promise)]
+    (consumer/subscribe-with-connection callback-queue-name (fn [payload] (deliver result (invitation-sent payload))))
     ;;TODO: link the sql and nosql users by inviter_id
-    (publisher/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})) "")
+    (publisher/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})
+(println "result is" @result)) "")
 
 (defn get-invitation [invitation-id]
   (let [invitation (model/get-invitation invitation-id)]
