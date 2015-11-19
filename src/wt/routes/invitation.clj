@@ -26,11 +26,11 @@
 
             (POST* "/" []
                    :auth token
-                   :return      String
+                   :return      (s/maybe Invitation)
                    :body-params [invitation :- {:email  String :inviter_id Long}]
                    :header-params [x-authorization :- String]
                    :summary     "Creates an invitation. "
-                   (ok (controller/save-invitation invitation)))
+                   (controller/save-invitation invitation))
 
             (GET* "/token/:token" []
                   :return      (s/maybe Invitation)

@@ -17,7 +17,10 @@
     (consumer/subscribe-with-connection callback-queue-name (fn [payload] (deliver result (invitation-sent payload))))
     ;;TODO: link the sql and nosql users by inviter_id
     (publisher/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})
-(println "result is" @result)) "")
+    (println "result is" @result)
+    (if (nil? result)
+      {:status 400 :body nil}
+      {:status 200 :body {:invitation @result}})))
 
 (defn get-invitation [invitation-id]
   (let [invitation (model/get-invitation invitation-id)]
