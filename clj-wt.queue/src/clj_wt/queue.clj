@@ -3,7 +3,7 @@
             [clojure.data.json :as json]
             [langohr.core :as rmq]
             [langohr.channel :as lch]
-            [langohr.queue :ad lq]
+            [langohr.queue :as lq]
             [clj-wt.config :as config]
             [langohr.basic :as lb]))
 
