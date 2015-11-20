@@ -3,4 +3,6 @@
             [clojure.string :refer [split trim]]))
 
 (defn rmq-config []
-  (trim (env :rabbitmq-1-port)))
+  (if-let [rmq-url (env :rabbitmq-1-port)]
+    (trim rmq-url)
+    (throw (Exception. "You need to set RABBITMQ_1_PORT env var"))))
