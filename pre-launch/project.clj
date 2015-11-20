@@ -24,6 +24,7 @@
                  [buddy "0.8.1"]
                  [migratus "0.8.7"]
                  [conman "0.2.7"]
+                 [bcrypt-clj "0.3.3"]
                  [mysql/mysql-connector-java "5.1.34"]
                  [org.immutant/web "2.1.1" :exclusions [ch.qos.logback/logback-classic]]]
 
