@@ -1,14 +1,1022 @@
-{% extends "base.html" %}
-{% block content %}
-  <div class="jumbotron">
-    <h1>Welcome to pre-launch</h1>
-    <p>Time to start building your site!</p>
-    <p><a class="btn btn-primary btn-lg" href="http://luminusweb.net">Learn more &raquo;</a></p>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en-us"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en-us"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if lt IE 10]> <html class="no-js lt-ie10" lang="en-us"> <![endif]-->
+<!--[if !IE]> > <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <title>Webtalk</title>
+    <meta charset='utf-8' content='text/html' http-equiv='content-type'>
+    <meta content='ie=edge,chrome=1' http-equiv='x-ua-compatible'>
+    <meta content='' name='description'>
+    <meta content='' name='author'>
+    <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width' name='viewport'>
+    <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1' media='(device-height: 568px)' name='viewport'>
+    <meta content='yes' name='apple-mobile-web-app-capable'>
+    <meta content='translucent-black' name='apple-mobile-web-app-status-bar-style'>
+    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='152x152'>
+    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <link href='../assets/images/apple-touch-icon-72x72-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <link href='../assets/images/apple-touch-icon-57x57-precomposed.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <link href='../assets/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
+    <link href='../assets/images/favicon.png' rel='shortcut icon'>
+    <link href='../assets/images/favicon.ico' rel='icon' type='image/ico'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href="../assets/stylesheets/new-landing.css" rel="stylesheet" type="text/css" media="all" />
+    
+    <!--[if (gte IE 6)&(lte IE 8)]>
+      
+    <![endif]-->
+    <script>
+      var _gaq=[['_setAccount','UA-2668141-24'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+  </head>
+  <div class='alert success'>
+    <p>Well done! You successfully read this important alert message.</p>
+    <a class='close js-close-alert' href='javascript:;'>
+      <i class='icon icon-close'></i>
+    </a>
   </div>
-
-  <div class="row">
-    <div class="span12">
-    {{docs|markdown}}
+  <body class='page'>
+    <div class='main-wrapper'>
+      <div class='main-content'>
+        <div class='main-container'>
+          <div class='top-section'>
+            <div class='top-section__mouse'></div>
+            <div class='wrapper'>
+              <div class='top-section__top'>
+                <h1 class='logo'>
+                  <a href='#'>
+                    <i class='icon icon-logo'></i>
+                  </a>
+                </h1>
+                <div class='box-text-button small'>
+                  <span class='box-text-button__text'>Already Pre-registered?</span>
+                  <a class='btn btn btn--default' href='../crowdfunding/login.html'>Click here</a>
+                </div>
+              </div>
+              <div class='top-section__main'>
+                <div class='grid'><div class='grid__item one-whole palm--five-twelfths'>
+                    <h2 class='top-section__title'>
+                      The Coolest and
+                      <b>Most Disruptive</b>
+                      Technology Ever!
+                    </h2>
+                    <div class='btn-play-container mobile'>
+                      <div class='btn-play__wrapper'>
+                        <a class='btn-play waves-parent__son' data-target='#modal-video' data-toggle='modal' href='javascript:;'></a>
+                      </div>
+                    </div>
+                    <p class='top-section__text relative'>
+                      <a data-target='#modal-video' data-toggle='modal' href='javascript:;'>Watch the video.</a>
+                      We promise it will
+                      <span class='line'>change your life.</span>
+                    </p>
+                  </div><div class='grid__item one-whole palm--seven-twelfths'>
+                    <div class='btn-play-container'>
+                      <div class='btn-play__wrapper'>
+                        <img src="../assets/images/new-landing/device.png" />
+                        <a class='btn-play waves-parent__son' data-target='#modal-video' data-toggle='modal' href='javascript:;'></a>
+                      </div>
+                    </div>
+                  </div></div>
+                <div class='top-section__btn-mobile'>
+                  <a class='btn btn btn--default' href='../crowdfunding/login.html'>
+                    <span>Already Pre-registered? Click here</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='block-section block-section--tall graylight'>
+            <div class='wrapper'>
+              <h2 class='block-section__title gray text--center push--bottom'>Join Webtalk's Pre-Launch & Lock In Your Spot</h2>
+              <h3 class='italic24 text--center push--bottom'>You have nothing to lose and everything to gain</h3>
+              <p class='block-section__text text--center text--p18 gray push-90--bottom'>Webtalk invested $2 million and three years in a world-class software that helps you communicate better in both your personal and professional life, while providing a referral program that is potentially life-changing. As we hire our team to support the launch, we are giving everyone an opportunity to join the pre-launch and get a head start building your referral network.</p>
+              <div class='launch-box cf push-double--bottom'>
+                <div class='launch-bar'>
+                  <div class='launch-bar__progress'>
+                    <div class='launch-bar__tooltip'>
+                      <span>60 Days till launch Deadline</span>
+                    </div>
+                  </div>
+                </div>
+                <span class='launch__label float--left'>PRE LAUNCH BEGINS</span>
+                <span class='launch__label float--right'>PUBLIC LAUNCH</span>
+                <i class='icon icon-flag'></i>
+              </div>
+              <ul class='pricing-box'><li class='item17'>
+                  <b class='price'>18,165</b>
+                  <span class='description'>Waitlist Users</span>
+                </li><li class='item20 green'>
+                  <b class='price'>2,502</b>
+                  <span class='description'>Pre-Launch Users</span>
+                </li><li class='item25 green'>
+                  <b class='price'>$250,200</b>
+                  <span class='description'>Webtalk Credits Purchased</span>
+                  <span class='new'>NEW</span>
+                </li><li class='item20 green'>
+                  <b class='price'>$125,100</b>
+                  <span class='description'>Commissions Pending</span>
+                </li><li class='item17'>
+                  <b class='price'>90</b>
+                  <span class='description'>Days till launch</span>
+                </li></ul>
+            </div>
+          </div>
+          <div class='block-section gray'>
+            <div class='wrapper'>
+              <div class='grid grid--full'><div class='grid__item lap--one-half one-whole'>
+                  <div class='join-box'>
+                    <div class='text--center'>
+                      <h2 class='join-box__title'>Join the waitlist</h2>
+                      <h3 class='join-box__subtitle'>
+                        Start Inviting
+                        <span class='orange'>LATER</span>
+                      </h3>
+                      <div class='join-box__icon'>
+                        <img src="../assets/images/new-landing/clock.png" />
+                      </div>
+                      <p class='join-box__icon-text push-double--bottom'>
+                        Join the Waitlist:
+                        <span class='orange'>$0</span>
+                      </p>
+                    </div>
+                    <div class='invitation-box'>
+                      <p class='invitation-box__text'>Enter your email and we will send you an invitation when Webtalk launches</p>
+                      <div class='grid grid--narrow push--bottom'><div class='grid__item one-whole lap--four-fifths'>
+                          <input class='input--text' placeholder='Your Email Address' type='text'>
+                        </div><div class='grid__item one-whole lap--one-fifth'>
+                          <input class='btn btn--default btn--full' type='submit' value='Go'>
+                        </div>
+                      </div>
+                      <p class='invitation-box__note'>Your Email is safe with us. We hate spam too.</p>
+                    </div>
+                    <div class='separator-or'>
+                      <span>OR</span>
+                    </div>
+                  </div>
+                </div><div class='grid__item lap--one-half one-whole'>
+                  <div class='join-box'>
+                    <div class='rope'></div>
+                    <div class='text--center'>
+                      <h2 class='join-box__title'>
+                        Join the pre-launch
+                        <span class='badge'>NEW</span>
+                      </h2>
+                      <h3 class='join-box__subtitle'>
+                        Start Inviting
+                        <span class='blue'>NOW</span>
+                      </h3>
+                      <div class='join-box__icon'>
+                        <img src="../assets/images/new-landing/launch.png" />
+                      </div>
+                      <p class='join-box__icon-text push--bottom'>
+                        Join the Pre-Launch:
+                        <span class='blue'>$100 Webtalk Credit</span>
+                      </p>
+                      <p class='join-box__note'>Webtalk Credits are valid after launch towards the purchase of:</p>
+                    </div>
+                    <div class='grid grid--full'><div class='grid__item one-whole palm--one-third'>
+                        <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
+                          <div class='block-icon__img'>
+                            <img src="../assets/images/new-landing/pc.png" />
+                          </div>
+                          <h2 class='block-icon__title'>iMeet</h2>
+                          <h3 class='block-icon__subtitle'>Virtual Meetings</h3>
+                          <span class='block-icon__text'>3 months</span>
+                        </a>
+                      </div><div class='grid__item one-whole palm--one-third'>
+                        <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
+                          <div class='block-icon__img'>
+                            <img src="../assets/images/new-landing/pro.png" />
+                          </div>
+                          <h2 class='block-icon__title'>Webtalk PRO</h2>
+                          <h3 class='block-icon__subtitle'>Exclusive Features</h3>
+                          <span class='block-icon__text'>5 months</span>
+                        </a>
+                      </div><div class='grid__item one-whole palm--one-third'>
+                        <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
+                          <div class='block-icon__img'>
+                            <img src="../assets/images/new-landing/phone.png" />
+                          </div>
+                          <h2 class='block-icon__title'>Premium</h2>
+                          <h3 class='block-icon__subtitle'>Chat/Phone Support</h3>
+                          <span class='block-icon__text'>5 months</span>
+                        </a>
+                      </div></div>
+                  </div>
+                </div></div>
+            </div>
+          </div>
+          <div class='block-section block-section--tall graylight'>
+            <div class='wrapper'>
+              <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                  <div class='media media--badge'>
+                    <div class='media__img'>
+                      <img src="../assets/images/new-landing/badge.png" />
+                    </div>
+                    <div class='media__body'>
+                      <h2 class='media--badge__title'>Join the PreLaunch 100% Risk-Free!</h2>
+                    </div>
+                  </div>
+                </div><div class='grid__item lap--one-half one-whole'>
+                  <p class='text--p16 push--bottom soft--top mobile-center'>
+                    If Webtalk fails to launch by the deadline, all Credits purchased will be applied to
+                    <b>three (3) months</b>
+                    of
+                    <a href='http://iMeet.com' target='_blank'>iMeet.com</a>
+                    plus service charge ($117 Value).
+                  </p>
+                  <p class='text--p16 push--bottom mobile-center'>Webtalk is an official reseller of iMeet subscriptions.</p>
+                  <a class='btn btn--default btn--fixed' href='#'>
+                    <span>more details...</span>
+                  </a>
+                </div></div>
+            </div>
+          </div>
+          <div class='block-section block-section--launch block-section--tall'>
+            <div class='launch-section__arrow'></div>
+            <div class='wrapper'>
+              <div class='launch-section text--center box--white'>
+                <div class='block-section__img'>
+                  <img src="../assets/images/new-landing/icon2.png" />
+                </div>
+                <h2 class='block-section__title text--uppercase'>Lock in Your Spot!</h2>
+                <p class='launch-section__text'>
+                  Purchase a $100 Webtalk Credit to join the Pre-Launch
+                  <br>
+                  and start building your referral network NOW!
+                </p>
+                <div class='launch-section__button'>
+                  <a class='btn btn--default btn--full btn--big' href='/new-account'>Join The Pre-Launch Now</a>
+                </div>
+                <p class='launch-section__note'>
+                  By clicking the "Join the Pre-Launch button" above you here by
+                  <br>
+                  agree to the Pre-launch
+                  <a data-target='#terms-conditions-modal' data-toggle='modal' href='javascript:;'>Terms & Conditions*</a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class='block-section block-section--tall graylight block-section--slider'>
+            <div class='wrapper'>
+              <h2 class='block-section__title gray text--center service-slider__title'>Webtalk Products and Services</h2>
+              <div class='js-service-slider service-slider'>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/help-desk.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Webtalk HelpDesk</h2>
+                        <p class='service-slider__item-text'>Our help desk offers detailed answers for just about any question you can think of regarding Webtalk’s products and services. The help desk is broken down to four departments; user support, customer support, affiliate support and advertiser support. If you can’t find the answer to your question, you can send an email to Webtalk’s support staff and they will reply within three business days. If you need urgent support, you can upgrade to premium support, which includes live chat and call in support for only $20 per month.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/store.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Webtalk PrintShop</h2>
+                        <p class='service-slider__item-text'>Webtalk partnered with VistaPrint to offer a wide variety of Webtalk and SocialCPX branded clothing and promotional items. The PrintShop also sells fully customized products for affiliates that contain their affiliate links and QR codes, including but not limited to; affiliate business cards, t-shirts, pens, hats, cups, bags and mousepads. VistaPrint guarantees the quality of every product and every customer is backed by both Webtalk and VistaPrint support.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/advertiser.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>SocialCPX for Advertisers</h2>
+                        <p class='service-slider__item-text'>On SocialCPX, advertisers can apply to run an advertising campaign on Webtalk. The largest incentives to advertise on Webtalk is the CPX campaign platform, which offers no upfront cost advertising that includes detailed analytics about our advertiser’s customers for free. CPX campaigns are all commission based. Advertisers only pay Webtalk when we make a sale. Webtalk also offers traditional pay per click (CPC) and impression (CPM) advertising options.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/dashboard.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>SocialCPX Affiliate Dashboard</h2>
+                        <p class='service-slider__item-text'>This dashboard tracks all of the links embedded into media, emails, text messages, banner ads and buttons shared by affiliates to give each affiliate an accurate overview of their progress. It tracks the number of clicks, signups, revenue generated and commissions. It also has a banking platform where their commissions will be deposited and can be transferred to their personal bank accounts, PayPal, Webtalk Credits or to their Webtalk MasterCard Payroll card. There are also a number of built in training tools to help all affiliates become successful.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/socialcpx.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>SocialCPX (IP)</h2>
+                        <p class='service-slider__item-text'>Instead of investing tens of millions of dollars into online marketing, Webtalk invested in a unique affiliate program software to drive exponential growth. The CPX stands for Commission Per Exchange, or commission based marketing. Webtalk has filed patents on both the commission plan for the affiliate program and also the social tools integrated to make the commission plan work. Through SocialCPX, Webtalk shares up to 50% of all revenue and is able to offer affiliates residual lifetime commissions on all subscription and advertising revenue generated by the users they drive to Webtalk.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/imeet.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>iMeet by Webtalk</h2>
+                        <p class='service-slider__item-text'>
+                          Webtalk has partnered up with PGI to white label and resell a virtual meeting service called iMeet. Webtalk users are given discounted prices to purchase iMeet through Webtalk instead of on
+                          <a href='http://imeet.com' target='_blank'>iMeet.com</a>
+                          iMeet and iMeetLive products allow Webtalk users to host virtual conferences and webcasts for up to 10,000 people with prices starting at only $22 per month. All iMeet packages include video conferencing, screen sharing, recording, call me dialing, analytics and mobile app conferencing.
+                        </p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/pro-img.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Webtalk PRO</h2>
+                        <p class='service-slider__item-text'>Webtalk offers exclusive features through a premium upgrade service called Pro. These features include, but are not limited to, sending messages to non-connections, see who has viewed your profile, advanced search filters and large file storage (over 50MBs in size). This service starts at $15 per month.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/search.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Search</h2>
+                        <p class='service-slider__item-text'>Webtalk’s search allow you to search for people, companies, brands, job titles, industry and more using advanced search filters. All advanced search filters, such as the ability to find people looking for jobs or search by age range or gender, require a PRO upgrade.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/chat.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Real-time Chat</h2>
+                        <p class='service-slider__item-text'>Webtalk’s real-time chat sends push notifications and email notifications as soon as the message is sent. It also shows when another person is typing and who is online. Chat is free for communicating between connections, but requires a Pro upgrade when attempting to chat with non-connections.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/videos.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Videos (IP)</h2>
+                        <p class='service-slider__item-text'>Webtalk uses the built in network, group and subgroup feature as a way to easily filter and access the videos you have uploaded and shared on Webtalk. All media when loaded to Webtalk is private by default giving each user a secure virtual desktop until they decide to share it. As of today, videos can only be stored and shared by posting or saving a YouTube or Vimeo link.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/photos.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Photos (IP)</h2>
+                        <p class='service-slider__item-text'>Webtalk uses the built in network, group and subgroup feature as a way to easily filter and access the photos you have uploaded and shared on Webtalk. All media when loaded to Webtalk is private by default giving each user a secure virtual desktop until they decide to share it. As of today, photos loaded can only be viewed, edited and tagged, but coming soon Webtalk will be offering a “Pin” feature where each user can pin a comment to a certain point on an image for realtime collaboration.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/files.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Files (IP)</h2>
+                        <p class='service-slider__item-text'>Webtalk uses the built in network, group and subgroup feature as a way to easily filter and access the files you have uploaded and shared on Webtalk. All media when loaded to Webtalk is private by default giving each user a secure virtual desktop until they decide to share it. As of today, files loaded can only be viewed, but coming soon each user will be able to edit and collaborate on documents.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/newsfeed.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Webtalk Newsfeed</h2>
+                        <p class='service-slider__item-text'>Webtalk has filed two patents on our real time network news feed. The first is the ability to post and display news by our built in networks, groups and subgroups and even the pages each user follows. The second patent is on a keyword and media attachment search feature. Webtalk users are able to search the entire history of their network news feed by keyword and then sort them based on the type of media (files/photos/videos) attached to them.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/pages.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Pages</h2>
+                        <p class='service-slider__item-text'>Pages for businesses, brands and celebrities are similarly unique like profiles with a couple distinct differences. When you create a page, you are given three addon tab options to choose from including Products, Services or Portfolio. In the current release, you can sell your products and services by linking your website to each item posted. In future releases, you will be able to sell products and services directly on Webtalk. Pages are also offered private connections with staff, which gives each page owner a private enterprise social network for their business.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/contacts.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Contacts Management (IP)</h2>
+                        <p class='service-slider__item-text'>Webtalk uses the built in network, group and subgroup feature as a way to easily filter and access the connections you have made. Think of it as a virtual Roledex. You can write a description and keywords to help you both search for your connection at a later date and read your notes on why you made the connections.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/networks.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Built In Networks & Groups (IP)</h2>
+                        <p class='service-slider__item-text'>Webtalk has filed patents on the way people connect within Webtalk. First, using built in networks, you can choose to add someone as a Professional Connection, Personal Connection or both. Then you can only select one built in group per network for each new connection. Professional connections are offered one subgroup as well. Those options are Current, Former or Prospect, which will help you channel your sales and recruiting communication better.</p>
+                      </div>
+                    </div></div>
+                </div>
+                <div class='service-slider__item'>
+                  <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                      <img src="../assets/images/new-landing/mac-iphone.png" />
+                    </div><div class='grid__item lap--one-half one-whole'>
+                      <div class='service-slider__item-content'>
+                        <h2 class='service-slider__item-title'>Profile Pages</h2>
+                        <p class='service-slider__item-text'>Webtalk’s profile is unique by offering all users the ability to fully customize their banners and write full width taglines across the top. The profile also allows all users to showcase the files, photos and videos they want to share with the public and individual networks creating a more engaging experience. Webtalk offers a virtual resume type of profile as the default information and based on the group you have been added to will determine each user’s access level to another user’s media and content.</p>
+                      </div>
+                    </div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='block-section block-section--our-story block-section--tall'>
+            <div class='wrapper'>
+              <div class='our-tab-container'>
+                <div class='js-our-tab our-tab'>
+                  <ul class='tab-container__buttons'>
+                    <li>
+                      <a class='btn btn--alternative btn--fixed hover-bg-gray' href='#our-story'>Our Story</a>
+                    </li>
+                    <li>
+                      <a class='btn btn--alternative btn--fixed hover-bg-gray' href='#our-team'>Our Team</a>
+                    </li>
+                  </ul>
+                  <div class='our-tab__item' id='our-story'>
+                    <blockquote>Webtalk is on a mission to help the world "Communicate Better". When you join Webtalk, you gain access to tools that help you build credibility, channel personal and professional communication based on relationship types and conduct internal and external business through collaboration and marketing communication.</blockquote>
+                    <div class='grid'><div class='grid__item one-whole lap--three-tenths'>
+                        <div class='block-image-wrapper'>
+                          <div class='block-image'>
+                            <img src="../assets/images/new-landing/ourteam1.png" />
+                          </div>
+                          <div class='block-image'>
+                            <img src="../assets/images/new-landing/ourteam2.png" />
+                          </div>
+                        </div>
+                      </div><div class='grid__item one-whole lap--seven-tenths'>
+                        <h3 class='our-tab__item__title'>Life-Changing Opportunity</h3>
+                        <div class='grid'><div class='grid__item lap--one-half one-whole'>
+                            <p>All Webtalk users are offered the ability to participate in a free affiliate referral program that distributes up to 50% of all member subscription, advertising sales, talent solutions and transaction fee revenues. Instead of offering a 50% one-time commission, like traditional affiliate programs, Webtalk offers 10% residual revenue share on a 5-level referral network totaling 50%. Webtalk's compensation plan gives every affiliate credit for building a large referral network instead of credit only for their direct referrals.</p>
+                            <p>
+                              When Webtalk users invite their friends, colleagues, fans and customers to
+                              <b>"Connect"</b>
+                              with them, or
+                              <b>"Follow"</b>
+                              them on Webtalk, the affiliate program tracks all invitations to award
+                            </p>
+                          </div><div class='grid__item lap--one-half one-whole'>
+                            <p>referral credit when participating in traditional social network usage. This patent-pending process enables the act of acquiring referrals to become simple and frictionless.</p>
+                            <p>
+                              Once Webtalk has become a major competitor in the online networking space, the estimated average commission paid per referral will be as high as
+                              <b>one dollar ($1) per month,</b>
+                              which will be paid out on every user within each affiliate’s 5-level referral network. Early adopters to join Webtalk’s affiliate program will have the greatest earning potential with the opportunity to refer more than two billion social network users around the world.
+                            </p>
+                          </div></div>
+                        <h3 class='our-tab__item__title'>Corporate Info</h3>
+                        <p>Webtalk and the affiliate referral program are free and always will be. The company has a diversified business model with optimal room for growth including; premium feature subscriptions, reseller partnerships, advertising sales, talent solutions and marketplace transaction fees.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='our-tab__item' id='our-team'>
+                    <div class='grid'><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-1.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>RJ Garbowicz</h3>
+                              <h4 class='team-box__media-subtitle'>CEO/CPO</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>
+                              Former Founder @ YourNight
+                              <span class='blue'>(acquired)</span>
+                            </li>
+                            <li>
+                              Former Founder @ EBS
+                              <span class='blue'>(acquired)</span>
+                            </li>
+                            <li>Certified UX/I Designer/Architect</li>
+                            <li>Tech Speaker</li>
+                            <li>Philanthropist</li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-2.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>John Miles</h3>
+                              <h4 class='team-box__media-subtitle'>COO/CTO</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>Former CEO @ Genius Central</li>
+                            <li>Former CTO @ Catalina Marketing</li>
+                            <li>Former CIO @ Dell</li>
+                            <li>Former VP @ Lowes</li>
+                            <li>Former SVP @ Lend Lease</li>
+                            <li>Former Naval Security Group Command Officer (NSA/FBI joint task force)</li>
+                            <li>MBA, Finance</li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-3.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>Jeff Catherell</h3>
+                              <h4 class='team-box__media-subtitle'>CBO (Business)</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>
+                              Partner @ Cask & Ale
+                              <span class='blue'>(profitable)</span>
+                            </li>
+                            <li>
+                              Partner @ Captiveyes
+                              <span class='blue'>(profitable)</span>
+                            </li>
+                            <li>
+                              Partner @ CrepeVine
+                              <span class='blue'>(profitable)</span>
+                            </li>
+                            <li>
+                              Partner @ Kana Cuban Coffee
+                              <span class='blue'>(profitable)</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-4.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>Jason Caras</h3>
+                              <h4 class='team-box__media-subtitle'>CSO (Success)</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>CoCEO @ IT Authorities</li>
+                            <li>Three-Time “Inc. 5000” Honoree (2010-12)</li>
+                            <li>Three-Time “Top 250 Executives in Managed Services” Honoree (2010-12)</li>
+                            <li>2012: Technology Leader of the Year award</li>
+                            <li>2009: CEO of the Year award</li>
+                            <li>Former CEO @ Infinity Communications</li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-5.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>Jennifer Garbowicz</h3>
+                              <h4 class='team-box__media-subtitle'>Finance Director</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>Principal @ Sabal Trust Company</li>
+                            <li>Former Finance Director @ St Anthony's Hospital Foundation</li>
+                            <li>Former Finance Director @ American Stage Theatre</li>
+                            <li>Former President @ Tampa Bay CFA Society</li>
+                            <li>CFA</li>
+                            <li>MBA, Finance</li>
+                            <li>Philanthropist</li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-6.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>Kevin Harrington</h3>
+                              <h4 class='team-box__media-subtitle'>Advisor</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>Founder @ StarShop</li>
+                            <li>Founder @ As Seen On TV</li>
+                            <li>CoFounder @ GLO</li>
+                            <li>Former Shark on ABC’s SharkTank</li>
+                            <li>Inventor of the Infomercial</li>
+                          </ul>
+                        </div>
+                      </div><div class='grid__item one-third desk--one-quarter'>
+                        <div class='team-box'>
+                          <div class='media team-box__media'>
+                            <div class='media__img'>
+                              <img src="../assets/images/new-landing/profile-7.png" />
+                            </div>
+                            <div class='media__body'>
+                              <h3 class='team-box__media-title'>Joy Randels</h3>
+                              <h4 class='team-box__media-subtitle'>Advisor</h4>
+                            </div>
+                          </div>
+                          <ul class='team-box__list'>
+                            <li>CEO @ Applied G2</li>
+                            <li>CEO @ New Market Partners</li>
+                            <li>Director @ Startup Grind</li>
+                            <li>Former SVP @ Akamai Technologies</li>
+                            <li>Former EVP @ CA</li>
+                            <li>Tech Speaker and Philanthropist</li>
+                            <li>Six Tech Co. Board Positions</li>
+                          </ul>
+                        </div>
+                      </div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='block-section block-section--tall block-section--video'>
+            <div class='fullscreen-bg'>
+              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='assets/new-landing/backgrounds/bg-video.png'>
+                <source src='/assets/images/space-video.webm' type='video/webm'>
+                  <source src='/assets/images/space-video.mp4' type='video/mp4'>
+                    <source src='/assets/images/space-video.ogg' type='video/ogg'>
+                  </source>
+                </source>
+              </video>
+            </div>
+            <div class='wrapper'>
+              <div class='lockin-box'>
+                <div class='lockin-box__img'>
+                  <img src="../assets/images/new-landing/launch.png" />
+                </div>
+                <h2 class='block-section__title launch-section__title text--uppercase'>Lock in Your Spot!</h2>
+                <p class='launch-section__text'>
+                  Purchase A $100
+                  <span>Webtalk Credit</span>
+                  To Join The Pre-Launch
+                  <br>
+                  and start building your referral network NOW!
+                </p>
+                <div class='launch-section__button launch-section__button--light'>
+                  <a class='btn btn--default btn--full btn--big' href='/new-account'>Join The Pre-Launch Now</a>
+                </div>
+                <p class='launch-section__note launch-section__note--blue'>
+                  By clicking the "Join the Pre-Launch button" above you here by
+                  <br>
+                  agree to the Pre-launch
+                  <a data-target='#terms-conditions-modal' data-toggle='modal' href='javascript:;'>Terms & Conditions*</a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- %video{:src => "../assets/images/new-landing/video.mov"} -->
+          <!-- %video#bgvid{:autoplay => "", :loop => ""} -->
+          <!-- %source{:src => "/assets/images/space-video.mp4", :type => "video/mp4"} -->
+          <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal-video modal fade' id='modal-video' role='dialog' tabindex='-1'>
+            <div class='modal-dialog modal--big'>
+              <div class='modal__content modal__content--clean'>
+                <div class='modal__header'>
+                  <button aria-label='Close' class='close float--right modal__btn-close' data-dismiss='modal' type='button'>
+                    <span aria-hidden='true' class='icon-close'></span>
+                  </button>
+                  <div class='share-video'>
+                    <ul class='list--horizontal list-share'>
+                      <li>
+                        Share Video:
+                      </li>
+                      <li>
+                        <a class='list-share__item twitter' href=''>
+                          <i class='icon-twitter'></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a class='list-share__item gplus' href=''>
+                          <i class='icon-gplus'></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a class='list-share__item facebook' href=''>
+                          <i class='icon-facebook'></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class='modal__body'>
+                  <div class='box--video relative'>
+                    <div class='video-play-banner btn-play-container'>
+                      <img src="../assets/images/new-landing/backgrounds/video-landing.jpg" />
+                      <a class='btn-play' href='#'></a>
+                    </div>
+                  </div>
+                  <div class='box-text-button'>
+                    <span class='box-text-button__text'>
+                      Join the PreLaunch Now!
+                      <b>100% Risk-Free!</b>
+                    </span>
+                    <a class='btn btn btn--default text--uppercase' href='/new-account'>
+                      <span>Join The Pre-Launch Now</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal fade' id='terms-conditions-modal' role='dialog' tabindex='-1'>
+            <div class='modal-dialog modal--bigger'>
+              <div class='modal__content gray'>
+                <h1 class='modal__title text--center'>Pre-Launch Terms and Conditions</h1>
+                <div class='modal__body'>
+                  <div class='modal-box'>
+                    <h2 class='modal-box__title'>By joining the Pre-launch, you are hereby agreeing to these Terms and Conditions:</h2>
+                    <p>Risk Free: Unlike crowdfunding campaigns, your Webtalk Credit's purchase is guaranteed to provide a service. Webtalk is an official authorized reseller of iMeet.com's virtual meeting service. If for any reason Webtalk does not launch to the public, all Webtalk Credit Purchases will be applied towards four months of iMeet.com's Plus virtual meeting package, with up to 35 attendees, after March 31st 2016</p>
+                  </div>
+                </div>
+                <div class='modal__footer text--center'>
+                  <a class='btn btn--default btn--fixed text--uppercase' data-dismiss='modal' href='javascript:;'>
+                    <span>Close</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal fade' id='modal-services' role='dialog' tabindex='-1'>
+            <div class='modal-dialog modal-dialog__extend modal--biggest'>
+              <button aria-label='Close' class='lines-button x close modal-wrapper__out-close' data-dismiss='modal' type='button'>
+                <i class='lines'></i>
+              </button>
+              <div class='modal__content hard modal__content--gray modal__content--noborder'>
+                <div class='modal__header hard'>
+                  <section class='banner-wide-section new-step-three new-step-three__mid move--up relative'>
+                    <div class='wrap'>
+                      <header class='landing-header push-double--top soft-double--top'>
+                        <div class='wrapper--slim relative'>
+                          <h3 class='title-big soft--ends'>
+                            Webtalk Credits are Valid Towards the Purchase of any Monthly or Annual Subscription You Purchase on Webtalk.
+                          </h3>
+                        </div>
+                      </header>
+                    </div>
+                  </section>
+                </div>
+                <div class='modal__body'>
+                  <div class='main-container main-container__pricing'>
+                    <div class='table-pricing'>
+                      <div class='plans'>
+                        <div class='plan plan--first push--top text--center soft hard--bottom'>
+                          <div class='plan__title relative'>
+                            <div class='circle-pro-img push--bottom'></div>
+                            <div class='webtalk-pro-img'></div>
+                          </div>
+                          <div class='plan__content hard'>
+                            <div class='plan__price soft--bottom'>
+                              <strong class='plan__price__amount'>
+                                <i>$15/mo</i>
+                              </strong>
+                              <i>Billed Annually or $20 month to month</i>
+                            </div>
+                            <ul class='plan__description list--vertical'>
+                              <li>
+                                Receive 1Gb of file storage and sharing
+                              </li>
+                              <li>
+                                See who has viewed your profile
+                              </li>
+                              <li>
+                                Search by age range (ie 18-25)
+                              </li>
+                              <li>
+                                Search by gender (male/female)
+                              </li>
+                              <li>
+                                Professional advanced search filters
+                              </li>
+                              <li>
+                                Private messaging to non-connections
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class='plan plan--second plan--principal text--center soft hard--bottom'>
+                          <div class='plan__title plan__title--combo'>
+                            <div class='circle-ribbon-img push-half--bottom'></div>
+                            <div class='combo-pack-img'></div>
+                          </div>
+                          <div class='plan__content hard'>
+                            <div class='plan__price soft-double--bottom'>
+                              <strong class='plan__price__amount'>
+                                <i>$30/mo</i>
+                              </strong>
+                              <i>Billed Annually or $40 month to month</i>
+                            </div>
+                            <div class='plan__description'>
+                              <h2 class='relative weight--normal soft--ends push-half--bottom'>
+                                Save 25%
+                                <span class='stars--gen stars--left'></span>
+                                <span class='stars--gen stars--right'></span>
+                              </h2>
+                              <p class='middle-p'>When you purchase</p>
+                              <div class='soft--ends push--bottom'>
+                                <div class='webtalk-pro-img'></div>
+                                <span class='middle--char'>&</span>
+                                <div class='i-meet-img i-meet-img__small'></div>
+                                <div class='combo-pack-gray-img'></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='plan plan--three push--top text--center soft hard--bottom'>
+                          <div class='plan__title'>
+                            <div class='circle-pc-img push--bottom'></div>
+                            <div class='i-meet-img i-meet-img__small'></div>
+                          </div>
+                          <div class='plan__content hard'>
+                            <div class='plan__price soft--bottom'>
+                              <strong class='plan__price__amount'>
+                                <i class='js-more-less-change'>$22/mo</i>
+                                <i class='js-more-less-change hidden'>$42/mo</i>
+                              </strong>
+                              <i class='js-more-less-change'>Billed Annually or $30 month to month</i>
+                              <i class='js-more-less-change hidden'>Billed Annually or $55 month to month</i>
+                            </div>
+                            <ul class='plan__description list--vertical'>
+                              <li class='li--small'>
+                                <span class='js-more-less-change'>Up to 35 participants.</span>
+                                <span class='js-more-less-change hidden'>Up to 125 participants.</span>
+                                <a class='link--color js-more-less' href='javascript:;'>
+                                  <span class='js-more-less-change'>Need more?</span>
+                                  <span class='js-more-less-change hidden'>Need less?</span>
+                                </a>
+                                <br>
+                                <i class='js-more-less-change text--gray-light'>Get 125 participants with iMeet XL</i>
+                                <i class='js-more-less-change hidden text--gray-light'>Get 35 participants with iMeet</i>
+                              </li>
+                              <li>
+                                Unlimited Phone & VoIP
+                              </li>
+                              <li>
+                                Screen Sharing
+                              </li>
+                              <li>
+                                Record Meetings
+                              </li>
+                              <li>
+                                Call Me Dialing
+                              </li>
+                              <li>
+                                iMeet Premium Care
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <section class='tab-main' id='tabMain'>
+                    <div class='tabs--pro' id='tabGoPro'>
+                      <div class='wrapper--slim'>
+                        <ul class='js-tabGoPro'>
+                          <li>
+                            <a data-plan='pro' href='#tabGoPro-1'>Pro</a>
+                          </li>
+                          <li>
+                            <a class='qtip-center' data-plan='meet' href='#tabGoPro-2' title='Up to 125 participants'>iMeet</a>
+                          </li>
+                          <li class='hidden'>
+                            <a class='qtip-center' data-plan='meetlive' href='#tabGoPro-3' title='Up to 10K attendees'>iMeet Live</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div id='tabGoPro-1'>
+                        <div class='wrapper--slim'>
+                          <div class='grid grid--full'><div class='grid__item one-whole'>
+                              <h1 class='text--center soft-double--bottom push-double--bottom'>
+                                Unlock exclusive features with
+                                <div class='webtalk-pro-img webtalk-pro-img__big'></div>
+                              </h1>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Receive 1GB of LARGE file storage</h2>
+                              <p>All files under 50MBs are stored free of charge. As a Pro subscriber, you will receive 1GB of storage for all files you upload over 50MBs in size.  Enjoy uploading and sharing large documents, music or even videos as Pro subscriber.</p>
+                            </div><div class='grid__item one-half text--right'>
+                              <div class='data-hd-img'></div>
+                            </div><div class='connect-left-right push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half text--left'>
+                              <div class='who-preview-img'></div>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>See who viewed your profile</h2>
+                              <p>Want to know who has checked out your Webtalk profile? As a Pro subscriber you can! Go Pro and get the complete list of everyone who has ever visited your profile.</p>
+                            </div><div class='connect-right-left push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Search by age range & gender</h2>
+                              <p>
+                                Looking for a particular person? The age range and gender search filters can help you find a someone you know or someone new.
+                                <br>Go Pro and try it now!</br>
+                              </p>
+                            </div><div class='grid__item one-half text--right'>
+                              <div class='range-img'></div>
+                            </div><div class='connect-left-right push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half text--left'>
+                              <div class='advanced-search-img'></div>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Professional advanced search filters</h2>
+                              <p>Are you looking for your next career or is your company hiring? Going Pro helps you search for companies that are hiring or find members who are looking for a new career. You can also search for people and businesses within a particular distance from you.</p>
+                            </div><div class='connect-right-left push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>
+                                Private messaging to
+                                <br>non-connections</br>
+                              </h2>
+                              <p>Private messages are a great way to reach new people whether you need to recruit a new employee, or acquire a new client, or reach a prospective partner or a new vendor. When you Go Pro you will receive a credit for 20 private messages per month.</p>
+                            </div><div class='grid__item one-half text--right'>
+                              <div class='message-pop-img'></div>
+                            </div></div>
+                        </div>
+                      </div>
+                      <div id='tabGoPro-2'>
+                        <div class='wrapper--slim'>
+                          <div class='grid grid--full'><div class='grid__item one-whole'>
+                              <h1 class='text--center soft-double--bottom push-double--bottom'>
+                                Step up your webcasting today with
+                                <div class='i-meet-img'></div>
+                              </h1>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Online meetings will never be the same</h2>
+                              <p>
+                                <b>Meet. Call. Share. Chat. Collaborate.</b>
+                                Take one look at iMeet® and it will change the way you think about online meetings and virtual collaboration. Take a free trial today and see why smart professionals are choosing iMeet.
+                              </p>
+                            </div><div class='grid__item one-half text--center'>
+                              <div class='pc-meetings'></div>
+                            </div><div class='connect-left-right push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half text--center'>
+                              <div class='video-full'></div>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>A more personalized online meeting experience</h2>
+                              <p>iMeet lets you be more than just a voice on the other end of the phone. Connect and collaborate with up to 125 people. And see 15 people in HD video at the same time. You can also customize iMeet to make it your own.</p>
+                            </div><div class='connect-right-left push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Intuitive design</h2>
+                              <p>Many software products are overly complicated and difficult to use. iMeet was designed with the end user in mind. It features a sleek and intuitive interface that makes the meeting experience more engaging.</p>
+                            </div><div class='grid__item one-half text--center'>
+                              <div class='i-meet-pcs'></div>
+                            </div><div class='connect-left-right push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half text--left'>
+                              <div class='i-meet-mobile'></div>
+                            </div><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>Anywhere, any device</h2>
+                              <p>Whether you’re in the office or on-the-go, iMeet works wherever you are, delivering a consistent experience across computer, smartphone and tablet. You can even pass control across devices.</p>
+                            </div><div class='connect-right-left push-double--ends'></div>
+                          </div>
+                          <div class='grid grid--full'><div class='grid__item one-half'>
+                              <h2 class='soft--bottom'>More than online meetings</h2>
+                              <p>iMeet gives you the tools to communicate and collaborate more effectively. You can make calls, take notes, chat, share documents and much more. iMeet even integrates right into your video conference room system. Can your online meeting solution do all this?</p>
+                            </div><div class='grid__item one-half text--right'>
+                              <div class='phone-circles'></div>
+                            </div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-{% endblock %}
+    <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
+    
+    <script src="../assets/javascripts/new-landing.js" type="text/javascript"></script>
+  </body>
+</html>

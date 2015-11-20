@@ -1,0 +1,87 @@
+/* Slider */
+/* line 4, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent; }
+
+/* line 20, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+.slick-list {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0; }
+  /* line 27, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-list:focus {
+    outline: none; }
+  /* line 31, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-list.dragging {
+    cursor: pointer;
+    cursor: hand; }
+
+/* line 36, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+/* line 45, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+.slick-track {
+  position: relative;
+  left: 0;
+  top: 0;
+  display: block; }
+  /* line 51, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-track:before, .slick-track:after {
+    content: "";
+    display: table; }
+  /* line 57, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-track:after {
+    clear: both; }
+  /* line 61, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-loading .slick-track {
+    visibility: hidden; }
+
+/* line 65, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+  display: none; }
+  /* line 69, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  [dir="rtl"] .slick-slide {
+    float: right; }
+  /* line 72, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-slide img {
+    display: block; }
+  /* line 75, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-slide.slick-loading img {
+    display: none; }
+  /* line 81, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-slide.dragging img {
+    pointer-events: none; }
+  /* line 85, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-initialized .slick-slide {
+    display: block; }
+  /* line 89, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-loading .slick-slide {
+    visibility: hidden; }
+  /* line 93, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick.scss */
+  .slick-vertical .slick-slide {
+    display: block;
+    height: auto;
+    border: 1px solid transparent; }
