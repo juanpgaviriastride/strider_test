@@ -22,7 +22,7 @@
      :body "Not authorized"}))
 
 (defn login [{session :session}]
-  (response "holz"))
+  (layout/render  "crowdfunding/login.html"))
 
 (defroutes login-routes
   (GET "/signin" request (login request))

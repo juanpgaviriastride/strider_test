@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [pre-launch.layout :refer [error-page]]
             [pre-launch.routes.home :refer [home-routes]]
+            [pre-launch.routes.login :refer [login-routes]]
             [pre-launch.middleware :as middleware]
             [pre-launch.db.core :as db]
             [compojure.route :as route]
@@ -38,6 +39,7 @@
 
 (def app-routes
   (routes
+   (wrap-routes #'login-routes middleware/wrap-csrf)
     (wrap-routes #'home-routes middleware/wrap-csrf)
     (route/not-found
       (:body
