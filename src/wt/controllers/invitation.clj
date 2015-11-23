@@ -1,9 +1,8 @@
 (ns wt.controllers.invitation
   (:require
    [wt.persistence.invitation :as model]
-   [wt.persistence.queue.publisher :as publisher]
    [crypto.random :refer [url-part]]
-   [wt.persistence.queue.consumer :as consumer]))
+   [clj-wt.queue :as queue]))
 
 (defn invitation-sent [{inviter_id :__id__ email :email token :invitationToken :as payload}]
   (println {:inviter_id inviter_id :email email :token token} "payload" payload)
@@ -13,9 +12,9 @@
 
 (defn save-invitation [invitation]
   (let [callback-queue-name (str "web.webtalk.invitation." (url-part 15))
-        result (consumer/promise-subscription callback-queue-name invitation-sent)]
+        result (queue/promise-subscription callback-queue-name invitation-sent)]
     ;;TODO: link the sql and nosql users by inviter_id
-    (publisher/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})
+    (queue/publish-with-qname "com.webtalk.storage.queue.invite" callback-queue-name {:user_id 53760256 :email (:email invitation)})
     (if-let [response @result]
       {:status 200 :body {:invitation response}}
       {:status 400 :body nil})))
