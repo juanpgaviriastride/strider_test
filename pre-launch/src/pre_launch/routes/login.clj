@@ -24,7 +24,16 @@
 (defn login [{session :session}]
   (layout/render  "crowdfunding/login.html"))
 
+(defn signup [request]
+  (layout/render "crowdfunding/new-account.html"))
+
+(defn signup! [request]
+  "needs to actually create user this is a placeholder"
+  (layout/render "crowdfunding/new-account.html"))
+
 (defroutes login-routes
-  (GET "/signin" request (login request))
-  (POST "/login" request (login! request)))
+  (GET  "/signin" request (login request))
+  (POST "/login"  request (login! request))
+  (GET  "/signup" request (signup request))
+  (POST "/signup" request (signup! request)))
 
