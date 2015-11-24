@@ -25,7 +25,9 @@
                  [migratus "0.8.7"]
                  [conman "0.2.7"]
                  [bcrypt-clj "0.3.3"]
+                 [crypto-random "1.2.0"]
                  [mysql/mysql-connector-java "5.1.34"]
+                 [clj-wt.queue "0.1.0-SNAPSHOT"]
                  [org.immutant/web "2.1.1" :exclusions [ch.qos.logback/logback-classic]]]
 
   :min-lein-version "2.0.0"
