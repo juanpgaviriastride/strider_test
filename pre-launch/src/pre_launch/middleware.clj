@@ -5,6 +5,7 @@
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
             [ring.middleware.webjars :refer [wrap-webjars]]
+            [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.format :refer [wrap-restful-format]]
@@ -75,6 +76,7 @@
   (-> ((:middleware defaults) handler)
       wrap-auth
       wrap-formats
+      wrap-params
       wrap-webjars
       wrap-flash
       (wrap-session {:cookie-attrs {:http-only true}})
