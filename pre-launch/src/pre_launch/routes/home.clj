@@ -11,15 +11,11 @@
       "home.html" {:docs (-> "docs/docs.md" io/resource slurp)
                    :success success}))
 
-(defn new-account-page []
-  (layout/render "crowdfunding/new-account.html"))
-
 (defn join-wait-list [email]
   (controller/join-wait-list email)
   (home-page true))
 
 (defroutes home-routes
   (GET "/" [] (home-page false))
-  (POST "/request-invitation" [email] (join-wait-list email))
-  (GET "/new-account" [] (new-account-page)))
+  (POST "/request-invitation" [email] (join-wait-list email)))
 

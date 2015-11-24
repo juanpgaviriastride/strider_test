@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [pre-launch.layout :refer [error-page]]
             [pre-launch.routes.home :refer [home-routes]]
+            [pre-launch.routes.user :refer [user-routes]]
             [pre-launch.routes.login :refer [login-routes]]
             [pre-launch.middleware :as middleware]
             [pre-launch.db.core :as db]
@@ -40,10 +41,11 @@
 (def app-routes
   (routes
    (wrap-routes #'login-routes middleware/wrap-csrf)
-    (wrap-routes #'home-routes middleware/wrap-csrf)
-    (route/not-found
-      (:body
-        (error-page {:status 404
-                     :title "page not found"})))))
+   (wrap-routes #'home-routes middleware/wrap-csrf)
+   (wrap-routes #'user-routes middleware/wrap-csrf)
+   (route/not-found
+    (:body
+     (error-page {:status 404
+                  :title "page not found"})))))
 
 (def app (middleware/wrap-base #'app-routes))
