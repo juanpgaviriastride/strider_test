@@ -37,12 +37,14 @@
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
   </head>
+  {% if success %}
   <div class='alert success'>
-    <p>Well done! You successfully read this important alert message.</p>
+    <p>You successfully joined the waiting list. We'll contact you!</p>
     <a class='close js-close-alert' href='javascript:;'>
       <i class='icon icon-close'></i>
     </a>
   </div>
+  {% endif %}
   <body class='page'>
     <div class='main-wrapper'>
       <div class='main-content'>
@@ -150,12 +152,15 @@
                     </div>
                     <div class='invitation-box'>
                       <p class='invitation-box__text'>Enter your email and we will send you an invitation when Webtalk launches</p>
-                      <div class='grid grid--narrow push--bottom'><div class='grid__item one-whole lap--four-fifths'>
-                          <input class='input--text' placeholder='Your Email Address' type='text'>
+		      <form action="/request-invitation" method="post" >
+			 {% csrf-field %}
+                      <div class='grid grid--narrow push--bottom'><div class='grid__item one-whole lap--four-fifths'>	  
+                            <input name='email' class='input--text' placeholder='Your Email Address' type='text'>
                         </div><div class='grid__item one-whole lap--one-fifth'>
                           <input class='btn btn--default btn--full' type='submit' value='Go'>
                         </div>
                       </div>
+		      </form>
                       <p class='invitation-box__note'>Your Email is safe with us. We hate spam too.</p>
                     </div>
                     <div class='separator-or'>
