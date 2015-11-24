@@ -25,7 +25,7 @@
   (layout/render  "crowdfunding/login.html"))
 
 (defn signup [request]
-  (layout/render "crowdfunding/new-account.html"))
+  (layout/render "crowdfunding/new-account.html" {:public_stripe_key "pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm"}))
 
 
 

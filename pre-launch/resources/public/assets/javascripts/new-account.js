@@ -5,7 +5,7 @@ function onStripeReceive(token){
 
 function openStripe(){
     var data = {
-        key: "pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm",
+        key: stripe_key,
         image: "/assets/images/webtalk-bubble.png",
         name: "Webtalk, Inc.",
         description: "2 widgets",

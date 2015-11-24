@@ -100,10 +100,10 @@
     </div>
     <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
     <script src="../assets/javascripts/application.js" type="text/javascript"></script>
-    
-    <script
-       src="https://checkout.stripe.com/checkout.js">
+    <script type="text/javascript">
+      window.stripe_key = "{{public_stripe_key}}";
     </script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="../assets/javascripts/new-account.js" type="text/javascript"></script>
 
   </body>
