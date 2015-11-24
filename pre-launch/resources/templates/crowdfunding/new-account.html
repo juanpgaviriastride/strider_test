@@ -67,7 +67,7 @@
                   </div>
                   <div class='form-field field-only'>
                     <i class='icon icon-message'></i>
-                    <input class='required input--text' name='email' placeholder='Enter Email Address' type='email'>
+                    <input class='required input--text' id='user_email' name='email' placeholder='Enter Email Address' type='email'>
                   </div>
 		  <div class='form-field field-only'>
 		    <input class='required input--text' name='password' placeholder='Password' type='password'>
@@ -84,7 +84,7 @@
                     </div>
                   </div>
                   <div class='form-field soft--top'>
-                    <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type='submit' value='Continue to Checkout'>
+                    <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type="button" value='Continue to Checkout' id="stripe">
                   </div>
                 </div>
               </form>
@@ -99,7 +99,12 @@
       </div>
     </div>
     <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
-    
     <script src="../assets/javascripts/application.js" type="text/javascript"></script>
+    
+    <script
+       src="https://checkout.stripe.com/checkout.js">
+    </script>
+    <script src="../assets/javascripts/new-account.js" type="text/javascript"></script>
+
   </body>
 </html>
