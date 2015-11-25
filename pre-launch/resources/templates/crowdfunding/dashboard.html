@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en-us"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en-us"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if lt IE 10]> <html class="no-js lt-ie10" lang="en-us"> <![endif]-->
+<!--[if !IE]> > <![endif]-->
+<html class='no-js' lang='en'>
+  <!-- <![endif] -->
+  <head>
+    <title>Webtalk Crowdfunding - Dashboard</title>
+    <meta charset='utf-8' content='text/html' http-equiv='content-type'>
+    <meta content='ie=edge,chrome=1' http-equiv='x-ua-compatible'>
+    <meta content='' name='description'>
+    <meta content='' name='author'>
+    <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width' name='viewport'>
+    <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1' media='(device-height: 568px)' name='viewport'>
+    <meta content='yes' name='apple-mobile-web-app-capable'>
+    <meta content='translucent-black' name='apple-mobile-web-app-status-bar-style'>
+    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='152x152'>
+    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <link href='../assets/images/apple-touch-icon-72x72-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <link href='../assets/images/apple-touch-icon-57x57-precomposed.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <link href='../assets/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
+    <link href='../assets/images/favicon.png' rel='shortcut icon'>
+    <link href='../assets/images/favicon.ico' rel='icon' type='image/ico'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link href="../assets/stylesheets/crowdfunding.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="../assets/javascripts/vendors/modernizr.js" type="text/javascript"></script>
+    <!--[if (gte IE 6)&(lte IE 8)]>
+      
+    <![endif]-->
+    <script>
+      var _gaq=[['_setAccount','UA-2668141-24'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+  </head>
+  <body class='page crowdfunding'>
+    <div class='main-wrapper'>
+      <header class='cf header header--crowdfunding'>
+        <div class='wrapper'>
+          <h1>
+            <a class='logo float--left flush--ends' href='/'>
+              <i class='icon icon-logo'></i>
+            </a>
+          </h1>
+          <ul class='list--horizontal float--right flush--ends header__nav'>
+            <li class='item--status'>
+              <span>Welcome Back,</span>
+              <strong> {{name}} </strong>
+              <a class='btn btn--default btn--small' href='javascript:;'>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div class='main-content'>
+        <div class='wrapper'>
+          <div class='alert success push--top push--bottom cf'>
+            <i class='info-icon float--left'></i>
+            <p class='float--left push-half--left'>
+              Thank you for joining Webtalk's Pre-Launch! Use the email fields below to send invites and start building your network now. Importing contacts from your email? Simply use the CSV uploader to upload your contacts easily.
+            </p>
+            <a class='close js-close-alert' href='javascript:;'>
+              <i class='icon icon-close'></i>
+            </a>
+          </div>
+          <div class='box box--white push--bottom'>
+            <div class='island soft-double--top'>
+              <div class='stats'>
+                <div class='grid'><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
+                    <div class='stats__item stats__item--invite'>
+                      <strong class='stats__item__num'>
+                        1,232
+                        <canvas id='canvasInvite'></canvas>
+                      </strong>
+                      <p class='soft-half--top'>Total Invites Sent</p>
+                    </div>
+                  </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
+                    <div class='stats__item stats__item--waitlist'>
+                      <strong class='stats__item__num'>
+                        134
+                        <canvas id='canvasWaitlist'></canvas>
+                      </strong>
+                      <p class='soft-half--top'>Joined Waitlist</p>
+                    </div>
+                  </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
+                    <div class='stats__item stats__item--prelaunch'>
+                      <strong class='stats__item__num'>
+                        56
+                        <canvas id='canvasPrelaunch'></canvas>
+                      </strong>
+                      <p class='soft-half--top'>Joined Pre-Launch</p>
+                    </div>
+                  </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
+                    <div class='stats__item stats__item--commissions'>
+                      <strong class='stats__item__num'>
+                        $15,600
+                        <canvas id='canvasCommissions'></canvas>
+                      </strong>
+                      <p class='soft-half--top'>Pending Commissions</p>
+                    </div>
+                  </div></div>
+              </div>
+            </div>
+          </div>
+          <div class='box box--white push--bottom'>
+            <div class='island'>
+              <div class='send-email-invites'>
+                <form action=''>
+                  <div class='grid'><div class='grid__item one-whole desk--seven-tenths push--bottom'>
+                      <div class='send-email-invites__emails'>
+                        <fieldset>
+                          <legend>
+                            <i class='icon-send-email'></i>
+                            Send Email Invites
+                          </legend>
+                          <div class='grid'><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole palm--one-half push--botton'>
+                              <div class='form-field'>
+                                <input placeholder='Enter Email Addres' type='text'>
+                                <i class='icon icons-envelope'></i>
+                              </div>
+                            </div><div class='grid__item one-whole'>
+                              <button class='btn btn--default btn--full' type='button'>
+                                <i class='icons-paper-plane push-quarter--left'></i>
+                                Send Email Invites
+                              </button>
+                            </div></div>
+                        </fieldset>
+                      </div>
+                    </div><div class='grid__item one-whole desk--three-tenths push--bottom'>
+                      <div class='send-email-invites__import'>
+                        <div class='push--bottom'>
+                          <p class='text--center'>
+                            <strong>YOUR REFERRAL LINK</strong>
+                          </p>
+                          <p class='text--center'>
+                            <a class='link--color' href='http://webtalk.co/invite/USERNAME'>http://webtalk.co/invite/USERNAME</a>
+                          </p>
+                        </div>
+                        <div class='import-upload-file'>
+                          <div class='icon-import'>
+                            <i class='icon-csv'></i>
+                            <strong>Importing contacts from email?</strong>
+                          </div>
+                          <a class='import-upload-file__input' href='javascript:;'>
+                            Upload CSV file
+                            <input class='input--file' placeholder=' ' type='file' value=' '>
+                          </a>
+                          <div class='text--center'>
+                            <small>
+                              <a class='link--color' href='javascript:;'>
+                                <i class='icon-question'></i>
+                                How to download CSV File?
+                              </a>
+                            </small>
+                          </div>
+                        </div>
+                      </div>
+                    </div></div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class='box push--bottom'>
+            <div class='tables'>
+              <div class='tables__header cf'>
+                <div class='float--left'>
+                  <span class='tag tag--green'>Level 1</span>
+                  <h3>Your Referrals</h3>
+                </div>
+                <ul class='pager-bnts'>
+                  <li>
+                    <a href='javascript:;'>First</a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>1</a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>2</a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>
+                      <span>...</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>8</a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>9</a>
+                  </li>
+                  <li>
+                    <a href='javascript:;'>Last</a>
+                  </li>
+                </ul>
+              </div>
+              <table class='tables__table'>
+                <thead><tr class='grid--full'><th class='grid__item one-third'>
+                      <span>Name</span>
+                    </th><th class='grid__item one-third'>
+                      <span>Date Invited</span>
+                    </th><th class='grid__item one-third'>
+                      <span>Status</span>
+                    </th></tr></thead>
+                <tbody class='grid--full'><tr class='grid__item one-third'>
+                    <td>Randy Harrison</td>
+                    <td>Jeffrey Morris</td>
+                    <td>John Mills</td>
+                    <td>Judith Moore</td>
+                    <td>Carl Ray</td>
+                  </tr><tr class='grid__item one-third'>
+                    <td>Jan 16, 2015</td>
+                    <td>Jun 13, 2015</td>
+                    <td>Aug 16, 2015</td>
+                    <td>Sept 21, 2015</td>
+                    <td>Oct  11, 2015</td>
+                  </tr><tr class='grid__item one-third'>
+                    <td>
+                      <span class='red--color'>Joined Waitlist</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>Joined Pre-Launch</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>Joined Pre-Launch</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>Joined Waitlist</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>Joined Waitlist</span>
+                    </td>
+                  </tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class='box push--bottom'>
+            <div class='tables'>
+              <div class='tables__header'>
+                <h3>Your Referral Network</h3>
+              </div>
+              <table class='tables__table'>
+                <thead><tr class='grid--full'><th class='grid__item one-fifth'>
+                      <span class='bluegray--color'>
+                        <i class='icon-t icon-t--levels bluegray--color'></i>
+                        Levels
+                      </span>
+                    </th><th class='grid__item one-fifth'>
+                      <span class='blue-light--color'>
+                        <i class='icon-t icon-t--invited blue-light--color'></i>
+                        Invited
+                      </span>
+                    </th><th class='grid__item one-fifth'>
+                      <span class='red--color'>
+                        <i class='icon-t icon-t--joined-w red--color'></i>
+                        <i class='show-desk'>Joined</i>
+                        Waitlist
+                      </span>
+                    </th><th class='grid__item one-fifth'>
+                      <span class='orange--color-mid'>
+                        <i class='icon-t icon-t--joined-p orange--color-mid'></i>
+                        <i class='show-desk'>Joined</i>
+                        Pre-Launch
+                      </span>
+                    </th><th class='grid__item one-fifth'>
+                      <span class='altern-blue-dark-color'>
+                        <i class='icon-t icon-t--commission altern-blue-dark-color'></i>
+                        <i class='show-mob'>Comm.</i>
+                        <i class='show-desk'>Commissions</i>
+                        Pending
+                      </span>
+                    </th></tr></thead>
+                <tbody class='grid--full'><tr class='grid__item one-fifth'>
+                    <td>
+                      <span class='bluegray--color'>1</span>
+                    </td>
+                    <td>
+                      <span class='bluegray--color'>2</span>
+                    </td>
+                    <td>
+                      <span class='bluegray--color'>3</span>
+                    </td>
+                    <td>
+                      <span class='bluegray--color'>4</span>
+                    </td>
+                    <td>
+                      <span class='bluegray--color'>5</span>
+                    </td>
+                    <td>
+                      <strong class='bluegray--color'>Total</strong>
+                    </td>
+                  </tr><tr class='grid__item one-fifth'>
+                    <td>
+                      <span class='blue-light--color'>234</span>
+                    </td>
+                    <td>
+                      <span class='blue-light--color'>985</span>
+                    </td>
+                    <td>
+                      <span class='blue-light--color'>235</span>
+                    </td>
+                    <td>
+                      <span class='blue-light--color'>124</span>
+                    </td>
+                    <td>
+                      <span class='blue-light--color'>335</span>
+                    </td>
+                    <td>
+                      <strong class='blue-light--color'>1913</strong>
+                    </td>
+                  </tr><tr class='grid__item one-fifth'>
+                    <td>
+                      <span class='red--color'>200</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>300</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>92</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>5</span>
+                    </td>
+                    <td>
+                      <span class='red--color'>250</span>
+                    </td>
+                    <td>
+                      <strong class='red--color'>847</strong>
+                    </td>
+                  </tr><tr class='grid__item one-fifth'>
+                    <td>
+                      <span class='orange--color-mid'>34</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>605</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>73</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>15</span>
+                    </td>
+                    <td>
+                      <span class='orange--color-mid'>10</span>
+                    </td>
+                    <td>
+                      <strong class='orange--color-mid'>737</strong>
+                    </td>
+                  </tr><tr class='grid__item one-fifth'>
+                    <td>
+                      <span class='altern-blue-dark-color'>$1,700</span>
+                    </td>
+                    <td>
+                      <span class='altern-blue-dark-color'>$30,250</span>
+                    </td>
+                    <td>
+                      <span class='altern-blue-dark-color'>$3,650</span>
+                    </td>
+                    <td>
+                      <span class='altern-blue-dark-color'>$750</span>
+                    </td>
+                    <td>
+                      <span class='altern-blue-dark-color'>$500</span>
+                    </td>
+                    <td>
+                      <strong class='altern-blue-dark-color'>$36,850</strong>
+                    </td>
+                  </tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class='box push--bottom'>
+            <p class='soft--sides text--center'>
+              <small>© 2015 Webtalk</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
+    
+    <script src="../assets/javascripts/application.js" type="text/javascript"></script>
+    <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
+    
+    <script src="../assets/javascripts/crowdfunding.js" type="text/javascript"></script>
+  </body>
+</html>
