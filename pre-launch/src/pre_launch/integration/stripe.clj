@@ -60,7 +60,6 @@
      bean
      (select-keys [:description :disputed :applicationFee :amount :failureMessage :transfer :captured :dispute :created :source :statementDescription :failureCode :customer :balanceTransaction :receiptEmail :card :invoice :currency :refunded :amountRefunded :status :id :class :statementDescriptor :paid :fraudDetails :livemode :shipping :receiptNumber :metadata :destination :refunds])
      charge-hash))
+
 (defn create-charge! [charge-params]
-  (-> (Gson.)
-     (.toJson (Charge/create charge-params (default-request-options)))
-     (json/read-str :key-fn keyword)))
+  (charge-from-response (Charge/create charge-params (default-request-options))))
