@@ -1,11 +1,13 @@
 (ns pre-launch.integration.stripe
-  (:require [environ.core :refer [env]])
+  (:require [environ.core :refer [env]]
+            [clojure.data.json :as json])
   (:import com.stripe.Stripe
            com.stripe.exception.StripeException
            com.stripe.model.Charge
            com.stripe.model.Customer
            com.stripe.net.RequestOptions
-           com.stripe.net.RequestOptions$RequestOptionsBuilder))
+           com.stripe.net.RequestOptions$RequestOptionsBuilder
+           com.google.gson.Gson))
 
 
 (defn payment [customer]
@@ -32,4 +34,6 @@
   (Customer/create customer-params (default-request-options)))
 
 (defn create-charge! [charge-params]
-  (Charge/create charge-params (default-request-options)))
+  (-> (Gson.)
+     (.toJson (Charge/create charge-params (default-request-options)))
+     (json/read-str :key-fn keyword)))
