@@ -15,6 +15,7 @@
             [com.webtalk.resilience.entry         :as entry]
             [com.webtalk.resilience               :refer [start-jetty]]
             [com.webtalk.mailer.request-an-invite :as mailer-request-an-invite]
+            [com.webtalk.mailer.prelaunch-request-an-invite :as mailer-prelaunch-request-an-invite]
             [clojurewerkz.titanium.vertices       :as gvertex]
             [clojurewerkz.titanium.edges          :as gedge]))
 
@@ -71,7 +72,9 @@
 
     (println "sending email")
     (if (= (:status ginvite) :new_record)
-      (mailer-request-an-invite/deliver-email (payload "email")))
+      ;;(mailer-request-an-invite/deliver-email (payload "email"))
+      (mailer-prelaunch-request-an-invite/deliver-email (payload "email"))
+      )
 
     (println "saving into cass")
     (if (not= (:status ginvite) :mixmatch_type_record)
