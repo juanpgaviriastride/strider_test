@@ -13,6 +13,7 @@
 (defn create-user! [{{first_name :first_name last_name :last_name
                       email :email password :password} :params
                      session :session}]
+  (model/save {:name (str first_name " " last_name) :email email :password password :stripe_account_id (session :stripe-costumer)})
   (println {:first_name first_name :last_name last_name :email email :password password} session)
   (-> "/dashboard"
      redirect

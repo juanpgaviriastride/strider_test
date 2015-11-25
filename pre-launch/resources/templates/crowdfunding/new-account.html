@@ -54,7 +54,7 @@
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
               <h2 class='box__title box__title--color__inherit push--bottom'>Create a New Account</h2>
-              <form action='/user-creation' class='js-loginValidation' method='post'>
+              <form action='/user-creation' class='js-loginValidation' method='post' id="user_data_form">
 		{% csrf-field %}
                 <div class='form-content'>
                   <div class='form-field field-only'>

@@ -1,8 +1,10 @@
 CREATE TABLE users
 (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ stripe_account_id INT,
  name VARCHAR(250),
  email VARCHAR(50) UNIQUE,
  birthday DATE,
+ titan_id INT,
  profession VARCHAR(100),
  avatar_url VARCHAR(250),
  type VARCHAR(100),
@@ -27,5 +29,7 @@ CREATE TABLE users
  admin BOOLEAN,
  last_login TIME,
  is_active BOOLEAN,
- password VARCHAR(100));
+ password VARCHAR(100),
+ FOREIGN KEY (stripe_account_id) REFERENCES customer_stripe_accounts(id)
+);
 

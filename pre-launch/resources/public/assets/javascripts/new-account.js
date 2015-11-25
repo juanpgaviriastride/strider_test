@@ -1,6 +1,18 @@
 function onStripeReceive(token){
     console.log("received from stripe");
     console.log(token);
+    request = {};
+    request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
+    request['payload'] = JSON.stringify(token);
+    
+    $.post("/stripe/customer", request, function(result, status){
+        console.log("saved in backend");
+	console.log(result);
+	console.log(status);
+	if(status == "success"){
+	    $('#user_data_form').submit();
+	}
+    });
 }
 
 function openStripe(){
@@ -11,8 +23,7 @@ function openStripe(){
         description: "2 widgets",
         token: onStripeReceive,
         amount: "10000",
-        locale: "auto"
-	
+        locale: "auto"	
     }
     data.email = $('#user_email').val();
     StripeCheckout.open(data);
