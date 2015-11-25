@@ -3,6 +3,7 @@
             [compojure.core :refer :all]
             [ring.util.http-response :refer [ok]]
             [clojure.java.io :as io]
+            [pre-launch.integration.stripe :as stripe]
             [ring.util.response :refer [response]]
             ring.middleware.session))
 
@@ -25,7 +26,8 @@
   (layout/render  "crowdfunding/login.html"))
 
 (defn signup [request]
-  (layout/render "crowdfunding/new-account.html" {:public_stripe_key "pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm"}))
+  (let [key (stripe/public-key)]
+    (layout/render "crowdfunding/new-account.html" {:public_stripe_key key})))
 
 
 
