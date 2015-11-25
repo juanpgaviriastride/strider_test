@@ -4,4 +4,4 @@
 
 (defn save-stripe-account [stripe-account]
   (when-let [stripe-id (db/create-stripe-account<! stripe-account)]
-    (assoc stripe-account :id stripe-id)))
+    (assoc stripe-account :id (:generated_key stripe-id))))

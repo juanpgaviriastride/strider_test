@@ -3,11 +3,14 @@
 INSERT INTO users
 (name,
 email,
-password)
+password,
+stripe_account_id)
 VALUES (
 :name,
 :email,
-:password)
+:password,
+:stripe_account_id
+)
 
 
 -- name: update-user!
