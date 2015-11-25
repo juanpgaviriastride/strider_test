@@ -30,3 +30,6 @@
 
 (defn create-customer! [customer-params]
   (Customer/create customer-params (default-request-options)))
+
+(defn create-charge! [charge-params]
+  (Charge/create charge-params (default-request-options)))
