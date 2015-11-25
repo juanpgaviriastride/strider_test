@@ -5,6 +5,7 @@
             [pre-launch.routes.user :refer [user-routes]]
             [pre-launch.routes.dashboard :refer [dashboard-routes]]
             [pre-launch.routes.login :refer [login-routes]]
+            [pre-launch.routes.payment :refer [payment-routes]]
             [pre-launch.middleware :as middleware]
             [pre-launch.db.core :as db]
             [compojure.route :as route]
@@ -44,6 +45,7 @@
    (wrap-routes #'login-routes middleware/wrap-csrf)
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (wrap-routes #'user-routes middleware/wrap-csrf)
+   (wrap-routes #'payment-routes middleware/wrap-csrf)
    (wrap-routes #'dashboard-routes middleware/wrap-restricted)
    (route/not-found
     (:body
