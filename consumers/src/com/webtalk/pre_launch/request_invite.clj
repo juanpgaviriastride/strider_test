@@ -22,6 +22,7 @@
         invitation (first (tvertex/find-by-kv graph :email email))
         referer (first (tvertex/find-by-id (Integer. referer-id)))
         invitation-hash (request-hash {:email email})]
+
     (if (nil? invitation)
       (let [new-invitation (tvertex/create! graph invitation-hash)]
         (tedge/upconnect! graph new-invitation "refered_by" referer)
@@ -31,6 +32,6 @@
         (tedge/upconnect! graph invitation "refered_by" referer)        
         (if (= (tvertex/get invitation :VertexType) "prelaunchRequestedInvitation")
           {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
-          :status :updated_record}
-         {:vertex (tvertex/to-map invitation)
-          :status :mixmatch_type_record})))))
+           :status :updated_record}
+          {:vertex (tvertex/to-map invitation)
+           :status :mixmatch_type_record})))))
