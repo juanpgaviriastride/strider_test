@@ -23,7 +23,7 @@
         referer (first (tvertex/find-by-id (Integer. referer-id)))
         invitation-hash (request-hash {:email email})]
     (if (nil? invitation)
-      (let [new-invitation (tvertex/create! g invitation-hash)]
+      (let [new-invitation (tvertex/create! graph invitation-hash)]
         (tedge/upconnect! graph new-invitation "refered_by" referer)
         {:vertex (tvertex/to-map new-invitation)
          :status :new_record})
