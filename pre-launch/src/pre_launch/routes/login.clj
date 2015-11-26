@@ -2,13 +2,17 @@
   (:require [pre-launch.layout :as layout]
             [compojure.core :refer :all]
             [ring.util.http-response :refer [ok]]
+            [pre-launch.model.session :as session]
+            [pre-launch.model.user :as user]
             [clojure.java.io :as io]
             [pre-launch.integration.stripe :as stripe]
             [ring.util.response :refer [response]]
             ring.middleware.session))
 
 (defn check-password [email passw]
-  :ok)
+  (if (session/validate-password email passw)
+    (user/get email)
+    {}))
 
 (defn login! [{{email :email passw :passw} :params
                session :session}]
