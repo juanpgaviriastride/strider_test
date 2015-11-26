@@ -1,3 +1,10 @@
+var recapcha_ok = false;
+
+function onReCapcha(response){
+    console.log("the response is" + response);
+    recapcha_ok = true;
+}
+
 function onStripeReceive(token){
     console.log("received from stripe");
     console.log(token);
@@ -16,7 +23,9 @@ function onStripeReceive(token){
 }
 
 function openStripe(){
-    var data = {
+    console.log("inside openStripe")
+    if(recapcha_ok){
+	var data = {
         key: stripe_key,
         image: "/assets/images/webtalk-bubble.png",
         name: "Webtalk, Inc.",
@@ -24,9 +33,13 @@ function openStripe(){
         token: onStripeReceive,
         amount: "10000",
         locale: "auto"	
-    }
+	}
     data.email = $('#user_email').val();
-    StripeCheckout.open(data);
+	StripeCheckout.open(data);
+    }else{
+	alert("recapcha");
+    }
+    
 }
 
 $(document).ready(function(){
