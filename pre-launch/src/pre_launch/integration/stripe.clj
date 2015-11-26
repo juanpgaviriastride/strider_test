@@ -30,6 +30,9 @@
      (.setApiKey (private-key))
      .build))
 
+(defn to-json [object]
+  (.toJson (Gson.) object))
+
 (defn customer-hash [payload]
   (into {} (list payload {:stripe_id (payload :id)
                           :default_source (payload :defaultSource)
@@ -38,7 +41,7 @@
                           :connect_access_token ""
                           :refresh_token ""
                           :token_type ""
-                          :sources (json/write-str (bean (payload :sources)))
+                          :sources (to-json (:sources payload)) 
                           :scope ""})))
 
 (defn customer-from-response [customer-object]
@@ -51,15 +54,20 @@
   (customer-from-response (Customer/create customer-params (default-request-options))))
 
 (defn charge-hash [payload]
-  (into {} (list payload {,,,
-                          ;;defaults here
+  (println "charge hash - payload" payload)
+  (println "sources class" (class (payload :source)))
+  (println "beaned " (bean (payload :source)))
+  (into {} (list payload {:source (to-json (:source payload))
+                          :fraudDetails (to-json (:fraudDetails payload))
+                          :metadata (to-json (:metadata payload))
+                          :refunds (to-json (:refunds payload))
                           })))
 
 (defn charge-from-response [charge-object]
   (-> charge-object
      bean
-     (select-keys [:description :disputed :applicationFee :amount :failureMessage :transfer :captured :dispute :created :source :statementDescription :failureCode :customer :balanceTransaction :receiptEmail :card :invoice :currency :refunded :amountRefunded :status :id :class :statementDescriptor :paid :fraudDetails :livemode :shipping :receiptNumber :metadata :destination :refunds])
      charge-hash))
 
 (defn create-charge! [charge-params]
+  (println "create charge params" charge-params)
   (charge-from-response (Charge/create charge-params (default-request-options))))
