@@ -22,8 +22,9 @@
    (assoc :is_active true)))
 
 (defn save [user-map]
-  (let [user (prepare-save user-map)]
-    (db/create-user<! user)))
+  (let [user (prepare-save user-map)
+        save-response (db/create-user<! user)]
+    (assoc user-map :id (:generated_key save-response))))
 
 
 
