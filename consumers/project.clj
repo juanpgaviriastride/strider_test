@@ -27,9 +27,13 @@
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [com.stuartsierra/component "0.2.3"]]
   :main ^:skip-aot com.webtalk.storage
+  :aot [com.webtalk.storage com.webtalk.pre-launch.core]
   :target-path "target/%s"
   :resource-paths ["resources"]
-  :aliases {"omni" ["do" ["clean"] ["cloverage"] ["eastwood"] ["kibit"] ["bikeshed"]]}
+  :aliases {"omni" ["do" ["clean"] ["cloverage"] ["eastwood"] ["kibit"] ["bikeshed"]]
+            "prelaunch" ["run" "-m" "com.webtalk.pre-launch.core"]}
+  
+
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[midje "1.6.3" :exclusions [org.clojure/clojure]]]
                    :plugins [[lein-midje "3.1.3"]
