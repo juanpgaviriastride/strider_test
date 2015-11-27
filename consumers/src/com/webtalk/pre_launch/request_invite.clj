@@ -23,7 +23,8 @@
           [req-invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv g :email email))]
                                     [maybe-invitation :old]
                                     [(tvertex/create! graph invitation-hash) :new])
-          referer (first (tvertex/find-by-id g (Integer. (or referer-id 0))))]
+          referer (when referer-id
+                    (tvertex/find-by-id g (Integer. referer-id)))]
 
       (tedge/upconnect! g req-invitation "invited_waitlist_by" referer)
       (if (= status :new)

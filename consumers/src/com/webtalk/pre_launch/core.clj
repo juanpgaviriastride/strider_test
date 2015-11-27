@@ -14,6 +14,7 @@
             [com.webtalk.mailer.prelaunch-invite :as mailer-prelaunch-invite]
             [com.webtalk.pre-launch.user           :as user]
             [com.webtalk.pre-launch.invite         :as invite]
+            [com.webtalk.pre-launch.computation    :as computation]
             [clojurewerkz.titanium.vertices       :as gvertex]
             [clojurewerkz.titanium.edges          :as gedge]))
 

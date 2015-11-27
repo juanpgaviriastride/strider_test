@@ -22,7 +22,8 @@
   (println "create-user! graph" graph "payload" payload)
   (tgraph/with-transaction [g graph]
     (let [{email "email" referer-id "refererID"} payload
-          referer (first (tvertex/find-by-id g (Integer. (or referer-id 0))))
+          referer (when referer-id
+                    (tvertex/find-by-id g (Integer. referer-id)))
           [user status] (if-let [maybe-user (first (tvertex/find-by-kv g :email email))]
                           [maybe-user :old]
                           [(tvertex/create! g (user-hash payload)) :new])]
