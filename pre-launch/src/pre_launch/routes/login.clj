@@ -6,25 +6,23 @@
             [pre-launch.model.user :as user]
             [clojure.java.io :as io]
             [pre-launch.integration.stripe :as stripe]
-            [ring.util.response :refer [response]]
+            [ring.util.response :refer [response redirect]]
             ring.middleware.session))
 
 (defn check-password [email passw]
-  (if (session/validate-password email passw)
-    (user/get email)
-    {}))
+  (let [valid-password (session/validate-password email passw)]
+    (println "valid-password" valid-password)
+    (if valid-password 
+      (let [user (user/get email)]
+        (println "the user I found is" user)
+        user))))
 
-(defn login! [{{email :email passw :passw} :params
+(defn login! [{{email :email passw :password} :params
                session :session}]
   (if-let [identity (check-password email passw)]
-    (do
-      (assoc :session (assoc session :identity identity))
-      {:status 200
-       :headers {"Content-Type" "text/html"}
-       :body "rico"})
-    {:status 403
-     :headers {}
-     :body "Not authorized"}))
+    (-> (redirect "/dashboard")
+       (assoc :session (assoc session :identity identity)))
+    (redirect "/signin")))
 
 (defn login [{session :session}]
   (layout/render  "crowdfunding/login.html"))

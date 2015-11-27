@@ -1,6 +1,6 @@
 (ns pre-launch.model.session
   (:require
-   [wt.db.core :as db]
+   [pre-launch.db.core :as db]
    [bcrypt-clj.auth :refer :all]
    [crypto.random :as crypto-random])
   (:import [java.sql.Date]))
@@ -10,6 +10,7 @@
 
 (defn validate-password [email password]
   (let [maybe-password (get-password email)]
+    (println "the maybe password is" maybe-password " and the password is " password)
     (if (nil? password)
       false
       (check-password password maybe-password))))
@@ -36,6 +37,5 @@
 
 (defn delete-session [id]
   (db/delete-session-token! {:id id}))
-
 
 

@@ -25,7 +25,7 @@ id,
 name,
 email
 FROM users
-WHERE email = :email AND is_active = true
+WHERE email = :email
 
 
 -- name: delete-user!
