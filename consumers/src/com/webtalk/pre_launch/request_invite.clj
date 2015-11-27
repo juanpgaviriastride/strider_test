@@ -5,7 +5,7 @@
             [clojurewerkz.titanium.edges    :as tedge]))
 
 (defn request-hash [payload]
-  (into {} (list (remove (fn [a b] (nil? b)) payload)
+  (into {} (list (remove (fn [[a b]] (nil? b)) payload)
                  {:VertexType "prelaunchRequestedInvitation"})))
 
 (defn request-an-invite!

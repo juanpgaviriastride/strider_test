@@ -65,10 +65,8 @@
   (println "create-user")
   (let [[callback-q payload] load
         guser (user/create-user! (get-conn :titan) payload)]
-    (println "guser that is going to be send to the queue" (gvertex/to-map guser))
-    (flush)
-    (publisher/publish-with-qname (get-conn :rabbit) callback-q (gvertex/to-map guser))
-    (println "about to save it on cassandra")))
+    (println "guser that is going to be send to the queue" guser)
+    (publisher/publish-with-qname (get-conn :rabbit) callback-q guser)))
 
 (defn setup-queue-and-handlers
   "Setup the queue and subscribe the actions to the queues
