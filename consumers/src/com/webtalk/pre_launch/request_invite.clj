@@ -17,16 +17,17 @@
    refererID is the titan id of the user who is referring the new user and it is optional"
 
   [graph payload]
-  (let [{email "email" referer-id "refererID"} payload
-        invitation-hash (request-hash {:email email})
-        [req-invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv graph :email email))]
-                                  [maybe-invitation :old]
-                                  [(tvertex/create! graph invitation-hash) :new])
-        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))]
+  (tgraph/with-transaction [g graph]
+    (let [{email "email" referer-id "refererID"} payload
+          invitation-hash (request-hash {:email email})
+          [req-invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv g :email email))]
+                                    [maybe-invitation :old]
+                                    [(tvertex/create! graph invitation-hash) :new])
+          referer (first (tvertex/find-by-id g (Integer. (or referer-id 0))))]
 
-    (tedge/upconnect! graph req-invitation "invited_waitlist_by" referer)
-    (if (= status :new)
-      {:vertex (tvertex/to-map req-invitation)
-       :status :new_record}
-      {:vertex (tvertex/to-map req-invitation)
-       :status :mixmatch_type_record})))
+      (tedge/upconnect! g req-invitation "invited_waitlist_by" referer)
+      (if (= status :new)
+        {:vertex (tvertex/to-map req-invitation)
+         :status :new_record}
+        {:vertex (tvertex/to-map req-invitation)
+         :status :mixmatch_type_record}))))
