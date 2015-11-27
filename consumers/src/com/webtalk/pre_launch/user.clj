@@ -5,7 +5,7 @@
             [clojurewerkz.titanium.edges :as tedge]))
 
 (defn user-hash [payload]
-  (into {}  (list (remove (fn [a b] (nil? b)) payload)
+  (into {}  (list (remove (fn [[a b]] (nil? b)) payload)
                   {:VertexType "prelaunchUser"
                    :TeamTrainer false
                    :Commission 0})))
