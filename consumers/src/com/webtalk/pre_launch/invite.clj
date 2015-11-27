@@ -11,25 +11,27 @@
 (defn invite!
   "It creates the user invitation node if needed adding links
 
-   Example: (invite! graph {\"email\" \"some@wt.com\"
+   Example: (invite! graph {\"email:\" \"some@wt.com\"
                                        \"refererID\" 234})
    email: is the email of the invited user
    refererID is the titan id of the user who is referring the new user and it is optional"
 
   [graph payload]
-  (let [{email "email" referer-id "refererID"} payload
-        invitation-hash (invitation-hash {:email email})
-        [invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv graph :email email))]
-                              [maybe-invitation :old]
-                              [(tvertex/create! graph invitation-hash) :new])
-        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))]
+  (tgraph/with-transaction [g graph]
+    (let [{email "email" referer-id "refererID"} payload
+          invitation-hash (invitation-hash {:email email})
+          [invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv g :email email))]
+                                [maybe-invitation :old]
+                                [(tvertex/create! g invitation-hash) :new])
+          referer (when referer-id
+                    (tvertex/find-by-id g (Integer. referer-id)))]
 
-    (tedge/upconnect! graph invitation "invited_by" referer)
-    (if (= status :new)
-      {:vertex (tvertex/to-map invitation)
-       :status :new_record}
-      (if (= (tvertex/get invitation :VertexType) "prelaunchInvitation")
-        {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
-         :status :updated_record}
+      (tedge/upconnect! g invitation "invited_by" referer)
+      (if (= status :new)
         {:vertex (tvertex/to-map invitation)
-         :status :mixmatch_type_record}))))
+         :status :new_record}
+        (if (= (tvertex/get invitation :VertexType) "prelaunchInvitation")
+          {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
+           :status :updated_record}
+          {:vertex (tvertex/to-map invitation)
+           :status :mixmatch_type_record})))))
