@@ -39,6 +39,12 @@ UPDATE users
 SET is_active = false
 WHERE id = :id 
 
+--name: set-titan-id!
+--save titan fk into user
+UPDATE users
+SET titan_id = :titan_id
+WHERE email = :email 
+
 --name: get-password
 --gets the salted password given the email
 SELECT password FROM users

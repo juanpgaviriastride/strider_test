@@ -11,16 +11,11 @@
 (defn save-user [user]
   (let [maybe-user (model/save user)]))
 
-(defn create-user! [{{first_name :first_name last_name :last_name
-                      email :email password :password} :params
-                     session :session}]
-  (let [save-response (model/save {:name (str first_name " " last_name)
-                                   :email email
-                                   :password password
-                                   :stripe_account_id (session :stripe-costumer)})]
+(defn create-user! [request]
+  (let [save-response (controller/create-user! request)]
     (-> "/dashboard"
      redirect
-     (assoc :session (assoc session :identity save-response)))) )
+     (assoc :session (assoc (:session request) :identity save-response)))) )
 
 (defroutes user-routes
   (POST "/user-creation" request (create-user! request)))

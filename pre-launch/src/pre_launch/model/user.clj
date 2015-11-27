@@ -27,5 +27,6 @@
     (assoc user-map :id (:generated_key save-response))))
 
 
-
+(defn set-titan-id [email titan-id]
+  (db/set-titan-id! {:titan_id titan-id :email email}))
 

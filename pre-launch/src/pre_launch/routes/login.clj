@@ -35,7 +35,6 @@
   (-> (redirect "/signin")
      (assoc :session (dissoc (:session request) :identity))))
 
-
 (defroutes login-routes
   (GET  "/signin" request (login request))
   (POST "/login"  request (login! request))

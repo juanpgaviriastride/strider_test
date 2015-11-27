@@ -6,11 +6,11 @@ function sendMails(){
 	return t != null && t != "";
     });
 
-    $.post("/invites", {"emails": values}, function(data, status)){
+    $.post("/invites", {"emails": values}, function(data, status){
 	$("form#email-form input[type=text]").each(function(){
 	    $(this).val(""); 
 	});
-    }
+    });
 }
 
 
