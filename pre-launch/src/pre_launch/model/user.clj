@@ -23,7 +23,6 @@
 
 (defn save [user-map]
   (let [user (prepare-save user-map)]
-    (println "the prepared user map" user)
     (db/create-user<! user)))
 
 

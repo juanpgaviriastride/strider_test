@@ -54,23 +54,16 @@
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
               <h2 class='box__title box__title--color__inherit push--bottom'>Log into Dashboard</h2>
-              <form action='/views/news/' class='js-loginValidation' method=' '>
+              <form action='/login' class='js-loginValidation' method='post'>
+		  {% csrf-field %}
                 <div class='form-content'>
                   <div class='form-field'>
                     <i class='icon icon-message'></i>
-                    <input class='required input--text' name='inputEmail' placeholder='Enter Email Address' type='email'>
+                    <input class='required input--text' name='email' placeholder='Enter Email Address' type='email'>
                   </div>
-                  <div class='form-field'>
-                    <span class='span--gray'>
-                      <b>Task:</b>
-                      Complete the challenge to continue
-                    </span>
-                  </div>
-                  <div class='form-field soft--bottom'>
-                    <div class='box--captcha soft--ends'>
-                      <input class='js-captcha float--left input--text push--top' placeholder='Type the letters above' type='text'>
-                    </div>
-                  </div>
+		  <div class='form-field field-only'>
+		    <input class='required input--text' name='password' placeholder='Password' type='password'>
+		  </div>
                   <div class='form-field soft--top'>
                     <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type='submit' value='Login'>
                   </div>

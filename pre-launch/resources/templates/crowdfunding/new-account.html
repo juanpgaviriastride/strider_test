@@ -37,6 +37,7 @@
       g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body class='page crowdfunding'>
     <div class='main-wrapper'>
@@ -73,15 +74,7 @@
 		    <input class='required input--text' name='password' placeholder='Password' type='password'>
 		  </div>
                   <div class='form-field'>
-                    <span class='span--gray'>
-                      <b>Task:</b>
-                      Complete the challenge to continue
-                    </span>
-                  </div>
-                  <div class='form-field soft--bottom'>
-                    <div class='box--captcha soft--ends'>
-                      <input class='js-captcha float--left input--text push--top' placeholder='Type the letters above' type='text'>
-                    </div>
+		    <div class="g-recaptcha" data-callback="onReCapcha" data-sitekey="6Ler3xETAAAAAO9UMVyem83maqwspXrA6PFvWrZv"></div>
                   </div>
                   <div class='form-field soft--top'>
                     <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type="button" value='Continue to Checkout' id="stripe">
