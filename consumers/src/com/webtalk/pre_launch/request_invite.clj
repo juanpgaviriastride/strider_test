@@ -2,8 +2,7 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph    :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges    :as tedge]
-            [com.webtalk.mailer.invite      :as deliver-invite]))
+            [clojurewerkz.titanium.edges    :as tedge]))
 
 (defn request-hash [payload]
   (into {} (list payload
@@ -19,19 +18,15 @@
 
   [graph payload]
   (let [{email "email" referer-id "refererID"} payload
-        invitation (first (tvertex/find-by-kv graph :email email))
-        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))
-        invitation-hash (request-hash {:email email})]
+        invitation-hash (request-hash {:email email})
+        [req-invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv graph :email email))]
+                                  [maybe-invitation :old]
+                                  [(tvertex/create! graph invitation-hash) :new])
+        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))]
 
-    (if (nil? invitation)
-      (let [new-invitation (tvertex/create! graph invitation-hash)]
-        (tedge/upconnect! graph new-invitation "refered_by" referer)
-        {:vertex (tvertex/to-map new-invitation)
-         :status :new_record})
-      (do
-        (tedge/upconnect! graph invitation "refered_by" referer)        
-        (if (= (tvertex/get invitation :VertexType) "prelaunchRequestedInvitation")
-          {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
-           :status :updated_record}
-          {:vertex (tvertex/to-map invitation)
-           :status :mixmatch_type_record})))))
+    (tedge/upconnect! graph req-invitation "invited_waitlist_by" referer)
+    (if (= status :new)
+      {:vertex (tvertex/to-map req-invitation)
+       :status :new_record}
+      {:vertex (tvertex/to-map req-invitation)
+       :status :mixmatch_type_record})))

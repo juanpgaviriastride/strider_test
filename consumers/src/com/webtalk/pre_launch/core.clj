@@ -9,9 +9,11 @@
             [com.webtalk.util                     :as util]
             [com.webtalk.storage.queue            :as queue]
             [com.webtalk.storage.queue.publisher  :as publisher]
-            [com.webtalk.pre-launch.request-invite :as invite]
+            [com.webtalk.pre-launch.request-invite :as req-invite]
             [com.webtalk.mailer.prelaunch-request-an-invite :as mailer-prelaunch-request-an-invite]
+            [com.webtalk.mailer.prelaunch-invite :as mailer-prelaunch-invite]
             [com.webtalk.pre-launch.user           :as user]
+            [com.webtalk.pre-launch.invite         :as invite]
             [clojurewerkz.titanium.vertices       :as gvertex]
             [clojurewerkz.titanium.edges          :as gedge]))
 
@@ -33,16 +35,27 @@
 1  (flush)
   (get-in *system* [component :connection]))
 
-;; queue-name com.webtalk.pre-launch.request-an-invite
-(defn request-an-invite
+;; queue-name com.webtalk.pre-launch.invite
+(defn invite
   [load]
   (let [[callback-q payload] load
-        ginvite (invite/request-an-invite! (get-conn :titan) payload)]
+        ginvite (invite/invite! (get-conn :titan) payload)]
     (println "ginvite" ginvite)
 
     (println "sending email")
     (if (= (:status ginvite) :new_record)
-      ;;(mailer-request-an-invite/deliver-email (payload "email"))
+      (mailer-prelaunch-invite/deliver-email (:vertex ginvite) (payload "email")))))
+
+
+;; queue-name com.webtalk.pre-launch.request-an-invite
+(defn request-an-invite
+  [load]
+  (let [[callback-q payload] load
+        ginvite (req-invite/request-an-invite! (get-conn :titan) payload)]
+    (println "ginvite" ginvite)
+
+    (println "sending email")
+    (if (= (:status ginvite) :new_record)
       (mailer-prelaunch-request-an-invite/deliver-email (payload "email")))))
 
 ;;; queue-name com.webtalk.pre-launch.create-user
@@ -87,7 +100,7 @@
   (println *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
-                                                     ['request-an-invite 'create-user])]
+                                                     ['request-an-invite 'create-user 'invite])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]

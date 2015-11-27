@@ -22,9 +22,11 @@
   (println "create-user! graph" graph "payload" payload)
   (let [{email "email" referer-id "refererID"} payload
         referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))
-        new-user (tvertex/create! graph (user-hash payload))]
-    (println "new-user" new-user)
+        [user status] (if-let [maybe-user (first (tvertex/find-by-kv graph :email email))]
+                        [maybe-user :old]
+                        [(tvertex/create! graph (user-hash payload)) :new])]
+    (when (and (= status :new) referer)
+      (tedge/upconnect! graph user "refered_by" referer))
+    (println "user" user)
     (println "referer" referer)
-    (when referer
-      (tedge/upconnect! graph new-user "refered_by" referer))
-    (tvertex/to-map new-user)))
+    (tvertex/to-map user)))
