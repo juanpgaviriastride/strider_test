@@ -72,8 +72,7 @@
              (queue/subscribe-with-connection
               connection
               (str qname-prefix "." action)
-              @(ns-resolve 'com.webtalk.pre-launch.core action)))
-            (catch Exception e (str "caught exception: " (.getMessage e) "in" action)))]
+              @(ns-resolve 'com.webtalk.pre-launch.core action))))]
     (println "there isn't null up to " actions)
     (map sub-helper actions)))
 
