@@ -21,7 +21,7 @@
   [graph payload]
   (println "create-user! graph" graph "payload" payload)
   (let [{email "email" referer-id "refererID"} payload
-        referer (first (tvertex/find-by-id (Integer. referer-id)))
+        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))
         new-user (tvertex/create! graph (user-hash payload))]
     (println "new-user" new-user)
     (println "referer" referer)

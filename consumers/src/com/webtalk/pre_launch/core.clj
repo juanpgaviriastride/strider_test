@@ -79,7 +79,9 @@
 (defn start []
   (alter-var-root #'*system*
                   (constantly
-                   (sys/new-system {:rabbit    {:host  (util/get-rmq-host)}
+                   (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
+                                                :keyspace (util/get-cass-keyspace)}
+                                    :rabbit    {:host  (util/get-rmq-host)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
   (println *system* (:system *system*))

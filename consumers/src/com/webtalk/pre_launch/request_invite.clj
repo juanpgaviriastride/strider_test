@@ -20,7 +20,7 @@
   [graph payload]
   (let [{email "email" referer-id "refererID"} payload
         invitation (first (tvertex/find-by-kv graph :email email))
-        referer (first (tvertex/find-by-id (Integer. referer-id)))
+        referer (first (tvertex/find-by-id (Integer. (or referer-id 0))))
         invitation-hash (request-hash {:email email})]
 
     (if (nil? invitation)
