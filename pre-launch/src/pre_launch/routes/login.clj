@@ -31,10 +31,14 @@
   (let [key (stripe/public-key)]
     (layout/render "crowdfunding/new-account.html" {:public_stripe_key key})))
 
+(defn logout! [request]
+  (-> (redirect "/signin")
+     (assoc :session (dissoc (:session request) :identity))))
 
 
 (defroutes login-routes
   (GET  "/signin" request (login request))
   (POST "/login"  request (login! request))
+  (GET "/logout"  request (logout! request))
   (GET  "/signup" request (signup request)))
 
