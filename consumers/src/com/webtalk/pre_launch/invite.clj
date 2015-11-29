@@ -26,7 +26,8 @@
           referer (when referer-id
                     (tvertex/find-by-id g (Integer. referer-id)))]
 
-      (tedge/upconnect! g invitation "invited_by" referer)
+      (when referer
+        (tedge/upconnect! g invitation "invited_by" referer))
       (if (= status :new)
         {:vertex (tvertex/to-map invitation)
          :status :new_record}
