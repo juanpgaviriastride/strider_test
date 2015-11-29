@@ -7,9 +7,10 @@
             [clojure.java.io :as io]))
 
 (defn send-invitation! [request]
-  (println "the invitations are" (get-in request [:params :emails]))
+  (println "[save invitation] the invitations are:" (get-in request [:params :emails]))
   (let [referer-id (get-in request [:session :identity :titan_id])
         emails (get-in request [:params :emails])]
+    (println "[save invitation] the referer ID is:" referer-id)
     (controller/send-invitation (first emails) referer-id)
     (ok)))
 

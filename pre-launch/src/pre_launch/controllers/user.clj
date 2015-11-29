@@ -6,6 +6,7 @@
 
 (defn update-user [{titan_id :__id__ email :email :as payload}]
   (do
+    (println "inside update-user. Payload:" payload)
     (model/set-titan-id email titan_id)
     titan_id))
 
