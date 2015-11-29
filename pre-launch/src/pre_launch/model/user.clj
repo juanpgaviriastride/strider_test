@@ -24,6 +24,7 @@
 (defn save [user-map]
   (let [user (prepare-save user-map)
         save-response (db/create-user<! user)]
+    (println "[debugging create user] the save object in model is" user)
     (assoc user-map :id (:generated_key save-response))))
 
 

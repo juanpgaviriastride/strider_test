@@ -3,6 +3,8 @@
             [crypto.random :refer [url-part]]))
 
 
-(defn join-wait-list [email]
+(defn join-wait-list [email maybe-referer-id]
   (let [callback-queue-name (str "crowdfunding.webtalk." (url-part 15))]
-       (queue/publish-with-qname "com.webtalk.storage.queue.request-an-invite" callback-queue-name {:email email})))
+    (queue/publish-with-qname "com.webtalk.pre-launch.request-an-invite" callback-queue-name {:email email
+                                                                                                 :refererID maybe-referer-id})))
+

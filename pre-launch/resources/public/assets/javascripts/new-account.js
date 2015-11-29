@@ -29,7 +29,7 @@ function openStripe(){
         key: stripe_key,
         image: "/assets/images/webtalk-bubble.png",
         name: "Webtalk, Inc.",
-        description: "2 widgets",
+        description: "$100 Webtalk Credit Purchase",
         token: onStripeReceive,
         amount: "10000",
         locale: "auto"	

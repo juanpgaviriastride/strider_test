@@ -6,6 +6,7 @@ email,
 admin,
 last_login,
 is_active,
+stripe_account_id,
 password)
 VALUES (
 :name,
@@ -13,6 +14,7 @@ VALUES (
 :admin,
 :last_login,
 :is_active,
+:stripe_account_id,
 :password)
 
 
