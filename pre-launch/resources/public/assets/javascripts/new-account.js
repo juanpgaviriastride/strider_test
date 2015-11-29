@@ -8,7 +8,7 @@ function onReCapcha(response){
 function onStripeReceive(token){
     console.log("received from stripe");
     console.log(token);
-    request = {};
+    var request = {};
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
     request['payload'] = JSON.stringify(token);
     

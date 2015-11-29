@@ -23,6 +23,7 @@ VALUES (
 SELECT
 id,
 name,
+titan_id,
 email
 FROM users
 WHERE email = :email

@@ -5,6 +5,7 @@
             [pre-launch.routes.user :refer [user-routes]]
             [pre-launch.routes.dashboard :refer [dashboard-routes]]
             [pre-launch.routes.login :refer [login-routes]]
+            [pre-launch.routes.invitation :refer [invitation-routes]]
             [pre-launch.routes.payment :refer [payment-routes]]
             [pre-launch.middleware :as middleware]
             [pre-launch.db.core :as db]
@@ -46,7 +47,11 @@
    (wrap-routes #'home-routes middleware/wrap-csrf)
    (wrap-routes #'user-routes middleware/wrap-csrf)
    (wrap-routes #'payment-routes middleware/wrap-csrf)
-   (wrap-routes #'dashboard-routes middleware/wrap-restricted)
+   (wrap-routes #'invitation-routes middleware/wrap-csrf)
+   (-> #'dashboard-routes
+            (wrap-routes  middleware/wrap-csrf)
+            (wrap-routes  middleware/wrap-restricted))
+   ;;(wrap-routes #'dashboard-routes middleware/wrap-csrf)
    (route/not-found
     (:body
      (error-page {:status 404

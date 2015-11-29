@@ -6,7 +6,15 @@ function sendMails(){
 	return t != null && t != "";
     });
 
-    $.post("/invites", {"emails": values}, function(data, status){
+    var request = {};
+    request['emails'] = values;
+    request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
+    console.log("forgery token");
+    console.log(request['__anti-forgery-token']);
+
+    $.post("/invitation", request, function(data, status){
+	console.log("data" + data);
+	console.log("status" + status);
 	$("form#email-form input[type=text]").each(function(){
 	    $(this).val(""); 
 	});
