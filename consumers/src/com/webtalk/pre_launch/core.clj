@@ -36,6 +36,18 @@
 1  (flush)
   (get-in *system* [component :connection]))
 
+
+;; queue-name com.webtalk.pre-launch.bulk-invite
+(defn bulk-invite
+  [load]
+  (let [[_ payload] load
+        ginvites ((map #(invite/invite! {"email" % "refererID" (payload "refererID")}) (payload "emails"))
+                 invite/invite! (get-conn :titan) payload)]
+    (println "ginvite" ginvite)
+
+    (println "sending email")
+    (mailer-prelaunch-invite/bulk-email (:sender (first ginvite)) (payload "emails"))))
+
 ;; queue-name com.webtalk.pre-launch.invite
 (defn invite
   [load]
@@ -98,7 +110,7 @@
   (println *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
-                                                     ['request-an-invite 'create-user 'invite])]
+                                                     ['request-an-invite 'create-user 'invite 'bulk-invite])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]

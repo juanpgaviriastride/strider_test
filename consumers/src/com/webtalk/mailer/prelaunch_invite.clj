@@ -15,3 +15,13 @@
                              {:to to
                               :name (:name sender)
                               :join_url (str "/invite/" (:__id__ sender))})}))
+
+(defn bulk-email [sender bcc]
+  (mailer/bulk-email config/auth {:bbc bcc
+                                  :from "team@webtalk.co"
+                                  :subject (str "Webtalk | Congratulations! " (:name sender) " has recommended you!")
+                                  :html (template/render-resource
+                                         "templates/prelaunch_invite.html.mustache"
+                                         {:to to
+                                          :name (:name sender)
+                                          :join_url (str "/invite/" (:__id__ sender))})}))
