@@ -38,8 +38,9 @@
 
 ;; queue-name com.webtalk.pre-launch.invite
 (defn invite
-  [payload]
-  (let [ginvite (invite/invite! (get-conn :titan) payload)]
+  [load]
+  (let [[_ payload] load
+        ginvite (invite/invite! (get-conn :titan) payload)]
     (println "ginvite" ginvite)
 
     (println "sending email")
