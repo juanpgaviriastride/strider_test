@@ -1,4 +1,4 @@
-(ns pre-launch.controllers.invitation.clj
+(ns pre-launch.controllers.invitation
   (:require
    [clj-wt.queue :as queue]
    [crypto.random :refer [url-part]]))
