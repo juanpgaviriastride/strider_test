@@ -4,19 +4,19 @@
   (:gen-class
    :implements [org.apache.commons.daemon.Daemon])
 
-  (:require [com.stuartsierra.component           :as component]
-            [com.webtalk.system                   :as sys]
-            [com.webtalk.util                     :as util]
-            [com.webtalk.storage.queue            :as queue]
-            [com.webtalk.storage.queue.publisher  :as publisher]
-            [com.webtalk.pre-launch.request-invite :as req-invite]
+  (:require [com.stuartsierra.component                     :as component]
+            [com.webtalk.system                             :as sys]
+            [com.webtalk.util                               :as util]
+            [com.webtalk.storage.queue                      :as queue]
+            [com.webtalk.storage.queue.publisher            :as publisher]
+            [com.webtalk.pre-launch.request-invite          :as req-invite]
             [com.webtalk.mailer.prelaunch-request-an-invite :as mailer-prelaunch-request-an-invite]
-            [com.webtalk.mailer.prelaunch-invite :as mailer-prelaunch-invite]
-            [com.webtalk.pre-launch.user           :as user]
-            [com.webtalk.pre-launch.invite         :as invite]
-            [com.webtalk.pre-launch.computation    :as computation]
-            [clojurewerkz.titanium.vertices       :as gvertex]
-            [clojurewerkz.titanium.edges          :as gedge]))
+            [com.webtalk.mailer.prelaunch-invite            :as mailer-prelaunch-invite]
+            [com.webtalk.pre-launch.user                    :as user]
+            [com.webtalk.pre-launch.invite                  :as invite]
+            [com.webtalk.pre-launch.computation             :as computation]
+            [clojurewerkz.titanium.vertices                 :as gvertex]
+            [clojurewerkz.titanium.edges                    :as gedge]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def ^:dynamic *system* nil)
