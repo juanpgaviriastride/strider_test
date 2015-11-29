@@ -43,10 +43,10 @@
   (let [[_ payload] load
         ginvites ((map #(invite/invite! {"email" % "refererID" (payload "refererID")}) (payload "emails"))
                  invite/invite! (get-conn :titan) payload)]
-    (println "ginvite" ginvite)
+    (println "ginvites" ginvites)
 
     (println "sending email")
-    (mailer-prelaunch-invite/bulk-email (:sender (first ginvite)) (payload "emails"))))
+    (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails"))))
 
 ;; queue-name com.webtalk.pre-launch.invite
 (defn invite

@@ -22,6 +22,6 @@
                                   :subject (str "Webtalk | Congratulations! " (:name sender) " has recommended you!")
                                   :html (template/render-resource
                                          "templates/prelaunch_invite.html.mustache"
-                                         {:to to
+                                         {:to "Future Webtalker"
                                           :name (:name sender)
-                                          :join_url (str "/invite/" (:__id__ sender))})}))
+                                          :join_url (str config/base-url "/invite/" (:__id__ sender))})}))
