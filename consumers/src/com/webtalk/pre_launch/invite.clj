@@ -17,12 +17,13 @@
    refererID is the titan id of the user who is referring the new user and it is optional"
 
   [graph payload]
+  (println payload)
   (tgraph/with-transaction [g graph]
     (let [{email "email" referer-id "refererID"} payload
-          invitation-hash (invitation-hash {:email email})
+          invitation-load (invitation-hash {:email email})
           [invitation status] (if-let [maybe-invitation (first (tvertex/find-by-kv g :email email))]
                                 [maybe-invitation :old]
-                                [(tvertex/create! g invitation-hash) :new])
+                                [(tvertex/create! g invitation-load) :new])
           referer (when referer-id
                     (tvertex/find-by-id g (Integer. referer-id)))]
 
