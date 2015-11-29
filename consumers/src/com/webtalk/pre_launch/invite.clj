@@ -30,9 +30,15 @@
         (tedge/upconnect! g invitation "invited_by" referer))
       (if (= status :new)
         {:vertex (tvertex/to-map invitation)
-         :status :new_record}
+         :status :new_record
+         :sender (when referer
+                   (tvertex/to-map referer))}
         (if (= (tvertex/get invitation :VertexType) "prelaunchInvitation")
           {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
-           :status :updated_record}
+           :status :updated_record
+           :sender (when referer
+                   (tvertex/to-map referer))}
           {:vertex (tvertex/to-map invitation)
-           :status :mixmatch_type_record})))))
+           :status :mixmatch_type_record
+           :sender (when referer
+                   (tvertex/to-map referer))})))))

@@ -44,8 +44,7 @@
     (println "ginvite" ginvite)
 
     (println "sending email")
-    (if (= (:status ginvite) :new_record)
-      (mailer-prelaunch-invite/deliver-email (:vertex ginvite) (payload "email")))))
+    (mailer-prelaunch-invite/deliver-email (:sender ginvite) (payload "email"))))
 
 
 ;; queue-name com.webtalk.pre-launch.request-an-invite
