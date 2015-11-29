@@ -35,7 +35,7 @@
          :sender (when referer
                    (tvertex/to-map referer))}
         (if (= (tvertex/get invitation :VertexType) "prelaunchInvitation")
-          {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-hash))
+          {:vertex (tvertex/to-map (tvertex/merge! invitation invitation-load))
            :status :updated_record
            :sender (when referer
                    (tvertex/to-map referer))}
