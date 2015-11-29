@@ -41,8 +41,8 @@
 (defn bulk-invite
   [load]
   (let [[_ payload] load
-        ginvites ((map #(invite/invite! {"email" % "refererID" (payload "refererID")}) (payload "emails"))
-                 invite/invite! (get-conn :titan) payload)]
+        ginvites (map #(invite/invite! {"email" % "refererID" (payload "refererID")})
+                      (payload "emails"))]
     (println "ginvites" ginvites)
 
     (println "sending email")
