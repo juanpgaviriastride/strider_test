@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [clojurewerkz/titanium "1.0.0-beta2"]
-                 ;; [clojurewerkz/ogre "2.3.0.1"]
+                 ;;[clojurewerkz/ogre "2.5.0.0"]
                  [clojurewerkz/cassaforte "2.0.0"]
                  [clojurewerkz/elastisch "2.2.0-beta1"]
                  ;; [clojurewerkz/route-one "1.1.0"]

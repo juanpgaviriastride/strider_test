@@ -33,7 +33,7 @@
   (println "system" *system* (:system *system*))
   (println "component" component)
   (println "get-conn" component (get-in *system* [component]))
-1  (flush)
+  (flush)
   (get-in *system* [component :connection]))
 
 
@@ -46,6 +46,7 @@
     (println "ginvites" ginvites)
 
     (println "sending email")
+    (println "sender" (first ginvites) (:sender (first ginvites)))
     (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails"))))
 
 ;; queue-name com.webtalk.pre-launch.invite
