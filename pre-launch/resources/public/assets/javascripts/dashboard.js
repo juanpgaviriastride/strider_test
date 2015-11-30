@@ -8,6 +8,7 @@ function sendMails(){
 
     var request = {};
     request['emails'] = values;
+    console.log("anti forgery");
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
     console.log("forgery token");
     console.log(request['__anti-forgery-token']);
