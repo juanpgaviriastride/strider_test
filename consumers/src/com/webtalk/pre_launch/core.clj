@@ -36,6 +36,15 @@
   (flush)
   (get-in *system* [component :connection]))
 
+;; queue-name com.webtalk.pre-launch.invite-count
+(defn invite-count
+  [load]
+  (let [[callback-q payload] load
+        root-node (gvertex/find-by-id (get-conn :titan) (payload "titan_id"))
+        lvl (Integer. (payload "level"))]
+    (publisher/publish-with-qname (get-conn :rabbit)
+                                  callback-q
+                                  {:invites (computation/get-level root-node lvl "invited_by")})))
 
 ;; queue-name com.webtalk.pre-launch.bulk-invite
 (defn bulk-invite
