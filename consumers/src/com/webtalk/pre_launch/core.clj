@@ -120,7 +120,7 @@
   (println *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
-                                                     ['request-an-invite 'create-user 'invite 'bulk-invite])]
+                                                     ['request-an-invite 'create-user 'invite 'bulk-invite 'invite-count])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
