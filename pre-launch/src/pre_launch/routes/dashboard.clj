@@ -8,8 +8,6 @@
 
 
 (defn dashboard [params session]
-  (println "params" params)
-  (println "session" session)
   (let [user-name (get-in session [:identity :name])]
     (layout/render "crowdfunding/dashboard.html" {:name user-name})))
 

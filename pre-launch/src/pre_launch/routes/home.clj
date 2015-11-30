@@ -14,7 +14,6 @@
 
 (defn refered-home-page [{params :params session :session}]
   (let [referer-id (:titan_id params)]
-    (println "the referer-id in home page is" referer-id)
     (->
      (redirect "/")
      (assoc :session (assoc session :refererID referer-id)))))
@@ -25,6 +24,6 @@
 
 (defroutes home-routes
   (GET "/" request (home-page false))
-  (GET "/:titan_id" request (refered-home-page request))
+  (GET "/invite/:titan_id" request (refered-home-page request))
   (POST "/request-invitation" request (join-wait-list request)))
 

@@ -11,7 +11,7 @@
   (let [referer-id (get-in request [:session :identity :titan_id])
         emails (get-in request [:params :emails])]
     (println "[save invitation] the referer ID is:" referer-id)
-    (controller/send-invitation (first emails) referer-id)
+    (controller/send-invitation emails referer-id)
     (ok)))
 
 
