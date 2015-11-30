@@ -17,7 +17,7 @@
     (-> (response user-response)
        (content-type "application/json")
        (assoc :session (assoc session
-                               :stripe-costumer (user-response :id))))))
+                              :stripe-costumer (user-response :id))))))
 
 (defroutes payment-routes
   (POST "/stripe/customer" request (create-customer! (:params request) (:session request))))
