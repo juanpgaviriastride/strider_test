@@ -11,6 +11,7 @@ function onStripeReceive(token){
     var request = {};
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
     request['payload'] = JSON.stringify(token);
+    $(document.body).addClass("loading");
     
     $.post("/stripe/customer", request, function(result, status){
         console.log("saved in backend");
@@ -18,6 +19,7 @@ function onStripeReceive(token){
 	console.log(status);
 	if(status == "success"){
 	    $('#user_data_form').submit();
+	    //$(document.body).removeClass("loading");
 	}
     });
 }
