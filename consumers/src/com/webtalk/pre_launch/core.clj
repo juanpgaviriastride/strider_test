@@ -36,7 +36,23 @@
   (flush)
   (get-in *system* [component :connection]))
 
-
+;; queue-name com.webtalk.pre-launch.referral-network
+(defn referral-network
+  [load]
+  (let [[callback-q payload] load
+        root-node (gvertex/find-by-id (get-conn :titan) (payload "titan_id"))
+        get-network  (fn [edge-label]
+                       (doall
+                        (map (fn [lvl] (computation/get-level root-node lvl edge-label))
+                             (range 1 6))))
+        prelaunch  (get-network "refered_by")
+        waitlist   (get-network "invited_waitlist_by")
+        invites    (get-network "invited_by")]
+    (publisher/publish-with-qname (get-conn :rabbit)
+                                  callback-q
+                                  {:joined-prelaunch {:levels prelaunch :total (apply + prelaunch)}
+                                   :joined-waitlist {:levels waitlist :total (apply + waitlist)}
+                                   :invites {:levels invites :total (apply + invites)}})))
 
 ;; queue-name com.webtalk.pre-launch.joined-prelaunch-count
 
@@ -150,7 +166,8 @@
                                                       'bulk-invite
                                                       'invite-count
                                                       'joined-waitlist-count
-                                                      'joined-prelaunch-count])]
+                                                      'joined-prelaunch-count
+                                                      'referral-network])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
