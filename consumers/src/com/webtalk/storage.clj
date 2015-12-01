@@ -122,7 +122,9 @@
                   (constantly
                    (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
                                                 :keyspace (util/get-cass-keyspace)}
-                                    :rabbit    {:host  (util/get-rmq-host)}
+                                    :rabbit    {:host  (util/get-rmq-host)
+                                                :username (util/get-rmq-username)
+                                                :password (util/get-rmq-password)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
   (println *system* (:system *system*))
