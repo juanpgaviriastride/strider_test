@@ -67,7 +67,7 @@
                 <div class='grid'><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
                     <div class='stats__item stats__item--invite'>
                       <strong class='stats__item__num'>
-                        {{sent-invites}}
+			{{network-table.invites.total}}
                         <canvas id='canvasInvite'></canvas>
                       </strong>
                       <p class='soft-half--top'>Total Invites Sent</p>
@@ -75,7 +75,7 @@
                   </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
                     <div class='stats__item stats__item--waitlist'>
                       <strong class='stats__item__num'>
-                        {{joined-waitlist}}
+			{{network-table.joined-waitlist.total}}
                         <canvas id='canvasWaitlist'></canvas>
                       </strong>
                       <p class='soft-half--top'>Joined Waitlist</p>
@@ -83,7 +83,7 @@
                   </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
                     <div class='stats__item stats__item--prelaunch'>
                       <strong class='stats__item__num'>
-                        {{joined-prelaunch}}
+                        {{network-table.joined-prelaunch.total}}
                         <canvas id='canvasPrelaunch'></canvas>
                       </strong>
                       <p class='soft-half--top'>Joined Pre-Launch</p>
@@ -91,7 +91,7 @@
                   </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
                     <div class='stats__item stats__item--commissions'>
                       <strong class='stats__item__num'>
-                        $15,600
+			{{network-table.joined-prelaunch.total|monetizise}}
                         <canvas id='canvasCommissions'></canvas>
                       </strong>
                       <p class='soft-half--top'>Pending Commissions</p>
@@ -333,80 +333,40 @@
                       <strong class='bluegray--color'>Total</strong>
                     </td>
                   </tr><tr class='grid__item one-fifth'>
+		    {% for j in network-table.invites.levels %}
                     <td>
-                      <span class='blue-light--color'>{{sent-invites}}</span>
+                      <span class='blue-light--color'>{{j}}</span>
                     </td>
+		    {% endfor %}
                     <td>
-                      <span class='blue-light--color'>{{sent-invites-2}}</span>
-                    </td>
-                    <td>
-                      <span class='blue-light--color'>{{sent-invites-3}}</span>
-                    </td>
-                    <td>
-                      <span class='blue-light--color'>{{sent-invites-4}}</span>
-                    </td>
-                    <td>
-                      <span class='blue-light--color'>{{sent-invites-5}}</span>
-                    </td>
-                    <td>
-                      <strong class='blue-light--color'>1913</strong>
+                      <strong class='blue-light--color'>{{network-table.invites.total}}</strong>
                     </td>
                   </tr><tr class='grid__item one-fifth'>
+		     {% for i in network-table.joined-waitlist.levels %}
                     <td>
-                      <span class='red--color'>{{joined-waitlist}}</span>
+                      <span class='red--color'>{{i}}</span>
                     </td>
+		    {% endfor %}
                     <td>
-                      <span class='red--color'>{{joined-waitlist-2}}</span>
-                    </td>
-                    <td>
-                      <span class='red--color'>{{joined-waitlist-3}}</span>
-                    </td>
-                    <td>
-                      <span class='red--color'>{{joined-waitlist-4}}</span>
-                    </td>
-                    <td>
-                      <span class='red--color'>{{joined-waitlist-5}}</span>
-                    </td>
-                    <td>
-                      <strong class='red--color'>847</strong>
+                      <strong class='red--color'>{{network-table.joined-waitlist.total}}</strong>
                     </td>
                   </tr><tr class='grid__item one-fifth'>
+		    {% for k in network-table.joined-prelaunch.levels %}
                     <td>
-                      <span class='orange--color-mid'>{{joined-prelaunch}}</span>
+                      <span class='orange--color-mid'>{{k}}</span>
                     </td>
+		    {% endfor %}
                     <td>
-                      <span class='orange--color-mid'>{{joined-prelaunch-2}}</span>
-                    </td>
-                    <td>
-                      <span class='orange--color-mid'>{{joined-prelaunch-3}}</span>
-                    </td>
-                    <td>
-                      <span class='orange--color-mid'>{{joined-prelaunch-4}}</span>
-                    </td>
-                    <td>
-                      <span class='orange--color-mid'>{{joined-prelaunch-5}}</span>
-                    </td>
-                    <td>
-                      <strong class='orange--color-mid'>737</strong>
+                      <strong class='orange--color-mid'>{{network-table.joined-prelaunch.total}}</strong>
                     </td>
                   </tr><tr class='grid__item one-fifth'>
+		    {% for p in network-table.joined-prelaunch.levels%}
                     <td>
-                      <span class='altern-blue-dark-color'>$1,700</span>
+                      <span class='altern-blue-dark-color'>{{p|monetizise}}</span>
                     </td>
+		    {% endfor %}
                     <td>
-                      <span class='altern-blue-dark-color'>$30,250</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$3,650</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$750</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$500</span>
-                    </td>
-                    <td>
-                      <strong class='altern-blue-dark-color'>$36,850</strong>
+                      <strong class='altern-blue-dark-color'>{{network-table.joined-prelaunch.total|monetizise}}</strong>
                     </td>
                   </tr></tbody>
               </table>
