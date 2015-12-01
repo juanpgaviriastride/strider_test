@@ -17,3 +17,9 @@
 
 (defn get-rmq-host []
   (trim (env :rabbitmq-1-port)))
+
+(defn get-rmq-username []
+  (trim (or (env :rabbitmq-username) "guest")))
+
+(defn get-rmq-password []
+  (trim (or (env :rabbitmq-password) "guest")))

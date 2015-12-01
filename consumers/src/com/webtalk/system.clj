@@ -7,5 +7,5 @@
 (defn new-system [{:keys [cassandra rabbit titan]}]
   (component/system-map
    :cassandra (new-cassandra (:hosts cassandra) (:keyspace cassandra))
-   :rabbit    (new-rabbit    (:host rabbit))
+   :rabbit    (new-rabbit    (:host rabbit) (:username rabbit) (:password rabbit))
    :titan     (new-titan     (:hosts titan))))
