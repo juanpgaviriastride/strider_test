@@ -26,9 +26,3 @@
 (defn get-joined-prelaunch [titan-id level]
   (get-query titan-id "com.webtalk.pre-launch.joined-prelaunch-count" level :joined-prelaunch))
 
-
-
-(defn get-referals-data [titan-id]
-  
-  )
-
