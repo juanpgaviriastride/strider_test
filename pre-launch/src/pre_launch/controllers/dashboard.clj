@@ -40,5 +40,11 @@
     (queue/publish-with-qname queue-name callback-queue-name {:titan_id titan-id})
     (divide-detail-response @result)))
 
+(defn get-referral-network-detail-plain [titan-id]
+  (let [queue-name "com.webtalk.pre-launch.referral-network-detail"
+        callback-queue-name (str queue-name (url-part 15))
+        result (queue/promise-subscription callback-queue-name (fn [a] (identity a)))]
+    (queue/publish-with-qname queue-name callback-queue-name {:titan_id titan-id})
+    (divide-detail-response-2 @result)))
 
 
