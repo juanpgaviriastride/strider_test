@@ -26,7 +26,7 @@
           referer (when referer-id
                     (tvertex/find-by-id g (Integer. referer-id)))]
       (when referer
-        (tedge/upconnect! g req-invitation "invited_waitlist_by" referer))
+        (tedge/upconnect! g req-invitation "invited_waitlist_by" referer {:time (System/currentTimeMillis)}))
       (if (= status :new)
         {:vertex (tvertex/to-map req-invitation)
          :status :new_record}

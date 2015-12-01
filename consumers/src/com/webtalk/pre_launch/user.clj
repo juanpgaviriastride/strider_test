@@ -28,7 +28,7 @@
                           [maybe-user :old]
                           [(tvertex/create! g (user-hash payload)) :new])]
       (when (and (= status :new) referer)
-        (tedge/upconnect! g user "refered_by" referer))
+        (tedge/upconnect! g user "refered_by" referer {:time (System/currentTimeMillis)}))
       (println "user" user)
       (println "referer" referer)
       (tvertex/to-map user))))
