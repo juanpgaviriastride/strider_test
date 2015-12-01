@@ -90,7 +90,7 @@ GetEmails.prototype.findEmails = function() {
 }
 
 GetEmails.prototype.readItem = function(item) {
-  var email, index
+    var email, index;
   if (this.email_index == undefined){
     index = _.findIndex(item, this.emailMatch);
     if(index >= 0) {
@@ -99,7 +99,7 @@ GetEmails.prototype.readItem = function(item) {
       return ''
     }
   }
-  email = item[this.email_index]
+    email = item[this.email_index];
   if (!this.emailMatch(email)){
     email = undefined
     for (var i=0; i < this.previuos_email_index; i++){
@@ -124,22 +124,12 @@ GetEmails.prototype.emailMatch = function (item) {
   return re.test(item)
 }
 
-
-function sendMails(){
-    console.log("inside send emails");
-    var values = $.map($("form#email-form input[type=text]"), function(input){
-	return $(input).val();
-    }).filter(function(t){
-	return t != null && t != "";
-    });
-
+function bulkEmail(emails){
     var request = {};
-    request['emails'] = values;
+    request['emails'] = emails;
     console.log("anti forgery");
+    console.log("emails" + emails);
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
-    console.log("forgery token");
-    console.log(request['__anti-forgery-token']);
-
     $.post("/invitation", request, function(data, status){
 	    console.log("data" + data);
 	    console.log("status" + status);
@@ -149,12 +139,22 @@ function sendMails(){
     });
 }
 
+function sendMails(){
+    var values = $.map($("form#email-form input[type=text]"), function(input){
+	return $(input).val();
+    }).filter(function(t){
+	return t != null && t != "";
+    });
+    bulkEmail(values);
+}
+
 $(document).ready(function (){
   csv = new CSVParser({
     el: $('#csv-file'),
     success: function(result) {
-      emails = new GetEmails(result.data)
-      console.log("EMAIL:", emails.emails)
+	emails = new GetEmails(result.data);
+	console.log("EMAIL:", emails.emails);
+	bulkEmail(emails.emails);
     },
     error: function(error) {
       console.log(">>>>> SE TOSTO", error)
