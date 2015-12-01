@@ -24,7 +24,14 @@
   {:names  (map (fn [record] (:email record)) response-map)
    :dates (map (fn [record] (if (:time record) (java.util.Date. (long (:time record))) nil)) response-map)
    :statuses (map (fn [record] (:status record)) response-map)
-  })
+   })
+
+(defn divide-detail-response-2 [response-map]
+  (map (fn [record]
+         (if
+             (:time record)
+           (assoc-in record [:time] (java.util.Date. (long (:time record))))
+           record)) response-map))
 
 (defn get-referral-network-detail [titan-id]
   (let [queue-name "com.webtalk.pre-launch.referral-network-detail"
