@@ -27,7 +27,7 @@
 (defn referral-network-detail [session]
   (let [user-name (get-in session [:identity :name])
         titan-id (get-in session [:identity :titan_id])
-        template-response (prepare-response titan-id user-name)]
+        template-response (controller/get-referral-network-detail titan-id)]
     (ok template-response)))
 
 (defroutes dashboard-routes
