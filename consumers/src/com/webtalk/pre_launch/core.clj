@@ -36,6 +36,30 @@
   (flush)
   (get-in *system* [component :connection]))
 
+
+
+;; queue-name com.webtalk.pre-launch.joined-prelaunch-count
+
+(defn joined-prelaunch-count
+  [load]
+  (let [[callback-q payload] load
+        root-node (gvertex/find-by-id (get-conn :titan) (payload "titan_id"))
+        lvl (Integer. (payload "level"))]
+    (publisher/publish-with-qname (get-conn :rabbit)
+                                  callback-q
+                                  {:joined-prelaunch (computation/get-level root-node lvl "refered_by")})))
+
+;; queue-name com.webtalk.pre-launch.joined-waitlist-count
+
+(defn joined-waitlist-count
+  [load]
+  (let [[callback-q payload] load
+        root-node (gvertex/find-by-id (get-conn :titan) (payload "titan_id"))
+        lvl (Integer. (payload "level"))]
+    (publisher/publish-with-qname (get-conn :rabbit)
+                                  callback-q
+                                  {:joined-waitlist (computation/get-level root-node lvl "invited_waitlist_by")})))
+
 ;; queue-name com.webtalk.pre-launch.invite-count
 (defn invite-count
   [load]
@@ -120,7 +144,13 @@
   (println *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
-                                                     ['request-an-invite 'create-user 'invite 'bulk-invite])]
+                                                     ['request-an-invite
+                                                      'create-user
+                                                      'invite
+                                                      'bulk-invite
+                                                      'invite-count
+                                                      'joined-waitlist-count
+                                                      'joined-prelaunch-count])]
     (println "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
