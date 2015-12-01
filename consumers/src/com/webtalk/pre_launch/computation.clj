@@ -15,3 +15,16 @@
             (deep lvl)
             (oq/<-- [edge-tag])
             oq/count!))
+
+(defn detailed-lvl-1 [graph root-id]
+  (tgraph/with-transaction [gg graph]
+    (let [root (tvertex/find-by-id gg root-id)
+          get-info (fn [edge-label status] (pmap
+                                           (fn [edge] {:email (tvertex/get (tedge/tail-vertex edge) :email)
+                                                      :time (tedge/get edge :time)
+                                                      :status status})
+                                           (tvertex/incoming-edges-of root edge-label)))
+          invites-nodes (get-info "invited_by" "Sent Invitation")
+          wait-nodes (get-info "invited_waitlist_by" "Joined Waitlist")
+          user-nodes (get-info "refered_by" "Joined Pre-Launch")]
+      (flatten [invites-nodes wait-nodes user-nodes]))))
