@@ -30,7 +30,7 @@
                     :joined-waitlist-5 (controller/get-joined-waitlist titan-id 5)
                     })))
 
-(Defn sent-invites [session]
+(defn sent-invites [session]
   (ok {:invites (controller/get-sent-invites (get-in session [:identity :titan_id]))}))
 
 (defroutes dashboard-routes
