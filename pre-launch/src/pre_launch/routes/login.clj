@@ -35,9 +35,13 @@
   (-> (redirect "/signin")
      (assoc :session (dissoc (:session request) :identity))))
 
+(defn recover-password [request]
+  (layout/render "crowdfunding/recover-password.html"))
+
 (defroutes login-routes
   (GET  "/signin" request (login request))
   (POST "/login"  request (login! request))
   (GET "/logout"  request (logout! request))
+  (GET "/recover-password" request (recover-password request))
   (GET  "/signup" request (signup request)))
 
