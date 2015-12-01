@@ -141,12 +141,25 @@ function sendMails(){
     console.log(request['__anti-forgery-token']);
 
     $.post("/invitation", request, function(data, status){
-	console.log("data" + data);
-	console.log("status" + status);
+	    console.log("data" + data);
+	    console.log("status" + status);
 	$("form#email-form input[type=text]").each(function(){
 	    $(this).val(""); 
 	});
     });
 }
+
+$(document).ready(function (){
+  csv = new CSVParser({
+    el: $('#csv-file'),
+    success: function(result) {
+      emails = new GetEmails(result.data)
+      console.log("EMAIL:", emails.emails)
+    },
+    error: function(error) {
+      console.log(">>>>> SE TOSTO", error)
+    }
+  })
+});
 
 
