@@ -13,7 +13,12 @@
     (layout/render "crowdfunding/dashboard.html"
                    {:name user-name
                     :titan-id titan-id
-                    :sent-invites (controller/get-sent-invites (get-in session [:identity :titan_id]))})))
+                    :sent-invites (controller/get-sent-invites titan-id 1)
+                    :joined-waitlist (controller/get-joined-waitlist titan-id 1)
+                    :joined-prelaunch (controller/get-joined-prelaunch titan-id 1)
+                    :sent-invites-2 (controller/get-sent-invites titan-id 2)
+                    :joined-prelaunch-2 (controller/get-joined-prelaunch titan-id 2)
+                    :joined-waitlist-2 (controller/get-joined-waitlist titan-id 2)})))
 
 (defn sent-invites [session]
   (ok {:invites (controller/get-sent-invites (get-in session [:identity :titan_id]))}))

@@ -10,7 +10,16 @@
                                                               :level level})
     @result))
 
-(defn get-sent-invites [titan-id]
-  (get-query titan-id "com.webtalk.pre-launch.invite-count" 1 :invites))
+(defn get-sent-invites [titan-id level]
+  (get-query titan-id "com.webtalk.pre-launch.invite-count" level :invites))
 
+(defn get-joined-waitlist [titan-id level]
+  (get-query titan-id "com.webtalk.pre-launch.joined-waitlist-count" level :joined-waitlist))
+
+(defn get-joined-prelaunch [titan-id level]
+  (get-query titan-id "com.webtalk.pre-launch.joined-prelaunch-count" level :joined-prelaunch))
+
+
+
+(defn get-referals-data [titan-id])
 
