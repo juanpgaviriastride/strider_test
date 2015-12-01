@@ -22,7 +22,7 @@
 (defn divide-detail-response [response-map]
   (println "[.....debug....] the map in divide-detail-response is " response-map)
   {:names  (map (fn [record] (:email record)) response-map)
-   :dates (map (fn [record] (java.util.Date. (Integer. (:time record)))) response-map)
+   :dates (map (fn [record] (if (:time record) (java.util.Date. (long (:time record))) nil)) response-map)
    :statuses (map (fn [record] (:status record)) response-map)
   })
 
