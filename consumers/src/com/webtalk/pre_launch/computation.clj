@@ -23,7 +23,9 @@
                                            (fn [edge] {:email (tvertex/get (tedge/tail-vertex edge) :email)
                                                       :time (tedge/get edge :time)
                                                       :status status})
-                                           (tvertex/incoming-edges-of root edge-label)))
+                                           (oq/query root
+                                                     (oq/<E- [edge-label])
+                                                     oq/into-set!)))
           invites-nodes (get-info "invited_by" "Sent Invitation")
           wait-nodes (get-info "invited_waitlist_by" "Joined Waitlist")
           user-nodes (get-info "refered_by" "Joined Pre-Launch")]
