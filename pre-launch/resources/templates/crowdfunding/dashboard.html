@@ -245,35 +245,18 @@
                     </th><th class='grid__item one-third'>
                       <span>Status</span>
                     </th></tr></thead>
-                <tbody class='grid--full'><tr class='grid__item one-third'>
-                    <td>Randy Harrison</td>
-                    <td>Jeffrey Morris</td>
-                    <td>John Mills</td>
-                    <td>Judith Moore</td>
-                    <td>Carl Ray</td>
-                  </tr><tr class='grid__item one-third'>
-                    <td>Jan 16, 2015</td>
-                    <td>Jun 13, 2015</td>
-                    <td>Aug 16, 2015</td>
-                    <td>Sept 21, 2015</td>
-                    <td>Oct  11, 2015</td>
-                  </tr><tr class='grid__item one-third'>
+                <tbody class='grid--full'>{% for name in names %}<tr class='grid__item one-third'>
+                    <td>{{name}}</td>
+                  </tr>{% endfor %}
+		  {% for d in dates %}
+		  <tr class='grid__item one-third'>
+                    <td>{{d}}</td>
+                  </tr>{% endfor %}
+		  {% for status in statuses %}<tr class='grid__item one-third'>
                     <td>
-                      <span class='red--color'>Joined Waitlist</span>
+                      <span class='red--color'>{{status}}</span>
                     </td>
-                    <td>
-                      <span class='orange--color-mid'>Joined Pre-Launch</span>
-                    </td>
-                    <td>
-                      <span class='orange--color-mid'>Joined Pre-Launch</span>
-                    </td>
-                    <td>
-                      <span class='red--color'>Joined Waitlist</span>
-                    </td>
-                    <td>
-                      <span class='red--color'>Joined Waitlist</span>
-                    </td>
-                  </tr></tbody>
+                  </tr>{% endfor %}</tbody>
               </table>
             </div>
           </div>

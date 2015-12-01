@@ -1,6 +1,8 @@
 (ns pre-launch.controllers.dashboard
   (:require [clj-wt.queue :as queue]
-            [crypto.random :refer [url-part]]))
+            [crypto.random :refer [url-part]])
+
+  (:import java.util.Date))
 
 
 (defn get-query [titan-id queue-name level response-key]
@@ -17,12 +19,19 @@
     (queue/publish-with-qname queue-name callback-queue-name {:titan_id titan-id})
     @result))
 
-(defn get-sent-invites [titan-id level]
-  (get-query titan-id "com.webtalk.pre-launch.invite-count" level :invites))
+(defn divide-detail-response [response-map]
+  (println "[.....debug....] the map in divide-detail-response is " response-map)
+  {:names  (map (fn [record] (:email record)) response-map)
+   :dates (map (fn [record] (if (:time record) (java.util.Date. (long (:time record))) nil)) response-map)
+   :statuses (map (fn [record] (:status record)) response-map)
+  })
 
-(defn get-joined-waitlist [titan-id level]
-  (get-query titan-id "com.webtalk.pre-launch.joined-waitlist-count" level :joined-waitlist))
+(defn get-referral-network-detail [titan-id]
+  (let [queue-name "com.webtalk.pre-launch.referral-network-detail"
+        callback-queue-name (str queue-name (url-part 15))
+        result (queue/promise-subscription callback-queue-name (fn [a] (identity a)))]
+    (queue/publish-with-qname queue-name callback-queue-name {:titan_id titan-id})
+    (divide-detail-response @result)))
 
-(defn get-joined-prelaunch [titan-id level]
-  (get-query titan-id "com.webtalk.pre-launch.joined-prelaunch-count" level :joined-prelaunch))
+
 
