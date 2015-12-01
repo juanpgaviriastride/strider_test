@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* Slider */
-/* line 40, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 40, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-loading .slick-list {
   background: #fff url("../../images/ajax-loader.gif") center center no-repeat; }
 
@@ -12,7 +12,7 @@
   font-weight: normal;
   font-style: normal; }
 /* Arrows */
-/* line 58, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 58, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-prev,
 .slick-next {
   position: absolute;
@@ -29,24 +29,24 @@
   padding: 0;
   border: none;
   outline: none; }
-  /* line 74, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 74, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   .slick-prev:hover, .slick-prev:focus,
   .slick-next:hover,
   .slick-next:focus {
     outline: none;
     background: transparent;
     color: transparent; }
-    /* line 78, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+    /* line 78, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
     .slick-prev:hover:before, .slick-prev:focus:before,
     .slick-next:hover:before,
     .slick-next:focus:before {
       opacity: 1; }
-  /* line 82, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 82, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   .slick-prev.slick-disabled:before,
   .slick-next.slick-disabled:before {
     opacity: 0.25; }
 
-/* line 87, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 87, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-prev:before, .slick-next:before {
   font-family: "slick";
   font-size: 20px;
@@ -56,36 +56,36 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/* line 97, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 97, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-prev {
   left: -18px; }
-  /* line 99, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 99, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   [dir="rtl"] .slick-prev {
     left: auto;
     right: -18px; }
-  /* line 103, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 103, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   .slick-prev:before {
     content: "←"; }
-    /* line 105, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+    /* line 105, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
     [dir="rtl"] .slick-prev:before {
       content: "→"; }
 
-/* line 111, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 111, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-next {
   right: -18px; }
-  /* line 113, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 113, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   [dir="rtl"] .slick-next {
     left: -18px;
     right: auto; }
-  /* line 117, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 117, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   .slick-next:before {
     content: "→"; }
-    /* line 119, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+    /* line 119, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
     [dir="rtl"] .slick-next:before {
       content: "←"; }
 
 /* Dots */
-/* line 127, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+/* line 127, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
 .slick-dots {
   position: absolute;
   bottom: -45px;
@@ -94,7 +94,7 @@
   text-align: center;
   padding: 0;
   width: 100%; }
-  /* line 135, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+  /* line 135, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
   .slick-dots li {
     position: relative;
     display: inline-block;
@@ -103,7 +103,7 @@
     margin: 0 5px;
     padding: 0;
     cursor: pointer; }
-    /* line 143, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+    /* line 143, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
     .slick-dots li button {
       border: 0;
       background: transparent;
@@ -116,13 +116,13 @@
       color: transparent;
       padding: 5px;
       cursor: pointer; }
-      /* line 155, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+      /* line 155, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
       .slick-dots li button:hover, .slick-dots li button:focus {
         outline: none; }
-        /* line 157, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+        /* line 157, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
         .slick-dots li button:hover:before, .slick-dots li button:focus:before {
           opacity: 1; }
-      /* line 161, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+      /* line 161, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
       .slick-dots li button:before {
         position: absolute;
         top: 0;
@@ -138,7 +138,7 @@
         opacity: 0.25;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale; }
-    /* line 178, /Users/leandropineda/projects/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
+    /* line 178, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/vendors/slick-theme.scss */
     .slick-dots li.slick-active button:before {
       color: black;
       opacity: 0.75; }
