@@ -40,10 +40,10 @@
 (defn referral-network-detail
   [load]
   (let [[callback-q payload] load
-        root-id (payload "titan_id")]
+        root-node (gvertex/find-by-id (get-conn :titan) (payload "titan_id"))]
     (publisher/publish-with-qname (get-conn :rabbit)
                                   callback-q
-                                  (computation/detailed-lvl-1 (get-conn :titan) root-id))))
+                                  (computation/detailed-lvl-1 root-node))))
 
 ;; queue-name com.webtalk.pre-launch.referral-network
 (defn referral-network
