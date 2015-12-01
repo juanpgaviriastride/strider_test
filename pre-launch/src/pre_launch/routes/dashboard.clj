@@ -7,24 +7,26 @@
             [selmer.filters :as filter]
             [clojure.java.io :as io]))
 
+(defn prepare-response [titan-id user-name]
+  (merge (controller/get-referral-network-detail titan-id)  {:name user-name
+                                                             :titan-id titan-id
+                                                             :network-table (controller/get-referral-network titan-id)}))
+
 
 (defn dashboard [params session]
   (let [user-name (get-in session [:identity :name])
-        titan-id (get-in session [:identity :titan_id])]
+        titan-id (get-in session [:identity :titan_id])
+        template-response (prepare-response titan-id user-name)]
+    (println "the template-response is" template-response)
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
-    (layout/render "crowdfunding/dashboard.html"
-                   {:name user-name
-                    :titan-id titan-id
-                    :network-table (controller/get-referral-network titan-id)
-                    })))
+    (layout/render "crowdfunding/dashboard.html" template-response
+                   )))
 
-(defn sent-invites [session]
-  (ok {:invites (controller/get-sent-invites (get-in session [:identity :titan_id]))}))
+
 
 (defn referral-network-detail [session]
   (ok (controller/get-referral-network-detail (get-in session [:identity :titan_id]))))
 
 (defroutes dashboard-routes
   (GET "/dashboard" request (dashboard (request :params) (request :session)))
-  (GET "/dashboard/network-detail" request (referral-network-detail (request :session)))
-  (GET "/dashboard/sent-invites" request (sent-invites (request :session))))
+  (GET "/dashboard/network-detail" request (referral-network-detail (request :session))))
