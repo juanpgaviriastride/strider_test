@@ -100,7 +100,7 @@
                   </div><div class='grid__item one-whole palm--one-half desk--one-quarter grid--center push--bottom'>
                     <div class='stats__item stats__item--commissions'>
                       <strong class='stats__item__num'>
-                        {{network-table.joined-prelaunch.total}0}
+			{{network-table.joined-prelaunch.total|monetizise}}
                         <canvas id='canvasCommissions'></canvas>
                       </strong>
                       <p class='soft-half--top'>Pending Commissions</p>
@@ -369,23 +369,13 @@
                       <strong class='orange--color-mid'>{{network-table.joined-prelaunch.total}}</strong>
                     </td>
                   </tr><tr class='grid__item one-fifth'>
+		    {% for p in network-table.joined-prelaunch.levels%}
                     <td>
-                      <span class='altern-blue-dark-color'>$1,700</span>
+                      <span class='altern-blue-dark-color'>{{p|monetizise}}</span>
                     </td>
+		    {% endfor %}
                     <td>
-                      <span class='altern-blue-dark-color'>$30,250</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$3,650</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$750</span>
-                    </td>
-                    <td>
-                      <span class='altern-blue-dark-color'>$500</span>
-                    </td>
-                    <td>
-                      <strong class='altern-blue-dark-color'>$36,850</strong>
+                      <strong class='altern-blue-dark-color'>{{network-table.joined-prelaunch.total|monetizise}}</strong>
                     </td>
                   </tr></tbody>
               </table>

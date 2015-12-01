@@ -4,12 +4,14 @@
             [ring.util.http-response :refer [ok]]
             [pre-launch.controllers.dashboard :as controller]
             [ring.util.response :refer [response]]
+            [selmer.filters :as filter]
             [clojure.java.io :as io]))
 
 
 (defn dashboard [params session]
   (let [user-name (get-in session [:identity :name])
         titan-id (get-in session [:identity :titan_id])]
+    (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
     (layout/render "crowdfunding/dashboard.html"
                    {:name user-name
                     :titan-id titan-id
