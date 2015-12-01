@@ -43,7 +43,7 @@
         root-id (payload "titan_id")]
     (publisher/publish-with-qname (get-conn :rabbit)
                                   callback-q
-                                  (detailed-lvl-1 (get-conn :titan) root-id))))
+                                  (computation/detailed-lvl-1 (get-conn :titan) root-id))))
 
 ;; queue-name com.webtalk.pre-launch.referral-network
 (defn referral-network
