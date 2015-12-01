@@ -71,4 +71,4 @@ app/modules/webserver/public/css/login.css
 app/modules/webserver/public/css/login.min.css
 app/modules/webserver/public/userdata/*
 /consumers/.lein-repl-history
-consumer/target/
+/consumer/target/

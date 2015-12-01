@@ -21,6 +21,10 @@
 (defn sent-invites [session]
   (ok {:invites (controller/get-sent-invites (get-in session [:identity :titan_id]))}))
 
+(defn referral-network-detail [session]
+  (ok (controller/get-referral-network-detail (get-in session [:identity :titan_id]))))
+
 (defroutes dashboard-routes
   (GET "/dashboard" request (dashboard (request :params) (request :session)))
+  (GET "/dashboard/network-detail" request (referral-network-detail (request :session)))
   (GET "/dashboard/sent-invites" request (sent-invites (request :session))))
