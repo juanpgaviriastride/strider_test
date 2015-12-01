@@ -3,13 +3,14 @@
             [crypto.random :refer [url-part]]))
 
 
-(defn get-query [titan-id callback-queue-name level]
-  (println "llame"))
+(defn get-query [titan-id queue-name level response-key]
+  (let [callback-queue-name (str queue-name (url-part 15))
+        result (queue/promise-subscription callback-queue-name (fn [a] (response-key a)))]
+    (queue/publish-with-qname queue-name callback-queue-name {:titan_id titan-id
+                                                              :level level})
+    @result))
 
 (defn get-sent-invites [titan-id]
-  (let [callback-queue-name (str "com.webtalk.pre-launch.invite-count" (url-part 15))
-        result (queue/promise-subscription callback-queue-name (fn [r] (:invites r)))]
-    (queue/publish-with-qname "com.webtalk.pre-launch.invite-count" callback-queue-name
-                              {:titan_id titan-id
-                               :level 1})
-    @result))
+  (get-query titan-id "com.webtalk.pre-launch.invite-count" 1 :invites))
+
+
