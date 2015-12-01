@@ -25,7 +25,9 @@
 
 (defn subscribe-with-connection [qname message-handler]
   (println "Getting ready to setup" qname)
-  (let [connection (rmq/connect {:host (config/rmq-config)})
+  (let [connection (rmq/connect {:host (config/rmq-config)
+                                 :username (config/rmq-username)
+                                 :password (config/rmq-password)})
         channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (lq/declare channel qname {:durable true :auto-delete false :exclusive false})
@@ -42,7 +44,9 @@
     result))
 
 (defn publish-with-qname [qname reply-queue payload]
-  (let [connection (rmq/connect {:host (config/rmq-config)})
+  (let [connection (rmq/connect {:host (config/rmq-config)
+                                 :username (config/rmq-username)
+                                 :password (config/rmq-password)})
         channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (println "qname" qname)
