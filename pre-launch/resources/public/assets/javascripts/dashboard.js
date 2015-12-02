@@ -131,11 +131,10 @@ function bulkEmail(emails){
     console.log("emails" + emails);
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
     $.post("/invitation", request, function(data, status){
-	    console.log("data" + data);
-	    console.log("status" + status);
-	$("form#email-form input[type=text]").each(function(){
-	    $(this).val(""); 
-	});
+      $('#modal-invitation').modal()
+      $("form#email-form input[type=text]").each(function(){
+        $(this).val("");
+      });
     });
 }
 
@@ -160,6 +159,9 @@ $(document).ready(function (){
       console.log(">>>>> SE TOSTO", error)
     }
   })
+
+  $('[data-role="send-invitations"]').click(function (){
+    console.log('send invitationts')
+    sendMails();
+  });
 });
-
-
