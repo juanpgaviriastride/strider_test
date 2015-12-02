@@ -164,4 +164,19 @@ $(document).ready(function (){
     console.log('send invitationts')
     sendMails();
   });
+
+  // paginate invitations
+  $.ajax({
+    url: '/dashboard/network-detail',
+    method: 'get',
+    dataType: 'json',
+    success: function(data, xhr){
+      console.log('JSON:', data)
+      invitations = new Backbone.Collection(data)
+      invitations_view = new InvitationTable({collection: invitations})
+    },
+    error: function(xhr, errorThrow, errorText) {
+      console.log('ERROR:', arguments)
+    }
+  })
 });
