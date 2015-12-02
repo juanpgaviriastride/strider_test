@@ -51,6 +51,13 @@
         </div>
       </header>
       <div class='main-content'>
+        <div class='spinner-container' id="spinner">
+          <div class='spinner white big'>
+            <div class='bounce1'></div>
+            <div class='bounce2'></div>
+            <div class='bounce3'></div>
+          </div>
+        </div>
         <div class='wrapper--smaller push--top-crowd'>
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
@@ -60,11 +67,11 @@
                 <div class='form-content'>
                   <div class='form-field field-only field-first'>
                     <i class='icon icon-profile'></i>
-                    <input class='required input--text' name='first_name' placeholder='First Name' type='name'>
+                    <input class='required input--text' id='first_name' name='first_name' placeholder='First Name' type='text'>
                   </div>
                   <div class='form-field field-only field-second'>
                     <i class='icon icon-profile'></i>
-                    <input class='required input--text' name='last_name' placeholder='Last Name' type='name'>
+                    <input class='required input--text' id='last_name' name='last_name' placeholder='Last Name' type='text'>
                   </div>
                   <div class='form-field field-only field-first'>
                     <i class='icon icon-message'></i>
@@ -89,7 +96,9 @@
                     </span>
                   </div>
                   <div class='form-field'>
-                    <div class="g-recaptcha" data-callback="onReCapcha" data-sitekey="6Ler3xETAAAAAO9UMVyem83maqwspXrA6PFvWrZv"></div>
+                    <div class="g-recaptcha" data-callback="onReCapcha" data-sitekey="6Ler3xETAAAAAO9UMVyem83maqwspXrA6PFvWrZv" data-expired-callback="onExpires">
+                    </div>
+                    <div class="error" id="reCaptchaError" style="color:red"></div>
                   </div>
                   <div class='form-field soft--top'>
                     <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type="button" value='Continue to Checkout' id="btn-continue">
