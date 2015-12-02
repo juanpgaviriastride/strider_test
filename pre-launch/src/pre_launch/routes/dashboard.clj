@@ -8,9 +8,9 @@
             [clojure.java.io :as io]))
 
 (defn prepare-response [titan-id user-name]
-  (merge (controller/get-referral-network-detail titan-id)  {:name user-name
-                                                             :titan-id titan-id
-                                                             :network-table (controller/get-referral-network titan-id)}))
+  {:name user-name
+   :titan-id titan-id
+   :network-table (controller/get-referral-network titan-id)})
 
 
 (defn dashboard [params session]

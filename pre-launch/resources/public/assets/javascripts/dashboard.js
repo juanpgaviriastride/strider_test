@@ -131,11 +131,10 @@ function bulkEmail(emails){
     console.log("emails" + emails);
     request['__anti-forgery-token'] = $('#__anti-forgery-token').val();
     $.post("/invitation", request, function(data, status){
-	    console.log("data" + data);
-	    console.log("status" + status);
-	$("form#email-form input[type=text]").each(function(){
-	    $(this).val(""); 
-	});
+      $('#modal-invitation').modal()
+      $("form#email-form input[type=text]").each(function(){
+        $(this).val("");
+      });
     });
 }
 
@@ -160,6 +159,24 @@ $(document).ready(function (){
       console.log(">>>>> SE TOSTO", error)
     }
   })
+
+  $('[data-role="send-invitations"]').click(function (){
+    console.log('send invitationts')
+    sendMails();
+  });
+
+  // paginate invitations
+  $.ajax({
+    url: '/dashboard/network-detail',
+    method: 'get',
+    dataType: 'json',
+    success: function(data, xhr){
+      console.log('JSON:', data)
+      invitations = new Backbone.Collection(data)
+      invitations_view = new InvitationTable({collection: invitations})
+    },
+    error: function(xhr, errorThrow, errorText) {
+      console.log('ERROR:', arguments)
+    }
+  })
 });
-
-

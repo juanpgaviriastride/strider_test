@@ -26,6 +26,7 @@
     <link href='../assets/images/favicon.ico' rel='icon' type='image/ico'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <link href="../assets/stylesheets/crowdfunding.css" rel="stylesheet" type="text/css" media="all" />
     <script src="../assets/javascripts/vendors/modernizr.js" type="text/javascript"></script>
     <!--[if (gte IE 6)&(lte IE 8)]>
@@ -50,30 +51,41 @@
         </div>
       </header>
       <div class='main-content'>
+        <div class='spinner-container'>
+          <div class='spinner white big'>
+            <div class='bounce1'></div>
+            <div class='bounce2'></div>
+            <div class='bounce3'></div>
+          </div>
+        </div>
         <div class='wrapper--smaller push--top-crowd'>
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
               <h2 class='box__title box__title--color__inherit push--bottom'>Log into Dashboard</h2>
               <form action='/login' class='js-loginValidation' method='post'>
-		  {% csrf-field %}
+      {% csrf-field %}
                 <div class='form-content'>
-                  <div class='form-field'>
+                  <div class='form-field field-only field-first'>
                     <i class='icon icon-message'></i>
                     <input class='required input--text' name='email' placeholder='Enter Email Address' type='email'>
                   </div>
-		  <div class='form-field field-only'>
-		    <input class='required input--text' name='password' placeholder='Password' type='password'>
-		  </div>
+                  <div class='form-field field-only'>
+                    <i class='icon icon-padlock'></i>
+                    <input class='required input--text' name='password' placeholder='Password' type='password'>
+                  </div>
                   <div class='form-field soft--top'>
-                    <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type='submit' value='Login'>
+                    <input class='btn btn--blue__gradient btn--full' type='submit' value='Login'>
                   </div>
                   <div class='tex--center'>
                     <span>
                       Not yet registered with Webtalk?
-                      <a class="link--color" href="/signup">Click Here</a>
+                      <a class="link--color" href="signup">Click Here</a>
                       to start building your network today
                     </span>
                   </div>
+                  <small>
+                    <a class='link--color' href="/recover-password">Forgot your password?</a>
+                  </small>
                 </div>
               </form>
             </div>
@@ -88,6 +100,6 @@
     </div>
     <script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
     
-    <script src="../assets/javascripts/application.js" type="text/javascript"></script>
+    <script src="../assets/javascripts/crowdfunding.js" type="text/javascript"></script>
   </body>
 </html>
