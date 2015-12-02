@@ -39,13 +39,13 @@ function openStripe(){
     data.email = $('#user_email').val();
 	StripeCheckout.open(data);
     }else{
-	alert("recapcha");
+	alert("Please enter reCAPTCHA");
     }
     
 }
 
 $(document).ready(function(){
-    $('#stripe').click(function(){
+    $('#btn-continue').click(function(){
 	openStripe();
     });
 

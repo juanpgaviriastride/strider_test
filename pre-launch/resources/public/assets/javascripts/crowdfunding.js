@@ -2378,11 +2378,11 @@ Webtalk.helpers.captcha = function (element){
 Webtalk.helpers.loginValidation = function (element){
   $(element).validate({
     rules: {
-      inputEmail: {
+      email: {
         required: true,
         email: true
       },
-      inputPassword: {
+      password: {
         required: true,
         minlength: 5
       }
@@ -2395,14 +2395,14 @@ Webtalk.helpers.resetValidation = function (element){
   $(element).validate({
     
     rules: {
-      inputPassword: {
+      password: {
         required: true,
         minlength: 5
       },
       inputConfirmPassword: {
         required: true,
         minlength: 5,
-        equalTo: "#inputPassword"
+        equalTo: "#password"
       }  
     }
   });
@@ -2416,7 +2416,7 @@ Webtalk.helpers.closeAlert = function (clickClose){
 
 Webtalk.helpers.recoveryValidation = function (element){
   $(element).validate({
-    inputEmail: {
+    email: {
       required: true,
       email: true
     }
@@ -2449,28 +2449,28 @@ Webtalk.helpers.pagerDropdown = function(pagerClick){
 Webtalk.helpers.newAccountValidation = function (element){
   $(element).validate({
     rules: {
-      inputPassword: {
+      password: {
         required: true,
         minlength: 5
       },
       inputConfirmPassword: {
         required: true,
         minlength: 5,
-        equalTo: "#inputPassword"
+        equalTo: "#password"
       },
       inputConfirmEmail: {
         required: true,
-        equalTo: "#inputEmail"
+        equalTo: "#email"
       }
     }
   });
 }
 
-Webtalk.helpers.noCopyPaste = function(inputEmail, inputPassword){
-  $(inputEmail).bind("cut copy paste", function(e){
+Webtalk.helpers.noCopyPaste = function(email, password){
+  $(email).bind("cut copy paste", function(e){
     e.preventDefault();
   });
-  $(inputPassword).bind("cut copy paste", function(e){
+  $(password).bind("cut copy paste", function(e){
     e.preventDefault();
   });
 }
