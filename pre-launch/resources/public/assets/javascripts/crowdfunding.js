@@ -2334,43 +2334,6 @@ var Webtalk = {
   helpers: {}
 };
 
-Webtalk.helpers.canvasArcInvite = function(canvasInvite){
-  var c = document.getElementById(canvasInvite);
-  var ctx = c.getContext('2d');
-  ctx.beginPath();
-  ctx.arc(55,0,50,0.5*Math.PI,1*Math.PI);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#60c0e7';
-  ctx.stroke();
-}
-Webtalk.helpers.canvasArcWaitlist = function(canvasWaitlist){
-  var c = document.getElementById(canvasWaitlist);
-  var ctx = c.getContext('2d');
-  ctx.beginPath();
-  ctx.arc(55,55,50,1*Math.PI,1.5*Math.PI);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#f77268';
-  ctx.stroke();
-}
-Webtalk.helpers.canvasArcPrelaunch = function(canvasPrelaunch){
-  var c = document.getElementById(canvasPrelaunch);
-  var ctx = c.getContext('2d');
-  ctx.beginPath();
-  ctx.arc(55,0,50,0*Math.PI,0.5*Math.PI);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#f5921d';
-  ctx.stroke();
-}
-Webtalk.helpers.canvasArcCommissions = function(canvasCommissions){
-  var c = document.getElementById(canvasCommissions);
-  var ctx = c.getContext('2d');
-  ctx.beginPath();
-  ctx.arc(0,55,50,1.5*Math.PI,0*Math.PI);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#45b6b4';
-  ctx.stroke();
-}
-
 Webtalk.helpers.captcha = function (element){
   $(element).realperson();
 }
@@ -2475,6 +2438,14 @@ Webtalk.helpers.noCopyPaste = function(email, password){
   });
 }
 
+var recapcha_ok = false;
+
+function onReCapcha(response){
+    console.log("the response is" + response);
+    recapcha_ok = true;
+}
+
+
 Webtalk.helpers.noCopyPaste("input[type=email]", "input[type=password]");
 Webtalk.helpers.pagerDropdown(".js-pager-dropdown");
 Webtalk.helpers.closeAlert(".js-close-alert");
@@ -2483,7 +2454,3 @@ Webtalk.helpers.loginValidation(".js-loginValidation");
 Webtalk.helpers.resetValidation(".js-resetValidation");
 Webtalk.helpers.recoveryValidation(".js-recoveryValidation");
 Webtalk.helpers.newAccountValidation(".js-newAccountValidation");
-Webtalk.helpers.canvasArcInvite("canvasInvite");
-Webtalk.helpers.canvasArcWaitlist("canvasWaitlist");
-Webtalk.helpers.canvasArcPrelaunch("canvasPrelaunch");
-Webtalk.helpers.canvasArcCommissions("canvasCommissions");

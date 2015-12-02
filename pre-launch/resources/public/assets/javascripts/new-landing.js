@@ -4986,6 +4986,13 @@ Webtalk.helpers.ScrollSection = function(){
   })
 }
 
+$('#modal-video').on('hide.bs.modal', function () {
+  debugger;
+  var src = $(this).find('.box--video iframe').attr('src');
+  $(".box--video iframe").attr('src','');
+  $(".box--video iframe").attr('src', src);
+});
+
 window.fbAsyncInit = function() {
     FB.init({
       appId      : '1550122381929419',
