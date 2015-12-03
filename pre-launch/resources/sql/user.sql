@@ -55,3 +55,10 @@ WHERE email = :email
 
 --name: user-count
 SELECT count(email) AS total FROM users WHERE email = :email
+
+
+--name: set-password!
+--save titan fk into user
+UPDATE users
+SET password = :password
+WHERE id = :id

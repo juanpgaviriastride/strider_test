@@ -14,8 +14,21 @@
 (def auth {:api_user (or (env :sengrid-username) "sarcilav")
            :api_key  (or (env :sengrid-key) "P@wU8Z#wGHAZ^n")})
 
+(def jwe-hashing {:alg :a256kw :enc :a128gcm})
+
 (parser/set-resource-path!  (io/resource "templates"))
 
+(defn generate-token [user-id user-email]
+  (jwe/encrypt {:id user-id
+                :email user-email
+                :exp (time-coerce/to-long (time/plus (time/now) (time/hours 1)))}
+               secret jwe-hashing))
+
+(defn decrypt-token [token]
+  (try
+    (jwe/decrypt token secret jwe-hashing)
+    (catch Exception e
+      (hash-map))))
 
 (defn deliver-email [user-id user-email]
   (mailer/send-email auth
@@ -28,12 +41,3 @@
                                     root-url
                                     "/new-password/"
                                     (generate-token user-id user-email))})}))
-
-(defn generate-token [user-id user-email]
-  (jwe/encrypt {:id user-id
-                :email user-email
-                :exp (time-coerce/to-long (time/plus (time/now) (time/hours 1)))}
-               secret {:alg :a256kw :enc :a128gcm}))
-
-(defn decrypt-token [token]
-  (jwe/decrypt token secret {:alg :a256kw :enc :a128gcm}))
