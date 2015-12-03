@@ -10,11 +10,14 @@
     (model/set-titan-id email titan_id)
     titan_id))
 
+(defn user-exists? [email]
+  (let [count (model/user-count email)]
+    (println "the count from db is" count)
+    (> count 0)))
+
 (defn create-user! [{{first_name :first_name last_name :last_name
                       email :email password :password} :params
                      session :session}]
-  (println "[debugging create user] the stripe-customer is:" session)
-  (println "-------------------------------------------------------")
   (let [puser  (model/save {:name (str first_name " " last_name)
                             :email email
                             :password password

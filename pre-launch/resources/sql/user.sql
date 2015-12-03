@@ -52,3 +52,6 @@ WHERE email = :email
 --gets the salted password given the email
 SELECT password FROM users
 WHERE email = :email
+
+--name: user-count
+SELECT count(email) AS total FROM users WHERE email = :email

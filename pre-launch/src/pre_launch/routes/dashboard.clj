@@ -19,8 +19,7 @@
         template-response (prepare-response titan-id user-name)]
     (println "the template-response is" template-response)
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
-    (layout/render "crowdfunding/dashboard.html" template-response
-                   )))
+    (layout/render "crowdfunding/dashboard.html" template-response)))
 
 
 

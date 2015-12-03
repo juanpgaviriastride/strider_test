@@ -31,3 +31,7 @@
 (defn set-titan-id [email titan-id]
   (db/set-titan-id! {:titan_id titan-id :email email}))
 
+
+(defn user-count [email]
+  (:total (first (db/user-count {:email email}))))
+

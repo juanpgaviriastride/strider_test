@@ -15,9 +15,12 @@
   (let [save-response (controller/create-user! request)]
     (-> "/dashboard"
      redirect
-     (assoc :session (assoc (:session request) :identity save-response)))) )
+     (assoc :session (assoc (:session request) :identity save-response)))))
+
+(defn user-exists? [request]
+  (let [user-response (controller/user-exists? (get-in request [:params :email]))]
+    (ok {:exists user-response})))
 
 (defroutes user-routes
   (POST "/user-creation" request (create-user! request))
-  (GET "/user/:email" request (create-user! request))
-  )
+  (GET "/user/:email" request (user-exists? request)))
