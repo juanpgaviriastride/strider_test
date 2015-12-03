@@ -24,3 +24,8 @@ VALUES (
 :scope,
 :sources
 )
+
+
+--name: get-accounts-count
+-- finds hom many users are on stripe
+SELECT count(email) AS total FROM customer_stripe_accounts
