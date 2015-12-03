@@ -18,4 +18,6 @@
      (assoc :session (assoc (:session request) :identity save-response)))) )
 
 (defroutes user-routes
-  (POST "/user-creation" request (create-user! request)))
+  (POST "/user-creation" request (create-user! request))
+  (GET "/user/:email" request (create-user! request))
+  )
