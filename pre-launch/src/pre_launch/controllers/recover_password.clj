@@ -20,7 +20,7 @@
 
 (defn valid-timing?
   ([token]
-   (let [{:keys [id email exp]} (controller/decrypt-token token)]
+   (let [{:keys [id email exp]} (decrypt-token token)]
      (valid-timing? id email exp)))
   ([id email exp]
    (and id email exp (> exp (time-coerce/to-long (time/now))))))
