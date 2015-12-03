@@ -18,6 +18,13 @@
 
 (parser/set-resource-path!  (io/resource "templates"))
 
+(defn valid-timing?
+  ([token]
+   (let [{:keys [id email exp]} (controller/decrypt-token token)]
+     (valid-timing? id email exp)))
+  ([id email exp]
+   (and id email exp (> exp (time-coerce/to-long (time/now))))))
+
 (defn generate-token [user-id user-email]
   (jwe/encrypt {:id user-id
                 :email user-email

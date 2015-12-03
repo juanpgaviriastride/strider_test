@@ -4,8 +4,6 @@
             [pre-launch.model.user :as user]
             [pre-launch.controllers.recover-password :as controller]
             [ring.util.response :refer [response redirect]]
-            [clj-time.core :as time]
-            [clj-time.coerce :as time-coerce]
             ring.middleware.session))
 
 (defn send-recover-email [email]
@@ -18,17 +16,17 @@
 
 (defn new-password [{{token :token} :params
                      session :session}]
-  (let [{:keys [id email exp]} (controller/decrypt-token token)]
-    (if (and id email exp (> exp (time-coerce/to-long (time/now))))
-      (-> (layout/render "crowdfunding/new-password.html")
-         (assoc :session (assoc session :password-token token)))
-      (redirect "/"))))
+
+  (if (controller/valid-timing? token)
+    (-> (layout/render "crowdfunding/new-password.html")
+       (assoc :session (assoc session :password-token token)))
+    (redirect "/")))
 
 (defn set-password [{password :password}
                     {token :password-token :as session}]
   (let [{:keys [id email exp]} (controller/decrypt-token token)
         current-user (user/get email)]
-    (if (and password current-user exp (> exp (time-coerce/to-long (time/now))))
+    (if (and password current-user (controller/valid-timing? id email exp))
       (do
         (user/set-password id password)
         (-> (redirect "/dashboard")
