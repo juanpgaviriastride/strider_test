@@ -25,11 +25,16 @@
 
 
 (defn deliver-email [email user-id]
-  (let [payment-data (get-payment-detail user-id)]
-    (mailer/send-email auth
-                     {:to email
-                      :from "team@webtalk.co"
-                      :subject "Webtalk | Payment receipt"
-                      :html (parser/render-file
-                             "emails/payment-confirmation.html"
-                             (get-payment-detail user-id))})))
+  (let [email-agent (agent {:email email :user-id user-id})
+        send-fn (fn [{user-id :user-id email :email}]
+                  (println "sending the receipt email...")
+                  (let [payment-data (get-payment-detail user-id)]
+                    (mailer/send-email auth
+                                       {:to email
+                                        :from "team@webtalk.co"
+                                        :subject "Webtalk | Payment receipt"
+                                        :html (parser/render-file
+                                               "emails/payment-confirmation.html"
+                                               payment-data)})))]
+
+    (send-off email-agent send-fn)))
