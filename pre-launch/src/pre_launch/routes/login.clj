@@ -36,9 +36,6 @@
   (-> (redirect "/signin")
      (assoc :session (dissoc (:session request) :identity))))
 
-(defn recover-password [request]
-  (layout/render "crowdfunding/recover-password.html"))
-
 (defroutes login-routes
   (GET  "/signin" request (if (authenticated? request)
                             (redirect "/dashboard")
