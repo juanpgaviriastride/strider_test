@@ -31,7 +31,7 @@
           :start (connect!)
           :stop (disconnect! *db*))
 
-(conman/bind-connection *db* "sql/stripe_account.sql" "sql/charge-queries.sql" "sql/session.sql" "sql/user.sql" "sql/invitation_request_queries.sql")
+(conman/bind-connection *db* "sql/stripe_account.sql" "sql/charge-queries.sql" "sql/session.sql" "sql/user.sql" "sql/invitation_request_queries.sql" "sql/receipt-queries.sql")
 
 (defn to-date [sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
