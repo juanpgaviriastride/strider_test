@@ -66,4 +66,17 @@ $(document).ready(function(){
         openStripe();
     });
 
+    $("#email").blur(function(){
+        if($('#email').valid()){
+            userEmail = $('#email').val()
+            $.get( "/user/"+userEmail, function( data ) {
+                if(data.exists){
+                    alert( "Sorry, that email has been already used.");
+                    $('#email').val("");
+                    $('#inputConfirmEmail').val("");
+                    $('#email').focus();
+                }
+            });
+        }
+    });
 });
