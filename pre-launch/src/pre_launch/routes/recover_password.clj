@@ -22,11 +22,12 @@
        (assoc :session (assoc session :password-token token)))
     (redirect "/")))
 
-(defn set-password [{password :password}
+(defn set-password [{password :password
+                     inputConfirmPassword :inputConfirmPassword}
                     {token :password-token :as session}]
   (let [{:keys [id email exp]} (controller/decrypt-token token)
         current-user (user/get email)]
-    (if (and password current-user (controller/valid-timing? id email exp))
+    (if (and (= password inputConfirmPassword) current-user (controller/valid-timing? id email exp))
       (do
         (user/set-password id password)
         (-> (redirect "/dashboard")
