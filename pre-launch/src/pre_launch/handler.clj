@@ -5,6 +5,7 @@
             [pre-launch.routes.user :refer [user-routes]]
             [pre-launch.routes.dashboard :refer [dashboard-routes]]
             [pre-launch.routes.login :refer [login-routes]]
+            [pre-launch.routes.recover-password :refer [recover-password-routes]]
             [pre-launch.routes.invitation :refer [invitation-routes]]
             [pre-launch.routes.payment :refer [payment-routes]]
             [pre-launch.middleware :as middleware]
@@ -52,6 +53,7 @@
             (wrap-routes  middleware/wrap-csrf)
             (wrap-routes  middleware/wrap-restricted))
    ;;(wrap-routes #'dashboard-routes middleware/wrap-csrf)
+   (wrap-routes #'recover-password-routes middleware/wrap-csrf)
    (route/not-found
     (:body
      (error-page {:status 404

@@ -13,6 +13,9 @@
 (defn delete [id]
   (db/delete-user! {:id id}))
 
+(defn set-password [id new-password]
+  (db/set-password! {:id id :password (crypt-password new-password)}))
+
 (defn prepare-save [user-map]
   (->
    user-map

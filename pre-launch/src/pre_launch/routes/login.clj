@@ -6,6 +6,7 @@
             [pre-launch.model.user :as user]
             [clojure.java.io :as io]
             [pre-launch.integration.stripe :as stripe]
+            [buddy.auth :refer [authenticated?]]
             [ring.util.response :refer [response redirect]]
             ring.middleware.session))
 
@@ -35,13 +36,12 @@
   (-> (redirect "/signin")
      (assoc :session (dissoc (:session request) :identity))))
 
-(defn recover-password [request]
-  (layout/render "crowdfunding/recover-password.html"))
-
 (defroutes login-routes
-  (GET  "/signin" request (login request))
+  (GET  "/signin" request (if (authenticated? request)
+                            (redirect "/dashboard")
+                            (login request)))
   (POST "/login"  request (login! request))
   (GET "/logout"  request (logout! request))
-  (GET "/recover-password" request (recover-password request))
-  (GET  "/signup" request (signup request)))
-
+  (GET  "/signup" request (if (authenticated? request)
+                            (redirect "/dashboard")
+                            (signup request))))

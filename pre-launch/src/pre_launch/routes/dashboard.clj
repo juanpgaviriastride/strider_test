@@ -21,8 +21,6 @@
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
     (layout/render "crowdfunding/dashboard.html" template-response)))
 
-
-
 (defn referral-network-detail [session]
   (let [user-name (get-in session [:identity :name])
         titan-id (get-in session [:identity :titan_id])
