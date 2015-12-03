@@ -1,6 +1,7 @@
 (ns pre-launch.controllers.user
   (:require [clj-wt.queue :as queue]
             [crypto.random :refer [url-part]]
+            [pre-launch.controllers.receipt :as receipt-controller]
             [pre-launch.model.user :as model]))
 
 
@@ -24,6 +25,7 @@
                             :stripe_account_id (session :stripe-costumer)})
         callback-queue-name (str "com.webtalk.pre-launch.user." (url-part 15))
         insertion-result (queue/promise-subscription callback-queue-name update-user)]
+    (receipt-controller/deliver-email email (:id puser))
     (println "the refererID in create user is:" (:refererID session))
     (queue/publish-with-qname "com.webtalk.pre-launch.create-user" callback-queue-name {:email email
                                                                                         :name (str first_name " " last_name)
