@@ -6,13 +6,11 @@
             [environ.core :refer [env]]
             [clojure.java.io :as io]
             [clj-time.core :as time]
-            [clj-time.coerce :as time-coerce]))
+            [clj-time.coerce :as time-coerce]
+            [pre-launch.config-mailer :as config-mailer]))
   
 
 (def secret (random-nonce 32))
-(def root-url "http://localhost:3000")
-(def auth {:api_user (or (env :sengrid-username) "sarcilav")
-           :api_key  (or (env :sengrid-key) "P@wU8Z#wGHAZ^n")})
 
 (def jwe-hashing {:alg :a256kw :enc :a128gcm})
 
@@ -38,13 +36,13 @@
    (and id email exp (> exp (time-coerce/to-long (time/now))))))
 
 (defn deliver-email [user-id user-email]
-  (mailer/send-email auth
+  (mailer/send-email (config-mailer/auth)
                      {:to user-email
                       :from "team@webtalk.co"
                       :subject "Webtalk | Recover password"
                       :html (parser/render-file
                              "emails/recover-password.html"
                              {:url (str
-                                    root-url
+                                    (config-mailer/root-url)
                                     "/new-password/"
                                     (generate-token user-id user-email))})}))
