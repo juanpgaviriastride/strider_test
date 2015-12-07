@@ -46,7 +46,7 @@
                                        :html (parser/render-file
                                               "emails/recover-password.html"
                                               {:url (str
-                                                     root-url
+                                                     (config-mailer/root-url)
                                                      "/new-password/"
                                                      (generate-token user-id user-email))})}))]
     (send-off email-agent email-fn)))
