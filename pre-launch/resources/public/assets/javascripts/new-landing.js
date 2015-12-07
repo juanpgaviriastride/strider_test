@@ -4892,6 +4892,27 @@ CHECKS.ie6 = {
 };
 ;}));
 }( window, document ));
+var Froogaloop=function(){function e(a){return new e.fn.init(a)}function g(a,c,b){if(!b.contentWindow.postMessage)return!1;a=JSON.stringify({method:a,value:c});b.contentWindow.postMessage(a,h)}function l(a){var c,b;try{c=JSON.parse(a.data),b=c.event||c.method}catch(e){}"ready"!=b||k||(k=!0);if(!/^https?:\/\/player.vimeo.com/.test(a.origin))return!1;"*"===h&&(h=a.origin);a=c.value;var m=c.data,f=""===f?null:c.player_id;c=f?d[f][b]:d[b];b=[];if(!c)return!1;void 0!==a&&b.push(a);m&&b.push(m);f&&b.push(f);
+return 0<b.length?c.apply(null,b):c.call()}function n(a,c,b){b?(d[b]||(d[b]={}),d[b][a]=c):d[a]=c}var d={},k=!1,h="*";e.fn=e.prototype={element:null,init:function(a){"string"===typeof a&&(a=document.getElementById(a));this.element=a;return this},api:function(a,c){if(!this.element||!a)return!1;var b=this.element,d=""!==b.id?b.id:null,e=c&&c.constructor&&c.call&&c.apply?null:c,f=c&&c.constructor&&c.call&&c.apply?c:null;f&&n(a,f,d);g(a,e,b);return this},addEvent:function(a,c){if(!this.element)return!1;
+var b=this.element,d=""!==b.id?b.id:null;n(a,c,d);"ready"!=a?g("addEventListener",a,b):"ready"==a&&k&&c.call(null,d);return this},removeEvent:function(a){if(!this.element)return!1;var c=this.element,b=""!==c.id?c.id:null;a:{if(b&&d[b]){if(!d[b][a]){b=!1;break a}d[b][a]=null}else{if(!d[a]){b=!1;break a}d[a]=null}b=!0}"ready"!=a&&b&&g("removeEventListener",a,c)}};e.fn.init.prototype=e.fn;window.addEventListener?window.addEventListener("message",l,!1):window.attachEvent("onmessage",l);return window.Froogaloop=
+window.$f=e}();
+$(window).load(function(){
+  function triggerTagUrl(){
+    switch (window.location.hash){
+      case '#video':
+          $(".btn-play").each(function(){
+            $(this).trigger("click");
+            return false;
+          });
+        break;
+    }
+  }
+  
+  triggerTagUrl();
+});
+
+
+
 
 
 
@@ -4986,12 +5007,33 @@ Webtalk.helpers.ScrollSection = function(){
   })
 }
 
-$('#modal-video').on('hide.bs.modal', function () {
-  debugger;
-  var src = $(this).find('.box--video iframe').attr('src');
-  $(".box--video iframe").attr('src','');
-  $(".box--video iframe").attr('src', src);
-});
+Webtalk.helpers.ModalStopPlayVideo = function(){
+  $('#modal-video').on('hide.bs.modal', function () {
+    var src = $(this).find('.box--video iframe').attr('src');
+    $(".box--video iframe").attr('src','');
+    $(".box--video iframe").attr('src', src);
+  });
+  var iframe = document.getElementById('nofocusvideo');
+  // $f == Froogaloop
+  var player = $f(iframe);
+
+  $('#modal-video').on('hidden.bs.modal', function () {
+    player.api('pause');
+  })
+
+  $('#modal-video').on('shown.bs.modal', function () {
+    player.api('play');
+  })
+}
+
+Webtalk.helpers.progressBarDay = function(){
+  var target = new Date('03/31/2016'),
+    today = new Date(),
+    daysToGo = Math.ceil((target.getTime() - today.getTime() ) / (1000*60*60*24)),
+    percent = 130 - daysToGo;
+  $(".js-progress-days").css("width", percent + "%");
+  $(".js-days-counter").text(daysToGo);
+}
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -5027,3 +5069,5 @@ Webtalk.helpers.SliderService();
 Webtalk.helpers.Tabs(".js-our-tab");
 Webtalk.helpers.emailValidation(".js-email-validation");
 Webtalk.helpers.ScrollSection();
+Webtalk.helpers.ModalStopPlayVideo();
+Webtalk.helpers.progressBarDay();
