@@ -4927,7 +4927,7 @@ var Webtalk = {
 
 setTimeout(function(){ 
   $( ".js-close-alert" ).parents(".alert").slideUp("fast");
-}, 3000);
+}, 10000);
 
 $( ".js-close-alert" ).click(function() {
   $(this).parents(".alert").slideUp("fast");
