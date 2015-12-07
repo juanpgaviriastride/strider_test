@@ -1,12 +1,13 @@
 (ns com.webtalk.storage.graph.titan
   (:require [com.stuartsierra.component :as component]
-            [clojurewerkz.titanium.graph :as t]))
+            [clojurewerkz.titanium.graph :as t]
+            [taoensso.timbre :refer [info]]))
 
 (defrecord Titan [backend hosts name connection]
   component/Lifecycle
 
   (start [component]
-    (println "Starting titan")
+    (info "Starting titan")
     (if (= nil connection)
       (let [conn (t/open {"storage.backend" backend
                           "storage.hostname" hosts
@@ -25,7 +26,7 @@
       component))
 
   (stop [component]
-    (println "Stopping titan")
+    (info "Stopping titan")
     (when connection
       (t/shutdown connection))
     (assoc component :connection nil)))

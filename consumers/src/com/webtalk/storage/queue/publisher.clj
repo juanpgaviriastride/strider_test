@@ -6,18 +6,16 @@
             [com.webtalk.storage.queue.config :as config]
             [langohr.basic                    :as lb]
             [clojure.data.json                :as json]
-            [com.stuartsierra.component       :as component]))
+            [com.stuartsierra.component       :as component]
+            [taoensso.timbre :refer [debug spy]]))
 
 (def ^{:const true}
   default-exchange-name "")
 
 (defn publish-with-qname [connection qname payload]
   (let [channel    (lch/open connection)]
-    (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
-    (println "qname" qname)
-    (flush)
-    ;;(lq/declare channel qname {:durable false :auto-delete true :exclusive true})
-    (println "about to publish")
-    (flush)
+    (debug (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
+    (spy qname)
+    (debug "about to publish")
     (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json"})
     channel))

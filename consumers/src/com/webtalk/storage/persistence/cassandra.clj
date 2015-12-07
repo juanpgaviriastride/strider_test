@@ -1,13 +1,14 @@
 (ns com.webtalk.storage.persistence.cassandra
   (:require [com.stuartsierra.component :as component]
             [clojurewerkz.cassaforte.policies       :as policies]
-            [clojurewerkz.cassaforte.client         :as cclient]))
+            [clojurewerkz.cassaforte.client         :as cclient]
+            [taoensso.timbre :refer [info]]))
 
 (defrecord Cassandra [hosts keyspace connection]
   component/Lifecycle
 
   (start [component]
-    (println "Starting cassandra")
+    (info "Starting cassandra")
     (if (= nil connection)
       (let [conn (cclient/connect hosts keyspace)]
         (policies/retry-policy :downgrading-consistency)
@@ -15,7 +16,7 @@
       component))
 
   (stop [component]
-    (println "Stop cassandra")
+    (info "Stop cassandra")
     (when connection
       (cclient/disconnect connection))
     (assoc component :connection nil)))

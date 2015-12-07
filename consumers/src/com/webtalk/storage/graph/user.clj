@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges :as tedge]))
+            [clojurewerkz.titanium.edges :as tedge]
+            [taoensso.timbre :refer [spy debug]]))
 
 (defn user-hash [payload]
   (into {}  (list payload
@@ -27,7 +28,7 @@
 
   [graph user1 user2]
   (tgraph/with-transaction [g graph]
-    (println "connecting" user1 user2)
+    (debug "connecting" user1 user2)
     (tedge/upconnect! g user1 "follow" user2)
     (tedge/upconnect! g user2 "follow" user1)))
 
@@ -73,20 +74,16 @@
   Example: (create-user! graph {\"name\" \"Sebastian\" \"email\" \"sebastian@email.com\"})"
 
   [graph payload]
-  (println "create-user! graph" graph "payload" payload)
+  (debug "create-user! graph" graph "payload" payload)
   (let [email (payload "email")
         invited-user (first (tvertex/find-by-kv graph :email email))]
-    (println "email" email)
-    (println "invited-user" invited-user)
+    (spy email)
+    (spy invited-user)
     (if (nil? invited-user)
-      (do
-        (println "create-new-user")
-        (create-new-user graph payload))
+      (spy (create-new-user graph payload))
       ;; else user was invited
       (if (= (tvertex/get invited-user :VertexType) "invitedUser")
-        (do
-          (println "setting up invited user")
-          (setup-invited-user graph invited-user payload))
-        (println "do nothing for already created users")))
-    (println (tvertex/to-map (first (tvertex/find-by-kv graph :email email))))
+        (spy (setup-invited-user graph invited-user payload))
+        (debug "do nothing for already created users")))
+    (spy (tvertex/to-map (first (tvertex/find-by-kv graph :email email))))
     (first (tvertex/find-by-kv graph :email email))))

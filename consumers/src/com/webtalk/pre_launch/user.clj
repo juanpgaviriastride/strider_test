@@ -3,7 +3,7 @@
   (:require [clojurewerkz.titanium.graph :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
             [clojurewerkz.titanium.edges :as tedge]
-            [taoensso.timbre :require [spy debug]]))
+            [taoensso.timbre :refer [spy debug]]))
 
 (defn user-hash [payload]
   (into {}  (list (remove (fn [[a b]] (nil? b)) payload)
