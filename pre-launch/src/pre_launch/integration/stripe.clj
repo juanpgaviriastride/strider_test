@@ -1,6 +1,7 @@
 (ns pre-launch.integration.stripe
   (:require [environ.core :refer [env]]
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [taoensso.timbre :refer [debug spy]])
   (:import com.stripe.Stripe
            com.stripe.exception.StripeException
            com.stripe.model.Charge
@@ -11,13 +12,11 @@
 
 
 (defn payment [customer]
-  (println "inside payment for customer"))
+  (debug "inside payment for customer"))
 
 (defn public-key []
   (if-let [stripe-key (env :stripe-public-key)]
-    (do
-      (println "stripe-key" stripe-key)
-      stripe-key)
+    (spy stripe-key)
     (throw (Exception. "No environment variable found with key STRIPE_PUBLIC_KEY. Please set the environment variable."))))
 
 (defn private-key []
@@ -54,9 +53,10 @@
   (customer-from-response (Customer/create customer-params (default-request-options))))
 
 (defn charge-hash [payload]
-  (println "charge hash - payload" payload)
-  (println "sources class" (class (payload :source)))
-  (println "beaned " (bean (payload :source)))
+  (debug "inside charge-hash")
+  (spy payload)
+  (spy (class (payload :source)))
+  (spy (bean (payload :source)))
   (into {} (list payload {:source (to-json (:source payload))
                           :fraudDetails (to-json (:fraudDetails payload))
                           :metadata (to-json (:metadata payload))
@@ -69,5 +69,6 @@
      charge-hash))
 
 (defn create-charge! [charge-params]
-  (println "create charge params" charge-params)
+  (debug "inside create-charge!")
+  (spy charge-params)
   (charge-from-response (Charge/create charge-params (default-request-options))))

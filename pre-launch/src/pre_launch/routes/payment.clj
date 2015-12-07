@@ -9,10 +9,11 @@
             [pre-launch.controllers.receipt :as receipt-model]
             [pre-launch.integration.stripe :as stripe]
             [pre-launch.controllers.customer :as controller]
+            [taoensso.timbre :refer [debug]]
             ring.middleware.session))
 
 (defn create-customer! [request session]
-  (println "inside create stripe-customer and the info sent is" (receipt-model/get-payment-detail 1))
+  (debug "inside create stripe-customer and the info sent is" (receipt-model/get-payment-detail 1))
   (let [payload (json/read-str (request :payload))
         user-response (controller/create-customer! (payload "id") (payload "email"))]
     (-> (response user-response)

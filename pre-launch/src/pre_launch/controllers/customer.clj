@@ -2,7 +2,7 @@
   (:require [pre-launch.integration.stripe :as stripe]
             [pre-launch.model.stripe-account :as model]
             [pre-launch.model.stripe-charge :as charge-model]
-            ))
+            [taoensso.timbre :refer [spy]]))
 
 
 
@@ -13,7 +13,7 @@
                                               "amount" 10000
                                               "currency" "usd"})
         save-charge-response (charge-model/create-charge! stripe-charge)]
-    (println "stripe-charge is" stripe-charge)
-    (println "sql base charge is" save-charge-response)
+    (spy stripe-charge)
+    (spy save-charge-response)
     
     save-response))

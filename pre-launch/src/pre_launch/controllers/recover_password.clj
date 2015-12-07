@@ -7,7 +7,8 @@
             [clojure.java.io :as io]
             [clj-time.core :as time]
             [clj-time.coerce :as time-coerce]
-            [pre-launch.config-mailer :as config-mailer]))
+            [pre-launch.config-mailer :as config-mailer]
+            [taoensso.timbre :refer [debug]]))
 
 
 (def secret (random-nonce 32))
@@ -38,7 +39,7 @@
 (defn deliver-email [user-id user-email]
   (let [email-agent (agent {:user-email user-email :user-id user-id})
         email-fn (fn [{user-email :user-email user-id :user-id}]
-                   (println "sending the recover password email")
+                   (debug "sending the recover password email")
                    (mailer/send-email (config-mailer/auth)
                                       {:to user-email
                                        :from "team@webtalk.co"

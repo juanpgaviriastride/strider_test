@@ -5,7 +5,8 @@
             [pre-launch.controllers.dashboard :as controller]
             [ring.util.response :refer [response]]
             [selmer.filters :as filter]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [taoensso.timbre :refer [spy]]))
 
 (defn prepare-response [titan-id user-name]
   {:name user-name
@@ -17,7 +18,7 @@
   (let [user-name (get-in session [:identity :name])
         titan-id (get-in session [:identity :titan_id])
         template-response (prepare-response titan-id user-name)]
-    (println "the template-response is" template-response)
+    (spy template-response)
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
     (layout/render "crowdfunding/dashboard.html" template-response)))
 

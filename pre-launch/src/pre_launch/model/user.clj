@@ -1,7 +1,7 @@
 (ns pre-launch.model.user
-  (:require
-   [pre-launch.db.core :as db]
-   [bcrypt-clj.auth :refer :all])
+  (:require [pre-launch.db.core :as db]
+            [bcrypt-clj.auth :refer :all]
+            [taoensso.timbre :refer [debug]])
   (:import [java.sql.Date]))
 
 (defn get [email]
@@ -27,7 +27,7 @@
 (defn save [user-map]
   (let [user (prepare-save user-map)
         save-response (db/create-user<! user)]
-    (println "[debugging create user] the save object in model is" user)
+    (debug"create user the save object in model is" user)
     (assoc user-map :id (:generated_key save-response))))
 
 
