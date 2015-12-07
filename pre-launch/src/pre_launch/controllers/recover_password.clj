@@ -39,7 +39,7 @@
   (let [email-agent (agent {:user-email user-email :user-id user-id})
         email-fn (fn [{user-email :user-email user-id :user-id}]
                    (println "sending the recover password email")
-                   (mailer/send-email auth
+                   (mailer/send-email (config-mailer/auth)
                                       {:to user-email
                                        :from "team@webtalk.co"
                                        :subject "Webtalk | Recover password"
