@@ -37,7 +37,7 @@
                     (mailer/send-email auth
                                        {:to email
                                         :from "team@webtalk.co"
-                                        :subject "Webtalk | Payment receipt"
+                                        :subject "Your Credits Purchase Receipt"
                                         :html (parser/render-file
                                                "emails/payment-confirmation.html"
                                                payment-data)})))]

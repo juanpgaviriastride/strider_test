@@ -41,7 +41,7 @@
   (mailer/send-email auth
                      {:to user-email
                       :from "team@webtalk.co"
-                      :subject "Webtalk | Recover password"
+                      :subject "Reset Password Request"
                       :html (parser/render-file
                              "emails/recover-password.html"
                              {:url (str
