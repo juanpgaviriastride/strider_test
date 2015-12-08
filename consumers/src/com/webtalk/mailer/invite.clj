@@ -9,7 +9,7 @@
   (mailer/send-email config/auth
                      {:to to
                       :from "team@webtalk.co"
-                      :subject (str "Webtalk | Congratulations! " (:full_name sender) " has recommended you!")
+                      :subject (str "Congrats! " (:full_name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/invite.html.mustache"
                              {:name (:full_name sender)

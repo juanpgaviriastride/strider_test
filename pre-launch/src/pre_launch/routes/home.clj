@@ -10,10 +10,11 @@
             [clojure.java.io :as io]))
 
 (defn home-page [success]
-  (let [params-hash (scontroller/get-overal-app-stats)]
+  (let [params-hash (scontroller/get-overal-app-stats)
+        final-params (assoc params-hash :success success)]
     (filter/add-filter! :money-format (fn [amount] (format (Integer. "$%,8d%n"))))
     (layout/render
-      "home.html" params-hash)))
+     "home.html" final-params)))
 
 (defn refered-home-page [{params :params session :session}]
   (let [referer-id (:titan_id params)]
