@@ -2,12 +2,14 @@
   (:require [clj-wt.queue :as queue]
             [crypto.random :refer [url-part]]
             [pre-launch.controllers.receipt :as receipt-controller]
+            [pre-launch.controllers.confirmation-email :as confirmation-controller]
             [pre-launch.model.user :as model]))
 
 
 (defn update-user [{titan_id :__id__ email :email :as payload}]
   (do
     (println "inside update-user. Payload:" payload)
+    (confirmation-controller/deliver-email email titan_id payload)
     (model/set-titan-id email titan_id)
     titan_id))
 
