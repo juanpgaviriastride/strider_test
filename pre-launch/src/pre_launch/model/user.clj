@@ -23,7 +23,7 @@
    (assoc :admin false)
    (assoc :last_login nil)
    (assoc :is_active true)))
-
+ 
 (defn save [user-map]
   (let [user (prepare-save user-map)
         save-response (db/create-user<! user)]
