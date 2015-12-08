@@ -9,7 +9,7 @@
   (mailer/send-email config/auth
                      {:to to
                       :from "team@webtalk.co"
-                      :subject (str "Webtalk | Congratulations! " (:name sender) " has recommended you!")
+                      :subject (str "Congrats! " (:name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/prelaunch_invite.html.mustache"
                              {:to to
@@ -20,9 +20,9 @@
   (println "[debugging bulk-email] the bcc inside mailer is" bcc)
   (mailer/bulk-email config/auth {:bcc bcc
                                   :from "team@webtalk.co"
-                                  :subject (str "Webtalk | Congratulations! " (:name sender) " has recommended you!")
+                                  :subject (str "Congrats! " (:name sender) " has recommended you!")
                                   :html (template/render-resource
                                          "templates/prelaunch_invite.html.mustache"
-                                         {:to "Future Webtalker"
+                                         {:to bcc
                                           :name (:name sender)
                                           :join_url (str config/base-url "/invite/" (:__id__ sender))})}))
