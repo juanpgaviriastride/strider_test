@@ -2,22 +2,23 @@
   (:gen-class)
   (:require [com.netflix.hystrix.core             :as hystrix]
             [com.webtalk.storage.graph.user       :as graph-user]
-            [com.webtalk.storage.persistence.user :as persistence-user]))
+            [com.webtalk.storage.persistence.user :as persistence-user]
+            [taoensso.timbre :refer [debug spy]]))
 
 
 ;; (hystrix/defcommand gcreate-user
 ;;   {:hystrix/fallback-fn (fn [connection payload]
 ;;                           (constantly nil))}
 ;;   [connection payload]
-;;   (println "gcreate-user")
-;;   (println "conn" connection)
-;;   (println "payload" payload)
+;;   (debug "gcreate-user")
+;;   (spy connection)
+;;   (spy payload)
 ;;   (graph-user/create-user! connection payload))
 
 (defn gcreate-user [connection payload]
-  (println "gcreate-user")
-  (println "conn" connection)
-  (println "payload" payload)
+  (debug "gcreate-user")
+  (spy connection)
+  (spy payload)
   (graph-user/create-user! connection payload))
 
 ;; (hystrix/defcommand pcreate-user

@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph    :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges    :as tedge]))
+            [clojurewerkz.titanium.edges    :as tedge]
+            [taoensso.timbre :refer [debug]]))
 
 (defn invitation-hash [payload]
   (into {} (list (remove (fn [[a b]] (nil? b)) payload)
@@ -17,7 +18,7 @@
    refererID is the titan id of the user who is referring the new user and it is optional"
 
   [graph payload]
-  (println payload)
+  (debug payload)
   (tgraph/with-transaction [g graph]
     (let [{email "email" referer-id "refererID"} payload
           invitation-load (invitation-hash {:email email})

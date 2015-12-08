@@ -17,7 +17,8 @@
             [com.webtalk.mailer.request-an-invite :as mailer-request-an-invite]
             [com.webtalk.mailer.prelaunch-request-an-invite :as mailer-prelaunch-request-an-invite]
             [clojurewerkz.titanium.vertices       :as gvertex]
-            [clojurewerkz.titanium.edges          :as gedge]))
+            [clojurewerkz.titanium.edges          :as gedge]
+            [taoensso.timbre :refer [debug spy info]]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def ^:dynamic *system* nil)
@@ -31,10 +32,9 @@
   (dissoc (gedge/to-map edge) :__id__))
 
 (defn get-conn [component]
-  (println "system" *system* (:system *system*))
-  (println "component" component)
-  (println "get-conn" component (get-in *system* [component]))
-  (flush)
+  (debug "system" *system* (:system *system*))
+  (spy component)
+  (debug "get-conn" component (get-in *system* [component]))
   (get-in *system* [component :connection]))
 
 ;;; queue-name com.webtalk.storage.queue.create-entry
@@ -59,7 +59,7 @@
   [load]
   (let [[callback-q payload] load
         [ginvitation ginv-edge] (invitation/gcreate-invitation (get-conn :titan) payload)]
-    (println "invite response" (friendly-invitation ginvitation ginv-edge))
+    (debug "invite response" (friendly-invitation ginvitation ginv-edge))
     (publisher/publish-with-qname (get-conn :rabbit) callback-q (friendly-invitation ginvitation ginv-edge))
     (invitation/pcreate-invitation (get-conn :cassandra) (gvertex/get ginvitation :id) payload)))
 
@@ -68,28 +68,25 @@
   [load]
   (let [[callback-q payload] load
         ginvite (invitation/grequest-an-invite (get-conn :titan) payload)]
-    (println "ginvite" ginvite)
+    (spy ginvite)
 
-    (println "sending email")
-    (if (= (:status ginvite) :new_record)
-      ;;(mailer-request-an-invite/deliver-email (payload "email"))
-      (mailer-prelaunch-request-an-invite/deliver-email (payload "email"))
-      )
+    (when (= (:status ginvite) :new_record)
+      (debug "sending email")
+      (mailer-request-an-invite/deliver-email (payload "email")))
 
-    (println "saving into cass")
-    (if (not= (:status ginvite) :mixmatch_type_record)
+    (when (not= (:status ginvite) :mixmatch_type_record)
+      (debug "saving into cass")
       (invitation/prequest-invitation (get-conn :cassandra) (:__id__ (:vertex ginvite)) payload))))
 
 ;;; queue-name com.webtalk.storage.queue.create-user
 (defn create-user
   [load]
-  (println "create-user")
+  (debug "create-user")
   (let [[callback-q payload] load
         guser (user/gcreate-user (get-conn :titan) payload)]
-    (println "guser that is going to be send to the queue" (gvertex/to-map guser))
-    (flush)
+    (debug "guser that is going to be send to the queue" (gvertex/to-map guser))
     (publisher/publish-with-qname (get-conn :rabbit) callback-q (gvertex/to-map guser))
-    (println "about to save it on cassandra")
+    (debug "about to save it on cassandra")
     (user/pcreate-user (get-conn :cassandra) (gvertex/get guser :id) payload)
     ;; pending create network as we do for titan
     ))
@@ -104,7 +101,7 @@
 
   [connection qname-prefix actions]
   (letfn [(sub-helper [action]
-            (println "starting doall" connection qname-prefix actions)
+            (info "starting doall" connection qname-prefix actions)
             (try
               (doall
               ;; this can use agents to be able to handle errors and things like monitoring and paralelo
@@ -114,7 +111,7 @@
                @(ns-resolve 'com.webtalk.storage action))
               )
               (catch Exception e (str "caught exception: " (.getMessage e) "in" action))))]
-    (println "there isn't null up to " actions)
+    (debug "there isn't null up to " actions)
     (map sub-helper actions)))
 
 (defn start []
@@ -127,14 +124,14 @@
                                                 :password (util/get-rmq-password)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
-  (println *system* (:system *system*))
+  (debug *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.storage.queue"
                                                      ['request-an-invite 'invite])]
-    (println "the rmq-cons-channels-are" rmq-conns-channels)))
+    (info "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
-  (println "init?"))
+  (debug "init?"))
 
 (defn stop []
   ;; Important to close

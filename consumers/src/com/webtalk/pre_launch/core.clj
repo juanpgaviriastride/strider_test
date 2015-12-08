@@ -16,7 +16,8 @@
             [com.webtalk.pre-launch.invite                  :as invite]
             [com.webtalk.pre-launch.computation             :as computation]
             [clojurewerkz.titanium.vertices                 :as gvertex]
-            [clojurewerkz.titanium.edges                    :as gedge]))
+            [clojurewerkz.titanium.edges                    :as gedge]
+            [taoensso.timbre :refer [debug info spy]]))
 
 ;;; The connections can be handle by atoms or agents still not sure on how this multiple queues will share the connection
 (def ^:dynamic *system* nil)
@@ -30,10 +31,9 @@
   (dissoc (gedge/to-map edge) :__id__))
 
 (defn get-conn [component]
-  (println "system" *system* (:system *system*))
-  (println "component" component)
-  (println "get-conn" component (get-in *system* [component]))
-  (flush)
+  (debug "system" *system* (:system *system*))
+  (spy component)
+  (debug "get-conn" component (get-in *system* [component]))
   (get-in *system* [component :connection]))
 
 ;; queue-name com.webtalk.pre-launch.referral-network-detail
@@ -101,10 +101,10 @@
   (let [[_ payload] load
         ginvites (doall (map #(invite/invite! (get-conn :titan) {"email" % "refererID" (payload "refererID")})
                              (payload "emails")))]
-    (println "ginvites" ginvites)
+    (spy ginvites)
 
-    (println "sending email")
-    (println "sender" (first ginvites) (:sender (first ginvites)))
+    (debug "sending email")
+    (debug "sender" (first ginvites) (:sender (first ginvites)))
     (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails"))))
 
 ;; queue-name com.webtalk.pre-launch.invite
@@ -112,9 +112,9 @@
   [load]
   (let [[_ payload] load
         ginvite (invite/invite! (get-conn :titan) payload)]
-    (println "ginvite" ginvite)
+    (spy ginvite)
 
-    (println "sending email")
+    (debug "sending email")
     (mailer-prelaunch-invite/deliver-email (:sender ginvite) (payload "email"))))
 
 
@@ -123,19 +123,19 @@
   [load]
   (let [[callback-q payload] load
         ginvite (req-invite/request-an-invite! (get-conn :titan) payload)]
-    (println "ginvite" ginvite)
+    (spy ginvite)
 
-    (println "sending email")
+    (debug "sending email")
     (if (= (:status ginvite) :new_record)
       (mailer-prelaunch-request-an-invite/deliver-email (payload "email")))))
 
 ;;; queue-name com.webtalk.pre-launch.create-user
 (defn create-user
   [load]
-  (println "create-user")
+  (debug "create-user")
   (let [[callback-q payload] load
         guser (user/create-user! (get-conn :titan) payload)]
-    (println "guser that is going to be send to the queue" guser)
+    (debug "guser that is going to be send to the queue" guser)
     (publisher/publish-with-qname (get-conn :rabbit) callback-q guser)))
 
 (defn setup-queue-and-handlers
@@ -148,14 +148,14 @@
 
   [connection qname-prefix actions]
   (letfn [(sub-helper [action]
-            (println "starting doall" connection qname-prefix actions)
+            (info "starting doall" connection qname-prefix actions)
             (doall
              ;; this can use agents to be able to handle errors and things like monitoring and paralelo
              (queue/subscribe-with-connection
               connection
               (str qname-prefix "." action)
               @(ns-resolve 'com.webtalk.pre-launch.core action))))]
-    (println "there isn't null up to " actions)
+    (debug "there isn't null up to " actions)
     (map sub-helper actions)))
 
 (defn start []
@@ -168,7 +168,7 @@
                                                 :password (util/get-rmq-password)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
-  (println *system* (:system *system*))
+  (debug *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
                                                      ['request-an-invite
@@ -180,10 +180,10 @@
                                                       'joined-prelaunch-count
                                                       'referral-network
                                                       'referral-network-detail])]
-    (println "the rmq-cons-channels-are" rmq-conns-channels)))
+    (info "the rmq-cons-channels-are" rmq-conns-channels)))
 
 (defn init [args]
-  (println "init?"))
+  (info "init?"))
 
 (defn stop []
   ;; Important to close
