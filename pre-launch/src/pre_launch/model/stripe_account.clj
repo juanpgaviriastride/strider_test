@@ -1,5 +1,6 @@
 (ns pre-launch.model.stripe-account
-  (:require [pre-launch.db.core :as db]))
+  (:require [pre-launch.db.core :as db]
+            [taoensso.timbre :refer [debug]]))
 
 
 (defn save-stripe-account [stripe-account]
@@ -9,5 +10,5 @@
 
 (defn stripe-users-count []
   (let [response (db/get-accounts-count)]
-    (println "the stripe users account is" response)
+    (debug "the stripe users account is" response)
     (:total (first response))))

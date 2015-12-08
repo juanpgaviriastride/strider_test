@@ -4,7 +4,8 @@
             [environ.core :refer [env]]
             [sendgrid-java-wrapper.core :as mailer]
             [pre-launch.config-mailer :as config-mailer]
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [taoensso.timbre :refer [debug]])
 
   (:import [java.text.DecimalFormat]))
 
@@ -27,7 +28,7 @@
 (defn deliver-email [email user-id]
   (let [email-agent (agent {:email email :user-id user-id})
         send-fn (fn [{user-id :user-id email :email}]
-                  (println "sending the receipt email...")
+                  (debug "sending the receipt email...")
                   (let [payment-data (get-payment-detail user-id)]
                     (mailer/send-email (config-mailer/auth)
                                        {:to email

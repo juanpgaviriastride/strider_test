@@ -1,8 +1,8 @@
 (ns pre-launch.model.session
-  (:require
-   [pre-launch.db.core :as db]
-   [bcrypt-clj.auth :refer :all]
-   [crypto.random :as crypto-random])
+  (:require [pre-launch.db.core :as db]
+            [bcrypt-clj.auth :refer :all]
+            [crypto.random :as crypto-random]
+            [taoensso.timbre :refer [debug]])
   (:import [java.sql.Date]))
 
 (defn get-password [email]
@@ -10,7 +10,7 @@
 
 (defn validate-password [email password]
   (let [maybe-password (get-password email)]
-    (println "the maybe password is" maybe-password " and the password is " password)
+    (debug "the maybe password is" maybe-password " and the password is " password)
     (if (nil? password)
       false
       (check-password password maybe-password))))
@@ -18,7 +18,7 @@
 (defn create-session [email]
   (let [token (crypto-random/url-part 100)
         insert-result (db/create-session<! {:email email :username "" :token token})]
-    (println "the session has been created!!")
+    (debug "the session has been created!!")
     {:id (:generated_key insert-result)
      :token token
      :email email}))
