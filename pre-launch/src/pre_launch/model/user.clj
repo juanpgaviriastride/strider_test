@@ -23,7 +23,7 @@
    (assoc :admin false)
    (assoc :last_login nil)
    (assoc :is_active true)))
-
+ 
 (defn save [user-map]
   (let [user (prepare-save user-map)
         save-response (db/create-user<! user)]
@@ -37,4 +37,9 @@
 
 (defn user-count [email]
   (:total (first (db/user-count {:email email}))))
+
+(defn email-by-titan [titan-id]
+  (let [db-result (db/get-email-by-titan {:titan_id titan-id})]
+    (println "[------DEBUG EMAIL BY TITAN: The response from database is] " db-result)
+    (first db-result)))
 

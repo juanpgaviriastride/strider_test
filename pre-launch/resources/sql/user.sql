@@ -62,3 +62,8 @@ SELECT count(email) AS total FROM users WHERE email = :email
 UPDATE users
 SET password = :password
 WHERE id = :id
+
+
+--name: get-email-by-titan
+--gets an email based on the titan-id
+SELECT email, name FROM users WHERE titan_id = :titan_id
