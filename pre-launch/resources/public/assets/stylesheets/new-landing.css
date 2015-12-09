@@ -11725,6 +11725,10 @@ html, body {
     .wrapper {
       padding: 0; } }
 
+/* line 15, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/core/_layout.scss */
+.alert {
+  display: block; }
+
 /* line 1, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_top-section.scss */
 .top-section {
   background: url("../images/new-landing/backgrounds/bg-topsection.png");
@@ -11871,7 +11875,7 @@ html, body {
       margin-top: -30px; }
       /* line 132, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_top-section.scss */
       .top-section__title--404 small {
-        font-size: 50px; } }
+        font-size: 100px; } }
 
 /* line 138, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_top-section.scss */
 .top-section__text {
@@ -12002,11 +12006,13 @@ html, body {
   font-size: 14px;
   font-weight: 700;
   margin-right: -101px;
+  min-width: 215px;
   padding: 5px;
   position: absolute;
   right: 0;
+  text-align: center;
   top: -55px; }
-  /* line 52, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_launch-box.scss */
+  /* line 54, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_launch-box.scss */
   .launch-bar__tooltip:before {
     content: "";
     height: 0;
@@ -12129,7 +12135,7 @@ html, body {
   @media only screen and (min-width: 800px) {
     /* line 100, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
     .block-section--video {
-      padding: 180px 0 175px; } }
+      padding: 180px 0 65px; } }
 
 /* line 109, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-section--slider {
@@ -12151,60 +12157,64 @@ html, body {
   color: #4f5d73; }
 
 /* line 129, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+.block-section__img {
+  margin: 20px 0 25px; }
+
+/* line 133, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-icon {
   border-radius: 3px;
   padding: 20px 15px;
   text-align: center;
   transition: background 0.5s ease;
   width: 100%; }
-  /* line 135, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+  /* line 139, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
   .block-icon:hover {
     background: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-decoration: blink; }
 
-/* line 142, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+/* line 146, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-icon__img {
   margin-bottom: 20px;
   position: relative; }
-  /* line 146, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+  /* line 150, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
   .block-icon__img .waves-parent__son:before {
     display: block; }
     @media only screen and (min-width: 500px) {
-      /* line 146, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+      /* line 150, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
       .block-icon__img .waves-parent__son:before {
         display: none; } }
-  /* line 152, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+  /* line 156, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
   .block-icon__img .waves-parent__son:after {
     display: block; }
     @media only screen and (min-width: 500px) {
-      /* line 152, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+      /* line 156, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
       .block-icon__img .waves-parent__son:after {
         display: none; } }
 
-/* line 161, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+/* line 165, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-icon__title {
   color: #0aa1d8;
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 5px; }
 
-/* line 168, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+/* line 172, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-icon__subtitle {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 5px; }
 
-/* line 174, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+/* line 178, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-icon__text {
   color: #a0a6b1;
   font-size: 14px;
   font-weight: 600; }
 
-/* line 180, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+/* line 184, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
 .block-arrow {
   position: relative; }
-  /* line 182, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
+  /* line 186, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_block-section.scss */
   .block-arrow:before {
     bottom: -35px;
     content: '';
@@ -12813,7 +12823,7 @@ html, body {
 
 /* line 20, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_lockin-box.scss */
 .lockin__footer {
-  font-size: #8fa3ad;
+  color: #8fa3ad;
   padding: 30px 0;
   text-align: center; }
   /* line 24, /Users/davidalzate/Repos/crowdfunding-markup/source/assets/stylesheets/new-landing/modules/_lockin-box.scss */

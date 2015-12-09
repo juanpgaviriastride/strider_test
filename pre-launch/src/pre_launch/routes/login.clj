@@ -8,14 +8,15 @@
             [pre-launch.integration.stripe :as stripe]
             [buddy.auth :refer [authenticated?]]
             [ring.util.response :refer [response redirect]]
+            [taoensso.timbre :refer [spy]]
             ring.middleware.session))
 
 (defn check-password [email passw]
   (let [valid-password (session/validate-password email passw)]
-    (println "valid-password" valid-password)
+    (spy valid-password)
     (if valid-password 
       (let [user (user/get email)]
-        (println "the user I found is" user)
+        (spy  user)
         user))))
 
 (defn login! [{{email :email passw :password} :params

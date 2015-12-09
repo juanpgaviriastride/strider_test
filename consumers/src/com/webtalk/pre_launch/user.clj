@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [clojurewerkz.titanium.graph :as tgraph]
             [clojurewerkz.titanium.vertices :as tvertex]
-            [clojurewerkz.titanium.edges :as tedge]))
+            [clojurewerkz.titanium.edges :as tedge]
+            [taoensso.timbre :refer [spy debug]]))
 
 (defn user-hash [payload]
   (into {}  (list (remove (fn [[a b]] (nil? b)) payload)
@@ -19,7 +20,7 @@
                                 \"refererID\" 234})"
 
   [graph payload]
-  (println "create-user! graph" graph "payload" payload)
+  (debug "create-user! graph" graph "payload" payload)
   (tgraph/with-transaction [g graph]
     (let [{email "email" referer-id "refererID"} payload
           referer (when referer-id
@@ -29,6 +30,6 @@
                           [(tvertex/create! g (user-hash payload)) :new])]
       (when (and (= status :new) referer)
         (tedge/upconnect! g user "refered_by" referer {:time (System/currentTimeMillis)}))
-      (println "user" user)
-      (println "referer" referer)
+      (spy user)
+      (spy referer)
       (tvertex/to-map user))))

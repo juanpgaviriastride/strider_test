@@ -1,5 +1,5 @@
 (ns pre-launch.controllers.confirmation-email
-  (:require [pre-launch.model.receipt :as model]
+  (:require 
             [selmer.parser :as parser]
             [environ.core :refer [env]]
             [sendgrid-java-wrapper.core :as mailer]
@@ -7,6 +7,10 @@
             [clojure.data.json :as json]))
 
 
+(defn notify-referer [referer-titan-id refered-name]
+  
+
+  )
 
 (defn confirmation-data [data]
   (assoc data :base-url (config-mailer/root-url)))

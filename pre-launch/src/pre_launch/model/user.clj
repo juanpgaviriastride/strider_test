@@ -1,7 +1,7 @@
 (ns pre-launch.model.user
-  (:require
-   [pre-launch.db.core :as db]
-   [bcrypt-clj.auth :refer :all])
+  (:require [pre-launch.db.core :as db]
+            [bcrypt-clj.auth :refer :all]
+            [taoensso.timbre :refer [debug]])
   (:import [java.sql.Date]))
 
 (defn get [email]
@@ -23,11 +23,11 @@
    (assoc :admin false)
    (assoc :last_login nil)
    (assoc :is_active true)))
-
+ 
 (defn save [user-map]
   (let [user (prepare-save user-map)
         save-response (db/create-user<! user)]
-    (println "[debugging create user] the save object in model is" user)
+    (debug"create user the save object in model is" user)
     (assoc user-map :id (:generated_key save-response))))
 
 
@@ -37,4 +37,9 @@
 
 (defn user-count [email]
   (:total (first (db/user-count {:email email}))))
+
+(defn email-by-titan [titan-id]
+  (let [db-result (db/get-email-by-titan {:titan_id titan-id})]
+    (println "[------DEBUG EMAIL BY TITAN: The response from database is] " db-result)
+    (first db-result)))
 

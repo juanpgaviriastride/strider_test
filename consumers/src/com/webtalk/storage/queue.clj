@@ -6,19 +6,20 @@
             [com.webtalk.storage.queue.consumer :as consumer]
             [com.webtalk.storage.queue.config   :as config]
             [langohr.basic                      :as lb]
-            [com.stuartsierra.component         :as component]))
+            [com.stuartsierra.component         :as component]
+            [taoensso.timbre :refer [info spy debug]]))
 
 (def ^{:const true}
   default-exchange-name "")
 
 (defn subscribe-with-connection [connection qname message-handler]
-  (println "Getting ready to setup" qname)
+  (debug "Getting ready to setup" qname)
   (let [channel    (lch/open connection)]
-    (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
+    (info (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (lq/declare channel qname {:durable true :auto-delete false :exclusive false})
-    (println "creating consumer" message-handler)
+    (debug "creating consumer" message-handler)
     (consumer/subscribe channel qname message-handler {:auto-ack true})
-    (println "subscribed" message-handler)
+    (debug "subscribed" message-handler)
     [channel]))
 
 (defn shutdown [ch]

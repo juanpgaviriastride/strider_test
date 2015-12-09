@@ -8,5 +8,5 @@
   (mailer/send-email config/auth
                      {:to to
                       :from "team@webtalk.co"
-                      :subject "Thank you for joining the wait list"
+                      :subject "Waitlist Confirmation"
                       :html (slurp (io/resource "templates/request_an_invite.html"))}))

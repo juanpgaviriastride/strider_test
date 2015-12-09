@@ -12,7 +12,7 @@
                  ;; [clojurewerkz/mailer "1.2.0"]
                  ;; [clojurewerkz/serialism "1.3.0"]
                  [org.clojure/data.json "0.2.5"]
-                 ;; [com.taoensso/timbre "3.4.0"]
+                 [com.taoensso/timbre "4.1.4"]
                  [com.novemberain/langohr "3.1.0"]
                  ;; [com.novemberain/validateur "2.4.2"]
                  [com.netflix.hystrix/hystrix-clj "1.4.1"]
