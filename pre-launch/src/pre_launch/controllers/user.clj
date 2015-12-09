@@ -12,7 +12,6 @@
   (debug "inside update-user")
   (spy payload)
   (do
-    (println "inside update-user. Payload:" payload)
     (confirmation-controller/deliver-email email titan_id payload)
     (model/set-titan-id email titan_id)
     titan_id))
