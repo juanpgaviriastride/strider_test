@@ -25,7 +25,7 @@
     <link href='assets/images/favicon.png' rel='shortcut icon'>
     <link href='assets/images/favicon.ico' rel='icon' type='image/ico'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link href="assets/stylesheets/new-landing.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="assets/stylesheets/new-landing-973ec786.css" rel="stylesheet" type="text/css" media="all" />
     
     <!--[if (gte IE 6)&(lte IE 8)]>
       
@@ -37,18 +37,18 @@
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
   </head>
-  {% if success %}
-  <div class='alert success'>
-    <p>You successfully joined the waiting list. We'll contact you!</p>
-    <a class='close js-close-alert' href='javascript:;'>
-      <i class='icon icon-close'></i>
-    </a>
-  </div>
-  {% endif %}
   <body class='page'>
     <div class='main-wrapper'>
       <div class='main-content'>
         <div class='main-container'>
+          {% if success %}
+          <div class='alert success'>
+            <p>You successfully joined the waiting list. We'll contact you!</p>
+            <a class='close js-close-alert' href='javascript:;'>
+              <i class='icon icon-close'></i>
+            </a>
+          </div>
+          {% endif %}
           <div class='top-section'>
             <div class='wrapper'>
               <div class='top-section__top'>
@@ -82,7 +82,7 @@
                   </div><div class='grid__item one-whole palm--seven-twelfths'>
                     <div class='btn-play-container'>
                       <div class='btn-play__wrapper'>
-                        <img src="assets/images/new-landing/device.png" />
+                        <img src="assets/images/new-landing/device-5d0554c2.png" />
                         <a class='btn-play waves-parent__son' data-target='#modal-video' data-toggle='modal' href='javascript:;'></a>
                       </div>
                     </div>
@@ -145,7 +145,7 @@
                         <span class='orange'>LATER</span>
                       </h3>
                       <div class='join-box__icon'>
-                        <img src="assets/images/new-landing/clock.png" />
+                        <img src="assets/images/new-landing/clock-f45226b7.png" />
                       </div>
                       <p class='join-box__icon-text push-double--bottom'>
                         Join the Waitlist:
@@ -154,7 +154,7 @@
                     </div>
                     <div class='invitation-box'>
                       <p class='invitation-box__text'>Enter your email and we will send you an invitation when Webtalk launches</p>
-                      <form action='/request-invitation' class='js-email-validation'  method="post">
+                      <form action='/request-invitation' class='js-email-validation' method='post'>
                         {% csrf-field %}
                         <div class='grid grid--narrow push--bottom'><div class='grid__item one-whole lap--four-fifths'>
                             <input class='input--text required' name='email' placeholder='Your Email Address' type='email'>
@@ -181,7 +181,7 @@
                         <span class='blue'>NOW</span>
                       </h3>
                       <div class='join-box__icon'>
-                        <img src="assets/images/new-landing/launch.png" />
+                        <img src="assets/images/new-landing/launch-3022c688.png" />
                       </div>
                       <p class='join-box__icon-text push--bottom'>
                         Join the Pre-Launch:
@@ -193,7 +193,7 @@
                         <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
                           <div class='block-icon__img'>
                             <div class='waves-parent__son'>
-                              <img src="assets/images/new-landing/pc.png" />
+                              <img src="assets/images/new-landing/pc-9bc622df.png" />
                             </div>
                           </div>
                           <h2 class='block-icon__title'>iMeet</h2>
@@ -204,7 +204,7 @@
                         <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
                           <div class='block-icon__img'>
                             <div class='waves-parent__son'>
-                              <img src="assets/images/new-landing/pro.png" />
+                              <img src="assets/images/new-landing/pro-594036b3.png" />
                             </div>
                           </div>
                           <h2 class='block-icon__title'>Webtalk PRO</h2>
@@ -214,7 +214,7 @@
                       </div><div class='grid__item one-whole palm--one-third'>
                         <a class='block-icon' data-target='#modal-services' data-toggle='modal' href='javascript:;'>
                           <div class='block-icon__img'>
-                            <img src="assets/images/new-landing/phone.png" />
+                            <img src="assets/images/new-landing/phone-9e63584d.png" />
                           </div>
                           <h2 class='block-icon__title'>Premium</h2>
                           <h3 class='block-icon__subtitle'>Chat/Phone Support</h3>
@@ -230,7 +230,7 @@
               <div class='grid'><div class='grid__item lap--one-half one-whole'>
                   <div class='media media--badge'>
                     <div class='media__img'>
-                      <img src="assets/images/new-landing/badge.png" />
+                      <img src="assets/images/new-landing/badge-6d103ac1.png" />
                     </div>
                     <div class='media__body'>
                       <h2 class='media--badge__title'>Join the PreLaunch 100% Risk-Free!</h2>
@@ -255,7 +255,7 @@
             <div class='wrapper'>
               <div class='launch-section text--center box--white'>
                 <div class='block-section__img'>
-                  <img src="assets/images/new-landing/dollar-img.png" />
+                  <img src="assets/images/new-landing/dollar-img-05deb0b2.png" />
                 </div>
                 <h2 class='block-section__title text--uppercase'>PRE-LAUNCH REFERRAL REWARDS</h2>
                 <p class='launch-section__text launch__text-wrapper'>
@@ -285,55 +285,55 @@
                 <div class='grid__item lap--one-half one-whole'>
                   <div class='js-service-slider-images service-slider-images'>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/networks.png" />
+                      <img src="assets/images/new-landing/networks-13e25c73.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/contacts.png" />
+                      <img src="assets/images/new-landing/contacts-7a862a1c.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/mac-iphone.png" />
+                      <img src="assets/images/new-landing/mac-iphone-c9efda4c.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/newsfeed.png" />
+                      <img src="assets/images/new-landing/newsfeed-55190df6.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/files.png" />
+                      <img src="assets/images/new-landing/files-68e4c419.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/photos.png" />
+                      <img src="assets/images/new-landing/photos-ab37a78e.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/videos.png" />
+                      <img src="assets/images/new-landing/videos-50b1b382.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/chat.png" />
+                      <img src="assets/images/new-landing/chat-6e424222.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/search.png" />
+                      <img src="assets/images/new-landing/search-25033057.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/pages.png" />
+                      <img src="assets/images/new-landing/pages-2467de57.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/pro-img.png" />
+                      <img src="assets/images/new-landing/pro-img-8b7383c0.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/imeet.png" />
+                      <img src="assets/images/new-landing/imeet-d9412283.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/socialcpx.png" />
+                      <img src="assets/images/new-landing/socialcpx-57cf9747.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/dashboard.png" />
+                      <img src="assets/images/new-landing/dashboard-1de5174b.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/advertiser.png" />
+                      <img src="assets/images/new-landing/advertiser-fe6f153a.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/store.png" />
+                      <img src="assets/images/new-landing/store-f5d69e7e.png" />
                     </div>
                     <div class='service-slider-images__item'>
-                      <img src="assets/images/new-landing/help-desk.png" />
+                      <img src="assets/images/new-landing/help-desk-f8df1af1.png" />
                     </div>
                   </div>
                 </div><div class='grid__item lap--one-half one-whole'>
@@ -469,10 +469,10 @@
                     <div class='grid'><div class='grid__item one-whole lap--three-tenths'>
                         <div class='block-image-wrapper'>
                           <div class='block-image'>
-                            <img src="assets/images/new-landing/ourteam1.png" />
+                            <img src="assets/images/new-landing/ourteam1-b523734b.png" />
                           </div>
                           <div class='block-image'>
-                            <img src="assets/images/new-landing/ourteam2.png" />
+                            <img src="assets/images/new-landing/ourteam2-c56ba80a.png" />
                           </div>
                         </div>
                       </div><div class='grid__item one-whole lap--seven-tenths'>
@@ -504,7 +504,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-1.png" />
+                              <img src="assets/images/new-landing/profile-1-08ba84f8.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>RJ Garbowicz</h3>
@@ -529,7 +529,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-8.png" />
+                              <img src="assets/images/new-landing/profile-8-96c72f3b.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Joshua Sams</h3>
@@ -549,7 +549,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-3.png" />
+                              <img src="assets/images/new-landing/profile-3-bf1b52ea.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Jeff Catherell</h3>
@@ -579,7 +579,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-4.png" />
+                              <img src="assets/images/new-landing/profile-4-793302a6.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Jason Caras</h3>
@@ -599,7 +599,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-2.png" />
+                              <img src="assets/images/new-landing/profile-2-c2f9087d.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>John Miles</h3>
@@ -620,7 +620,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-5.png" />
+                              <img src="assets/images/new-landing/profile-5-409eb080.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Jennifer Garbowicz</h3>
@@ -641,7 +641,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-6.png" />
+                              <img src="assets/images/new-landing/profile-6-b956c833.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Kevin Harrington</h3>
@@ -660,7 +660,7 @@
                         <div class='team-box'>
                           <div class='media team-box__media'>
                             <div class='media__img'>
-                              <img src="assets/images/new-landing/profile-7.png" />
+                              <img src="assets/images/new-landing/profile-7-d55b8a8a.png" />
                             </div>
                             <div class='media__body'>
                               <h3 class='team-box__media-title'>Joy Randels</h3>
@@ -685,7 +685,7 @@
           </div>
           <div class='block-section block-section--tall block-section--video'>
             <div class='fullscreen-bg'>
-              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='assets/images/new-landing/backgrounds/bg-video.png'>
+              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='assets/images/new-landing/backgrounds/bg-video-053264d8.png'>
                 <source src='assets/images/space-video.webm' type='video/webm'>
                   <source src='assets/images/space-video.mp4' type='video/mp4'>
                     <source src='assets/images/space-video.ogg' type='video/ogg'>
@@ -696,7 +696,7 @@
             <div class='wrapper'>
               <div class='lockin-box'>
                 <div class='lockin-box__img'>
-                  <img src="assets/images/new-landing/launch.png" />
+                  <img src="assets/images/new-landing/launch-3022c688.png" />
                 </div>
                 <h2 class='block-section__title launch-section__title text--uppercase'>JOIN THE PRE-LAUNCH</h2>
                 <ul class='launch-section__list-circle'>
@@ -714,7 +714,7 @@
                   </li>
                   <li class='media'>
                     <i class='icon icon-check-circle media__img'></i>
-                    <span class='media__body'>Earn $10 per referral through 5 referrals levels*</span>
+                    <span class='media__body'>Earn $10 per referral through 5 referral levels*</span>
                   </li>
                   <li class='media'>
                     <i class='icon icon-check-circle media__img'></i>
@@ -793,7 +793,7 @@
                       Join the PreLaunch Now!
                       <b>100% Risk-Free!</b>
                     </span>
-                    <a class='btn btn btn--default text--uppercase js-scrollTo' data-dismiss='modal' data-scrollto='#pricing-section' href='/signup'>
+                    <a class='btn btn btn--default text--uppercase js-scrollTo' data-dismiss='modal' data-scrollto='#pricing-section' href='#'>
                       <span>Join The Pre-Launch Now</span>
                     </a>
                   </div>
@@ -1119,9 +1119,9 @@
         </div>
       </div>
     </div>
-    <script src="assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
+    <script src="assets/javascripts/vendors/jquery-ecf33322.js" type="text/javascript"></script>
     
-    <script src="assets/javascripts/new-landing.js" type="text/javascript"></script>
+    <script src="assets/javascripts/new-landing-9de3e9c8.js" type="text/javascript"></script>
     <script async='' defer='defer' src='https://apis.google.com/js/platform.js'></script>
   </body>
 </html>
