@@ -3,14 +3,16 @@
             [crypto.random :refer [url-part]]
             [pre-launch.controllers.referal-notification :as referal-controller]
             [pre-launch.controllers.receipt :as receipt-controller]
-            [pre-launch.model.user :as model]
-            [taoensso.timbre :refer [debug spy]]))
+            [pre-launch.controllers.confirmation-email :as confirmation-controller]
+	    [taoensso.timbre :refer [debug spy]]
+            [pre-launch.model.user :as model]))
 
 
 (defn update-user [{titan_id :__id__ email :email :as payload}]
   (debug "inside update-user")
   (spy payload)
   (do
+    (confirmation-controller/deliver-email email titan_id payload)
     (model/set-titan-id email titan_id)
     titan_id))
 
