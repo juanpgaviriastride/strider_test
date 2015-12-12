@@ -13,7 +13,7 @@
             ring.middleware.session))
 
 (defn create-customer! [request session]
-  (debug "inside create stripe-customer and the info sent is" (receipt-model/get-payment-detail 1))
+  (debug "inside create stripe-customer and the info sent is" request)
   (let [payload (json/read-str (request :payload))
         user-response (controller/create-customer! (payload "id") (payload "email"))]
     (-> (response user-response)
