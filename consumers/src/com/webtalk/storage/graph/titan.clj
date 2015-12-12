@@ -9,19 +9,20 @@
   (start [component]
     (info "Starting titan")
     (if (= nil connection)
-      (let [conn (t/open {"storage.backend" backend
-                          "storage.hostname" hosts
-                          ;; "graph-name" "graph"
+      (let [config {"storage.backend" backend
+                    "storage.hostname" hosts
+                    ;; "graph-name" "graph"
 
-                          ;; "index.search.backend" "elasticsearch"
-                          ;; "index.search.hostname" "192.168.50.4"
-                          ;; "index.search.client-only" "true"
-                          ;; "index.search.cluster-name" "webtalk"
-                          ;; "index.search.local-mode" "false"
-                          ;; "index.search.sniff" "false"
-                          ;; "storage.keyspace" "titan"
-                          ;; "graph" "graph"
-                          })]
+                    ;; "index.search.backend" "elasticsearch"
+                    ;; "index.search.hostname" "192.168.50.4"
+                    ;; "index.search.client-only" "true"
+                    ;; "index.search.cluster-name" "webtalk"
+                    ;; "index.search.local-mode" "false"
+                    ;; "index.search.sniff" "false"
+                    ;; "storage.keyspace" "titan"
+                    ;; "graph" "graph"
+                    }
+            conn (t/open config)]
         (assoc component :connection conn))
       component))
 
