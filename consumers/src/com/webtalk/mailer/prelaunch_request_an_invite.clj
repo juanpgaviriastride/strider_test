@@ -10,7 +10,7 @@
                      {:to to
                       :from "team@webtalk.co"
                       :subject "Waitlist Confirmation"
-                      :html (slurp (io/resource "templates/prelaunch_request_an_invite.html")
-                        {:to to
-                              :name (:name sender)
+                      :html (template/render-resource
+                             "templates/prelaunch_request_an_invite.html.mustache"
+                             {:to to
                               :join_url (str config/base-url)})}))
