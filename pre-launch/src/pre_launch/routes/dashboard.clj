@@ -1,6 +1,7 @@
 (ns pre-launch.routes.dashboard
   (:require [pre-launch.layout :as layout]
             [compojure.core :refer [defroutes GET POST]]
+            [pre-launch.config-mailer :as config-mailer]
             [ring.util.http-response :refer [ok]]
             [pre-launch.controllers.dashboard :as controller]
             [ring.util.response :refer [response]]
@@ -11,7 +12,8 @@
 (defn prepare-response [titan-id user-name]
   {:name user-name
    :titan-id titan-id
-   :network-table (controller/get-referral-network titan-id)})
+   :network-table (controller/get-referral-network titan-id)
+   :join_url (str (config-mailer/root-url) "/invite/" titan-id)})
 
 
 (defn dashboard [params session]
