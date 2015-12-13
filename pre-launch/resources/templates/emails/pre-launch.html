@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Waitlist</title>
+	<title>Prelaunch</title>
 	<style type="text/css">
 		/***********
 		Originally based on The MailChimp Reset from Fabio Carneiro, MailChimp User Experience Design
@@ -129,6 +129,7 @@
 		/* end Android targeting */
 		
 		
+		
 	</style>
 
 	<!-- Targeting Windows Mobile -->
@@ -149,14 +150,14 @@
 	</style>
 	<![endif]-->
 </head>
-<body class="background-color: #EEEFF1;">
+<body class="background-color: #EEEFF1;"> 
 	<!-- Wrapper/Container Table: Use a wrapper table to control the width and the background color consistently of your email. Use this approach instead of setting attributes on the body tag. -->
 	<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" width="100%" style="width:100%; height: 100%; font-family: 'Open Sans', sans-serif;background-color: #EEEFF1;color: #667586;font-weight: 400; ">
 	<tr>
 		<td>
 			<table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; background: #3d485a; height: 67.5px;">
-				<tr>
-					<td valign="center" style="text-align:center; color:#FFF; font-family: 'webtalk'; font-size: 24px; ">
+				<tr style="width:100%;">
+					<td valign="center" style="width: 100%; text-align:center; color:#FFF; font-family: 'webtalk'; font-size: 24px; ">
 						<img style="width: 120px;" src="http://s30.postimg.org/y7vjwonup/logo_email.png" />
 					</td>
 				</tr>
@@ -166,45 +167,91 @@
 			
 			<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px;">
 				<tr>
-					<td background="http://fotos.subefotos.com/bcf547daa51f7a62372edcf234b31143o.png" style="background-size: contain; background-repeat: no-repeat;height: 183px; width: 100%;text-align: center;" valign="center">
-						<h1 style="color: white;font-weight: normal;font-size: 28px;">YOU MADE IT TO THE WAITLIST!</h1>
+					<td background="http://fotos.subefotos.com/890a90b18206031748972d5582335ce0o.png" style="background-size: contain; background-repeat: no-repeat;height: 163px; width: 100%;text-align: center;" valign="center">
+						<h1 style="color: white;font-weight: normal;font-size: 28px;">WELCOME TO WEBTALK PRE-LAUNCH</h1>
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 14px; color: #667586; padding:20px 50px;">
-						<p>Hi,</p>
+						<p>Hi <b>{{name}}</b></p>
 						
-						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter;">Thank you! You have been added to Webtalk's Waitlist. You will be one of the people to know when Webtalk goes live so stay tuned!</p>
-						<p style="padding-top:20px; font-weight: bold;">
-							INTERESTED IN BUILDING YOUR REFERRAL NETWORK NOW?
-						</p>
-						<p style="padding-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;">
-							If ever you change your mind and would like to signup as a pre-launch user, you can do so by clicking this button:
-						</p>
-						<p style="padding-top:40px; text-align: center;">
-							<a href="http://strider.webtalk.nullindustries.co:3000/" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 70px; font-size: 20px; background:#05a4dc; width: 390px; text-decoration:none; ">Signup for Pre-launch</a>
-						</p>
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">Congrats! You have successfully purchased <b>$100</b> worth of Webtalk Credits* and joined Webtalk Pre-launch! You can now start sending invites and build your referral network!</p>
 						
-						<p style="padding-top:40px;font-style: normal;font-variant: normal;font-weight: lighter;">
-							As a Pre-Launch user, you can invite an unlimited amount of people and start building your referral network now.
+						
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">Here are your details for your future reference:</p>
+						
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
+							<b>Your Personal Referral Link:</b>
+							<a href="#" style="text-decoration: none; color: #0095BA; display:block;">{{base-url}}/invite/{{__id__}}</a>
+							
 						</p>
 						
-						<p style="padding-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;">
-							If you have any questions please don't hesitate to contact us anytime.
-We are here to help!
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
+							<b>Your Login</b>
+							<a href="#" style="text-decoration: none; color: #0095BA; display:block;">{{email}}</a>
 						</p>
 						
 					</td>
 				</tr>
 			</table>
 			
+			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="34" alt=""></td></tr></table>
+			
+			
+			<table align="center" style="width: 600px; border-radius: 2px;" cellpadding="0" cellspacing="0">
+				
+				<tr>
+					<td background="http://s15.postimg.org/hdvolmgbb/back_white.png" align="center" style="background-repeat:repeat-x; background-position:bottom;">
+					<div style="background: #05a4dc; width: 80px;height: 80px;border-radius: 50%;">
+							<img src="http://s18.postimg.org/kx4e0siat/icon_email.png" style="width: 32px;padding-top: 30px;">
+						</div>
+					
+					</td>
+				</tr>
+				
+				<tr style="background: #FFFFFF; ">
+					<td align="center" style="font-size: 14px; color: #667586; padding:20px 50px; text-align:center;">
+					
+						<h2 style="margin-top: 10px; color: #667586;font-weight: normal;font-size: 25px;">Start Building Your Referral Network Now!</h2>
+						
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
+							As a pre-launch user, you can invite <b>UNLIMITED</b> number of people to be a part of your network! Start inviting people you know and start building your referral network ahead of everyone else!
+						</p>
+						
+						<p style="padding:40px 0px; text-align: center;">
+							<a href="{{base-url}}/signin" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 70px; font-size: 20px; background:#05a4dc; width: 390px; text-decoration:none;">Start Sending Invites</a>
+						</p>
+						
+					</td>
+				</tr>
+			</table>
+			
+			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
-			<table align="center" style="text-align: center; width:600px;">
+			<table align="center" style="text-align: center; width:600px; margin: 0px auto;">
 				<td style="color: #667586;">
-						<p style="font-size: 11px; margin-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;">
+						
+						<p style="font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;font-size: 11px;">
+							* You should receive a separate email enclosing the receipt of your purchase.
+						</p>
+						
+						<p style="font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;font-size: 12px;">
+							If you failed to receive the email, please 
+							<a style="text-decoration: none; color: #0095BA;" href="#">contact us</a>
+							.
+						</p>
+					</td>
+			</table>
+			
+			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
+			
+			<table align="center" style="text-align: center; width:600px; margin: 0px auto;">
+				<td style="color: #667586;">
+						
+						<p style="font-size: 11px;font-style: normal;font-variant: normal;font-weight: lighter;">
 							Having trouble viewing this email? 
-							<a href="#" style=" text-decoration: none; color: #0095BA; ">View email in browser</a>
+							<a href="#" style="text-decoration: none; color: #0095BA;">View email in browser</a>
 						</p>
 						
 						<p style="font-size:11px;">
@@ -213,7 +260,10 @@ We are here to help!
 						</p>
 					</td>
 			</table>
-		</td> 
+			
+			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
+			
+		</td>
 	</tr>
 	</table>
 	<!-- End of wrapper table -->

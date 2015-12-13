@@ -5,7 +5,7 @@
    :implements [org.apache.commons.daemon.Daemon])
 
   (:require [com.stuartsierra.component                     :as component]
-            [com.webtalk.system                             :as sys]
+            [com.webtalk.pre-launch.system                             :as sys]
             [com.webtalk.util                               :as util]
             [com.webtalk.storage.queue                      :as queue]
             [com.webtalk.storage.queue.publisher            :as publisher]
@@ -161,9 +161,7 @@
 (defn start []
   (alter-var-root #'*system*
                   (constantly
-                   (sys/new-system {:cassandra {:hosts (util/get-cass-hosts)
-                                                :keyspace (util/get-cass-keyspace)}
-                                    :rabbit    {:host  (util/get-rmq-host)
+                   (sys/new-system {:rabbit    {:host  (util/get-rmq-host)
                                                 :username (util/get-rmq-username)
                                                 :password (util/get-rmq-password)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))

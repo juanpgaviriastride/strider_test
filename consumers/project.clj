@@ -27,7 +27,7 @@
                  [crypto-random "1.2.0"]
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [com.stuartsierra/component "0.2.3"]]
-  :main ^:skip-aot com.webtalk.storage
+  :main ^:skip-aot com.webtalk.pre-launch.core
   :aot [com.webtalk.storage com.webtalk.pre-launch.core]
   :target-path "target/%s"
   :resource-paths ["resources"]

@@ -5,4 +5,4 @@
 (def auth {:api_user (or (env :sengrid-username) "sarcilav")
            :api_key  (or (env :sengrid-key) "P@wU8Z#wGHAZ^n")})
 
-(def base-url (or (env :base-url) "staging.webtalk.co"))
+(def base-url (or (env :root-url) "http://wtwebthor-env.elasticbeanstalk.com"))
