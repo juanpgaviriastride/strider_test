@@ -8,7 +8,7 @@
 (defn deliver-email [sender token to]
   (mailer/send-email config/auth
                      {:to to
-                      :from "team@webtalk.co"
+                      :from "no_reply@webtalk.co"
                       :subject (str "Congrats! " (:full_name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/invite.html.mustache"

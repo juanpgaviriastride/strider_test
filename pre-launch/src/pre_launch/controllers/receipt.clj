@@ -32,7 +32,7 @@
                   (let [payment-data (get-payment-detail user-id)]
                     (mailer/send-email (config-mailer/auth)
                                        {:to email
-                                        :from "team@webtalk.co"
+                                        :from "no_reply@webtalk.co"
                                         :subject "Your Credits Purchase Receipt"
                                         :html (parser/render-file
                                                "emails/payment-confirmation.html"

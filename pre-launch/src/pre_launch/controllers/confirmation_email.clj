@@ -23,7 +23,7 @@
                   (let [confirm-data (confirmation-data payload)]
                     (mailer/send-email (config-mailer/auth)
                                        {:to email
-                                        :from "team@webtalk.co"
+                                        :from "no_reply@webtalk.co"
                                         :subject "Welcome & Thank You!"
                                         :html (parser/render-file
                                                "emails/pre-launch.html"
