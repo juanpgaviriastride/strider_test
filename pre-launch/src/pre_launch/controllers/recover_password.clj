@@ -42,7 +42,7 @@
                    (debug "sending the recover password email")
                    (mailer/send-email (config-mailer/auth)
                                       {:to user-email
-                                       :from "team@webtalk.co"
+                                       :from "no_reply@webtalk.co"
                                        :subject "Reset Password Request"
                                        :html (parser/render-file
                                               "emails/recover-password.html"

@@ -8,7 +8,7 @@
 (defn deliver-email [sender to]
   (mailer/send-email config/auth
                      {:to to
-                      :from "team@webtalk.co"
+                      :from "no_reply@webtalk.co"
                       :subject (str "Congrats! " (:name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/prelaunch_invite.html.mustache"
@@ -18,7 +18,7 @@
 
 (defn bulk-email [sender bcc]
   (mailer/bulk-email config/auth {:bcc bcc
-                                  :from "team@webtalk.co"
+                                  :from "no_reply@webtalk.co"
                                   :subject (str "Congrats! " (:name sender) " has recommended you!")
                                   :html (template/render-resource
                                          "templates/prelaunch_invite.html.mustache"

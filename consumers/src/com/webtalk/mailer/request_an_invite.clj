@@ -7,6 +7,6 @@
 (defn deliver-email [to]
   (mailer/send-email config/auth
                      {:to to
-                      :from "team@webtalk.co"
+                      :from "no_reply@webtalk.co"
                       :subject "Waitlist Confirmation"
                       :html (slurp (io/resource "templates/request_an_invite.html"))}))

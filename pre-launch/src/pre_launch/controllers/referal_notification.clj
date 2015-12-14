@@ -15,7 +15,7 @@
         send-fn (fn [{email :email}]
                   (mailer/send-email (config-mailer/auth)
                                        {:to email
-                                        :from "team@webtalk.co"
+                                        :from "no_reply@webtalk.co"
                                         :subject "Congrats! You have a new referral!"
                                         :html (parser/render-file
                                                "emails/join-notification.html"

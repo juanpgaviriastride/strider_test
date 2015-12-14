@@ -17,15 +17,17 @@
     <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1' media='(device-height: 568px)' name='viewport'>
     <meta content='yes' name='apple-mobile-web-app-capable'>
     <meta content='translucent-black' name='apple-mobile-web-app-status-bar-style'>
-    <link href='assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='152x152'>
-    <link href='assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
-    <link href='assets/images/apple-touch-icon-72x72-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
-    <link href='assets/images/apple-touch-icon-57x57-precomposed.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
-    <link href='assets/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
-    <link href='assets/images/favicon.png' rel='shortcut icon'>
-    <link href='assets/images/favicon.ico' rel='icon' type='image/ico'>
+    <link sizes="152x152" rel="apple-icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-icon-152x152-09f9af5a.png" type="image/png" />
+    <link sizes="144x144" rel="apple-icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-icon-144x144-15f713ca.png" type="image/png" />
+    <link sizes="114x114" rel="apple-icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-icon-114x114-a48d4de0.png" type="image/png" />
+    <link sizes="72x72" rel="apple-icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-icon-72x72-10059f18.png" type="image/png" />
+    <link rel="apple-icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-icon-4f246f84.png" type="image/png" />
+    <link rel="shortcut icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon-96x96-98c68e62.png" type="image/png" />
+    <link rel="shortcut icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon-32x32-ef231829.png" type="image/png" />
+    <link rel="shortcut icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon-16x16-f7c4d4aa.png" type="image/png" />
+    <link rel="icon" type="image/ico" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link href="assets/stylesheets/new-landing.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/new-landing-9152e2aa.css" rel="stylesheet" type="text/css" media="all" />
     
     <!--[if (gte IE 6)&(lte IE 8)]>
       
@@ -36,7 +38,6 @@
       g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
- 
   </head>
   <body class='page'>
     <div class='main-wrapper'>
@@ -46,7 +47,7 @@
             <div class='wrapper'>
               <div class='top-section__top'>
                 <h1 class='logo'>
-                  <a href='./index.html'>
+                  <a href='/'>
                     <i class='icon icon-logo'></i>
                   </a>
                 </h1>
@@ -55,38 +56,40 @@
                 <h2 class='top-section__title--404'>
                   <small>Something bad happened.</small>
                 </h2>
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                        <div class="col-lg-12">
-                            <h1><span class="text-danger">Error: {{status}}</span></h1>
-                                {% if title %}
-                            <h2 class="without-margin">{{title}}</h2>
-                                {% endif %}
-                                {% if message %}
-                            <h4 class="text-danger">{{message}}</h4>
-                                {% endif %}
-                                   <br><br><br>
-      <p class='top-section__text relative'>
+                <div class='container-fluid'>
+                  <div class='row-fluid'>
+                    <div class='col-lg-12'>
+                      <h1 class='text-danger'>
+                        Error: {{status}}
+                      </h1>
+                      {% if title %}
+                      <h2 class='without-margin'>
+                        {{title}}
+                      </h2>
+                      {% endif %}
+                      {% if message %}
+                      <h4 class='text-danger'>
+                        {{message}}
+                      </h4>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <p class='top-section__text relative'>
                   We can't find the page you're looking for,
                   <a href='/'>
                     <span class='line'>back to home.</span>
                   </a>
                 </p>
-                        </div>
-                    </div>
-                </div>
-                
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script src="assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-abe87f4f.js" type="text/javascript"></script>
     
-    <script src="assets/javascripts/new-landing.js" type="text/javascript"></script>
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/new-landing-b0a52d84.js" type="text/javascript"></script>
     <script async='' defer='defer' src='https://apis.google.com/js/platform.js'></script>
   </body>
 </html>
