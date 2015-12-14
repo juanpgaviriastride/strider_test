@@ -1,1 +1,0 @@
-!function(t){t.fn.removeClassWild=function(t){return this.removeClass(function(e,i){var s=t.replace(/\*/g,"\\S+");return(i.match(new RegExp("\\b"+s,"g"))||[]).join(" ")})}}(jQuery);
