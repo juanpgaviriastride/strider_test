@@ -8,7 +8,7 @@
 <html class='no-js' lang='en'>
   <!-- <![endif] -->
   <head>
-    <title>Webtalk Crowdfunding -</title>
+    <title>Webtalk Crowdfunding - New Account</title>
     <meta charset='utf-8' content='text/html' http-equiv='content-type'>
     <meta content='ie=edge,chrome=1' http-equiv='x-ua-compatible'>
     <meta content='' name='description'>
@@ -17,23 +17,23 @@
     <meta content='initial-scale=1.0,user-scalable=no,maximum-scale=1' media='(device-height: 568px)' name='viewport'>
     <meta content='yes' name='apple-mobile-web-app-capable'>
     <meta content='translucent-black' name='apple-mobile-web-app-status-bar-style'>
-    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='152x152'>
-    <link href='../assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
-    <link href='../assets/images/apple-touch-icon-72x72-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
-    <link href='../assets/images/apple-touch-icon-57x57-precomposed.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
-    <link href='../assets/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
-    <link href='../assets/images/favicon.png' rel='shortcut icon'>
-    <link href='../assets/images/favicon.ico' rel='icon' type='image/ico'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='152x152'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-touch-icon-114x114-precomposed.png' rel='apple-touch-icon-precomposed' sizes='144x144'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-touch-icon-72x72-precomposed.png' rel='apple-touch-icon-precomposed' sizes='114x114'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-touch-icon-57x57-precomposed.png' rel='apple-touch-icon-precomposed' sizes='72x72'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/apple-touch-icon-precomposed.png' rel='apple-touch-icon-precomposed'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon.png' rel='shortcut icon'>
+    <link href='http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon.ico' rel='icon' type='image/ico'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <link href="../assets/stylesheets/crowdfunding.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="../assets/javascripts/vendors/modernizr.js" type="text/javascript"></script>
+    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/crowdfunding-25f7a44a.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-3d8e3e6b.js" type="text/javascript"></script>
     <!--[if (gte IE 6)&(lte IE 8)]>
       
     <![endif]-->
     <script>
-      var _gaq=[['_setAccount','UA-22672818-1'],['_trackPageview']];
+      var _gaq=[['_setAccount','UA-2668141-24'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
@@ -51,7 +51,7 @@
         </div>
       </header>
       <div class='main-content'>
-        <div class='spinner-container' id="spinner">
+        <div class='spinner-container' id='spinner'>
           <div class='spinner white big'>
             <div class='bounce1'></div>
             <div class='bounce2'></div>
@@ -62,8 +62,8 @@
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
               <h2 class='box__title box__title--color__inherit push--bottom'>Create a New Account</h2>
-              <form action='/user-creation' class='js-newAccountValidation' method='post' id="user_data_form">
-    {% csrf-field %}
+              <form action='/user-creation' class='js-newAccountValidation' id='user_data_form' method='post'>
+                {% csrf-field %}
                 <div class='form-content'>
                   <div class='form-field field-only field-first'>
                     <i class='icon icon-profile'></i>
@@ -71,7 +71,7 @@
                   </div>
                   <div class='form-field field-only field-second'>
                     <i class='icon icon-profile'></i>
-                    <input class='required input--text' id='last_name' name='last_name' placeholder='Last Name' type='text'>
+                    <input class='required input--text' id='last_name' name='last_name' placeholder='Last Name' type='name'>
                   </div>
                   <div class='form-field field-only field-first'>
                     <i class='icon icon-message'></i>
@@ -94,14 +94,16 @@
                       <b>Task:</b>
                       Complete the challenge to continue
                     </span>
+                    <div class='div-container'>
+                      <img id="stripe-logo-wt" src="http://d306bcb0kbm0de.cloudfront.net/assets/images/webtalk-bubble-95ebb657.png" />
+                    </div>
                   </div>
                   <div class='form-field'>
-                    <div class="g-recaptcha" data-callback="onReCapcha" data-sitekey="6Lfx2RITAAAAANHMalCLaz34A1l2yC1G2dsvOiby" data-expired-callback="onExpires">
-                    </div>
-                    <div class="error" id="reCaptchaError" style="color:red"></div>
+                    <div class='g-recaptcha' data-callback='onReCapcha' data-expired-callback='onExpires' data-sitekey='6Ler3xETAAAAAO9UMVyem83maqwspXrA6PFvWrZv'></div>
+                    <div class='error' id='reCaptchaError' style='color:red'></div>
                   </div>
                   <div class='form-field soft--top'>
-                    <input class='btn btn--blue__gradient btn--full' placeholder='Type the letters above' type="button" value='Continue to Checkout' id="btn-continue">
+                    <input class='btn btn--blue__gradient btn--full' id='btn-continue' placeholder='Type the letters above' type='button' value='Continue to Checkout'>
                   </div>
                 </div>
               </form>
@@ -113,16 +115,17 @@
             </p>
           </div>
         </div>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-9699fffd.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-3d8e3e6b.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/crowdfunding-0bad6275.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/application-d0da4175.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/new-account-54643b28.js" type="text/javascript"></script>
+        <script src='https://checkout.stripe.com/checkout.js'></script>
+        <script>
+          window.stripe_key = "";
+        </script>
+        <div class='modal'></div>
       </div>
     </div>
-<script src="../assets/javascripts/vendors/jquery.js" type="text/javascript"></script>
-    <script src="../assets/javascripts/application.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      window.stripe_key = "{{public_stripe_key}}";
-    </script>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
-    <script src="../assets/javascripts/new-account.js" type="text/javascript"></script>
-    <script src="../assets/javascripts/crowdfunding.js" type="text/javascript"></script>
-    <div class="modal"></div>
   </body>
 </html>

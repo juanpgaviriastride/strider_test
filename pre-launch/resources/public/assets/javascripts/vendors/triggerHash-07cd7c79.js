@@ -1,0 +1,1 @@
+$(window).load(function(){function t(){switch(window.location.hash){case"#video":$(".btn-play").each(function(){return $(this).trigger("click"),!1})}}t()});
