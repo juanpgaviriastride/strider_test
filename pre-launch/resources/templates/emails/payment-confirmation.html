@@ -154,131 +154,139 @@
 	<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" width="100%" style="width:100%; height: 100%; font-family: 'Open Sans', sans-serif;background-color: #EEEFF1;color: #667586;font-weight: 400; ">
 	<tr>
 		<td>
-			<div id="printableArea">
-				<table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; background: #3d485a; height: 67.5px; margin-bottom: 50pxs;" >
-					<tr>
-						<td valign="center" style="text-align:center; color:#FFF; font-family: 'webtalk'; font-size: 24px; ">
-							<img style="width: 120px;" src="http://s30.postimg.org/y7vjwonup/logo_email.png" />
-						</td>
-					</tr>
-				</table>
-				<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px; margin-top: 50px;">
-					<tr>
-						<td style="font-size: 20px; color: #667586; padding:20px 0px 0px 50px; font-weight: bold;" >
-							<p>THANK YOU FOR YOUR PURCHASE!</p>
-						</td>
-						<td style="padding:20px 50px 0px 0px" >
-							<img style="" src="http://s9.postimg.org/46tngrh8b/Badge.png" />
-						</td>
-					</tr>
+			<table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; background: #3d485a; height: 67.5px; margin-bottom: 50pxs;" >
+				<tr>
+					<td valign="center" style="text-align:center; color:#FFF; font-family: 'webtalk'; font-size: 24px; ">
+						<img style="width: 120px;" src="http://s30.postimg.org/y7vjwonup/logo_email.png" />
+					</td>
+				</tr>
+			</table>
+			<table align="center" style=" background: #FFFFFF; max-width: 600px; border-radius: 2px; margin-top: 50px;">
+				<tr>
+					<td style="font-size: 20px; color: #667586; padding:20px 0px 0px 20px; font-weight: bold;" >
+						<p style="line-height:21px;">THANK YOU FOR YOUR PURCHASE!</p>
+					</td>
+					<td style="padding:20px 20px 0px 0px" >
+						<img style="" src="http://s9.postimg.org/46tngrh8b/Badge.png" />
+					</td>
+				</tr>
 
-					<tr >
-						<td colspan="2" style="font-size: 14px; color: #667586; padding: 0px 50px 20px; font-weight: normal;">
-							<p>Dear <b>{{user-name}}</b></p>
-							
-							<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height: 2em;">You have successfully puchased $100 worth of Webtalk Credits. </br> Thank you for your support in helping us launch a world-class software that helps you communicate better in both your personal and professional life, while providing a referral program that is potentially life-changing</p>
+				<tr >
+					<td colspan="2" style="font-size: 14px; color: #667586; padding: 0px 20px 20px; font-weight: normal;">
+						<p>Dear <b>{{user-name}},</b></p>
+						
+						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height: 2em;">You have successfully puchased $100 worth of Webtalk Credits. </br> Thank you for your support in helping us launch a world-class software that helps you communicate better in both your personal and professional life, while providing a referral program that is potentially life-changing</p>
 
-							<p style="padding-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;line-height: 2em;">
-								This confirmation message serves as your receipt so please make sure to save/print this email for your future reference.
-							</p>
-						</td>
-					</tr>
-				</table>
-				<table align="center" style=" background: #FFFFFF; width: 600px;">
-					<tr>
-						<td style="font-size: 14px; color: #fff; padding: 0px 50px;" colspan="2">
-							<p style="background: #4f5d73; padding: 10px ; font-style: normal;font-variant: normal;font-weight: normal;">Payment Information</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="37%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 5px 0px">Invoice to:</p>
-						</td>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="63%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{user-name}}</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="37%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px">Transaction ID:</p>
-						</td>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="63%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{id}}</p>
-						</td>
-					</tr>
-					<tr>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="37%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px">Date of Purchase:</p>
-						</td>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="63%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{date-purchased}}</p>
-						</td>
-					</tr>
-					<tr style="padding-bottom: 10px;">
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="37%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px 20px">Payment Method:</p>
-						</td>
-						<td style="font-size: 14px; color: #4f5d73; padding: 0px 50px;" width="63%">
-							<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px 20px">
-								
-								{{payment-method.brand-name}}, xxxx - xxxx - xxxx - {{payment-method.last4}}</p>
-						</td>
-					</tr>
-				</table>
-				<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px; padding: 10px 0px;">
+						<p style="padding-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;line-height: 2em;">
+							This confirmation message serves as your receipt so please make sure to save/print this email for your future reference.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding:0px 20px 20px;">
+						<table cellpadding="0" cellspacing="0" border="0" align="center" style=" background: #FFFFFF; width: 100%;">
+							<tr>
+								<td style="font-size: 14px; color: #fff;" colspan="2">
+									<p style="background: #4f5d73; padding: 10px ; font-style: normal;font-variant: normal;font-weight: normal;">Payment Information</p>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 14px; color: #4f5d73;" width="37%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 5px 0px">Invoice to:</p>
+								</td>
+								<td style="font-size: 14px; color: #4f5d73;" width="63%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{user-name}}</p>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 14px; color: #4f5d73;" width="37%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px">Transaction ID:</p>
+								</td>
+								<td style="font-size: 14px; color: #4f5d73;" width="63%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{id}}</p>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 14px; color: #4f5d73;" width="37%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px">Date of Purchase:</p>
+								</td>
+								<td style="font-size: 14px; color: #4f5d73;" width="63%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px">{{date-purchased}}</p>
+								</td>
+							</tr>
+							<tr style="padding-bottom: 10px;">
+								<td style="font-size: 14px; color: #4f5d73;" width="37%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold;  margin: 5px 0px 20px">Payment Method:</p>
+								</td>
+								<td style="font-size: 14px; color: #4f5d73;" width="63%">
+									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px 20px">
+										<img style="float: left; width: 30px; margin-right: 10px" src="http://s16.postimg.org/7h41pfwup/visa_straight_32px.png" />
+										{{payment-method.brand-name}}, xxxx - xxxx - xxxx - {{payment-method.last4}}</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding:0px 20px 20px;">
+						<table cellpadding="0" cellspacing="0" border="0" align="center" style=" background: #FFFFFF; width:100%; border-radius: 2px; padding: 10px 0px;">
 
-					<thead style="padding: 0px 50px;"> 
-						<tr style="background: #4f5d73; color: #fff; display: block; margin: 0 50px;">
-							<th style="font-size: 14px;  width: 20%; padding: 0px 5px; text-align: left;" >
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Description</p>
-							</th>
-							<th style="font-size: 14px; width: 27%; padding: 0px;" >
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Number of Packages</p>
-							</th>
-							<th style="font-size: 14px; width: 25%; padding: 0px; text-align: right;">
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Amount</p>
-							</th>
-						</tr>
-					</thead>
+							<thead> 
+								<tr style="background: #4f5d73; color: #fff;">
+									<th style="font-size: 14px;  width: 20%; padding: 0px 5px; text-align: left;" >
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Description</p>
+									</th>
+									<th style="font-size: 14px; width: 27%; padding: 0px;" >
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Number of Packages</p>
+									</th>
+									<th style="font-size: 14px; width: 25%; padding: 0px 5px; text-align: right;">
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal; font-weight: normal; margin: 5px 0px;">Amount</p>
+									</th>
+								</tr>
+							</thead>
 
-					<tbody style="padding: 0px 50px;">
-						<tr style="display: block;  padding: 0 50px;">
-							<td style="font-size: 14px; color: #4f5d73; width: 30%; border-bottom: 1px solid #d2d6dd;" >
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal; margin: 10px 0px 10px 5px">${{ammount}} Webtalk</p>
-							</td>
-							<td style="font-size: 14px; color: #4f5d73; width: 65%; border-bottom: 1px solid #d2d6dd;" >
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal; margin: 10px 0px; text-align: center;">1</p>
-							</td>
-							<td style="font-size: 14px; color: #4f5d73; width: 25%; text-align: right; border-bottom: 1px solid #d2d6dd;" >
-								<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 10px 0px; text-align: right;">{{ammount}}</p>
-							</td>
-						</tr>
-						<tr style="display: block; padding: 0 50px;">
-							<td style="font-size: 14px; color: #4f5d73;  text-align: right; border-bottom: 1px solid #d2d6dd; display: block;" colspan="3">
-								<p style="border-radius: 3px; font-variant: normal;font-weight: bold; margin: 10px 0px;">Total: {{ammount}}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>	
-			<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px; padding: 10px 0px;">
-				<tbody>
-					<tr>
-						<td>
-							<p style="padding: 20px 50px; text-align: left;">
-								<a href="#"  id="printLink" style="color: #F5F5F5; font-weight: bold; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 10px 15px; font-size: 14px; background:#05a4dc; text-decoration:none; display: inline-block; color: white; ">
-									<img style="float: left; width: 15px; margin-right: 7px;" src="http://s14.postimg.org/hw52qa1bh/print.png" />
-									Print Invoice 
-								</a>
-							</p>
-						</td>
-					</tr>
-				</tbody>
+							<tbody>
+								<tr>
+									<td style="font-size: 14px; color: #4f5d73; width: 30%; border-bottom: 1px solid #d2d6dd;" >
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal; margin: 10px 0px 10px 5px">{{ammount}} Webtalk</p>
+									</td>
+									<td style="font-size: 14px; color: #4f5d73; width: 65%; border-bottom: 1px solid #d2d6dd;" >
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal; margin: 10px 0px; text-align: center;">1</p>
+									</td>
+									<td style="font-size: 14px; color: #4f5d73; width: 25%; text-align: right; border-bottom: 1px solid #d2d6dd;" >
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 10px 0px; text-align: right;">${{ammount}}</p>
+									</td>
+								</tr>
+								<tr>
+									<td style="font-size: 14px; color: #4f5d73;  text-align: right; border-bottom: 1px solid #d2d6dd;" colspan="3">
+										<p style="border-radius: 3px; font-variant: normal;font-weight: bold; margin: 10px 0px;">Total: {{ammount}}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding:0px 20px 20px;">
+						<table align="center" style=" background: #FFFFFF; width:100%; border-radius: 2px; padding: 10px 0px;">
+							<tbody>
+								<tr>
+									<td align="left">
+											<a href="#"  id="printLink" style="color: #F5F5F5; font-weight: bold; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 10px 15px; font-size: 14px; background:#05a4dc; text-decoration:none; display: inline-block; color: white; ">
+												<img style="float: left; width: 15px; margin-right: 7px;" src="http://s14.postimg.org/hw52qa1bh/print.png" />
+												Print Invoice 
+											</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
 			</table>
 			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
-			<table align="center" style="text-align: center; width:600px;">
+			<table  align="center" style="text-align: center; max-width:600px;">
 				<td style="color: #667586;">
 						
 						<p style="font-size:11px;">

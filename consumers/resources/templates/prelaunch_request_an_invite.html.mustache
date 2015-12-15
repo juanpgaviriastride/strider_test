@@ -128,7 +128,20 @@
 		}
 		/* end Android targeting */
 		
-		
+		.button{
+			min-width: 350px;
+		}
+		.container{
+			padding:20px 50px;
+		}
+		@media only screen and (max-device-width: 480px){
+			.button{
+				min-width: 240px;
+			}
+			.container{
+				padding: 20px !important;
+			}	
+		}
 	</style>
 
 	<!-- Targeting Windows Mobile -->
@@ -164,41 +177,42 @@
 			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="68" alt=""></td></tr></table>
 			
-			<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px;">
+			<table align="center" style=" background: #FFFFFF; max-width: 600px; border-radius: 2px;">
 				<tr>
-					<td background="http://fotos.subefotos.com/bcf547daa51f7a62372edcf234b31143o.png" style="background-size: contain; background-repeat: no-repeat;height: 183px; width: 100%;text-align: center;" valign="center">
-						<h1 style="color: white;font-weight: normal;font-size: 28px;">YOU MADE IT TO THE WAITLIST!</h1>
+					<td background="http://fotos.subefotos.com/bcf547daa51f7a62372edcf234b31143o.png" style="background-size: cover; background-repeat: no-repeat; height: 183px; width: 100%;text-align: center;" valign="center">
+						<h1 style="color: white;font-weight: normal;font-size: 28px; margin-bottom:0; margin-top:0; line-height:32px;">YOU MADE IT TO THE WAITLIST!</h1>
 					</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; color: #667586; padding:20px 50px;">
-						<p>Hi {{to}}</p>
-						
-						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter;">Thank you! You have been added to Webtalk's Waitlist. You will be one of the people to know when Webtalk goes live so stay tuned!</p>
-						<p style="padding-top:20px; font-weight: bold;">
-							INTERESTED IN BUILDING YOUR REFERRAL NETWORK NOW?
-						</p>
-						<p style="padding-top:20px;font-style: normal;font-variant: normal;font-weight: lighter;">
-							If ever you change your mind and would like to signup as a pre-launch user, you can do so by clicking this button:
-						</p>
-						<p style="padding-top:40px; text-align: center;">
-							<a href="{{join_url}}" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 70px; font-size: 20px; background:#05a4dc; width: 390px; text-decoration:none; ">Signup for Pre-launch</a>
-						</p>
-						
-						<p style="padding-top:40px;font-style: normal;font-variant: normal;font-weight: lighter;">
-							As a Pre-Launch user, you can invite an unlimited amount of people and start building your referral network now.
-						</p>
-						
-						
+					<td style="font-size: 14px; color: #667586;">
+						<table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%;">
+							<tr>
+								<td style="width:10%;"></td>
+								<td style="width:80%;">
+									<p>Hi <b>{{to}},</b></p>
+									
+									<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:20px;">Thank you! You have been added to Webtalk's Waitlist. You will be one of the people to know when Webtalk goes live so stay tuned!</p>
+									<p style="padding-top:20px; font-weight: bold; line-height:20px;">
+										INTERESTED IN BUILDING YOUR REFERRAL NETWORK NOW?
+									</p>
+									<p style="padding-top:50px; text-align: center; margin-bottom:20px; line-height:20px;">
+										<a class="button" href="{{join_url}}" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 10px; font-size: 20px; background:#05a4dc; max-width: 390px; text-decoration:none; display:inline-block; min-width:230px;">Signup for Pre-launch</a>
+									</p>
+									
+									<p style="padding-top:40px;font-style: normal;font-variant: normal;font-weight: lighter; line-height:20px;">
+										As a Pre-Launch user, you can invite an unlimited amount of people and start building your referral network now.
+									</p>
+								</td>
+								<td style="width:10%;"></td>
+							</tr>
+						</table>
 					</td>
 				</tr>
 			</table>
-			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
-			<table align="center" style="text-align: center; width:600px;">
+			<table align="center" style="text-align: center; max-width:600px;">
 				<td style="color: #667586;">
-						
 						<p style="font-size:11px;">
 							<b>© 2015 Webtalk</b> 
 							| PO Box 3176 St Petersburg. FL 33710
