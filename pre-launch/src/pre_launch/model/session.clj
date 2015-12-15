@@ -11,7 +11,7 @@
 (defn validate-password [email password]
   (let [maybe-password (get-password email)]
     (debug "the maybe password is" maybe-password " and the password is " password)
-    (if (nil? password)
+    (if (or (nil? password) (nil? maybe-password))
       false
       (check-password password maybe-password))))
 

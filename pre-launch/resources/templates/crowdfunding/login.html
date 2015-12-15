@@ -43,6 +43,14 @@
   </head>
   <body class='page crowdfunding'>
     <div class='main-wrapper'>
+      {% if error %}
+          <div class='alert error'>
+            <p>Invalid credentials! Please check email and password</p>
+            <a class='close js-close-alert' href='javascript:;'>
+              <i class='icon icon-close'></i>
+            </a>
+          </div>
+          {% endif %}
       <header class='cf header header--crowdfunding'>
         <div class='wrapper'>
           <h1 class='flush--ends text--center'>

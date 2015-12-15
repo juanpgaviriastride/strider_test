@@ -19,17 +19,19 @@
         (spy  user)
         user))))
 
+(defn login [session login-error]
+  (layout/render  "crowdfunding/login.html" {:error login-error}))
+
+
 (defn login! [{{email :email passw :password} :params
                session :session}]
   (if-let [identity (check-password email passw)]
     (-> (redirect "/dashboard")
        (assoc :session (assoc session :identity identity)))
-    (redirect "/signin")))
-
-(defn login [{session :session}]
-  (layout/render  "crowdfunding/login.html"))
+    (login session true)))
 
 (defn signup [request]
+  (spy request)
   (let [key (stripe/public-key)]
     (layout/render "crowdfunding/new-account.html" {:public_stripe_key key})))
 
@@ -40,7 +42,7 @@
 (defroutes login-routes
   (GET  "/signin" request (if (authenticated? request)
                             (redirect "/dashboard")
-                            (login request)))
+                            (login (:session request) false)))
   (POST "/login"  request (login! request))
   (GET "/logout"  request (logout! request))
   (GET  "/signup" request (if (authenticated? request)
