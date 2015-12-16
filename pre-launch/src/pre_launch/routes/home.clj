@@ -24,23 +24,24 @@
      (redirect "/")
      (assoc :session (assoc session :refererID referer-id)))))
 
-(defn join-wait-list [{session :session params :params}]
-  (controller/join-wait-list (:email params) (:refererID session))
-  (home-page true))
 
-(defn decide-home [request]
+(defn decide-home [request success]
   (let [requesting-url (get-in request [:headers "host"])
         wt-url (config/webtalk-url)]
     (spy requesting-url)
     (spy wt-url)
-    (if (= wt-url requesting-url)
-      (do
-        (println "new home")
-        (layout/render "webtalk/home.html"))
-      (home-page false))))
+    (if (= wt-url requesting-url) 
+      (layout/render "webtalk/home.html" {:success  success})
+      (home-page success))))
+
+(defn join-wait-list [{session :session params :params :as req}]
+  (controller/join-wait-list (:email params) (:refererID session))
+  (decide-home req true))
+
+
 
 (defroutes home-routes
-  (GET "/" request (decide-home request))
+  (GET "/" request (decide-home request false))
   (GET "/invite/:titan_id" request (refered-home-page request))
   (POST "/request-invitation" request (join-wait-list request)))
 
