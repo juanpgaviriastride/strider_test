@@ -31,18 +31,20 @@
       
     <![endif]-->
     <script>
-      var _gaq=[['_setAccount','UA-2668141-24'],['_trackPageview']];
+      var _gaq=[['_setAccount','UA-22672818-1'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
   </head>
+  {% if success %}
   <div class='alert success'>
-    <p>Well done! You successfully read this important alert message.</p>
+    <p>You successfully joined the waiting list. We'll contact you!</p>
     <a class='close js-close-alert' href='javascript:;'>
       <i class='icon icon-close'></i>
     </a>
   </div>
+  {% endif %}
   <body class='page'>
     <div class='main-wrapper'>
       <!-- = partial "shared/header" -->
@@ -59,7 +61,7 @@
                     <div class='button-beta button-beta__header'>Beta</div>
                   </h1>
                   <div class='link-login float--right push-half--top'>
-                    <a class='btn--login' data-target='#login-modal' data-toggle='modal' href='javascript:;'>Login</a>
+                    <a class='btn--login' data-target='' data-toggle='modal' href='javascript:;'>Login</a>
                   </div>
                 </div>
                 <p class='main-top__message' id='BackTop'>Top talent and companies use Webtalk to showcase, connect and collaborate</p>
@@ -67,9 +69,10 @@
                   <a class='js-scrollTo underline-hover' data-scrollto='#webtalk_business' href='#'>Learn more about Webtalk for Business</a>
                 </p>
                 <div class='wrapper--small'>
-                  <form action='/views/registration/invitation/finish-invite.html' class='js-validationForm request-and-invite-form' method=' '>
+                  <form action='/request-invitation' class='js-validationForm request-and-invite-form' method='post'>
+                    {% csrf-field %}
                     <div class='grid grid--full main-top__form'><div class='grid__item lap--seven-tenths'>
-                        <input class='required input--text input--big' name='inputRequestInvite' placeholder='Your email address' type='email'>
+                        <input class='required input--text input--big' name='email' placeholder='Your email address' type='email'>
                       </div><div class='grid__item lap--three-tenths'>
                         <input class='btn btn--default btn--big btn--full' type='submit' value='Request Invite'>
                       </div>
@@ -287,82 +290,82 @@
                   </a>
                   <div class='webtalk--ui-mobile'>
                     <div class='webtalk--ui-mobile__content built--networks'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Built In Networks &amp; Groups</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content contact--management'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Contact Management</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content profile'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Profile</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content network--news'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Network News</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content files'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Files</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content photos'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Photos</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content videos'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Videos</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content real--time--chat'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Real-Time Chat</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content search'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Search</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content business--celebrities'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Page for Businesses &amp; Celebrities</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content webtalk--pro'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Webtalk Pro</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content imeet--webtalk'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>iMeet by Webtalk</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content socialcpx--big'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>SocialCPX: Being social pays BIG!</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content socialcpx--dashboard'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>SocialCPX Dashboard</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content socialcpx--advertisers'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>SocialCPX for Advertisers</div>
                       </div>
                     </div>
                     <div class='webtalk--ui-mobile__content webtalk--helpdesk'>
-                      <div class='overlay-dark overlay-dark__mobile'>
+                      <div class='overlay-dark overlay-dark__mobile hidden'>
                         <div class='text'>Webtalk HelpDesk</div>
                       </div>
                     </div>
@@ -433,7 +436,7 @@
             <div class='bg-landing--footer'></div>
             <div class='btn-container text--center'>
               <a class='btn btn--default btn--big js-scrollTo' data-scrollto='#BackTop' href='#'>Request an invite</a>
-              <a data-toggle="modal" data-target="#login-modal" class="btn btn--white btn--big hover-bg-white" href="#">Login</a>
+              <a data-toggle="modal" data-target="" class="btn btn--white btn--big hover-bg-white" href="#">Login</a>
             </div>
           </div>
           <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal fade' id='login-modal' role='dialog' tabindex='-1'>
@@ -540,7 +543,7 @@
         </div>
         <ul class='list--horizontal footer__list'>
           <li>
-            <a href='http://cf-webtalk.herokuapp.com/#video' target='_blank'>
+            <a href='http://prelaunch.webtalk.co/#video' target='_blank'>
               <b>CLICK HERE</b>
               <span>to watch our video and join the prelaunch</span>
             </a>
@@ -564,6 +567,6 @@
     </div>
     <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-5fc00a3f.js" type="text/javascript"></script>
     
-    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/webtalk/landing-cc2b2e96.js" type="text/javascript"></script>
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/webtalk/landing-1ca6c608.js" type="text/javascript"></script>
   </body>
 </html>
