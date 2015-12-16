@@ -22,6 +22,7 @@
 ;; mgmt.setConsistency(index,ConsistencyModifier.LOCK) //Ensures name uniqueness in the graph
 
 (defn build-composite-index [mgmt index-name key]
+  "this index only uniq keys"
   (when-not (.getGraphIndex mgmt index-name)
     (-> mgmt
        (.buildIndex index-name com.tinkerpop.blueprints.Vertex)
@@ -30,6 +31,7 @@
        (.buildCompositeIndex))))
 
 (defn build-mixed-index [mgmt index-name key]
+  "this for elasticsearch indexes"
   (when-not (.getGraphIndex mgmt index-name)
     (-> mgmt
        (.buildIndex index-name com.tinkerpop.blueprints.Vertex)
@@ -37,6 +39,7 @@
        (.buildMixedIndex "search"))))
 
 (defn create-titan-indexes [graph]
+  "create the needed indexes for wt prelaunch"
   (schema/with-management-system [mgmt graph]
     (let [email-key (get-or-create-propery-key mgmt "email" String)
           name-key (get-or-create-propery-key mgmt "name"  String)
