@@ -43,14 +43,6 @@
   </head>
   <body class='page crowdfunding'>
     <div class='main-wrapper'>
-      {% if error %}
-          <div class='alert error'>
-            <p>Invalid credentials! Please check email and password</p>
-            <a class='close js-close-alert' href='javascript:;'>
-              <i class='icon icon-close'></i>
-            </a>
-          </div>
-          {% endif %}
       <header class='cf header header--crowdfunding'>
         <div class='wrapper'>
           <h1 class='flush--ends text--center'>
@@ -82,6 +74,11 @@
                   <div class='form-field field-only'>
                     <i class='icon icon-padlock'></i>
                     <input class='required input--text' name='password' placeholder='Password' type='password'>
+                    {% if error %}
+                    <div class='error soft--top' id='credentialsError' style='color:red;'>
+                      The email and password you entered don't match.
+                    </div>
+                    {% endif %}
                   </div>
                   <div class='form-field soft--top'>
                     <input class='btn btn--blue__gradient btn--full' type='submit' value='Login'>
