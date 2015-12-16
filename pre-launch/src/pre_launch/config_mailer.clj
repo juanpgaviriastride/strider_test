@@ -4,6 +4,9 @@
 (defn root-url []
   (or (env :root-url) "http://localhost:3000"))
 
+(defn webtalk-url []
+  (or (env :wt-url) "webtalk.co"))
+
 (defn auth []
   (let [user (env :sengrid-username)
         key (env :sengrid-key)]

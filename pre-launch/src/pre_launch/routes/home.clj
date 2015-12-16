@@ -7,6 +7,8 @@
             [ring.util.response :refer [redirect response]]
             [pre-launch.controllers.landing :as scontroller]
             [pre-launch.controllers.invitation-request :as controller]
+            [pre-launch.config-mailer :as config]
+            [taoensso.timbre :refer [spy]]
             [clojure.java.io :as io]))
 
 (defn home-page [success]
@@ -26,8 +28,19 @@
   (controller/join-wait-list (:email params) (:refererID session))
   (home-page true))
 
+(defn decide-home [request]
+  (let [requesting-url (get-in request [:headers "host"])
+        wt-url (config/webtalk-url)]
+    (spy requesting-url)
+    (spy wt-url)
+    (if (= wt-url requesting-url)
+      (do
+        (println "new home")
+        (layout/render "webtalk/home.html"))
+      (home-page false))))
+
 (defroutes home-routes
-  (GET "/" request (home-page false))
+  (GET "/" request (decide-home request))
   (GET "/invite/:titan_id" request (refered-home-page request))
   (POST "/request-invitation" request (join-wait-list request)))
 
