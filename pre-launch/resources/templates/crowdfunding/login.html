@@ -29,8 +29,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/crowdfunding-c0d3c4fb.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-82df9d07.js" type="text/javascript"></script>
+    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/crowdfunding-4482f7fa.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-70774af3.js" type="text/javascript"></script>
     <!--[if (gte IE 6)&(lte IE 8)]>
       
     <![endif]-->
@@ -43,14 +43,6 @@
   </head>
   <body class='page crowdfunding'>
     <div class='main-wrapper'>
-      {% if error %}
-          <div class='alert error'>
-            <p>Invalid credentials! Please check email and password</p>
-            <a class='close js-close-alert' href='javascript:;'>
-              <i class='icon icon-close'></i>
-            </a>
-          </div>
-          {% endif %}
       <header class='cf header header--crowdfunding'>
         <div class='wrapper'>
           <h1 class='flush--ends text--center'>
@@ -82,6 +74,11 @@
                   <div class='form-field field-only'>
                     <i class='icon icon-padlock'></i>
                     <input class='required input--text' name='password' placeholder='Password' type='password'>
+                    {% if error %}
+                    <div class='error soft--top' id='credentialsError' style='color:red;'>
+                      The email and password you entered don't match.
+                    </div>
+                    {% endif %}
                   </div>
                   <div class='form-field soft--top'>
                     <input class='btn btn--blue__gradient btn--full' type='submit' value='Login'>
@@ -106,8 +103,8 @@
             </p>
           </div>
         </div>
-        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-abe87f4f.js" type="text/javascript"></script>
-        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-82df9d07.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-5fc00a3f.js" type="text/javascript"></script>
+        <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/modernizr-70774af3.js" type="text/javascript"></script>
         <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/crowdfunding-0bad6275.js" type="text/javascript"></script>
       </div>
     </div>

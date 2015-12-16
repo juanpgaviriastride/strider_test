@@ -128,7 +128,20 @@
 		}
 		/* end Android targeting */
 		
-		
+		.button{
+			min-width: 350px;
+		}
+		.container{
+			padding:20px 50px;
+		}
+		@media only screen and (max-device-width: 480px){
+			.button{
+				min-width: 240px;
+			}
+			.container{
+				padding: 20px !important;
+			}	
+		}
 		
 	</style>
 
@@ -165,15 +178,15 @@
 			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="68" alt=""></td></tr></table>
 			
-			<table align="center" style=" background: #FFFFFF; width: 600px; border-radius: 2px;">
+			<table align="center" style=" background: #FFFFFF; max-width: 600px; border-radius: 2px;">
 				<tr>
-					<td background="http://fotos.subefotos.com/890a90b18206031748972d5582335ce0o.png" style="background-size: contain; background-repeat: no-repeat;height: 163px; width: 100%;text-align: center;" valign="center">
-						<h1 style="color: white;font-weight: normal;font-size: 28px;">WELCOME TO WEBTALK PRE-LAUNCH</h1>
+					<td background="http://fotos.subefotos.com/890a90b18206031748972d5582335ce0o.png" style="background-size: cover; background-repeat: no-repeat;height: 163px; width: 100%;text-align: center;" valign="center">
+						<h1 style="color: white;font-weight: normal;font-size: 28px; line-height:32px;">WELCOME TO WEBTALK PRE-LAUNCH</h1>
 					</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; color: #667586; padding:20px 50px;">
-						<p>Hi <b>{{name}}</b></p>
+					<td style="font-size: 14px; color: #667586; padding:20px 35px;">
+						<p>Hi <b>{{name}},</b></p>
 						
 						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">Congrats! You have successfully purchased <b>$100</b> worth of Webtalk Credits* and joined Webtalk Pre-launch! You can now start sending invites and build your referral network!</p>
 						
@@ -182,13 +195,13 @@
 						
 						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
 							<b>Your Personal Referral Link:</b>
-							<a href="#" style="text-decoration: none; color: #0095BA; display:block;">{{base-url}}/invite/{{__id__}}</a>
+							<a href="{{base-url}}/invite/{{titan-id}}" style="text-decoration: none; color: #0095BA; display:block;">{{base-url}}/invite/{{titan-id}}</a>
 							
 						</p>
 						
 						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
 							<b>Your Login</b>
-							<a href="#" style="text-decoration: none; color: #0095BA; display:block;">{{email}}</a>
+							<a href="{{base-url}}/invite/{{titan-id}}" style="text-decoration: none; color: #0095BA; display:block;">{{email}}</a>
 						</p>
 						
 					</td>
@@ -198,7 +211,7 @@
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="34" alt=""></td></tr></table>
 			
 			
-			<table align="center" style="width: 600px; border-radius: 2px;" cellpadding="0" cellspacing="0">
+			<table align="center" style="max-width: 600px; border-radius: 2px;" cellpadding="0" cellspacing="0">
 				
 				<tr>
 					<td background="http://s15.postimg.org/hdvolmgbb/back_white.png" align="center" style="background-repeat:repeat-x; background-position:bottom;">
@@ -210,16 +223,16 @@
 				</tr>
 				
 				<tr style="background: #FFFFFF; ">
-					<td align="center" style="font-size: 14px; color: #667586; padding:20px 50px; text-align:center;">
+					<td align="center" style="font-size: 14px; color: #667586; padding:20px 35px; text-align:center;">
 					
-						<h2 style="margin-top: 10px; color: #667586;font-weight: normal;font-size: 25px;">Start Building Your Referral Network Now!</h2>
+						<h2 style="margin-top: 10px; color: #667586;font-weight: normal;font-size: 25px; line-height:32px;">Start Building Your Referral Network Now!</h2>
 						
 						<p style="padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;">
 							As a pre-launch user, you can invite <b>UNLIMITED</b> number of people to be a part of your network! Start inviting people you know and start building your referral network ahead of everyone else!
 						</p>
 						
 						<p style="padding:40px 0px; text-align: center;">
-							<a href="#" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 70px; font-size: 20px; background:#05a4dc; width: 390px; text-decoration:none;">Start Sending Invites</a>
+							<a class="button" href="{{base-url}}/dashboard" align="center" style="color: #F5F5F5; font-weight: normal; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 23px 10px; font-size: 20px; background:#05a4dc; max-width: 390px; text-decoration:none; display:inline-block; min-width:240px;">Start Sending Invites</a>
 						</p>
 						
 					</td>
@@ -229,24 +242,20 @@
 			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
-			<table align="center" style="text-align: center; width:600px; margin: 0px auto;">
+			<table align="center" style="text-align: center; max-width:600px; margin: 0px auto;">
 				<td style="color: #667586;">
 						
 						<p style="font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;font-size: 11px;">
 							* You should receive a separate email enclosing the receipt of your purchase.
 						</p>
 						
-						<p style="font-style: normal;font-variant: normal;font-weight: lighter; line-height:1.6;font-size: 12px;">
-							If you failed to receive the email, please 
-							<a style="text-decoration: none; color: #0095BA;" href="#">contact us</a>
-							.
-						</p>
+						
 					</td>
 			</table>
 			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
-			<table align="center" style="text-align: center; width:600px; margin: 0px auto;">
+			<table align="center" style="text-align: center; max-width:600px; margin: 0px auto;">
 				<td style="color: #667586;">
 						
 						
