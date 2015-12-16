@@ -220,7 +220,6 @@
 								</td>
 								<td style="font-size: 14px; color: #4f5d73;" width="63%">
 									<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal;  margin: 5px 0px 20px">
-										<img style="float: left; width: 30px; margin-right: 10px" src="http://s16.postimg.org/7h41pfwup/visa_straight_32px.png" />
 										{{payment-method.brand-name}}, xxxx - xxxx - xxxx - {{payment-method.last4}}</p>
 								</td>
 							</tr>
@@ -254,7 +253,7 @@
 										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: normal; margin: 10px 0px; text-align: center;">1</p>
 									</td>
 									<td style="font-size: 14px; color: #4f5d73; width: 25%; text-align: right; border-bottom: 1px solid #d2d6dd;" >
-										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 10px 0px; text-align: right;">${{ammount}}</p>
+										<p style="border-radius: 3px; font-style: normal;font-variant: normal;font-weight: bold; margin: 10px 0px; text-align: right;">{{ammount}}</p>
 									</td>
 								</tr>
 								<tr>
@@ -266,24 +265,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2" style="padding:0px 20px 20px;">
-						<table align="center" style=" background: #FFFFFF; width:100%; border-radius: 2px; padding: 10px 0px;">
-							<tbody>
-								<tr>
-									<td align="left">
-											<a href="#"  id="printLink" style="color: #F5F5F5; font-weight: bold; text-align: center; border-radius: 4px; border: 2px solid transparent; padding: 10px 15px; font-size: 14px; background:#05a4dc; text-decoration:none; display: inline-block; color: white; ">
-												<img style="float: left; width: 15px; margin-right: 7px;" src="http://s14.postimg.org/hw52qa1bh/print.png" />
-												Print Invoice 
-											</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
 			</table>
-			
 			<table><tr><td><img src="http://s14.postimg.org/9fdpb8dql/spacer.png" height="20" alt=""></td></tr></table>
 			
 			<table  align="center" style="text-align: center; max-width:600px;">
@@ -299,38 +281,18 @@
 	</tr>
 	</table>
 	<!-- End of wrapper table -->
-<script type="text/javascript">
+	<script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-22672818-1']);
-  _gaq.push(['_trackPageview']);
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-22672818-1']);
+	  _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
 
-</script>
-<script type="text/javascript">
-
-        // Wait for the page to load first
-        window.onload = function() {
-
-			//Get a reference to the link on the page
-			// with an id of "mylink"
-        	var a = document.getElementById("printLink");
-
-			//Set code to run when the link is clicked
-			// by assigning a function to "onclick"
-			a.onclick = function() {
-				var printContents = document.getElementById("printableArea").innerHTML;
-				var originalContents = document.body.innerHTML;
-				document.body.innerHTML = printContents;
-				window.print();
-				document.body.innerHTML = originalContents;
-          }
-        }
-    </script>
+	</script>
 </body>
 </html>
