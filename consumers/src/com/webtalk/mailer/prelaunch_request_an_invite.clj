@@ -13,4 +13,4 @@
                       :html (template/render-resource
                              "templates/prelaunch_request_an_invite.html.mustache"
                              {:to to
-                              :join_url (config/base-url)})}))
+                              :join_url config/base-url})}))
