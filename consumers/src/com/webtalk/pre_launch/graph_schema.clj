@@ -1,9 +1,10 @@
 (ns com.webtalk.pre-launch.graph-schema
   (:require [clojurewerkz.titanium.schema :as schema]
-            [clojurewerkz.titanium.graph :as graph]
+            [clojurewerkz.titanium.graph :as tgraph]
             [taoensso.timbre :as timbre]))
 
 (defn get-or-create-propery-key [mgmt key data-type]
+  "Try to create the key or find if we can create it"
   (try
     (schema/make-property-key mgmt key data-type)
     (catch IllegalArgumentException e
@@ -46,3 +47,9 @@
 ;; needed mixed
 ;; timestamp  (edge)
 ;; name  (vertex)
+
+
+(defn cleanup [graph]
+  "cleanup the given graph"
+  (tgraph/shutdown graph)
+  (com.thinkaurelius.titan.core.util.TitanCleanup/clear graph))
