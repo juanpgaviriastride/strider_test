@@ -1,9 +1,24 @@
 (ns com.webtalk.pre-launch.graph-schema
   (:require [clojurewerkz.titanium.schema :as schema]
             [clojurewerkz.titanium.graph :as tgraph]
-            [taoensso.timbre :as timbre]))
+            [taoensso.timbre :as timbre]
+            [com.webtalk.util :as util])
+  (:import [java.util Properties Map ArrayList]
+           java.io.File
+           com.tinkerpop.blueprints.Vertex
+           [com.thinkaurelius.titan.core.schema SchemaStatus SchemaAction]
+           com.thinkaurelius.titan.core.util.TitanCleanup
+           com.thinkaurelius.titan.hadoop.TitanIndexRepair
+           com.thinkaurelius.titan.hadoop.formats.util.TitanInputFormat))
 
-(defn get-or-create-propery-key [mgmt key data-type]
+(defn ^Properties map->properties
+  [^Map m]
+  (let [p (Properties.)]
+    (doseq [[k ^String v] m]
+      (.setProperty p (name k) v))
+    p))
+
+(defn get-or-create-property-key [mgmt key data-type]
   "Try to create the key or find if we can create it"
   (try
     (schema/make-property-key mgmt key data-type)
@@ -25,7 +40,7 @@
   "this index only uniq keys"
   (when-not (.getGraphIndex mgmt index-name)
     (-> mgmt
-       (.buildIndex index-name com.tinkerpop.blueprints.Vertex)
+       (.buildIndex index-name Vertex)
        (.addKey key)
        (.unique)
        (.buildCompositeIndex))))
@@ -34,25 +49,49 @@
   "this for elasticsearch indexes"
   (when-not (.getGraphIndex mgmt index-name)
     (-> mgmt
-       (.buildIndex index-name com.tinkerpop.blueprints.Vertex)
+       (.buildIndex index-name Vertex)
        (.addKey key)
        (.buildMixedIndex "search"))))
 
 (defn create-titan-indexes [graph]
   "create the needed indexes for wt prelaunch"
   (schema/with-management-system [mgmt graph]
-    (let [email-key (get-or-create-propery-key mgmt "email" String)
-          name-key (get-or-create-propery-key mgmt "name"  String)
-          time-key (get-or-create-propery-key mgmt "time" Integer)]
-      (build-composite-index mgmt "byEmail" email-key)
-      ;;(build-mixed-index mgmt "byName" name-key)
-      )))
-;; needed mixed
-;; timestamp  (edge)
-;; name  (vertex)
-
+    (let [email-key (get-or-create-property-key mgmt "email" String)]
+      (build-composite-index mgmt "byEmail" email-key))))
 
 (defn cleanup [graph]
   "cleanup the given graph"
   (tgraph/shutdown graph)
-  (com.thinkaurelius.titan.core.util.TitanCleanup/clear graph))
+  (TitanCleanup/clear graph))
+
+
+(defn fix-cassandra [graph index-names]
+  "this waits for indexes to transition from installed to registerd or enable
+and run the repair cassandra thing"
+  (schema/with-management-system [mgmt graph]
+    (letfn [(get-index [index-name]
+              (.getGraphIndex mgmt index-name))
+            (check-index [index-name]
+              (let [idx (get-index index-name)]
+                (when idx
+                  (apply = true (map #(let [index-status (.getIndexStatus idx %)]
+                                        (or (= SchemaStatus/REGISTERED index-status) (= SchemaStatus/ENABLED))) (.getFieldKeys idx))))))
+            (repair-cass-index [index-name]
+              (TitanIndexRepair/cassandraRepair (map->properties {"storage.backend" "cassandra"
+                                                                  "storage.hostname" (util/get-titan-hosts)})
+                                                index-name "" "org.apache.cassandra.dht.Murmur3Partitioner"))
+            (enable-index [index-name]
+              (-> mgmt
+                 (.updateIndex (get-index index-name) (SchemaAction/ENABLE_INDEX))))]
+      (doseq [idx-name index-names]
+        (loop [idx-status (check-index idx-name)]
+          (when-not idx-status
+            (Thread/sleep 500)
+            (recur (check-index idx-name))))
+        (timbre/info "Index REGISTERED" idx-name)
+
+        (timbre/info "Start hadoop job to repair indexes")
+        (repair-cass-index idx-name)
+
+        (timbre/info "RE enable index" idx-name)
+        (enable-index idx-name)))))
