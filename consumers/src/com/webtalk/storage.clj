@@ -13,7 +13,7 @@
             [com.webtalk.resilience.invitation    :as invitation]
             [com.webtalk.resilience.follow        :as follow]
             [com.webtalk.resilience.entry         :as entry]
-            [com.webtalk.resilience               :refer [start-jetty]]
+            ;;[com.webtalk.resilience               :refer [start-jetty]]
             [com.webtalk.mailer.request-an-invite :as mailer-request-an-invite]
             [com.webtalk.mailer.prelaunch-request-an-invite :as mailer-prelaunch-request-an-invite]
             [clojurewerkz.titanium.vertices       :as gvertex]

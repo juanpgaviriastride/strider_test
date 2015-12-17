@@ -1,7 +1,6 @@
 (ns com.webtalk.resilience.invitation
   (:gen-class)
-  (:require [com.netflix.hystrix.core                   :as hystrix]
-            [com.webtalk.storage.graph.invitation       :as graph-invitation]
+  (:require [com.webtalk.storage.graph.invitation       :as graph-invitation]
             [com.webtalk.storage.persistence.invitation :as persistence-invitation]))
 
 

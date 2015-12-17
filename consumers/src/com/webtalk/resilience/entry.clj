@@ -1,7 +1,6 @@
 (ns com.webtalk.resilience.entry
   (:gen-class)
-  (:require [com.netflix.hystrix.core              :as hystrix]
-            [com.webtalk.storage.graph.entry       :as graph-entry]
+  (:require [com.webtalk.storage.graph.entry       :as graph-entry]
             [com.webtalk.storage.persistence.entry :as persistence-entry]))
 
 
