@@ -1,7 +1,6 @@
 (ns com.webtalk.resilience.user
   (:gen-class)
-  (:require [com.netflix.hystrix.core             :as hystrix]
-            [com.webtalk.storage.graph.user       :as graph-user]
+  (:require [com.webtalk.storage.graph.user       :as graph-user]
             [com.webtalk.storage.persistence.user :as persistence-user]
             [taoensso.timbre :refer [debug spy]]))
 

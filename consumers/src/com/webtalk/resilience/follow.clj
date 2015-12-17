@@ -1,7 +1,6 @@
 (ns com.webtalk.resilience.follow
   (:gen-class)
-  (:require [com.netflix.hystrix.core                  :as hystrix]
-            [com.webtalk.storage.graph.follow          :as graph-follow]
+  (:require [com.webtalk.storage.graph.follow          :as graph-follow]
             [com.webtalk.storage.persistence.following :as persistence-following]))
 
 
