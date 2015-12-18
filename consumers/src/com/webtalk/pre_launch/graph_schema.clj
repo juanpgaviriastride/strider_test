@@ -105,6 +105,8 @@ and run the repair cassandra thing"
   (let [graph (get-in core/*system* [:titan :connection])
         mgmt (.getManagementSystem graph)]
     (timbre/debug (bean mgmt))
-    (create-titan-indexes graph)
+    (cleanup graph)
+    ;;(create-titan-indexes graph)
     
-    (fix-cassandra graph ["byEmail"])))
+    ;;(fix-cassandra graph ["byEmail"])
+    ))
