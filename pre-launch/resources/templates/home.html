@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon-16x16-40d249f6.png" type="image/png" />
     <link rel="icon" type="image/ico" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/new-landing-99b96935.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/new-landing-ed9befc0.css" rel="stylesheet" type="text/css" media="all" />
     
     <!--[if (gte IE 6)&(lte IE 8)]>
       
@@ -43,15 +43,16 @@
     <div class='main-wrapper'>
       <div class='main-content'>
         <div class='main-container'>
-          {% if success %}
-          <div class='alert success'>
-            <p>{{message}}</p>
-            <a class='close js-close-alert' href='javascript:;'>
-              <i class='icon icon-close'></i>
-            </a>
-          </div>
-          {% endif %}
           <div class='top-section'>
+            {% if success %}
+            <div class='alert success'>
+              <p>{{message}}</p>
+              <a class='close js-close-alert' href='javascript:;'>
+                <i class='icon icon-close'></i>
+              </a>
+            </div>
+            {% endif %}
+            <div class='block-section__overlay'></div>
             <div class='wrapper'>
               <div class='top-section__top'>
                 <h1 class='logo'>
@@ -487,9 +488,10 @@
                               with them, or
                               <b>"Follow"</b>
                               them on Webtalk, the affiliate program tracks
+                              <span class='text__mobile'>all invitations to award referral credit when participating in traditional social network usage. This patent-pending process enables the act of acquiring referrals to become simple and frictionless.</span>
                             </p>
                           </div><div class='grid__item lap--one-half one-whole'>
-                            <p>all invitations to award referral credit when participating in traditional social network usage. This patent-pending process enables the act of acquiring referrals to become simple and frictionless.</p>
+                            <p class='text__desktop'>all invitations to award referral credit when participating in traditional social network usage. This patent-pending process enables the act of acquiring referrals to become simple and frictionless.</p>
                             <p>
                               Once Webtalk has become a major competitor in the online networking space, the estimated average commission paid per referral will be as high as
                               <b>one dollar ($1) per month,</b>
@@ -687,12 +689,10 @@
           </div>
           <div class='block-section block-section--tall block-section--video'>
             <div class='fullscreen-bg'>
-              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='http://d306bcb0kbm0de.cloudfront.net/assets/images/new-landing/backgrounds/new-video-bg-f2a3a275.png'>
-                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.webm' type='video/webm'>
-                  <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.mp4' type='video/mp4'>
-                    <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.ogg' type='video/ogg'>
-                  </source>
-                </source>
+              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='assets/images/new-landing/backgrounds/new-video-bg-f2a3a275.png'>
+                <source src='assets/images/prelaunch-video.webm' type='video/webm'>
+                <source src='assets/images/prelaunch-video.mp4' type='video/mp4'>
+                <source src='assets/images/prelaunch-video.ogg' type='video/ogg'>
               </video>
             </div>
             <div class='block-section__overlay'></div>
