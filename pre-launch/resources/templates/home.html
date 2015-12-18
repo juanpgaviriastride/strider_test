@@ -43,16 +43,15 @@
     <div class='main-wrapper'>
       <div class='main-content'>
         <div class='main-container'>
+          {% if success %}
+          <div class='alert success'>
+            <p>{{message}}</p>
+            <a class='close js-close-alert' href='javascript:;'>
+              <i class='icon icon-close'></i>
+            </a>
+          </div>
+          {% endif %}
           <div class='top-section'>
-            {% if success %}
-            <div class='alert success'>
-              <p>You successfully joined the waiting list. We'll contact you!</p>
-              <a class='close js-close-alert' href='javascript:;'>
-                <i class='icon icon-close'></i>
-              </a>
-            </div>
-            {% endif %}
-            <div class='block-section__overlay'></div>
             <div class='wrapper'>
               <div class='top-section__top'>
                 <h1 class='logo'>

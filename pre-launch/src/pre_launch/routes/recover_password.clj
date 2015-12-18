@@ -2,14 +2,23 @@
   (:require [pre-launch.layout :as layout]
             [compojure.core :refer :all]
             [pre-launch.model.user :as user]
+            [taoensso.timbre :refer [spy]]
             [pre-launch.controllers.recover-password :as controller]
             [ring.util.response :refer [response redirect]]
             ring.middleware.session))
 
-(defn send-recover-email [email]
-  (when-let [current-user (user/get email)]
+(defn send-recover-email [request]
+  (let [email (get-in request [:params :email])
+        session (:session request)]
+    (when-let [current-user (user/get email)]
     (controller/deliver-email (:id current-user) email))
-  (redirect "/"))
+    (-> (redirect "/")
+       (assoc :session
+              (assoc session :flash-message {:success true
+                                             :message "You will receive a message with instructions to reset your password"})))))
+
+  
+  
 
 (defn recover-password [request]
   (layout/render "crowdfunding/recover-password.html"))
@@ -37,7 +46,7 @@
 
 (defroutes recover-password-routes
   (GET "/recover-password" request (recover-password request))
-  (POST "/recover" [email] (send-recover-email email))
+  (POST "/recover" request (send-recover-email request))
   (GET "/new-password/:token" request (new-password request))
   (POST "/set-password" request (set-password (:params request) (:session request))))
 
