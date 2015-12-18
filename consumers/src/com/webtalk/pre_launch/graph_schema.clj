@@ -4,6 +4,7 @@
             [taoensso.timbre :as timbre]
             [com.webtalk.util :as util]
             [com.webtalk.pre-launch.core :as core])
+  (:gen-class)
   (:import [java.util Properties Map ArrayList]
            java.io.File
            com.tinkerpop.blueprints.Vertex
