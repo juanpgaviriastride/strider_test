@@ -2,7 +2,8 @@
   (:require [clojurewerkz.titanium.schema :as schema]
             [clojurewerkz.titanium.graph :as tgraph]
             [taoensso.timbre :as timbre]
-            [com.webtalk.util :as util])
+            [com.webtalk.util :as util]
+            [com.webtalk.pre-launch.core :as core])
   (:import [java.util Properties Map ArrayList]
            java.io.File
            com.tinkerpop.blueprints.Vertex
@@ -99,8 +100,8 @@ and run the repair cassandra thing"
 
 
 (defn -main [& args]
-  (com.webtalk.pre-launch.core/start)
-  (let [graph (get-in com.webtalk.pre-launch.core/*system* [:titan :connection])
+  (core/start)
+  (let [graph (get-in core/*system* [:titan :connection])
         mgmt (.getManagementSystem graph)]
     (timbre/debug (bean mgmt))
     (create-titan-indexes graph)
