@@ -28,7 +28,7 @@
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [com.stuartsierra/component "0.2.3"]]
   :main ^:skip-aot com.webtalk.pre-launch.core
-  :aot [com.webtalk.storage com.webtalk.pre-launch.core]
+  :aot [com.webtalk.storage com.webtalk.pre-launch.core com.webtalk.pre-launch.graph-schema]
   :target-path "target/%s"
   :resource-paths ["resources"]
   :aliases {"omni" ["do" ["clean"] ["cloverage"] ["eastwood"] ["kibit"] ["bikeshed"]]
