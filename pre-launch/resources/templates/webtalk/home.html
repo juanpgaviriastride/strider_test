@@ -61,7 +61,7 @@
                     <div class='button-beta button-beta__header'>Beta</div>
                   </h1>
                   <div class='link-login float--right push-half--top'>
-                    <a class='btn--login' data-target='' data-toggle='modal' href='javascript:;'>Login</a>
+                    <a class='btn--login' data-target='#login-modal' data-toggle='modal' href='javascript:;'>Login</a>
                   </div>
                 </div>
                 <p class='main-top__message' id='BackTop'>Top talent and companies use Webtalk to showcase, connect and collaborate</p>
@@ -436,13 +436,18 @@
             <div class='bg-landing--footer'></div>
             <div class='btn-container text--center'>
               <a class='btn btn--default btn--big js-scrollTo' data-scrollto='#BackTop' href='#'>Request an invite</a>
-              <a data-toggle="modal" data-target="" class="btn btn--white btn--big hover-bg-white" href="#">Login</a>
+              <a data-toggle="modal" data-target="#login-modal" class="btn btn--white btn--big hover-bg-white" href="#">Login</a>
             </div>
           </div>
           <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal fade' id='login-modal' role='dialog' tabindex='-1'>
             <div class='modal-dialog modal--small'>
               <div class='modal__content'>
-                <h1 class='modal__title'>Login</h1>
+                <div class='form-field'>
+                  <h1 class='modal__title'>
+                    Login or
+                    <a class="link--color" href="http://prelaunch.webtalk.co/signin">go to the Pre-Launch Login</a>
+                  </h1>
+                </div>
                 <form action='/views/news/' class='js-loginModalValidation' method=' '>
                   <div class='modal__body'>
                     <div class='form-field'>
