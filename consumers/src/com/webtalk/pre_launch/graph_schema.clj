@@ -78,7 +78,7 @@ and run the repair cassandra thing"
                                         (or (= SchemaStatus/REGISTERED index-status) (= SchemaStatus/ENABLED))) (.getFieldKeys idx))))))
             (repair-cass-index [index-name]
               (TitanIndexRepair/cassandraRepair (map->properties {"storage.backend" "cassandra"
-                                                                  "storage.hostname" (util/get-titan-hosts)})
+                                                                  "storage.hostname" "localhost"})
                                                 index-name "" "org.apache.cassandra.dht.Murmur3Partitioner"))
             (enable-index [index-name]
               (-> mgmt
@@ -90,8 +90,19 @@ and run the repair cassandra thing"
             (recur (check-index idx-name))))
         (timbre/info "Index REGISTERED" idx-name)
 
-        (timbre/info "Start hadoop job to repair indexes")
-        (repair-cass-index idx-name)
+        ;; (timbre/info "Start hadoop job to repair indexes")
+        ;; (repair-cass-index idx-name)
+        
+        ;; (timbre/info "RE enable index" idx-name)
+        ;; (enable-index idx-name)
+        ))))
 
-        (timbre/info "RE enable index" idx-name)
-        (enable-index idx-name)))))
+
+(defn -main [& args]
+  (com.webtalk.pre-launch.core/start)
+  (let [graph (get-in com.webtalk.pre-launch.core/*system* [:titan :connection])
+        mgmt (.getManagementSystem graph)]
+    (timbre/debug (bean mgmt))
+    (create-titan-indexes graph)
+    
+    (fix-cassandra graph ["byEmail"])))
