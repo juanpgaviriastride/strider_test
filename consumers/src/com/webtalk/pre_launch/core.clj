@@ -15,7 +15,6 @@
             [com.webtalk.pre-launch.user                    :as user]
             [com.webtalk.pre-launch.invite                  :as invite]
             [com.webtalk.pre-launch.computation             :as computation]
-            [com.webtalk.pre-launch.graph-schema            :as graph-schema]
             [clojurewerkz.titanium.vertices                 :as gvertex]
             [clojurewerkz.titanium.edges                    :as gedge]
             [taoensso.timbre :refer [debug info spy]]))
@@ -167,7 +166,6 @@
                                                 :password (util/get-rmq-password)}
                                     :titan     {:hosts (util/get-titan-hosts)}})))
   (alter-var-root #'*system* component/start)
-  (graph-schema/create-titan-indexes (get-conn :titan))
   (debug *system* (:system *system*))
   (let [rmq-conns-channels (setup-queue-and-handlers (get-conn :rabbit)
                                                      "com.webtalk.pre-launch"
