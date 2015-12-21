@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon-16x16-40d249f6.png" type="image/png" />
     <link rel="icon" type="image/ico" href="http://d306bcb0kbm0de.cloudfront.net/assets/images/favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/new-landing-ed9befc0.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://d306bcb0kbm0de.cloudfront.net/assets/stylesheets/new-landing-d7871dd3.css" rel="stylesheet" type="text/css" media="all" />
     
     <!--[if (gte IE 6)&(lte IE 8)]>
       
@@ -102,7 +102,7 @@
             <div class='wrapper'>
               <h2 class='block-section__title gray text--center push--bottom'>What is Webtalk?</h2>
               <p class='block-section__text text--center text--p18 gray push--bottom'>Webtalk invested $2 million and three years into building a world-class software that helps you communicate better in both your personal and professional life, all while providing a referral program that is potentially life-changing.</p>
-              <h3 class='italic22 text--center push-90--bottom'>Join the pre-launch and get a head start building your referral network!</h3>
+              <h3 class='italic22 text--center push-90--bottom'>Join the pre-launch crowdfunding campaign and get a head start building your referral network!</h3>
               <div class='launch-box cf push-double--bottom'>
                 <div class='launch-bar'>
                   <div class='launch-bar__progress js-progress-days'>
@@ -156,7 +156,7 @@
                       </p>
                     </div>
                     <div class='invitation-box'>
-                      <p class='invitation-box__text'>Enter your email and we will send you an invitation when Webtalk launches</p>
+                      <p class='invitation-box__text'>Enter your email and we will send you an invitation when Webtalk launches to the public.</p>
                       <form action='/request-invitation' class='js-email-validation' method='post'>
                         {% csrf-field %}
                         <div class='grid grid--narrow push--bottom'><div class='grid__item one-whole lap--four-fifths'>
@@ -689,13 +689,12 @@
           </div>
           <div class='block-section block-section--tall block-section--video'>
             <div class='fullscreen-bg'>
-              <video autoplay='' class='fullscreen-bg__video' loop='' muted='' poster='http://d306bcb0kbm0de.cloudfront.net/assets/images/new-landing/backgrounds/new-video-bg-f2a3a275.png'>
-                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.webm' type='video/webm'>
-                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.mp4' type='video/mp4'>
-                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-video.ogg' type='video/ogg'>
+              <video autoplay='' class='fullscreen-bg__video' id='video-landing' loop='' muted='' onended='myFunction()' poster='http://d306bcb0kbm0de.cloudfront.net/assets/images/new-landing/backgrounds/new-video-bg-f2a3a275.png'>
+                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-med-video.webm' type='video/webm'>
+                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-med-video.mp4' type='video/mp4'>
+                <source src='http://d306bcb0kbm0de.cloudfront.net/assets/images/prelaunch-med-video.ogg' type='video/ogg'>
               </video>
             </div>
-            <div class='block-section__overlay'></div>
             <div class='wrapper'>
               <div class='lockin-box'>
                 <div class='lockin-box__img'>
@@ -1124,7 +1123,7 @@
     </div>
     <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-5fc00a3f.js" type="text/javascript"></script>
     
-    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/new-landing-73d51006.js" type="text/javascript"></script>
+    <script src="http://d306bcb0kbm0de.cloudfront.net/assets/javascripts/new-landing-79c109cb.js" type="text/javascript"></script>
     <script async='' defer='defer' src='https://apis.google.com/js/platform.js'></script>
   </body>
 </html>
