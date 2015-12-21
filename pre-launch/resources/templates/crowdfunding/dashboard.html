@@ -380,7 +380,12 @@
             <p class='soft--sides text--center'>
               <small>© 2015 Webtalk</small>
               <span>-</span>
-              <a class='footer__terms' data-target='#terms-conditions-modal' data-toggle='modal' href='javascript:;'>Terms & Conditions</a>
+              <a class='footer__terms' data-target='#terms-conditions-modal' data-toggle='modal' href='javascript:;'>Terms & Conditions</a> 
+            </p>
+            <p>
+              {%if referer-name %}
+              Refered by {{referer-name}}
+              {% endif %}
             </p>
           </div>
         </div>
