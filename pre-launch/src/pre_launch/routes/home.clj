@@ -42,7 +42,7 @@
   (-> (redirect "/")
      (assoc :session
             (assoc session :flash-message {:success true
-                                           :message "You successfully joined the waiting list. Please check your email!"}))))
+                                           :message "If this email is not related with a prelaunch user you will be subscribed on our wait list. Please check your email!"}))))
 
 
 

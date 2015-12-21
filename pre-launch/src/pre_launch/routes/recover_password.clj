@@ -15,7 +15,7 @@
     (-> (redirect "/")
        (assoc :session
               (assoc session :flash-message {:success true
-                                             :message "You will receive an email with instructions to reset your password."})))))
+                                             :message "If we happen to have this email on our database you will receive a message with instructions to reset your password."})))))
 
   
   
