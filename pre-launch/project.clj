@@ -19,6 +19,7 @@
                  [com.fzakaria/slf4j-timbre "0.2.1"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
+                 [ring/ring-ssl "0.2.1"]
                  [ring/ring-defaults "0.1.5"]
                  [ring "1.4.0" :exclusions [ring/ring-jetty-adapter]]
                  [mount "0.1.3" :exclusions [ch.qos.logback/logback-classic]]
