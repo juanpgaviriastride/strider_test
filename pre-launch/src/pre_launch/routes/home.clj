@@ -14,6 +14,8 @@
 (defn home-page [flash-message session]
   (let [params-hash (scontroller/get-overal-app-stats)
         final-params (merge params-hash flash-message)]
+    (spy session)
+    (spy flash-message)
     (filter/add-filter! :money-format (fn [amount] (format (Integer. "$%,8d%n"))))
     (->  (layout/render
          "home.html" final-params)
@@ -33,6 +35,7 @@
     (spy requesting-url)
     (spy wt-url)
     (spy flash-message)
+    (println "the host is: " wt-url)
     (if (= wt-url requesting-url) 
       (layout/render "webtalk/home.html" flash-message)
       (home-page flash-message (:session request)))))

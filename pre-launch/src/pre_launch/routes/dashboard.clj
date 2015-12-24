@@ -28,6 +28,7 @@
                       {} 
                     )
         template-response (prepare-response titan-id user-name (:name referer-data))]
+    (spy session)
     (spy template-response)
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
     (layout/render "crowdfunding/dashboard.html" template-response)))
