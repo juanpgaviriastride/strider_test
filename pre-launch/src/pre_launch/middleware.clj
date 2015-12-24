@@ -5,6 +5,7 @@
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
             [ring.middleware.webjars :refer [wrap-webjars]]
+            [ring.middleware.ssl :refer [wrap-hsts wrap-forwarded-scheme]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
@@ -72,9 +73,17 @@
       wrap-identity
       (wrap-authentication (session-backend))))
 
+(defn enforce-ssl [handler]
+  (if (or (env :dev) (env :test))
+    handler
+    (-> handler
+        wrap-hsts
+        wrap-forwarded-scheme)))
+
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
       wrap-auth
+      enforce-ssl
       wrap-formats
       wrap-params
       wrap-webjars
