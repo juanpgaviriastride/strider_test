@@ -35,8 +35,6 @@
     (spy requesting-url)
     (spy wt-url)
     (spy flash-message)
-    (println "the host is: " requesting-url)
-    (println "the wt-url is: " wt-url)
     (if (= wt-url requesting-url) 
       (layout/render "webtalk/home.html" flash-message)
       (home-page flash-message (:session request)))))
@@ -47,8 +45,6 @@
      (assoc :session
             (assoc session :flash-message {:success true
                                            :message "If this email is not related with a prelaunch user you will be subscribed on our wait list. Please check your email!"}))))
-
-
 
 (defroutes home-routes
   (GET "/" request (decide-home request))
