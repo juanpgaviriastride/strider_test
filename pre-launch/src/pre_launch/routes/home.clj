@@ -19,7 +19,7 @@
     (filter/add-filter! :money-format (fn [amount] (format (Integer. "$%,8d%n"))))
     (->  (layout/render
          "home.html" final-params)
-        (update-in [:session] dissoc :flash-message))))
+        (assoc :session (dissoc session :flash-message)))))
 
 (defn refered-home-page [{params :params session :session}]
   (let [referer-id (:titan_id params)]
