@@ -5,7 +5,7 @@
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
             [ring.middleware.webjars :refer [wrap-webjars]]
-            [ring.middleware.ssl :refer [wrap-hsts wrap-forwarded-scheme]]
+            [ring.middleware.ssl :refer [wrap-hsts wrap-ssl-redirect wrap-forwarded-scheme]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
@@ -78,6 +78,7 @@
     handler
     (-> handler
         wrap-hsts
+        wrap-ssl-redirect
         wrap-forwarded-scheme)))
 
 (defn wrap-base [handler]
