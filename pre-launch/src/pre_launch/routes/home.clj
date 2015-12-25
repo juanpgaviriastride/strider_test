@@ -8,7 +8,7 @@
             [pre-launch.controllers.landing :as scontroller]
             [pre-launch.controllers.invitation-request :as controller]
             [pre-launch.config-mailer :as config]
-            [taoensso.timbre :refer [spy]]
+            [taoensso.timbre :refer [spy info]]
             [clojure.java.io :as io]))
 
 (defn home-page [flash-message session]
@@ -29,6 +29,8 @@
 
 
 (defn decide-home [request]
+  (info (:scheme request))
+  (info (get-in request [:headers "host"]))
   (let [requesting-url (get-in request [:headers "host"])
         wt-url (config/webtalk-url)
         flash-message (get-in request [:session :flash-message] {})]
