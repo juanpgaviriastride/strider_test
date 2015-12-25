@@ -78,7 +78,7 @@
     handler
     (-> handler
         wrap-hsts
-        wrap-ssl-redirect
+        ;wrap-ssl-redirect
         wrap-forwarded-scheme)))
 
 (defn wrap-base [handler]
