@@ -2,6 +2,7 @@
   (:require [pre-launch.layout :refer [*app-context* error-page]]
             [taoensso.timbre :as timbre]
             [environ.core :refer [env]]
+            [ring.util.response :as response]
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
             [ring.middleware.webjars :refer [wrap-webjars]]
@@ -73,12 +74,26 @@
       wrap-identity
       (wrap-authentication (session-backend))))
 
+
+
+(defn- https-url [request-url]
+  (str "https://" (:server-name request-url) ":443" (:uri request-url)))
+
+(defn require-https
+  [handler]
+  (fn [request]
+    (if (and (= (:scheme request) :http) (re-find #"webtalk" (:server-name request)))
+      (-> (response/redirect (https-url request))
+         (response/status 301))
+      (handler request))))
+
 (defn enforce-ssl [handler]
   (if (or (env :dev) (env :test))
     handler
     (-> handler
         wrap-hsts
-        ;wrap-ssl-redirect
+        ;;wrap-ssl-redirect
+        require-https
         wrap-forwarded-scheme)))
 
 (defn wrap-base [handler]
