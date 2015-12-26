@@ -21,12 +21,8 @@
 (defn dashboard [params session]
   (let [user-name (get-in session [:identity :name])
         titan-id (get-in session [:identity :titan_id])
-        referer-data (if-let [referer-id   (:refererID session)]
-                      (do
-                        (spy(referer-id)) 
-                        (user-model/email-by-titan referer-id))
-                      {} 
-                    )
+        referer-data (when-let [referer-id   (:refererID session)]
+                       (user-model/email-by-titan (spy referer-id)))
         template-response (prepare-response titan-id user-name (:name referer-data))]
     (spy session)
     (spy template-response)
