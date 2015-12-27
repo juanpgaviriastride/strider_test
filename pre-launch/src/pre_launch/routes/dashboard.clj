@@ -10,8 +10,9 @@
             [clojure.java.io :as io]
             [taoensso.timbre :refer [spy]]))
 
-(defn prepare-response [titan-id user-name referer-name]
+(defn prepare-response [titan-id user-name user-email referer-name]
   {:name user-name
+   :email user-email
    :titan-id titan-id
    :network-table (controller/get-referral-network titan-id)
    :referer-name referer-name
@@ -20,10 +21,11 @@
 
 (defn dashboard [params session]
   (let [user-name (get-in session [:identity :name])
+        user-email (get-in session [:identity :email])
         titan-id (get-in session [:identity :titan_id])
         referer-data (when-let [referer-id   (:refererID session)]
                        (user-model/email-by-titan (spy referer-id)))
-        template-response (prepare-response titan-id user-name (:name referer-data))]
+        template-response (prepare-response titan-id user-name user-email (:name referer-data))]
     (spy session)
     (spy template-response)
     (filter/add-filter! :monetizise (fn [amount] (format "$%,8d%n"(* (Integer. amount) 10))))
