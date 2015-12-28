@@ -8,20 +8,19 @@
    [clojure.data.json :as json]))
 
 
-
-
 (defn deliver-email [payload email]
   (let [email-agent (agent {:email email})
         send-fn (fn [{email :email}]
-                  (mailer/send-email (config-mailer/auth)
+                  (mailer/send-email-groupid (config-mailer/auth)
                                        {:to email
-                                        :from "no_reply@webtalk.co"
+                                        :from (config-mailer/from-email)
                                         :subject "Congrats! You have a new referral!"
                                         :html (parser/render-file
                                                "emails/join-notification.html"
-                                               payload)}))]
+                                               payload)
+                                        :from-name (config-mailer/sender-name)
+                                        :group-id (config-mailer/user-groupid)}))]
     (send-off email-agent send-fn)))
-
 
 
 (defn notify-referer [referer-titan-id refered-name]

@@ -6,11 +6,13 @@
             [clostache.parser :as template]))
 
 (defn deliver-email [to]
-  (mailer/send-email config/auth
+  (mailer/send-email-groupid config/auth
                      {:to to
-                      :from "no_reply@webtalk.co"
+                      :from config/from-email
                       :subject "Waitlist Confirmation"
                       :html (template/render-resource
                              "templates/prelaunch_request_an_invite.html.mustache"
                              {:to to
-                              :join_url config/base-url})}))
+                              :join_url config/base-url})
+                      :from-name config/sender-name
+                      :group-id config/inv-groupid}))

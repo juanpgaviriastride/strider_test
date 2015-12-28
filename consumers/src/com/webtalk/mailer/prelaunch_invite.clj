@@ -6,22 +6,26 @@
             [clostache.parser :as template]))
 
 (defn deliver-email [sender to]
-  (mailer/send-email config/auth
+  (mailer/send-email-groupid config/auth
                      {:to to
-                      :from "no_reply@webtalk.co"
+                      :from config/from-email
                       :subject (str "Congrats! " (:name sender) " has recommended you!")
                       :html (template/render-resource
                              "templates/prelaunch_invite.html.mustache"
                              {:to to
                               :name (:name sender)
-                              :join_url (str config/base-url "/invite/" (:__id__ sender))})}))
+                              :join_url (str config/base-url "/invite/" (:__id__ sender))})
+                      :from-name config/sender-name
+                      :group-id config/inv-groupid}))
 
 (defn bulk-email [sender bcc]
-  (mailer/bulk-email config/auth {:bcc bcc
-                                  :from "no_reply@webtalk.co"
+  (mailer/bulk-email-groupid config/auth {:bcc bcc
+                                  :from config/from-email
                                   :subject (str "Congrats! " (:name sender) " has recommended you!")
                                   :html (template/render-resource
                                          "templates/prelaunch_invite.html.mustache"
                                          {:to bcc
                                           :name (:name sender)
-                                          :join_url (str config/base-url "/invite/" (:__id__ sender))})}))
+                                          :join_url (str config/base-url "/invite/" (:__id__ sender))})
+                                  :from-name config/sender-name
+                                  :group-id config/inv-groupid}))

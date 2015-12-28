@@ -32,7 +32,7 @@
                  [mysql/mysql-connector-java "5.1.34"]
                  [com.stripe/stripe-java "1.38.0"]
                  [clj-wt.queue "0.1.0-SNAPSHOT"]
-                 [sendgrid-java-wrapper "0.1.0-SNAPSHOT"]
+                 [sendgrid-java-wrapper "0.1.0"]
                  [org.immutant/web "2.1.1" :exclusions [ch.qos.logback/logback-classic]]
                  [org.clojure/data.json "0.2.5"]]
 
