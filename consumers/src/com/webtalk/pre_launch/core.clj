@@ -103,8 +103,8 @@
                              (payload "emails")))]
     (spy ginvites)
 
-    (debug "sending email")
-    (debug "sender" (first ginvites) (:sender (first ginvites)))
+    (info "sending email")
+    (info "sender" (first ginvites) (:sender (first ginvites)))
     (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails"))))
 
 ;; queue-name com.webtalk.pre-launch.invite
