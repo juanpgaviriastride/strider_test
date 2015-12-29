@@ -40,14 +40,16 @@
   (let [email-agent (agent {:user-email user-email :user-id user-id})
         email-fn (fn [{user-email :user-email user-id :user-id}]
                    (debug "sending the recover password email")
-                   (mailer/send-email (config-mailer/auth)
+                   (mailer/send-email-groupid (config-mailer/auth)
                                       {:to user-email
-                                       :from "no_reply@webtalk.co"
+                                       :from (config-mailer/from-email)
                                        :subject "Reset Password Request"
                                        :html (parser/render-file
                                               "emails/recover-password.html"
                                               {:url (str
                                                      (config-mailer/root-url)
                                                      "/new-password/"
-                                                     (generate-token user-id user-email))})}))]
+                                                     (generate-token user-id user-email))})
+                                       :from-name (config-mailer/sender-name)
+                                       :group-id (config-mailer/user-groupid)}))]
     (send-off email-agent email-fn)))

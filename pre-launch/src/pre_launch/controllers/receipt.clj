@@ -30,12 +30,13 @@
         send-fn (fn [{user-id :user-id email :email}]
                   (debug "sending the receipt email...")
                   (let [payment-data (get-payment-detail user-id)]
-                    (mailer/send-email (config-mailer/auth)
+                    (mailer/send-email-groupid (config-mailer/auth)
                                        {:to email
-                                        :from "no_reply@webtalk.co"
+                                        :from (config-mailer/from-email)
                                         :subject "Your Credits Purchase Receipt"
                                         :html (parser/render-file
                                                "emails/payment-confirmation.html"
-                                               payment-data)})))]
-
+                                               payment-data)
+                                        :from-name (config-mailer/sender-name)
+                                        :group-id (config-mailer/user-groupid)})))]
     (send-off email-agent send-fn)))

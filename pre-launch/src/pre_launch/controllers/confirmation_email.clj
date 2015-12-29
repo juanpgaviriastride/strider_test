@@ -18,24 +18,21 @@
     (assoc :base-url (config-mailer/root-url))  
     (assoc :name (:name (user-model/get email)))
     (assoc :titan-id user-id)
-    (assoc :email email)
-
-    )
-
-  )
-
+    (assoc :email email)))
 
 (defn deliver-email [email user-id payload]
   (let [email-agent (agent {:email email :user-id user-id})
         send-fn (fn [{user-id :user-id email :email}]
                   (println "sending the receipt email...")
                   (let [confirm-data (confirmation-data payload email user-id)]
-                    (mailer/send-email (config-mailer/auth)
+                    (mailer/send-email-groupid (config-mailer/auth)
                                        {:to email
-                                        :from "no_reply@webtalk.co"
+                                        :from (config-mailer/from-email)
                                         :subject "Welcome & Thank You!"
                                         :html (parser/render-file
                                                "emails/pre-launch.html"
-                                               confirm-data)})))]
+                                               confirm-data)
+                                        :from-name (config-mailer/sender-name)
+                                        :group-id (config-mailer/user-groupid)})))]
 
-    (send-off email-agent send-fn)))
+  (send-off email-agent send-fn)))
