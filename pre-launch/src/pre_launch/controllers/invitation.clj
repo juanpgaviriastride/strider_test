@@ -2,13 +2,15 @@
   (:require
    [clj-wt.queue :as queue]
    [crypto.random :refer [url-part]]
-   [taoensso.timbre :refer [spy]]))
+   [taoensso.timbre :refer [spy]]
+   [pre-launch.controllers.cache :as cache]))
 
 
 (defn on-invitation-received [request-response]
   (spy request-response))
 
 (defn send-invitation [invite-email referer-id]
+  (cache/invalid (mapv #(str referer-id %) [:referral-network :network-detail]))
   (let [callback-queue-name (str "com.webtalk.pre-launch.bulk-invite" (url-part 15))
         result (queue/promise-subscription callback-queue-name on-invitation-received)]
     (queue/publish-with-qname "com.webtalk.pre-launch.bulk-invite" callback-queue-name
