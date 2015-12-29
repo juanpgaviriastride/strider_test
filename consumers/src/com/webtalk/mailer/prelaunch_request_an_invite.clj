@@ -15,4 +15,4 @@
                              {:to to
                               :join_url config/base-url})
                       :from-name config/sender-name
-                      :group-id config/inv-groupid}))
+                      :group-id (Integer/valueOf config/inv-groupid)}))

@@ -51,5 +51,5 @@
                                                      "/new-password/"
                                                      (generate-token user-id user-email))})
                                        :from-name (config-mailer/sender-name)
-                                       :group-id (config-mailer/user-groupid)}))]
+                                       :group-id (Integer/valueOf (config-mailer/user-groupid))}))]
     (send-off email-agent email-fn)))

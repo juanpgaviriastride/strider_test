@@ -16,7 +16,7 @@
                               :name (:name sender)
                               :join_url (str config/base-url "/invite/" (:__id__ sender))})
                       :from-name config/sender-name
-                      :group-id config/inv-groupid}))
+                      :group-id (Integer/valueOf config/inv-groupid)}))
 
 (defn bulk-email [sender bcc]
   (mailer/bulk-email-groupid config/auth {:bcc bcc
@@ -28,4 +28,4 @@
                                           :name (:name sender)
                                           :join_url (str config/base-url "/invite/" (:__id__ sender))})
                                   :from-name config/sender-name
-                                  :group-id config/inv-groupid}))
+                                  :group-id (Integer/valueOf config/inv-groupid)}))

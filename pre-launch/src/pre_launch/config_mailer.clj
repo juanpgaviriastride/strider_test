@@ -13,8 +13,8 @@
     (if (and user key)
       {:api_user user 
        :api_key  key}
-      {:api_user "sarcilav"
-       :api_key  "P@wU8Z#wGHAZ^n"})))
+      {:api_user "david@nullindustries.co"
+       :api_key  "Wfbt@lk15"})))
 
 (defn inv-groupid []
   (or (env :inv-groupid) 301))

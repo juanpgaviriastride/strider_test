@@ -38,5 +38,5 @@
                                                "emails/payment-confirmation.html"
                                                payment-data)
                                         :from-name (config-mailer/sender-name)
-                                        :group-id (config-mailer/user-groupid)})))]
+                                        :group-id (Integer/valueOf (config-mailer/user-groupid))})))]
     (send-off email-agent send-fn)))
