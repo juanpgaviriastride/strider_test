@@ -16,6 +16,7 @@
                  [org.webjars/jquery "2.1.4"]
                  [com.taoensso/tower "3.0.2"]
                  [com.taoensso/timbre "4.1.4"]
+                 [com.taoensso/carmine "2.12.1"]
                  [com.fzakaria/slf4j-timbre "0.2.1"]
                  [compojure "1.4.0"]
                  [ring-webjars "0.1.1"]
