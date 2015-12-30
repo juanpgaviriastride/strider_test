@@ -31,12 +31,12 @@
                   (debug "sending the receipt email...")
                   (let [payment-data (get-payment-detail user-id)]
                     (mailer/send-email-groupid (config-mailer/auth)
-                                       {:to email
-                                        :from (config-mailer/from-email)
-                                        :subject "Your Credits Purchase Receipt"
-                                        :html (parser/render-file
-                                               "emails/payment-confirmation.html"
-                                               payment-data)
-                                        :from-name (config-mailer/sender-name)
-                                        :group-id (Integer/valueOf (config-mailer/user-groupid))})))]
+                                               {:to email
+                                                :from (config-mailer/from-email)
+                                                :subject "Your Credits Purchase Receipt"
+                                                :html (parser/render-file
+                                                       "emails/payment-confirmation.html"
+                                                       payment-data)
+                                                :from-name (config-mailer/sender-name)
+                                                :group-id (config-mailer/user-groupid)})))]
     (send-off email-agent send-fn)))
