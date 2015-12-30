@@ -13,14 +13,14 @@
     (if (and user key)
       {:api_user user 
        :api_key  key}
-      {:api_user "david@nullindustries.co"
-       :api_key  "Wfbt@lk15"})))
+      {:api_user "sarcilav"
+       :api_key  "P@wU8Z#wGHAZ^n"})))
 
 (defn inv-groupid []
-  (or (env :inv-groupid) 301))
+  (or (Integer. (env :inv-groupid)) 301))
 
 (defn user-groupid []
-  (or (env :user-groupid) 303))
+  (or (Integer. (env :user-groupid)) 303))
 
 (defn sender-name []
   (or (env :sender-name) "Webtalk"))
