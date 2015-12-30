@@ -7,9 +7,9 @@
 
 (def base-url (or (env :root-url) "http://wtwebthor-env.elasticbeanstalk.com"))
 
-(def inv-groupid (or (Integer. (env :inv-groupid)) 301))
+(def inv-groupid (Integer. (or (env :inv-groupid) 301)))
 
-(def user-groupid (or (Integer. (env :user-groupid)) 303))
+(def user-groupid (Integer. (or (env :user-groupid) 303)))
 
 (def sender-name (or (env :sender-name) "Webtalk"))
 

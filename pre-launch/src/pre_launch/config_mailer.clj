@@ -17,10 +17,10 @@
        :api_key  "P@wU8Z#wGHAZ^n"})))
 
 (defn inv-groupid []
-  (or (Integer. (env :inv-groupid)) 301))
+  (Integer. (or (env :inv-groupid) 301)))
 
 (defn user-groupid []
-  (or (Integer. (env :user-groupid)) 303))
+  (Integer. (or (env :user-groupid) 303)))
 
 (defn sender-name []
   (or (env :sender-name) "Webtalk"))
