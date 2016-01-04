@@ -15,10 +15,7 @@
     (-> (redirect "/")
        (assoc :session
               (assoc session :flash-message {:success true
-                                             :message "If we happen to have this email on our database you will receive a message with instructions to reset your password."})))))
-
-  
-  
+                                             :message "If we happen to have this email on our database you will receive a message with instructions to reset your password."})))))  
 
 (defn recover-password [request]
   (layout/render "crowdfunding/recover-password.html"))
