@@ -40,6 +40,5 @@
 
 (defn email-by-titan [titan-id]
   (let [db-result (db/get-email-by-titan {:titan_id titan-id})]
-    (println "[------DEBUG EMAIL BY TITAN: The response from database is] " db-result)
     (first db-result)))
 
