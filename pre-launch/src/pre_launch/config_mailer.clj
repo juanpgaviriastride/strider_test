@@ -27,3 +27,9 @@
 
 (defn from-email []
   (or (env :from-email) "no_reply@webtalk.co"))
+
+(defn waitlist-mig []
+  (Integer. (or (env :waitlist-mig) 88600)))
+
+(defn prelaunch-mig []
+  (Integer. (or (env :prelaunch-mig) 110)))
