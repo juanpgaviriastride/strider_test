@@ -105,7 +105,14 @@ and run the repair cassandra thing"
   (let [graph (get-in core/*system* [:titan :connection])
         mgmt (.getManagementSystem graph)]
     (timbre/debug (bean mgmt))
-    ;;(cleanup graph)
-    (create-titan-indexes graph)
-    
-    (fix-cassandra graph ["byEmail"])))
+    (timbre/debug args)
+    (timbre/spy  (case (first args)
+                   "cleanup" (timbre/spy (do
+                                          (timbre/info "cleaning graph")
+                                          (cleanup graph)))
+                   "fixup" (timbre/spy (do
+                                        (timbre/info "creating titan indexes")
+                                        (create-titan-indexes graph)
+                                        (timbre/info "fixing cassandra indexes byEamil")
+                                        (fix-cassandra graph ["byEmail"])))
+                   nil "do nothing"))))
