@@ -16,7 +16,8 @@
         final-params (merge params-hash flash-message)]
     (spy session)
     (spy flash-message)
-    (filter/add-filter! :money-format (fn [amount] (format (Integer. "$%,8d%n"))))
+    (filter/add-filter! :decimal-format (fn [amount] (format "%,8d%n" (Integer. amount))))
+    (filter/add-filter! :money-format (fn [amount] (format "$%,8d%n" (Integer. amount))))
     (->  (layout/render
          "home.html" final-params)
         (assoc :session (dissoc session :flash-message)))))
