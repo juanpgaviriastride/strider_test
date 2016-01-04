@@ -126,17 +126,17 @@
                 <i class='icon icon-flag'></i>
               </div>
               <ul class='pricing-box' id='pricing-section'><li class='item17'>
-                  <b class='price'>{{waitlist-users}}</b>
+                  <b class='price'>{{waitlist-users|decimal-format}}</b>
                   <span class='description'>Waitlist Users</span>
                 </li><li class='item20 green'>
-                  <b class='price'>{{pre-launch-users}}</b>
+                  <b class='price'>{{pre-launch-users|decimal-format}}</b>
                   <span class='description'>Pre-Launch Users</span>
                 </li><li class='item25 green'>
-                  <b class='price'>${{webtalk-credits | money-format}}</b>
+                  <b class='price'>${{webtalk-credits|money-format}}</b>
                   <span class='description'>Webtalk Credits Purchased</span>
                   <span class='new'>NEW</span>
                 </li><li class='item20 green'>
-                  <b class='price'>${{comissions | money-format}}</b>
+                  <b class='price'>${{comissions|money-format}}</b>
                   <span class='description'>Commissions Pending</span>
                 </li><li class='item17'>
                   <b class='price js-days-counter'></b>
