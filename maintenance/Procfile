@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/maintenance.jar clojure.main -m maintenance.core
