@@ -1,7 +1,8 @@
 (ns com.webtalk.storage.graph.titan
   (:require [com.stuartsierra.component :as component]
             [clojurewerkz.titanium.graph :as t]
-            [taoensso.timbre :refer [info]]))
+            [taoensso.timbre :refer [info]]
+            [com.webtalk.util :refer [get-cass-replica-factor]]))
 
 (defrecord Titan [backend hosts name connection]
   component/Lifecycle
@@ -11,7 +12,7 @@
     (if (= nil connection)
       (let [config {"storage.backend" backend
                     "storage.hostname" hosts
-                    "storage.cassandra.replication-factor" (com.webtalk.util/get-cass-replica-factor)
+                    "storage.cassandra.replication-factor" (get-cass-replica-factor)
                     ;; "graph-name" "graph"
 
                     ;; "index.search.backend" "elasticsearch"
