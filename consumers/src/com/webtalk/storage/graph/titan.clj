@@ -11,6 +11,7 @@
     (if (= nil connection)
       (let [config {"storage.backend" backend
                     "storage.hostname" hosts
+                    "storage.cassandra.replication-factor" (com.webtalk.util/get-cass-replica-factor)
                     ;; "graph-name" "graph"
 
                     ;; "index.search.backend" "elasticsearch"
