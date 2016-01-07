@@ -65,16 +65,16 @@
           <div class='box box--white soft-double soft-double-crowd login--box'>
             <div class='text--center'>
               <h2 class='box__title box__title--color__inherit push--bottom'>Log into Dashboard</h2>
-              <form action='' class='js-loginValidation' method='post'>
+              <form action='/login' class='js-loginValidation' method='post'>
                 {% csrf-field %}
                 <div class='form-content'>
                   <div class='form-field field-only field-first'>
                     <i class='icon icon-message'></i>
-                    <input class='required input--text' id='emailaddress' name='email' placeholder='Enter Email Address' type='email'>
+                    <input class='required input--text' name='email' placeholder='Enter Email Address' type='email'>
                   </div>
                   <div class='form-field field-only'>
                     <i class='icon icon-padlock'></i>
-                    <input class='input--text required' data-msg="The email and password you entered don't match." name='password' placeholder='Password' type='password'>
+                    <input class='input--text required' name='password' placeholder='Password' type='password'>
                     {% if error %}
                     <div class='error soft--top' id='credentialsError' style='color:red;'>
                       The email and password you entered don't match.
@@ -106,7 +106,7 @@
         </div>
         <script src="https://d306bcb0kbm0de.cloudfront.net/assets/javascripts/vendors/jquery-ce294aae.js" type="text/javascript"></script>
         
-        <script src="https://d306bcb0kbm0de.cloudfront.net/assets/javascripts/crowdfunding-35001031.js" type="text/javascript"></script>
+        <script src="https://d306bcb0kbm0de.cloudfront.net/assets/javascripts/crowdfunding-11558d68.js" type="text/javascript"></script>
       </div>
     </div>
   </body>
