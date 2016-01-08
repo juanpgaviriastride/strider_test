@@ -4,6 +4,7 @@
   (hash-set "mary@webtalk.org"
             "jgriffin2@gmail.com"
             "batchesogold@hotmail.com"
+            "mcafee.robert@gmail.com"
             "tjgreen600@yahoo.com"
             "wes@dmsincentives.com"
             "drclivingston@gmail.com"
