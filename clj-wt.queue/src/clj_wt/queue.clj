@@ -18,10 +18,12 @@
     (json/read-str casted-payload :key-fn keyword)))
 
 (defn subscribe
-  [channel queuename message-handler opts]
+  [connection channel queuename message-handler opts]
   (lconsumer/subscribe channel queuename (comp (fn [output]
                                                  (do
                                                    (lq/delete channel queuename)
+                                                   (lch/close channel)
+                                                   (rmq/close connection)
                                                    output)) message-handler helper) opts))
 
 
@@ -34,7 +36,7 @@
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
     (lq/declare channel qname {:durable false :auto-delete true :exclusive false})
     (println "creating consumer" message-handler)
-    (subscribe channel qname message-handler {:auto-ack true})
+    (subscribe connection channel qname message-handler {:auto-ack true})
     (println "subscribed" message-handler)
     [channel]))
 
