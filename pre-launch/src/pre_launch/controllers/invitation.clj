@@ -7,6 +7,6 @@
 
 (defn send-invitation [invite-email referer-id]
   (cache/invalid (mapv #(str referer-id %) [:referral-network :network-detail]))
-  (queue/publish-with-qname "com.webtalk.pre-launch.bulk-invite" callback-queue-name
+  (queue/publish-with-qname "com.webtalk.pre-launch.bulk-invite" "don't care"
                             {:emails invite-email
                              :refererID referer-id}))
