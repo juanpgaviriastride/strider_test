@@ -5,14 +5,8 @@
    [taoensso.timbre :refer [spy]]
    [pre-launch.controllers.cache :as cache]))
 
-
-(defn on-invitation-received [request-response]
-  (spy request-response))
-
 (defn send-invitation [invite-email referer-id]
   (cache/invalid (mapv #(str referer-id %) [:referral-network :network-detail]))
-  (let [callback-queue-name (str "com.webtalk.pre-launch.bulk-invite" (url-part 15))
-        result (queue/promise-subscription callback-queue-name on-invitation-received)]
-    (queue/publish-with-qname "com.webtalk.pre-launch.bulk-invite" callback-queue-name
-                              {:emails invite-email
-                               :refererID referer-id})))
+  (queue/publish-with-qname "com.webtalk.pre-launch.bulk-invite" "don't care"
+                            {:emails invite-email
+                             :refererID referer-id}))
