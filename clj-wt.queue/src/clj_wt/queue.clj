@@ -17,10 +17,12 @@
                      casted-payload delivery-tag content-type type (:reply-to meta)))
     (json/read-str casted-payload :key-fn keyword)))
 
-
 (defn subscribe
   [channel queuename message-handler opts]
-  (lconsumer/subscribe channel queuename (comp message-handler helper) opts))
+  (lconsumer/subscribe channel queuename (comp (fn [output]
+                                                 (do
+                                                   (lq/delete channel queuename)
+                                                   output)) message-handler helper) opts))
 
 
 (defn subscribe-with-connection [qname message-handler]
@@ -30,7 +32,7 @@
                                  :password (config/rmq-password)})
         channel    (lch/open connection)]
     (println (format "[main] Connected. Channel id: %d" (.getChannelNumber channel)))
-    (lq/declare channel qname {:durable true :auto-delete false :exclusive false})
+    (lq/declare channel qname {:durable false :auto-delete true :exclusive false})
     (println "creating consumer" message-handler)
     (subscribe channel qname message-handler {:auto-ack true})
     (println "subscribed" message-handler)
