@@ -18,4 +18,4 @@
     (spy qname)
     (debug "about to publish")
     (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json"})
-    channel))
+    (lch/close channel)))
