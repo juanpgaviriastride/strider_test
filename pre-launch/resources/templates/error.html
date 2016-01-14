@@ -83,12 +83,22 @@
                     </div>
                   </div>
                 </div>
+
+                {% ifequal status 403 %}
+                <p class='top-section__text relative'>
+                  <a href='/signin'>
+                    <span class='line'>go to log in page.</span>
+                  </a>
+                </p>
+                {% endifequal %}
+                {% ifunequal status 403 %}
                 <p class='top-section__text relative'>
                   We can't find the page you're looking for,
                   <a href='/'>
                     <span class='line'>back to home.</span>
                   </a>
                 </p>
+                {% endifunequal %}
               </div>
             </div>
           </div>
