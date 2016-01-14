@@ -31,7 +31,7 @@
                  [bcrypt-clj "0.3.3"]
                  [org.clojure/data.json "0.2.6"]
                  [org.immutant/web "2.1.0"]
-                 [clj-wt.queue "0.1.0-SNAPSHOT"]]
+                 [clj-wt.queue "0.1.0"]]
 
   :min-lein-version "2.0.0"
   :uberjar-name "wt.jar"
