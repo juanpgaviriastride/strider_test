@@ -54,9 +54,16 @@
                 </h1>
               </div>
               <div class='top-section__main'>
+                {% ifequal status 403 %}
+                <h2 class='top-section__title--404'>
+                  <small>{{title}}</small>
+                </h2>
+                {% endifequal %}
+                {% ifunequal status 403 %}
                 <h2 class='top-section__title--404'>
                   <small>Something bad happened.</small>
                 </h2>
+                {% endifunequal %}
                 <div class='container-fluid'>
                   <div class='row-fluid'>
                     <div class='col-lg-12'>
@@ -76,12 +83,22 @@
                     </div>
                   </div>
                 </div>
+
+                {% ifequal status 403 %}
+                <p class='top-section__text relative'>
+                  <a href='/signin'>
+                    <span class='line'>go to log in page.</span>
+                  </a>
+                </p>
+                {% endifequal %}
+                {% ifunequal status 403 %}
                 <p class='top-section__text relative'>
                   We can't find the page you're looking for,
                   <a href='/'>
                     <span class='line'>back to home.</span>
                   </a>
                 </p>
+                {% endifunequal %}
               </div>
             </div>
           </div>
