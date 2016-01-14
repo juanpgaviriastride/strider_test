@@ -59,4 +59,5 @@
     (println "about to publish")
     (flush)
     (lb/publish channel default-exchange-name qname (json/write-str payload) {:content-type "text/json" :reply-to reply-queue})
-    [connection channel]))
+    (lch/close channel)
+    (rmq/close connection)))
