@@ -1,67 +1,69 @@
-# web:
-#   cpu_shares: 100
-#   memory: 1024MB
-#   build: .
-#   ports:
-#    - "5000:3000"
-#   volumes:
-#    - .:/app
-#   links:
-#    - cassandra_seed
-#    - elasticsearch
-#    - rabbitmq
-#    - cassandra_non_seed
-#   environment:
-#    - CASS_KEYSPACE=develop
-#    - CASS_REPLICA_FACTOR=1
+web:
+  build: .
+  ports:
+   - "3000:3000"
+  links:
+   - mysql
+   - rabbitmq
+  environment:
+   - DATABASE_URL=mysql://root:wtpass@mysql:3306/wt_dev
+   - STRIPE_PRIVATE_KEY=sk_test_EmjKDhDj01gLiLl5krTWsr13
+   - STRIPE_PUBLIC_KEY=pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm
+   - SENGRID_USERNAME=sarcilav
+   - SENGRID_KEY="P@wU8Z#wGHAZ^n"
+   - REDIS_URI=redis://redis:6379
 
 consumer:
-  cpu_shares: 100
-  mem_limit: 1024000000
-  image: sarcilav/wt-consumer
-  ports:
-    - "5672:5672"
+  build: ./consumers
   links:
    - cassandra_seed
-   - elasticsearch
    - rabbitmq
-   - cassandra_non_seed
   environment:
    - CASS_KEYSPACE=developer
    - CASS_REPLICA_FACTOR=1
-   - CASSANDRA_1_PORT=cassandra_seed,cassandra_non_seed
+   - CASSANDRA_1_PORT=cassandra_seed
+   - TITAN_1_PORT=cassandra_seed
    - RABBITMQ_1_PORT=rabbitmq
+   
+pre-launch:
+  build: ./pre-launch/
+  ports:
+   - "5000:3000"
+  links:
+   - rabbitmq
+   - mysql
+   - redis
+  environment:
+   - DATABASE_URL=mysql://root:wtpass@mysql:3306/wt_dev
+   - STRIPE_PRIVATE_KEY=sk_test_EmjKDhDj01gLiLl5krTWsr13
+   - STRIPE_PUBLIC_KEY=pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm
+   - SENGRID_USERNAME=sarcilav
+   - SENGRID_KEY="P@wU8Z#wGHAZ^n"
+   - REDIS_URI=redis://redis:6379
 
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+
+mysql:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_DATABASE=wt_dev
+    - MYSQL_ROOT_PASSWORD=wtpass
+  
 cassandra_seed:
-  cpu_shares: 100
-  mem_limit: 4096000000
-  image: cassandra
+  image: cassandra:2.1
   ports:
     - "9160:9160"
-  # environment:
-  #   - CASSANDRA_BROADCAST_ADDRESS=192.168.99.100
-  #   - CASSANDRA_CLUSTER_NAME=wt-develop
-
-    
-cassandra_non_seed:
-  cpu_shares: 100
-  mem_limit: 4096000000
-  image: cassandra
-  links:
-   - cassandra_seed
-  environment:
-   - CASSANDRA_SEEDS=cassandra_seed
-   # - CASSANDRA_CLUSTER_NAME=wt-develop
-   - CASSANDRA_BROADCAST_ADDRESS=192.168.99.100
-   
-elasticsearch:
-  cpu_shares: 100
-  mem_limit: 4096000000
-  image: elasticsearch
+    - "7000:7000"
+    - "7001:7001"
+    - "7199:7199"
+    - "9042:9042"
 
 rabbitmq:
-  cpu_shares: 100
-  mem_limit: 8192000000
   ports:
-    - "15672:15672"
+    - "5672:5672"
   image: rabbitmq
