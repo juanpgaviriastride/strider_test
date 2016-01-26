@@ -55,7 +55,7 @@ mysql:
     - MYSQL_ROOT_PASSWORD=wtpass
   
 cassandra_seed:
-  image: cassandra:2.1
+  image: spotify/cassandra
   ports:
     - "9160:9160"
     - "7000:7000"
