@@ -13,7 +13,7 @@
   (trim (env :cass-keyspace)))
 
 (defn get-cass-replica-factor []
-  (Integer. (trim (env :cass-replica-factor))))
+  (Integer. (or (env :cass-replica-factor) "1")))
 
 (defn get-rmq-host []
   (trim (env :rabbitmq-1-port)))

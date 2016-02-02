@@ -1,11 +1,13 @@
-export RABBITMQ_1_PORT=52.11.105.93
+export RABBITMQ_1_PORT=192.168.99.100
 export CASS_KEYSPACE=webtalk_staging
-export CASSANDRA_1_PORT=52.11.110.196
+export CASSANDRA_1_PORT=192.168.99.100
 export CASS_REPLICA_FACTOR=1
-export TITAN_1_PORT=52.11.110.196
+export TITAN_1_PORT=192.168.99.100
 export STRIPE_PRIVATE_KEY="sk_test_EmjKDhDj01gLiLl5krTWsr13"
-export DATABASE_URL=mysql://webtalk:webtalk2015@mysql-wt.ccbesmau91jz.us-west-2.rds.amazonaws.com:3306/webtalk_staging
+export DATABASE_URL=mysql://root:wtpass@192.168.99.100:3306/wt_dev
 export STRIPE_PUBLIC_KEY=pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm
 export ROOT_URL=http://localhost:3000
 export SENGRID_USERNAME=sarcilav
 export SENGRID_KEY="P@wU8Z#wGHAZ^n"
+export REDIS_URI=redis://192.168.99.100:6379
+export WT_URL=local-.webtalk.co:3000

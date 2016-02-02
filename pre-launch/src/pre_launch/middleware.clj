@@ -105,7 +105,8 @@
       wrap-params
       wrap-webjars
       wrap-flash
-      (wrap-session {:cookie-attrs {:http-only true}})
+      (wrap-session {:cookie-attrs {:http-only true
+                                    :domain "webtalk.co"}})
       (wrap-defaults
         (-> site-defaults
             (assoc-in [:security :anti-forgery] false)
