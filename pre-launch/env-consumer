@@ -10,4 +10,4 @@ export ROOT_URL=http://localhost:3000
 export SENGRID_USERNAME=sarcilav
 export SENGRID_KEY="P@wU8Z#wGHAZ^n"
 export REDIS_URI=redis://192.168.99.100:6379
-export WT_URL=local-.webtalk.co
+export WT_URL=local-.webtalk.co:3000
