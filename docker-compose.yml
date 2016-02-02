@@ -34,12 +34,14 @@ pre-launch:
    - mysql
    - redis
   environment:
+   - RABBITMQ_1_PORT=rabbitmq
    - DATABASE_URL=mysql://root:wtpass@mysql:3306/wt_dev
    - STRIPE_PRIVATE_KEY=sk_test_EmjKDhDj01gLiLl5krTWsr13
    - STRIPE_PUBLIC_KEY=pk_test_0mBt8qMYWhuTNKEdcf9kG3Gm
    - SENGRID_USERNAME=sarcilav
    - SENGRID_KEY="P@wU8Z#wGHAZ^n"
    - REDIS_URI=redis://redis:6379
+   - WT_URL=webtalk.co:5000
 
 redis:
   image: redis
@@ -66,4 +68,9 @@ cassandra_seed:
 rabbitmq:
   ports:
     - "5672:5672"
-  image: rabbitmq
+    - "8080:8080"
+    - "15672:15672"
+    - "25672:25672"
+    - "4369:4369"
+    - "5671:5671"
+  image: rabbitmq:management
