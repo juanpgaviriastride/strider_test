@@ -1,5 +1,5 @@
 FROM clojure
-ADD . /consumers
-WORKDIR /consumers
+ADD . /pre-launch
+WORKDIR /pre-launch
 RUN ["lein", "deps"]
 CMD ["lein", "run"]

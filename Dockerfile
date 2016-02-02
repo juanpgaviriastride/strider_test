@@ -1,4 +1,5 @@
 FROM clojure
 ADD . /app
 WORKDIR /app
-CMD java -jar target/wt.jar
+RUN ["lein", "deps"]
+CMD ["lein", "do", "migratus,", "run"]

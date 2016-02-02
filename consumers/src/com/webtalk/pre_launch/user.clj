@@ -23,13 +23,15 @@
   (debug "create-user! graph" graph "payload" payload)
   (tgraph/with-transaction [g graph]
     (let [{email "email" referer-id "refererID"} payload
-          referer (when referer-id
-                    (tvertex/find-by-id g (Integer. referer-id)))
           [user status] (if-let [maybe-user (first (tvertex/find-by-kv g :email email))]
                           (if (= "prelaunchUser" (tvertex/get maybe-user :VertexType))
                             [maybe-user :old]
                             [(tvertex/merge! maybe-user (user-hash payload)) :update])                          
-                          [(tvertex/create! g (user-hash payload)) :new])]
+                          [(tvertex/create! g (user-hash payload)) :new])
+          referer (if referer-id
+                    (tvertex/find-by-id g (Integer. referer-id))
+                    (when-let [referer-edge (first (tvertex/outgoing-edges-of user "invited_by"))]
+                      (tedge/head-vertex referer-edge)))]
       (when (and (not= status :old) referer)
         (tedge/upconnect! g user "refered_by" referer {:time (System/currentTimeMillis)}))
       (spy user)

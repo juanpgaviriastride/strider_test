@@ -39,7 +39,8 @@
     (spy wt-url)
     (spy flash-message)
     (if (= wt-url requesting-url) 
-      (layout/render "webtalk/home.html" flash-message)
+      (-> (layout/render "webtalk/home.html" flash-message)
+         (assoc :session (:session request)))
       (home-page flash-message (:session request)))))
 
 (defn join-wait-list [{session :session params :params :as req}]
