@@ -105,7 +105,7 @@
 
     (info "sending email")
     (info "sender" (first ginvites) (:sender (first ginvites)))
-    (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails") (payload "custom_message")))
+    (mailer-prelaunch-invite/bulk-email (:sender (first ginvites)) (payload "emails") (payload "custom_message") )))
 
 ;; queue-name com.webtalk.pre-launch.invite
 (defn invite
