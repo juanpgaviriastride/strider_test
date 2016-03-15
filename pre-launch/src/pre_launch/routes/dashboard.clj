@@ -16,6 +16,7 @@
    :titan-id titan-id
    :network-table (controller/get-referral-network titan-id)
    :referer-name referer-name
+   :custom_message (user-model/get-custom-email-message titan-id)
    :join_url (str (config-mailer/root-url) "/invite/" titan-id)})
 
 

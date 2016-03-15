@@ -67,3 +67,15 @@ WHERE id = :id
 --name: get-email-by-titan
 --gets an email based on the titan-id
 SELECT email, name FROM users WHERE titan_id = :titan_id
+
+
+--name: set-custom-invitation-message!
+--sets the custom message that is going to be sent to the users invitees
+UPDATE users
+SET custom_email_message = :custom_email_message
+WHERE titan_id = :titan_id
+
+--name: get-custom-email-message
+--gets the custom email message that is sent to the users invitees
+SELECT custom_email_message FROM users
+WHERE titan_id = :titan_id 
