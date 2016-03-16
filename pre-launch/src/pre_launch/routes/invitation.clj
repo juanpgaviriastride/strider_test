@@ -14,6 +14,7 @@
         emails (get-in request [:params :emails])
         custom-message (get-in request [:params :custom_message])]
     (info "save invitation the referer ID is:" referer-id)
+    (info "the custom message of the user is" custom-message)
     (controller/send-invitation emails referer-id custom-message)
     (ok)))
 
