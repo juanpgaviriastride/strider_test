@@ -18,7 +18,7 @@
                               :from-name config/sender-name
                               :group-id config/inv-groupid}))
 
-(defn bulk-email [sender bcc]
+(defn bulk-email [sender bcc message]
   (mailer/bulk-email-groupid config/auth {:bcc bcc
                                           :from config/from-email
                                           :subject (str "Congrats! " (:name sender) " has recommended you!")
@@ -26,6 +26,7 @@
                                                  "templates/prelaunch_invite.html.mustache"
                                                  {:to bcc
                                                   :name (:name sender)
-                                                  :join_url (str config/base-url "/invite/" (:__id__ sender))})
+                                                  :join_url (str config/base-url "/invite/" (:__id__ sender))
+                                                  :custom_message message})
                                           :from-name config/sender-name
                                           :group-id config/inv-groupid}))

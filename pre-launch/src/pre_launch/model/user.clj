@@ -42,3 +42,10 @@
   (let [db-result (db/get-email-by-titan {:titan_id titan-id})]
     (first db-result)))
 
+
+(defn set-custom-email-message [titan_id custom_message]
+  (db/set-custom-invitation-message! {:titan_id titan_id :custom_email_message custom_message}))
+
+
+(defn get-custom-email-message [titan_id]
+  (first (db/get-custom-email-message {:titan_id titan_id})))
