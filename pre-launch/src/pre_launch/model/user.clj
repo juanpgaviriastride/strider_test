@@ -48,4 +48,4 @@
 
 
 (defn get-custom-email-message [titan_id]
-  (first (db/get-custom-email-message {:titan_id titan_id})))
+  (:custom_email_message (first (db/get-custom-email-message {:titan_id titan_id}))))
