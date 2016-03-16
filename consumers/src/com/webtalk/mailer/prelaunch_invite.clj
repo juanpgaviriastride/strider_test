@@ -19,6 +19,8 @@
                               :group-id config/inv-groupid}))
 
 (defn bulk-email [sender bcc message]
+  (println "************* THE MESSAGE IN MAILER IS")
+  (println message)
   (mailer/bulk-email-groupid config/auth {:bcc bcc
                                           :from config/from-email
                                           :subject (str "Congrats! " (:name sender) " has recommended you!")
