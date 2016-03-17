@@ -66,7 +66,7 @@
           <ul class='list--horizontal float--right flush--ends header__nav'>
             <li class='item--status'>
               <span class='item--status__msg'>Welcome Back,</span>
-              <strong class='item--status__name'>{{name}}</strong>
+              <strong class='item--status__name' id='user-name'>{{name}}</strong>
               <a class='btn btn--default btn--small' href='/logout'>
                 Logout
               </a>
@@ -141,10 +141,12 @@
                         </fieldset>
                       </div>
                     </div><div class='grid__item one-whole desk--two-thirds'>
-                      <textarea class='input--text push-half--bottom' id='custom_message_field' maxlength='256' placeholder='Type your personal message here...'>{{custom_message}}</textarea>
+                      <textarea class='input--text push-half--bottom' id='custome_message_field' maxlength='256' placeholder='Type your personal message here...' style='resize:none;'>{% if custom_message %}
+                      {{custom_message}}
+                      {% endif %}</textarea>
                       <div class='text--center push--bottom'>
                         <p>Use any of the email invitation tools below and your personal message will be included with your referral link.</p>
-                        <a class='link--color' href=''>click here to preview the email</a>
+                        <a class='link--color' data-target='#modal-preview-invitation' data-toggle='modal' href='javascript:;'>click here to preview the email</a>
                       </div>
                     </div><div class='grid__item one-whole desk--two-thirds push--bottom'>
                       <div class='send-email-invites__emails'>
@@ -432,6 +434,72 @@
             </p>
           </div>
         </div>
+        <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal-invitation modal fade' id='modal-preview-invitation' role='dialog' tabindex='-1'>
+          <div class='modal-dialog'>
+            <div class='modal__content'>
+              <div class='modal__body text--center'>
+                <table border='0' cellpadding='0' cellspacing='0' id='backgroundTable' style="width:100%; height: 100%; font-family: 'Open Sans', sans-serif;background-color: #EEEFF1;color: #667586;font-weight: 400; " width='100%'>
+                  <tr>
+                    <td>
+                      <table align='center' border='0' cellpadding='0' cellspacing='0' style='width: 100%; background: #3d485a; height: 67.5px;'>
+                        <tr>
+                          <td style="text-align:center; color:#FFF; font-family: 'webtalk'; font-size: 24px; " valign='center'>
+                            <img src='../assets/images/cf/logo_email-b02c6c88.png' style='width: 120px;'>
+                          </td>
+                        </tr>
+                      </table>
+                      <table>
+                        <tr>
+                          <td>
+                            <img alt='' height='68' src='../assets/images/cf/spacer-528666cc.png'>
+                          </td>
+                        </tr>
+                      </table>
+                      <table align='center' style=' background: #FFFFFF; max-width: 600px; border-radius: 2px;'>
+                        <tr>
+                          <td style=' color: #3b4c66; padding:20px 40px; text-align: center;'>
+                            <h1 style='font-weight: normal;font-size: 36px; color: #3b4c66;'>Great News!</h1>
+                            <p style='padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; font-size: 16px; line-height: 1.5em;'>
+                              Hi, friend of
+                              <b id='modal-user-name'></b>
+                            </p>
+                            <p style='padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter; font-size: 16px; line-height: 1.5em;'>
+                              <b></b>
+                              has recommended you to receive an exclusive preview of Webtalk, the coolest and most disruptive technology to ever be released
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p id='modal-message' style='font-style: normal;font-variant: normal;font-weight: lighter; font-size: 16px; line-height: 1.5em; padding:20px 15px; background: #F3F3F6;'></p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td background='../assets/images/cf/invitation-bg-4bf2f1f6.png' style='background-size: cover; background-repeat: no-repeat;height: 230px; width: 100%;text-align: center;' valign='center'></td>
+                        </tr>
+                        <tr>
+                          <td style='font-size: 16px; line-height:  1.5em; color: #3b4c66; padding:20px 40px;text-align: center;'>
+                            <p style='padding-top:20px; font-style: normal;font-variant: normal;font-weight: lighter;'>
+                              Webtalk is exclusively invite-only and this recommendation also enables you to pre-register for Webtalk’s public launch before the general public.
+                            </p>
+                            <p style='padding-top:20px; font-weight: bold;'>
+                              Enjoy the exclusive preview!
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class='modal__footer text--center'>
+                <a class='btn btn--default btn--fixed text--uppercase' data-dismiss='modal' href='javascript:;'>
+                  <span>Close</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
         <div aria-hidden='true' aria-labelledby='myModalLabel' class='modal-invitation modal fade' id='modal-send-invitations' role='dialog' tabindex='-1'>
           <div class='modal-dialog'>
             <div class='modal__content'>
@@ -611,7 +679,7 @@
         <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/vendors/backbone-min-a7947f23.js" type="text/javascript"></script>
         <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/vendors/moment.min-4bd4653e.js" type="text/javascript"></script>
         <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/paginated-table-19a409a5.js" type="text/javascript"></script>
-        <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/dashboard-cba4cec1.js" type="text/javascript"></script>
+        <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/dashboard-2a0fa67c.js" type="text/javascript"></script>
         <script src="https://d2zowqeld1gvuc.cloudfront.net/assets/javascripts/dashboard-canvas-86611b8d.js" type="text/javascript"></script>
       </div>
     </div>
