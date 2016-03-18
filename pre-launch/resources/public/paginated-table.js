@@ -1,21 +1,26 @@
 var invitations;
 
 var invitationsCollection = Backbone.Collection.extend({
-   comparator: (function(_this) {
-     return function(A, B) {
-       var dateA, dateB;
-       dateA = moment(A.get('time')).unix();
-       dateB = moment(B.get('time')).unix();
-       if (dateA < dateB) {
-         return -1;
-       } else if (dateA === dateB) {
-         return 0;
-       } else {
-         return 1;
-       }
-     };
-   })(this)
- })
+  comparator: (function(_this) {
+    return function(A, B) {
+      var dateA, dateB;
+      dateA = moment(A.get('time')).unix();
+      dateB = moment(B.get('time')).unix();
+      if (dateA < dateB) {
+        return -1;
+      } else if (dateA === dateB) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }
+  })(this),
+
+  filter: function(type) {
+
+  }
+
+})
 
 var InvitationTable = Backbone.View.extend({
   initialize: function (){
@@ -23,19 +28,21 @@ var InvitationTable = Backbone.View.extend({
     _.bindAll(this,
       'render',
       'nextPage',
-      'goTo'
+      'goTo',
+      'filter'
     )
     this.size = 5
     this.page = 1
 
     this.rows = []
 
+    this.real_collection = new invitationsCollection(this.collection.toJSON())
     this.pages_view = new pagerView({
       parent: this,
       collection: this.collection,
       el: $('[data-role="pager-view"]')
     })
-
+    this.listenTo(this.collection, 'reset', this.render)
     this.render()
     return this
   },
@@ -79,6 +86,23 @@ var InvitationTable = Backbone.View.extend({
       }
     }
   },
+
+  filter: function (filter) {
+    filters = {
+      // 'invitations': 'Sent Invitation'
+      // 'waitlist_referrals': 'Joined Waitlist'
+      // 'prelaunch_referrals': 'Joined Pre-Launch'
+      '1': 'Sent Invitation',
+      '2': 'Joined Waitlist',
+      '3': 'Joined Pre-Launch'
+    }
+    if (filter != '0') {
+      data = this.real_collection.where({status: filters[filter]})
+    }else{
+      data = this.real_collection.toJSON()
+    }
+    this.collection.reset(data)
+  }
 
   addRow: function() {
 

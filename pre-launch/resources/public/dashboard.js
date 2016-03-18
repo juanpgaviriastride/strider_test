@@ -40,7 +40,7 @@ CSVParser.prototype.parse = function () {
       if (results.errors.length > 0){
         that.errors = results.errors
       }
-      if (that.options.success) 
+      if (that.options.success)
         that.options.success(results);
       return
     }
@@ -49,7 +49,7 @@ CSVParser.prototype.parse = function () {
   {
     var domain = userEmail.split("@")[1];
     if (domain != "webtalk.co" &&
-        domain != "webtalk.org" && 
+        domain != "webtalk.org" &&
         domain != "nullindustries.co" ){
         config.preview = 1000;
         console.log("limited on: 1000 emails only");
@@ -57,7 +57,7 @@ CSVParser.prototype.parse = function () {
         console.log("ulimited on!!!");
     }
   }
-  
+
   this.$element.parse({
     config: config,
     before: function(file, inputElem)
@@ -194,6 +194,11 @@ $(document).ready(function (){
       invitations = new invitationsCollection(data)
       invitations.sort()
       invitations_view = new InvitationTable({collection: invitations})
+      $('[name=Order]').change(function(event) {
+        $select = $(event.target)
+        filter = $select.val()
+        invitations_view.filter(filter)
+      })
     },
     error: function(xhr, errorThrow, errorText) {
       console.log('ERROR:', arguments)
@@ -213,7 +218,7 @@ function auth() {
 
 function fetch(authResult) {
 
-  $.getJSON('https://www.google.com/m8/feeds/contacts/default/full/?access_token=' + 
+  $.getJSON('https://www.google.com/m8/feeds/contacts/default/full/?access_token=' +
     authResult.access_token + "&max-results=900&alt=json&callback=?", function(result){
       window.result = result;
       emails= _.reject(result.feed.entry, function(item){
@@ -231,7 +236,7 @@ function fetch(authResult) {
 
 function authOutlook(){
     //live.com api
-  
+
   WL.login({
     scope: ["wl.basic", "wl.contacts_emails"]
   }).then(function (response) {
@@ -240,7 +245,7 @@ function authOutlook(){
       method: "GET"
     }).then(
       function (response) {
-        //your response data with contacts 
+        //your response data with contacts
         var emailsOutlook = [];
         console.log(response.data);
         $.each(response.data, function(i, val){
@@ -253,7 +258,7 @@ function authOutlook(){
       }
     );
   },
-  function (responseFailed) 
+  function (responseFailed)
   {
     console.log("Error signing in: " + responseFailed.error_description);
   });
@@ -268,5 +273,3 @@ $(function() {
     $("#modal-message").text(textareVal);
   });
 });
-
-
